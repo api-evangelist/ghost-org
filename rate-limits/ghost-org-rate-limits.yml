@@ -1,0 +1,72 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Ghost
+providerId: ghost-org
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Publishing
+- Content
+- Open Source
+- Rate Limiting
+- Quotas
+description: >-
+  Ghost does not publish fixed numeric per-endpoint rate limits for the Content
+  API or Admin API. Because Ghost is open source and runs per-site (self-hosted
+  or on Ghost(Pro)), request throughput on a self-hosted install is bounded by
+  your own server capacity rather than by a vendor-imposed quota. Ghost does
+  apply brute-force protection on authentication-related endpoints, and
+  Ghost(Pro) enforces platform-level abuse protection and fair-use limits.
+  Practical constraints are more often the audience/member and staff limits of
+  the Ghost(Pro) plan and email-sending volume than an API request-rate cap.
+notes: >-
+  Numeric per-account or per-endpoint API request limits are not documented as
+  of the review date. Admin API updates use optimistic concurrency - the current
+  updated_at must be supplied on edits or the request is rejected as a
+  collision. Verify any Ghost(Pro) platform limits with Ghost support during
+  reconciliation.
+sources:
+- https://docs.ghost.org/content-api
+- https://docs.ghost.org/admin-api
+- https://ghost.org/pricing/
+- https://github.com/TryGhost/Ghost
+responseCodes:
+  throttled: 429
+limits:
+- name: Content API Requests
+  scope: site
+  metric: requests
+  limit: not published
+  notes: No fixed numeric request-rate limit is documented; self-hosted throughput is bounded by your own server.
+- name: Admin API Requests
+  scope: site
+  metric: requests
+  limit: not published
+  notes: No fixed numeric request-rate limit is documented for the Admin API.
+- name: Default Page Size
+  scope: request
+  metric: records
+  limit: 15
+  notes: Browse endpoints return 15 records by default; adjust with the limit parameter (or limit=all).
+- name: Authentication Brute-Force Protection
+  scope: site
+  metric: attempts
+  limit: enforced
+  notes: Ghost rate-limits repeated failed sign-in / authentication attempts to mitigate brute-force attacks.
+- name: Ghost(Pro) Member Allowance
+  scope: account
+  metric: members
+  limit: per plan
+  notes: Ghost(Pro) plans cap audience size (for example 1,000 or 10,000 members) rather than API calls.
+policies:
+- name: Optimistic Concurrency
+  description: Admin API edits require the current updated_at value; stale writes are rejected to prevent overwriting newer changes.
+- name: HTTPS Required
+  description: All API requests must be made over HTTPS.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on any 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

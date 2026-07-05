@@ -1,0 +1,280 @@
+aid: ghost-org
+url: https://raw.githubusercontent.com/api-evangelist/ghost-org/refs/heads/main/apis.yml
+name: Ghost
+kind: company
+description: >-
+  Ghost is an open-source (MIT) publishing platform for professional
+  publications, newsletters, memberships, and paid subscriptions. It can be
+  self-hosted for free or run as the managed Ghost(Pro) service, with all
+  Ghost(Pro) revenue funding the non-profit Ghost Foundation. Every Ghost site
+  exposes two documented public REST APIs under
+  https://{site}/ghost/api/. The Content API is a read-only, key-authenticated
+  interface for delivering published posts, pages, tags, authors, tiers, and
+  settings to front-ends and static sites. The Admin API is a read-write,
+  token-authenticated (JWT) interface for managing posts, pages, members,
+  tags, tiers, offers, newsletters, users, media, themes, and webhooks.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Publishing
+- Newsletters
+- Memberships
+- Subscriptions
+- CMS
+- Open Source
+- Content
+created: '2026-07-05'
+modified: '2026-07-05'
+specificationVersion: '0.19'
+apis:
+- aid: ghost-org:ghost-content-api
+  name: Ghost Content API
+  tags:
+  - Content
+  - Read Only
+  - Posts
+  - Publishing
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ghost.org/content-api
+  baseURL: https://{admin_domain}/ghost/api/content
+  properties:
+  - url: https://docs.ghost.org/content-api
+    type: Documentation
+  - url: https://docs.ghost.org/content-api
+    type: APIReference
+  - url: openapi/ghost-org-openapi.yml
+    type: OpenAPI
+  - url: collections/ghost-org.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ghost-org.opencollection.json
+    type: OpenCollection
+  description: >-
+    Read-only, key-authenticated REST API that delivers published content -
+    posts, pages, authors, tags, tiers, and public settings - to front-ends,
+    static site generators, and mobile apps. Authenticated with a Content API
+    key passed as a query parameter; supports browse, read-by-id, and
+    read-by-slug plus filter, include, fields, order, and pagination.
+- aid: ghost-org:ghost-admin-posts-api
+  name: Ghost Admin Posts API
+  tags:
+  - Posts
+  - Content
+  - Admin
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ghost.org/admin-api/posts
+  baseURL: https://{admin_domain}/ghost/api/admin
+  properties:
+  - url: https://docs.ghost.org/admin-api/posts
+    type: Documentation
+  - url: https://docs.ghost.org/admin-api
+    type: APIReference
+  - url: openapi/ghost-org-openapi.yml
+    type: OpenAPI
+  - url: collections/ghost-org.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ghost-org.opencollection.json
+    type: OpenCollection
+  description: >-
+    Read-write management of posts - browse, read by id or slug, create,
+    update, and delete. Content is stored as Lexical and can be requested or
+    supplied as HTML via the source and formats parameters. Requires an Admin
+    API token (JWT) or staff access token.
+- aid: ghost-org:ghost-admin-pages-api
+  name: Ghost Admin Pages API
+  tags:
+  - Pages
+  - Content
+  - Admin
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ghost.org/admin-api/pages
+  baseURL: https://{admin_domain}/ghost/api/admin
+  properties:
+  - url: https://docs.ghost.org/admin-api/pages
+    type: Documentation
+  - url: openapi/ghost-org-openapi.yml
+    type: OpenAPI
+  - url: collections/ghost-org.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ghost-org.opencollection.json
+    type: OpenCollection
+  description: >-
+    Read-write management of static pages - browse, read by id or slug, create,
+    update, and delete. Pages share the post data model but are not part of the
+    chronological content feed.
+- aid: ghost-org:ghost-admin-members-api
+  name: Ghost Admin Members API
+  tags:
+  - Members
+  - Subscriptions
+  - Audience
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ghost.org/admin-api/members
+  baseURL: https://{admin_domain}/ghost/api/admin
+  properties:
+  - url: https://docs.ghost.org/admin-api/members
+    type: Documentation
+  - url: openapi/ghost-org-openapi.yml
+    type: OpenAPI
+  - url: collections/ghost-org.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ghost-org.opencollection.json
+    type: OpenCollection
+  description: >-
+    Manage the membership audience - browse, read, create, and update members,
+    including their newsletter subscriptions, labels, and comp/paid status.
+    Underpins Ghost's memberships and paid-subscription features.
+- aid: ghost-org:ghost-admin-tags-labels-api
+  name: Ghost Admin Tags and Labels API
+  tags:
+  - Tags
+  - Labels
+  - Taxonomy
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ghost.org/admin-api/tags
+  baseURL: https://{admin_domain}/ghost/api/admin
+  properties:
+  - url: https://docs.ghost.org/admin-api/tags
+    type: Documentation
+  - url: openapi/ghost-org-openapi.yml
+    type: OpenAPI
+  - url: collections/ghost-org.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ghost-org.opencollection.json
+    type: OpenCollection
+  description: >-
+    Read-write management of tags (content taxonomy) and labels (member
+    segmentation) - browse, read, create, update, and delete. Tags organize
+    posts and pages; labels group members.
+- aid: ghost-org:ghost-admin-tiers-offers-api
+  name: Ghost Admin Tiers and Offers API
+  tags:
+  - Tiers
+  - Offers
+  - Monetization
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ghost.org/admin-api/tiers
+  baseURL: https://{admin_domain}/ghost/api/admin
+  properties:
+  - url: https://docs.ghost.org/admin-api/tiers
+    type: Documentation
+  - url: openapi/ghost-org-openapi.yml
+    type: OpenAPI
+  - url: collections/ghost-org.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ghost-org.opencollection.json
+    type: OpenCollection
+  description: >-
+    Manage subscription tiers and promotional offers that define paid access
+    to a publication - browse, read, create, and update tiers and offers with
+    their pricing, benefits, and discount configuration.
+- aid: ghost-org:ghost-admin-newsletters-api
+  name: Ghost Admin Newsletters API
+  tags:
+  - Newsletters
+  - Email
+  - Publishing
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ghost.org/admin-api/newsletters
+  baseURL: https://{admin_domain}/ghost/api/admin
+  properties:
+  - url: https://docs.ghost.org/admin-api/newsletters
+    type: Documentation
+  - url: openapi/ghost-org-openapi.yml
+    type: OpenAPI
+  - url: collections/ghost-org.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ghost-org.opencollection.json
+    type: OpenCollection
+  description: >-
+    Manage the newsletters a publication sends - browse, read, create, and
+    update newsletter definitions including sender details, design, and
+    subscription behavior. A single Ghost site can run multiple newsletters.
+- aid: ghost-org:ghost-admin-users-site-api
+  name: Ghost Admin Users and Site API
+  tags:
+  - Users
+  - Staff
+  - Site
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ghost.org/admin-api/users
+  baseURL: https://{admin_domain}/ghost/api/admin
+  properties:
+  - url: https://docs.ghost.org/admin-api/users
+    type: Documentation
+  - url: openapi/ghost-org-openapi.yml
+    type: OpenAPI
+  - url: collections/ghost-org.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ghost-org.opencollection.json
+    type: OpenCollection
+  description: >-
+    Read-only access to staff users (browse and read by id or slug) and to
+    public site metadata via the /site/ endpoint, which returns title, url,
+    and version - useful for verifying connectivity and rendering site chrome.
+- aid: ghost-org:ghost-admin-media-api
+  name: Ghost Admin Media and Themes API
+  tags:
+  - Images
+  - Media
+  - Themes
+  - Uploads
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ghost.org/admin-api/images
+  baseURL: https://{admin_domain}/ghost/api/admin
+  properties:
+  - url: https://docs.ghost.org/admin-api/images
+    type: Documentation
+  - url: openapi/ghost-org-openapi.yml
+    type: OpenAPI
+  - url: collections/ghost-org.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ghost-org.opencollection.json
+    type: OpenCollection
+  description: >-
+    Upload assets and manage presentation - multipart image uploads via
+    /images/upload/, and theme package upload plus activation via /themes/.
+    Returns stored URLs for referencing images in post and page content.
+- aid: ghost-org:ghost-admin-webhooks-api
+  name: Ghost Admin Webhooks API
+  tags:
+  - Webhooks
+  - Events
+  - Integrations
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ghost.org/admin-api/webhooks
+  baseURL: https://{admin_domain}/ghost/api/admin
+  properties:
+  - url: https://docs.ghost.org/admin-api/webhooks
+    type: Documentation
+  - url: openapi/ghost-org-openapi.yml
+    type: OpenAPI
+  - url: collections/ghost-org.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ghost-org.opencollection.json
+    type: OpenCollection
+  description: >-
+    Register outbound webhooks that fire on Ghost events (for example
+    post.published, member.added, page.published) to trigger site rebuilds,
+    notifications, or downstream automation. Supports create, update, and
+    delete; there is no endpoint to read existing webhooks.
+common:
+- type: LinkedIn
+  url: https://www.linkedin.com/company/ghost-foundation
+- type: Website
+  url: https://ghost.org
+- type: Documentation
+  url: https://docs.ghost.org
+- type: GitHubOrganization
+  url: https://github.com/TryGhost
+- type: Plans
+  url: plans/ghost-org-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/ghost-org-rate-limits.yml
+- type: FinOps
+  url: finops/ghost-org-finops.yml
+- type: Blog
+  url: https://ghost.org/blog
+- type: ChangeLog
+  url: https://ghost.org/changelog
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

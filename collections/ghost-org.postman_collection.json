@@ -1,0 +1,371 @@
+{
+  "info": {
+    "name": "Ghost Content and Admin APIs",
+    "description": "Ghost is an open-source (MIT) publishing platform for professional publications, newsletters, memberships, and paid subscriptions. Every Ghost site (self-hosted or Ghost(Pro)) exposes two documented public REST APIs under https://{{admin_domain}}/ghost/api/. The Content API is read-only and authenticated with a Content API key passed as the `key` query parameter. The Admin API is read-write and authenticated with a JWT signed from an Admin API key, sent as `Authorization: Ghost {token}`. Set the {{admin_domain}} variable to your site's domain (Ghost(Pro) uses *.ghost.io).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "admin_domain", "value": "demo.ghost.io", "type": "string" },
+    { "key": "content_key", "value": "", "type": "string" },
+    { "key": "admin_jwt", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Content API",
+      "item": [
+        {
+          "name": "Browse posts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/content/posts/?key={{content_key}}", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "content", "posts", ""], "query": [{ "key": "key", "value": "{{content_key}}" }] },
+            "description": "Returns a paginated list of published posts."
+          }
+        },
+        {
+          "name": "Read a post by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/content/posts/:id/?key={{content_key}}", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "content", "posts", ":id", ""], "query": [{ "key": "key", "value": "{{content_key}}" }], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Reads a single published post by ID."
+          }
+        },
+        {
+          "name": "Read a post by slug",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/content/posts/slug/:slug/?key={{content_key}}", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "content", "posts", "slug", ":slug", ""], "query": [{ "key": "key", "value": "{{content_key}}" }], "variable": [{ "key": "slug", "value": "" }] },
+            "description": "Reads a single published post by slug."
+          }
+        },
+        {
+          "name": "Browse pages",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/content/pages/?key={{content_key}}", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "content", "pages", ""], "query": [{ "key": "key", "value": "{{content_key}}" }] },
+            "description": "Returns a paginated list of published pages."
+          }
+        },
+        {
+          "name": "Browse authors",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/content/authors/?key={{content_key}}", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "content", "authors", ""], "query": [{ "key": "key", "value": "{{content_key}}" }] },
+            "description": "Returns a list of authors."
+          }
+        },
+        {
+          "name": "Browse tags",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/content/tags/?key={{content_key}}", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "content", "tags", ""], "query": [{ "key": "key", "value": "{{content_key}}" }] },
+            "description": "Returns a list of tags."
+          }
+        },
+        {
+          "name": "Browse tiers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/content/tiers/?key={{content_key}}&include=monthly_price,yearly_price", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "content", "tiers", ""], "query": [{ "key": "key", "value": "{{content_key}}" }, { "key": "include", "value": "monthly_price,yearly_price" }] },
+            "description": "Returns public subscription tiers with pricing."
+          }
+        },
+        {
+          "name": "Read settings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/content/settings/?key={{content_key}}", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "content", "settings", ""], "query": [{ "key": "key", "value": "{{content_key}}" }] },
+            "description": "Returns public settings for the site."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - Posts",
+      "item": [
+        {
+          "name": "Browse posts",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/posts/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "posts", ""] },
+            "description": "Returns a paginated list of posts (all statuses)."
+          }
+        },
+        {
+          "name": "Read a post by ID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/posts/:id/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "posts", ":id", ""], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Reads a single post by ID."
+          }
+        },
+        {
+          "name": "Create a post",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"posts\": [\n    { \"title\": \"My post\", \"status\": \"draft\" }\n  ]\n}" },
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/posts/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "posts", ""] },
+            "description": "Creates a post. Add ?source=html to supply content as HTML instead of Lexical."
+          }
+        },
+        {
+          "name": "Update a post",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"posts\": [\n    { \"title\": \"Updated title\", \"updated_at\": \"2026-07-05T00:00:00.000Z\" }\n  ]\n}" },
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/posts/:id/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "posts", ":id", ""], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Updates a post. The current updated_at must be supplied for collision detection."
+          }
+        },
+        {
+          "name": "Delete a post",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/posts/:id/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "posts", ":id", ""], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Deletes a post."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - Pages",
+      "item": [
+        {
+          "name": "Browse pages",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/pages/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "pages", ""] },
+            "description": "Returns a paginated list of pages."
+          }
+        },
+        {
+          "name": "Create a page",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"pages\": [\n    { \"title\": \"About\", \"status\": \"published\" }\n  ]\n}" },
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/pages/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "pages", ""] },
+            "description": "Creates a page."
+          }
+        },
+        {
+          "name": "Delete a page",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/pages/:id/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "pages", ":id", ""], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Deletes a page."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - Members",
+      "item": [
+        {
+          "name": "Browse members",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/members/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "members", ""] },
+            "description": "Returns a paginated list of members."
+          }
+        },
+        {
+          "name": "Create a member",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"members\": [\n    { \"email\": \"reader@example.com\", \"name\": \"Reader\" }\n  ]\n}" },
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/members/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "members", ""] },
+            "description": "Creates a member."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - Tags & Labels",
+      "item": [
+        {
+          "name": "Browse tags",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/tags/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "tags", ""] },
+            "description": "Returns a list of tags."
+          }
+        },
+        {
+          "name": "Create a tag",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"tags\": [ { \"name\": \"News\" } ]\n}" },
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/tags/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "tags", ""] },
+            "description": "Creates a tag."
+          }
+        },
+        {
+          "name": "Browse labels",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/labels/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "labels", ""] },
+            "description": "Returns a list of member labels."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - Tiers & Offers",
+      "item": [
+        {
+          "name": "Browse tiers",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/tiers/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "tiers", ""] },
+            "description": "Returns a list of subscription tiers."
+          }
+        },
+        {
+          "name": "Browse offers",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/offers/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "offers", ""] },
+            "description": "Returns a list of promotional offers."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - Newsletters",
+      "item": [
+        {
+          "name": "Browse newsletters",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/newsletters/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "newsletters", ""] },
+            "description": "Returns a list of newsletters."
+          }
+        },
+        {
+          "name": "Create a newsletter",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"newsletters\": [ { \"name\": \"Weekly\" } ]\n}" },
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/newsletters/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "newsletters", ""] },
+            "description": "Creates a newsletter."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - Users & Site",
+      "item": [
+        {
+          "name": "Browse users",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/users/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "users", ""] },
+            "description": "Returns a list of staff users (read-only)."
+          }
+        },
+        {
+          "name": "Read site metadata",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/site/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "site", ""] },
+            "description": "Returns public site metadata (title, url, version)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - Media & Themes",
+      "item": [
+        {
+          "name": "Upload an image",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }],
+            "body": { "mode": "formdata", "formdata": [{ "key": "file", "type": "file", "src": "" }, { "key": "purpose", "value": "image", "type": "text" }] },
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/images/upload/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "images", "upload", ""] },
+            "description": "Uploads an image via multipart/form-data and returns the stored URL."
+          }
+        },
+        {
+          "name": "Upload a theme",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }],
+            "body": { "mode": "formdata", "formdata": [{ "key": "file", "type": "file", "src": "" }] },
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/themes/upload/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "themes", "upload", ""] },
+            "description": "Uploads a theme zip package."
+          }
+        },
+        {
+          "name": "Activate a theme",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/themes/:name/activate/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "themes", ":name", "activate", ""], "variable": [{ "key": "name", "value": "" }] },
+            "description": "Activates an uploaded theme."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - Webhooks",
+      "item": [
+        {
+          "name": "Create a webhook",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"webhooks\": [\n    { \"event\": \"post.published\", \"target_url\": \"https://example.com/hook\" }\n  ]\n}" },
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/webhooks/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "webhooks", ""] },
+            "description": "Registers an outbound webhook. There is no endpoint to read existing webhooks."
+          }
+        },
+        {
+          "name": "Update a webhook",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"webhooks\": [ {} ]\n}" },
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/webhooks/:id/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "webhooks", ":id", ""], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Updates a webhook."
+          }
+        },
+        {
+          "name": "Delete a webhook",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Ghost {{admin_jwt}}" }, { "key": "Accept-Version", "value": "v5.0" }],
+            "url": { "raw": "https://{{admin_domain}}/ghost/api/admin/webhooks/:id/", "protocol": "https", "host": ["{{admin_domain}}"], "path": ["ghost", "api", "admin", "webhooks", ":id", ""], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Deletes a webhook."
+          }
+        }
+      ]
+    }
+  ]
+}

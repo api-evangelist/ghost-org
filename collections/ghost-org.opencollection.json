@@ -1,0 +1,315 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ghost Content and Admin APIs",
+    "version": "5.0"
+  },
+  "items": [
+    {
+      "info": { "name": "Content API", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Browse posts.", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{admin_domain}}/ghost/api/content/posts/?key={{content_key}}" },
+          "docs": "Returns a paginated list of published posts. Authenticated with a Content API key query parameter."
+        },
+        {
+          "info": { "name": "Read a post by ID.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://{{admin_domain}}/ghost/api/content/posts/:id/?key={{content_key}}",
+            "params": [ { "name": "id", "value": "", "type": "path", "description": "The post ID." } ]
+          },
+          "docs": "Reads a single published post by ID."
+        },
+        {
+          "info": { "name": "Read a post by slug.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://{{admin_domain}}/ghost/api/content/posts/slug/:slug/?key={{content_key}}",
+            "params": [ { "name": "slug", "value": "", "type": "path", "description": "The post slug." } ]
+          },
+          "docs": "Reads a single published post by slug."
+        },
+        {
+          "info": { "name": "Browse pages.", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{admin_domain}}/ghost/api/content/pages/?key={{content_key}}" },
+          "docs": "Returns a paginated list of published pages."
+        },
+        {
+          "info": { "name": "Browse authors.", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{admin_domain}}/ghost/api/content/authors/?key={{content_key}}" },
+          "docs": "Returns a list of authors."
+        },
+        {
+          "info": { "name": "Browse tags.", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{admin_domain}}/ghost/api/content/tags/?key={{content_key}}" },
+          "docs": "Returns a list of tags."
+        },
+        {
+          "info": { "name": "Browse tiers.", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{admin_domain}}/ghost/api/content/tiers/?key={{content_key}}&include=monthly_price,yearly_price" },
+          "docs": "Returns public subscription tiers with pricing."
+        },
+        {
+          "info": { "name": "Read settings.", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{admin_domain}}/ghost/api/content/settings/?key={{content_key}}" },
+          "docs": "Returns public settings for the site."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Admin - Posts", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Browse posts.", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{admin_domain}}/ghost/api/admin/posts/" },
+          "docs": "Returns a paginated list of posts (all statuses)."
+        },
+        {
+          "info": { "name": "Read a post by ID.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://{{admin_domain}}/ghost/api/admin/posts/:id/",
+            "params": [ { "name": "id", "value": "", "type": "path", "description": "The post ID." } ]
+          },
+          "docs": "Reads a single post by ID."
+        },
+        {
+          "info": { "name": "Create a post.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://{{admin_domain}}/ghost/api/admin/posts/",
+            "body": { "type": "json", "data": "{\n  \"posts\": [\n    { \"title\": \"My post\", \"status\": \"draft\" }\n  ]\n}" }
+          },
+          "docs": "Creates a post. Add ?source=html to supply content as HTML instead of Lexical."
+        },
+        {
+          "info": { "name": "Update a post.", "type": "http" },
+          "http": {
+            "method": "PUT",
+            "url": "https://{{admin_domain}}/ghost/api/admin/posts/:id/",
+            "params": [ { "name": "id", "value": "", "type": "path", "description": "The post ID." } ],
+            "body": { "type": "json", "data": "{\n  \"posts\": [\n    { \"title\": \"Updated title\", \"updated_at\": \"2026-07-05T00:00:00.000Z\" }\n  ]\n}" }
+          },
+          "docs": "Updates a post. The current updated_at must be supplied for collision detection."
+        },
+        {
+          "info": { "name": "Delete a post.", "type": "http" },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{{admin_domain}}/ghost/api/admin/posts/:id/",
+            "params": [ { "name": "id", "value": "", "type": "path", "description": "The post ID." } ]
+          },
+          "docs": "Deletes a post."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Admin - Pages", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Browse pages.", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{admin_domain}}/ghost/api/admin/pages/" },
+          "docs": "Returns a paginated list of pages."
+        },
+        {
+          "info": { "name": "Create a page.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://{{admin_domain}}/ghost/api/admin/pages/",
+            "body": { "type": "json", "data": "{\n  \"pages\": [\n    { \"title\": \"About\", \"status\": \"published\" }\n  ]\n}" }
+          },
+          "docs": "Creates a page."
+        },
+        {
+          "info": { "name": "Update a page.", "type": "http" },
+          "http": {
+            "method": "PUT",
+            "url": "https://{{admin_domain}}/ghost/api/admin/pages/:id/",
+            "params": [ { "name": "id", "value": "", "type": "path", "description": "The page ID." } ],
+            "body": { "type": "json", "data": "{\n  \"pages\": [ {} ]\n}" }
+          },
+          "docs": "Updates a page."
+        },
+        {
+          "info": { "name": "Delete a page.", "type": "http" },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{{admin_domain}}/ghost/api/admin/pages/:id/",
+            "params": [ { "name": "id", "value": "", "type": "path", "description": "The page ID." } ]
+          },
+          "docs": "Deletes a page."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Admin - Members", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Browse members.", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{admin_domain}}/ghost/api/admin/members/" },
+          "docs": "Returns a paginated list of members."
+        },
+        {
+          "info": { "name": "Create a member.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://{{admin_domain}}/ghost/api/admin/members/",
+            "body": { "type": "json", "data": "{\n  \"members\": [\n    { \"email\": \"reader@example.com\", \"name\": \"Reader\" }\n  ]\n}" }
+          },
+          "docs": "Creates a member."
+        },
+        {
+          "info": { "name": "Update a member.", "type": "http" },
+          "http": {
+            "method": "PUT",
+            "url": "https://{{admin_domain}}/ghost/api/admin/members/:id/",
+            "params": [ { "name": "id", "value": "", "type": "path", "description": "The member ID." } ],
+            "body": { "type": "json", "data": "{\n  \"members\": [ {} ]\n}" }
+          },
+          "docs": "Updates a member."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Admin - Tags & Labels", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Browse tags.", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{admin_domain}}/ghost/api/admin/tags/" },
+          "docs": "Returns a list of tags."
+        },
+        {
+          "info": { "name": "Create a tag.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://{{admin_domain}}/ghost/api/admin/tags/",
+            "body": { "type": "json", "data": "{\n  \"tags\": [ { \"name\": \"News\" } ]\n}" }
+          },
+          "docs": "Creates a tag."
+        },
+        {
+          "info": { "name": "Browse labels.", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{admin_domain}}/ghost/api/admin/labels/" },
+          "docs": "Returns a list of member labels."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Admin - Tiers & Offers", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Browse tiers.", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{admin_domain}}/ghost/api/admin/tiers/" },
+          "docs": "Returns a list of subscription tiers."
+        },
+        {
+          "info": { "name": "Browse offers.", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{admin_domain}}/ghost/api/admin/offers/" },
+          "docs": "Returns a list of promotional offers."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Admin - Newsletters", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Browse newsletters.", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{admin_domain}}/ghost/api/admin/newsletters/" },
+          "docs": "Returns a list of newsletters."
+        },
+        {
+          "info": { "name": "Create a newsletter.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://{{admin_domain}}/ghost/api/admin/newsletters/",
+            "body": { "type": "json", "data": "{\n  \"newsletters\": [ { \"name\": \"Weekly\" } ]\n}" }
+          },
+          "docs": "Creates a newsletter."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Admin - Users & Site", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Browse users.", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{admin_domain}}/ghost/api/admin/users/" },
+          "docs": "Returns a list of staff users (read-only)."
+        },
+        {
+          "info": { "name": "Read site metadata.", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{admin_domain}}/ghost/api/admin/site/" },
+          "docs": "Returns public site metadata (title, url, version)."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Admin - Media & Themes", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Upload an image.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://{{admin_domain}}/ghost/api/admin/images/upload/",
+            "body": { "type": "form-data", "data": [ { "name": "file", "type": "file", "value": "" }, { "name": "purpose", "type": "text", "value": "image" } ] }
+          },
+          "docs": "Uploads an image via multipart/form-data and returns the stored URL."
+        },
+        {
+          "info": { "name": "Upload a theme.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://{{admin_domain}}/ghost/api/admin/themes/upload/",
+            "body": { "type": "form-data", "data": [ { "name": "file", "type": "file", "value": "" } ] }
+          },
+          "docs": "Uploads a theme zip package."
+        },
+        {
+          "info": { "name": "Activate a theme.", "type": "http" },
+          "http": {
+            "method": "PUT",
+            "url": "https://{{admin_domain}}/ghost/api/admin/themes/:name/activate/",
+            "params": [ { "name": "name", "value": "", "type": "path", "description": "The theme name." } ]
+          },
+          "docs": "Activates an uploaded theme."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Admin - Webhooks", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Create a webhook.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://{{admin_domain}}/ghost/api/admin/webhooks/",
+            "body": { "type": "json", "data": "{\n  \"webhooks\": [\n    { \"event\": \"post.published\", \"target_url\": \"https://example.com/hook\" }\n  ]\n}" }
+          },
+          "docs": "Registers an outbound webhook. There is no endpoint to read existing webhooks."
+        },
+        {
+          "info": { "name": "Update a webhook.", "type": "http" },
+          "http": {
+            "method": "PUT",
+            "url": "https://{{admin_domain}}/ghost/api/admin/webhooks/:id/",
+            "params": [ { "name": "id", "value": "", "type": "path", "description": "The webhook ID." } ],
+            "body": { "type": "json", "data": "{\n  \"webhooks\": [ {} ]\n}" }
+          },
+          "docs": "Updates a webhook."
+        },
+        {
+          "info": { "name": "Delete a webhook.", "type": "http" },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{{admin_domain}}/ghost/api/admin/webhooks/:id/",
+            "params": [ { "name": "id", "value": "", "type": "path", "description": "The webhook ID." } ]
+          },
+          "docs": "Deletes a webhook."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,100 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Ghost
+providerId: ghost-org
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Publishing
+- Newsletters
+- Memberships
+- Open Source
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Ghost spend. Ghost's core platform is open source (MIT) and
+  free to self-host - in that model the cost is your own compute, storage,
+  bandwidth, and transactional email (for newsletters) with no vendor invoice.
+  Ghost(Pro) is the managed offering, billed as a flat monthly (or discounted
+  annual) subscription per tier, where the primary cost drivers are staff-user
+  count and member (audience) size rather than API usage. The Content and Admin
+  APIs are included at no extra charge in every model. Subscription revenue
+  collected through Ghost memberships incurs no Ghost commission (Stripe
+  processing fees apply).
+notes: >-
+  Ghost(Pro) per-tier rates are captured in the plans file and should be
+  re-verified on the pricing page. For self-hosted deployments the dominant
+  costs are infrastructure and email-sending volume (for example Mailgun),
+  not a Ghost license fee.
+sources:
+- https://ghost.org/pricing/
+- https://ghost.org/
+- https://docs.ghost.org/
+- https://github.com/TryGhost/Ghost
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Ghost
+serviceCategory: Publishing and Content Management
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+focusColumns:
+  ServiceName: Ghost(Pro)
+  ServiceCategory: Publishing and Content Management
+  ProviderName: Ghost
+  PublisherName: Ghost
+  InvoiceIssuerName: Ghost
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription
+meters:
+- name: ghost_pro_subscription
+  description: Flat monthly or annual Ghost(Pro) plan fee, tiered by staff and member limits.
+  unit: subscription
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: members
+  description: Audience size on Ghost(Pro), the primary lever that moves you between plan tiers.
+  unit: members
+  aggregation: max
+  dimensions:
+  - account
+- name: email_volume
+  description: Newsletter emails sent; on self-hosted deployments this is billed by your email provider (for example Mailgun).
+  unit: emails
+  aggregation: sum
+  dimensions:
+  - account
+  - newsletter
+- name: self_hosted_infrastructure
+  description: Compute, storage, and bandwidth for running a self-hosted Ghost instance (no Ghost invoice).
+  unit: hours
+  aggregation: sum
+  dimensions:
+  - deployment
+principles:
+- name: Visibility
+  description: Track member growth against your Ghost(Pro) tier limit and monitor newsletter email volume, which drives cost on self-hosted email providers.
+- name: Allocation
+  description: Attribute the Ghost(Pro) subscription and email costs to the publication or team that owns the site.
+- name: Optimization
+  description: Choose self-hosting to trade a subscription for owned infrastructure when volume justifies it; right-size the Ghost(Pro) tier to actual staff and member counts; prune inactive members to stay within tier limits.
+- name: Accountability
+  description: Review the monthly Ghost(Pro) invoice (or self-hosted infrastructure and email spend) against audience growth and publishing activity.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,189 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Ghost
+providerId: ghost-org
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Publishing
+- Newsletters
+- Memberships
+- Subscriptions
+- Open Source
+- Plans
+description: >-
+  Ghost has two consumption models. The core Ghost publishing platform is open
+  source (MIT) and free to self-host with no license fee - you provide your own
+  infrastructure. Ghost(Pro) is the official managed hosting service; all
+  Ghost(Pro) revenue funds the non-profit Ghost Foundation that maintains the
+  software. Ghost(Pro) is priced in tiers primarily by staff-user count and
+  member (audience) limits. Both the Content API and Admin API are included on
+  every Ghost site at no additional API charge - self-hosted or Ghost(Pro).
+  Prices below reflect published Ghost(Pro) rates as of the review date (annual
+  billing gives roughly 20% off the monthly rate); verify current numbers on
+  the pricing page during reconciliation.
+notes: >-
+  The APIs themselves are not separately metered or billed - they are a feature
+  of every Ghost site. Ghost takes 0% of subscription revenue earned through
+  Ghost memberships (payment processor fees still apply via Stripe). Member and
+  staff limits, not API calls, are the primary Ghost(Pro) pricing levers.
+sources:
+- https://ghost.org/pricing/
+- https://ghost.org/
+- https://docs.ghost.org/
+- https://github.com/TryGhost/Ghost
+plans:
+- id: ghost-self-hosted
+  name: Open Source (Self-Hosted)
+  type: free
+  description: >-
+    The full Ghost publishing platform, MIT-licensed and self-hostable. Includes
+    the Content API and Admin API, memberships, newsletters, and themes.
+    Unlimited members and staff, bounded only by your own infrastructure and
+    email-sending setup. No Ghost license fee.
+  entries:
+  - label: Self-Hosted Usage
+    name: self_hosted_usage
+    type: flat
+    metric: infrastructure
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free (self-hosted; you provide infrastructure)
+    userMultiplied: false
+  elements:
+  - name: Content API
+  - name: Admin API
+  - name: Memberships and Subscriptions
+  - name: Newsletters
+  - name: Custom Themes
+  - name: Webhooks
+- id: ghost-pro-starter
+  name: Ghost(Pro) Starter
+  type: paid
+  description: >-
+    Managed hosting for solo creators and small newsletters. One staff user and
+    up to 1,000 members, with email newsletters, a free custom domain, and
+    simple design settings.
+  entries:
+  - label: Subscription
+    name: starter_subscription
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: USD 18/mo billed monthly, USD 15/mo billed annually
+    userMultiplied: false
+  - label: Included Members
+    name: starter_members
+    type: included
+    metric: members
+    limit: 1000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  elements:
+  - name: 1 Staff User
+  - name: Email Newsletter
+  - name: Free Custom Domain
+  - name: Content API and Admin API
+- id: ghost-pro-publisher
+  name: Ghost(Pro) Publisher
+  type: paid
+  description: >-
+    Managed hosting for growing publications. Three staff users and up to 1,000
+    members baseline, adding paid subscriptions, custom themes, thousands of
+    integrations, and advanced analytics.
+  entries:
+  - label: Subscription
+    name: publisher_subscription
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: USD 35/mo billed monthly, USD 29/mo billed annually
+    userMultiplied: false
+  - label: Included Members
+    name: publisher_members
+    type: included
+    metric: members
+    limit: 1000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  elements:
+  - name: 3 Staff Users
+  - name: Paid Subscriptions
+  - name: Custom Themes
+  - name: Integrations
+  - name: Advanced Analytics
+- id: ghost-pro-business
+  name: Ghost(Pro) Business
+  type: paid
+  description: >-
+    Managed hosting for established publications. Fifteen staff users and up to
+    10,000 members, with priority support, higher usage limits, and early
+    access to new features.
+  entries:
+  - label: Subscription
+    name: business_subscription
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: USD 239/mo billed monthly, USD 199/mo billed annually
+    userMultiplied: false
+  - label: Included Members
+    name: business_members
+    type: included
+    metric: members
+    limit: 10000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  elements:
+  - name: 15 Staff Users
+  - name: Priority Support
+  - name: Higher Usage Limits
+  - name: Early Feature Access
+- id: ghost-pro-enterprise
+  name: Ghost(Pro) Enterprise / Custom
+  type: enterprise
+  description: >-
+    Custom plan for high-volume publishers. Unlimited staff and members, a
+    dedicated IP address, advanced configuration, and a 99.9% uptime SLA.
+    Contact Ghost.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Unlimited Staff and Members
+  - name: Dedicated IP Address
+  - name: 99.9% Uptime SLA
+  - name: Advanced Configuration
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,113 @@
+aid: ghost-org
+name: Ghost
+review:
+  question: Does Ghost expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-05'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Ghost's two documented public APIs - the
+    Content API and the Admin API - are request/response REST over HTTPS. There
+    is no server-push transport (WebSocket or SSE) on Ghost's own public API to
+    model. Ghost's event-driven surface for integrators is outbound webhooks
+    (Ghost POSTs a JSON payload to a target_url when an event such as
+    post.published fires); that is server-to-endpoint HTTP, not a WebSocket the
+    client connects to, so it is out of scope for an AsyncAPI document here.
+findings:
+  summary: |
+    Ghost does not publish a documented public WebSocket API. Ghost is an
+    open-source (MIT) publishing platform. Every Ghost site - self-hosted or on
+    managed Ghost(Pro) - exposes two documented public REST APIs under
+    https://{admin_domain}/ghost/api/. The Content API
+    (https://{admin_domain}/ghost/api/content/) is read-only and authenticated
+    with a Content API key passed as the `key` query parameter; it serves
+    published posts, pages, authors, tags, tiers, and public settings. The Admin
+    API (https://{admin_domain}/ghost/api/admin/) is read-write and
+    authenticated with a short-lived JWT signed from an Admin API key (sent as
+    `Authorization: Ghost {token}`), or with a staff access token or user
+    session; it manages posts, pages, members, tags, labels, tiers, offers,
+    newsletters, users, images, themes, and webhooks. Both APIs are pure
+    request/response REST over HTTPS. No realtime, bidirectional, or streaming
+    WebSocket (ws:// or wss://) endpoint is documented on Ghost's public API.
+  openSource: |
+    The core Ghost platform is open source (MIT) and self-hostable
+    (github.com/TryGhost/Ghost), and also runs as managed Ghost(Pro), whose
+    revenue funds the non-profit Ghost Foundation. The Content API and Admin API
+    are a feature of every Ghost site regardless of hosting model.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://{admin_domain}/ghost/api/content
+      documented: true
+      note: Read-only Content API, authenticated with a `key` query parameter.
+    - protocol: REST
+      scheme: https
+      baseURL: https://{admin_domain}/ghost/api/admin
+      documented: true
+      note: Read-write Admin API, authenticated with a JWT (Authorization Ghost {token}), staff token, or session.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: Outbound webhooks POST a JSON payload to a configured target_url on events such as post.published. Server-to-endpoint HTTP, not WebSocket.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in Ghost's Content API, Admin API, or webhooks reference as of the review date.
+  endpointsConfirmedRest:
+    - GET    https://{admin_domain}/ghost/api/content/posts/
+    - GET    https://{admin_domain}/ghost/api/content/posts/{id}/
+    - GET    https://{admin_domain}/ghost/api/content/posts/slug/{slug}/
+    - GET    https://{admin_domain}/ghost/api/content/pages/
+    - GET    https://{admin_domain}/ghost/api/content/authors/
+    - GET    https://{admin_domain}/ghost/api/content/tags/
+    - GET    https://{admin_domain}/ghost/api/content/tiers/
+    - GET    https://{admin_domain}/ghost/api/content/settings/
+    - GET    https://{admin_domain}/ghost/api/admin/posts/
+    - POST   https://{admin_domain}/ghost/api/admin/posts/
+    - PUT    https://{admin_domain}/ghost/api/admin/posts/{id}/
+    - DELETE https://{admin_domain}/ghost/api/admin/posts/{id}/
+    - GET    https://{admin_domain}/ghost/api/admin/pages/
+    - POST   https://{admin_domain}/ghost/api/admin/pages/
+    - GET    https://{admin_domain}/ghost/api/admin/members/
+    - POST   https://{admin_domain}/ghost/api/admin/members/
+    - GET    https://{admin_domain}/ghost/api/admin/tags/
+    - GET    https://{admin_domain}/ghost/api/admin/labels/
+    - GET    https://{admin_domain}/ghost/api/admin/tiers/
+    - GET    https://{admin_domain}/ghost/api/admin/offers/
+    - GET    https://{admin_domain}/ghost/api/admin/newsletters/
+    - GET    https://{admin_domain}/ghost/api/admin/users/
+    - GET    https://{admin_domain}/ghost/api/admin/site/
+    - POST   https://{admin_domain}/ghost/api/admin/images/upload/
+    - POST   https://{admin_domain}/ghost/api/admin/themes/upload/
+    - POST   https://{admin_domain}/ghost/api/admin/webhooks/
+    - PUT    https://{admin_domain}/ghost/api/admin/webhooks/{id}/
+    - DELETE https://{admin_domain}/ghost/api/admin/webhooks/{id}/
+sources:
+  - url: https://docs.ghost.org/content-api
+    type: Documentation
+    note: Content API base URL, key query-parameter auth, and browse/read endpoints. All REST. No WebSocket mentioned.
+  - url: https://docs.ghost.org/admin-api
+    type: Documentation
+    note: Admin API base URL, JWT/token auth, and resource endpoints. All REST.
+  - url: https://docs.ghost.org/admin-api/webhooks
+    type: APIReference
+    note: Webhooks are outbound HTTP POSTs on events; create/update/delete only. Not a WebSocket surface.
+  - url: https://ghost.org/pricing/
+    type: Pricing
+    note: Ghost(Pro) tiers plus the free self-hosted open-source option.
+  - url: https://github.com/TryGhost/Ghost
+    type: SourceCode
+    note: Open-source (MIT) publishing platform, self-hostable.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. Ghost's own public API is
+    request/response REST (Content API and Admin API). No AsyncAPI document was
+    created because there is no server-push transport on Ghost's own API to
+    model; the event surface is outbound webhooks, which are server-to-endpoint
+    HTTP callbacks rather than a client-connected WebSocket stream.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
