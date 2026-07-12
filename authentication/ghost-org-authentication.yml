@@ -1,0 +1,27 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/ghost-org-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - query
+schemes:
+- name: contentApiKey
+  type: apiKey
+  in: query
+  parameter: key
+  description: Content API key from a Custom Integration, passed as the `key` query parameter.
+    Safe for browser use; grants read-only access to public data.
+  sources:
+  - openapi/ghost-org-openapi.yml
+- name: adminJwt
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: 'Admin API access. An Admin API key (id:secret) is used to sign a short-lived
+    JWT sent as `Authorization: Ghost {token}`. A staff access token or an authenticated user
+    session may also be used.'
+  sources:
+  - openapi/ghost-org-openapi.yml

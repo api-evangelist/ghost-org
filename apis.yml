@@ -257,6 +257,10 @@ apis:
     notifications, or downstream automation. Supports create, update, and
     delete; there is no endpoint to read existing webhooks.
 common:
+- type: DomainSecurity
+  url: security/ghost-org-domain-security.yml
+- type: Authentication
+  url: authentication/ghost-org-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/ghost-foundation
 - type: Website
