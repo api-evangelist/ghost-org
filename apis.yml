@@ -257,6 +257,8 @@ apis:
     notifications, or downstream automation. Supports create, update, and
     delete; there is no endpoint to read existing webhooks.
 common:
+- type: AgenticAccess
+  url: agentic-access/ghost-org-agentic-access.yml
 - type: DomainSecurity
   url: security/ghost-org-domain-security.yml
 - type: Authentication
