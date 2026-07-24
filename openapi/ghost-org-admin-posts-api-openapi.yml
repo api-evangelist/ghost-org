@@ -1,0 +1,248 @@
+openapi: 3.0.3
+info:
+  title: Ghost Content and Admin APIs Admin - Images Admin - Posts API
+  description: 'Ghost is an open-source (MIT) publishing platform for professional publications, newsletters, memberships, and paid subscriptions. Every Ghost site - whether self-hosted or on managed Ghost(Pro) - exposes two documented public REST APIs under https://{admin_domain}/ghost/api/.
+
+
+    The Content API is read-only and is authenticated with a Content API key passed as the `key` query parameter; it serves published posts, pages, authors, tags, tiers, and public settings for consumption by front-ends and static sites.
+
+
+    The Admin API is read-write and is authenticated with an Admin API key that is used to sign a short-lived JWT sent as `Authorization: Ghost {token}` (a staff access token or user session may also be used). It manages posts, pages, members, tags, labels, tiers, offers, newsletters, users, images, themes, and webhooks.
+
+
+    The `{admin_domain}` server variable is the site''s domain (for Ghost(Pro), typically a `*.ghost.io` domain). All requests must use HTTPS. The `Accept-Version` header (for example `v5.0`) declares the minimum compatible API version.'
+  version: '5.0'
+  contact:
+    name: Ghost
+    url: https://ghost.org
+  license:
+    name: MIT
+    url: https://github.com/TryGhost/Ghost/blob/main/LICENSE
+servers:
+- url: https://{admin_domain}/ghost/api
+  description: A Ghost site's API root (self-hosted or Ghost(Pro))
+  variables:
+    admin_domain:
+      default: demo.ghost.io
+      description: The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).
+security:
+- contentApiKey: []
+- adminJwt: []
+tags:
+- name: Admin - Posts
+  description: Read-write posts.
+paths:
+  /admin/posts/:
+    get:
+      operationId: browseAdminPosts
+      tags:
+      - Admin - Posts
+      summary: Browse posts
+      parameters:
+      - $ref: '#/components/parameters/AcceptVersion'
+      - $ref: '#/components/parameters/Include'
+      - $ref: '#/components/parameters/Fields'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/Order'
+      - $ref: '#/components/parameters/Formats'
+      responses:
+        '200':
+          description: A list of posts.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: addAdminPost
+      tags:
+      - Admin - Posts
+      summary: Create a post
+      parameters:
+      - $ref: '#/components/parameters/AcceptVersion'
+      - $ref: '#/components/parameters/Source'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostsRequest'
+      responses:
+        '201':
+          description: The created post.
+  /admin/posts/{id}/:
+    get:
+      operationId: readAdminPostById
+      tags:
+      - Admin - Posts
+      summary: Read a post by ID
+      parameters:
+      - $ref: '#/components/parameters/AcceptVersion'
+      - $ref: '#/components/parameters/PathId'
+      - $ref: '#/components/parameters/Formats'
+      responses:
+        '200':
+          description: The requested post.
+    put:
+      operationId: editAdminPost
+      tags:
+      - Admin - Posts
+      summary: Update a post
+      description: Updates a post. The current updated_at value must be supplied in the payload for collision detection.
+      parameters:
+      - $ref: '#/components/parameters/AcceptVersion'
+      - $ref: '#/components/parameters/PathId'
+      - $ref: '#/components/parameters/Source'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostsRequest'
+      responses:
+        '200':
+          description: The updated post.
+    delete:
+      operationId: deleteAdminPost
+      tags:
+      - Admin - Posts
+      summary: Delete a post
+      parameters:
+      - $ref: '#/components/parameters/AcceptVersion'
+      - $ref: '#/components/parameters/PathId'
+      responses:
+        '204':
+          description: The post was deleted.
+  /admin/posts/slug/{slug}/:
+    get:
+      operationId: readAdminPostBySlug
+      tags:
+      - Admin - Posts
+      summary: Read a post by slug
+      parameters:
+      - $ref: '#/components/parameters/AcceptVersion'
+      - $ref: '#/components/parameters/PathSlug'
+      responses:
+        '200':
+          description: The requested post.
+components:
+  parameters:
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Ghost NQL filter expression.
+      schema:
+        type: string
+    PathSlug:
+      name: slug
+      in: path
+      required: true
+      description: The resource slug.
+      schema:
+        type: string
+    Order:
+      name: order
+      in: query
+      required: false
+      description: Sort order, for example 'published_at desc'.
+      schema:
+        type: string
+    Page:
+      name: page
+      in: query
+      required: false
+      description: Page number of results to return.
+      schema:
+        type: integer
+        default: 1
+    Source:
+      name: source
+      in: query
+      required: false
+      description: Set to 'html' to supply post/page content as HTML instead of Lexical.
+      schema:
+        type: string
+        enum:
+        - html
+    PathId:
+      name: id
+      in: path
+      required: true
+      description: The resource ID.
+      schema:
+        type: string
+    Include:
+      name: include
+      in: query
+      required: false
+      description: Comma-separated related data to include (for example authors,tags).
+      schema:
+        type: string
+    Formats:
+      name: formats
+      in: query
+      required: false
+      description: Content formats to return, for example 'html,lexical'.
+      schema:
+        type: string
+    Fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return.
+      schema:
+        type: string
+    AcceptVersion:
+      name: Accept-Version
+      in: header
+      required: false
+      description: Minimum compatible API version, for example v5.0.
+      schema:
+        type: string
+        example: v5.0
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Number of records per page (default 15, or 'all').
+      schema:
+        type: string
+        default: '15'
+  responses:
+    Unauthorized:
+      description: Authentication failed or was missing.
+  schemas:
+    PostsRequest:
+      type: object
+      properties:
+        posts:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              lexical:
+                type: string
+              html:
+                type: string
+              status:
+                type: string
+                enum:
+                - draft
+                - published
+                - scheduled
+              updated_at:
+                type: string
+                format: date-time
+  securitySchemes:
+    contentApiKey:
+      type: apiKey
+      in: query
+      name: key
+      description: Content API key from a Custom Integration, passed as the `key` query parameter. Safe for browser use; grants read-only access to public data.
+    adminJwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Admin API access. An Admin API key (id:secret) is used to sign a short-lived JWT sent as `Authorization: Ghost {token}`. A staff access token or an authenticated user session may also be used.'

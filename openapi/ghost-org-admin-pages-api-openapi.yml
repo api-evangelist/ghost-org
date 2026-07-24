@@ -1,0 +1,174 @@
+openapi: 3.0.3
+info:
+  title: Ghost Content and Admin APIs Admin - Images Admin - Pages API
+  description: 'Ghost is an open-source (MIT) publishing platform for professional publications, newsletters, memberships, and paid subscriptions. Every Ghost site - whether self-hosted or on managed Ghost(Pro) - exposes two documented public REST APIs under https://{admin_domain}/ghost/api/.
+
+
+    The Content API is read-only and is authenticated with a Content API key passed as the `key` query parameter; it serves published posts, pages, authors, tags, tiers, and public settings for consumption by front-ends and static sites.
+
+
+    The Admin API is read-write and is authenticated with an Admin API key that is used to sign a short-lived JWT sent as `Authorization: Ghost {token}` (a staff access token or user session may also be used). It manages posts, pages, members, tags, labels, tiers, offers, newsletters, users, images, themes, and webhooks.
+
+
+    The `{admin_domain}` server variable is the site''s domain (for Ghost(Pro), typically a `*.ghost.io` domain). All requests must use HTTPS. The `Accept-Version` header (for example `v5.0`) declares the minimum compatible API version.'
+  version: '5.0'
+  contact:
+    name: Ghost
+    url: https://ghost.org
+  license:
+    name: MIT
+    url: https://github.com/TryGhost/Ghost/blob/main/LICENSE
+servers:
+- url: https://{admin_domain}/ghost/api
+  description: A Ghost site's API root (self-hosted or Ghost(Pro))
+  variables:
+    admin_domain:
+      default: demo.ghost.io
+      description: The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).
+security:
+- contentApiKey: []
+- adminJwt: []
+tags:
+- name: Admin - Pages
+  description: Read-write pages.
+paths:
+  /admin/pages/:
+    get:
+      operationId: browseAdminPages
+      tags:
+      - Admin - Pages
+      summary: Browse pages
+      parameters:
+      - $ref: '#/components/parameters/AcceptVersion'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Page'
+      responses:
+        '200':
+          description: A list of pages.
+    post:
+      operationId: addAdminPage
+      tags:
+      - Admin - Pages
+      summary: Create a page
+      parameters:
+      - $ref: '#/components/parameters/AcceptVersion'
+      - $ref: '#/components/parameters/Source'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PagesRequest'
+      responses:
+        '201':
+          description: The created page.
+  /admin/pages/{id}/:
+    get:
+      operationId: readAdminPageById
+      tags:
+      - Admin - Pages
+      summary: Read a page by ID
+      parameters:
+      - $ref: '#/components/parameters/AcceptVersion'
+      - $ref: '#/components/parameters/PathId'
+      responses:
+        '200':
+          description: The requested page.
+    put:
+      operationId: editAdminPage
+      tags:
+      - Admin - Pages
+      summary: Update a page
+      parameters:
+      - $ref: '#/components/parameters/AcceptVersion'
+      - $ref: '#/components/parameters/PathId'
+      - $ref: '#/components/parameters/Source'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PagesRequest'
+      responses:
+        '200':
+          description: The updated page.
+    delete:
+      operationId: deleteAdminPage
+      tags:
+      - Admin - Pages
+      summary: Delete a page
+      parameters:
+      - $ref: '#/components/parameters/AcceptVersion'
+      - $ref: '#/components/parameters/PathId'
+      responses:
+        '204':
+          description: The page was deleted.
+components:
+  schemas:
+    PagesRequest:
+      type: object
+      properties:
+        pages:
+          type: array
+          items:
+            type: object
+  parameters:
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Ghost NQL filter expression.
+      schema:
+        type: string
+    Page:
+      name: page
+      in: query
+      required: false
+      description: Page number of results to return.
+      schema:
+        type: integer
+        default: 1
+    Source:
+      name: source
+      in: query
+      required: false
+      description: Set to 'html' to supply post/page content as HTML instead of Lexical.
+      schema:
+        type: string
+        enum:
+        - html
+    PathId:
+      name: id
+      in: path
+      required: true
+      description: The resource ID.
+      schema:
+        type: string
+    AcceptVersion:
+      name: Accept-Version
+      in: header
+      required: false
+      description: Minimum compatible API version, for example v5.0.
+      schema:
+        type: string
+        example: v5.0
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Number of records per page (default 15, or 'all').
+      schema:
+        type: string
+        default: '15'
+  securitySchemes:
+    contentApiKey:
+      type: apiKey
+      in: query
+      name: key
+      description: Content API key from a Custom Integration, passed as the `key` query parameter. Safe for browser use; grants read-only access to public data.
+    adminJwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Admin API access. An Admin API key (id:secret) is used to sign a short-lived JWT sent as `Authorization: Ghost {token}`. A staff access token or an authenticated user session may also be used.'

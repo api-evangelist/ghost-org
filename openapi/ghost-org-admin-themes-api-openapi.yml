@@ -1,0 +1,93 @@
+openapi: 3.0.3
+info:
+  title: Ghost Content and Admin APIs Admin - Images Admin - Themes API
+  description: 'Ghost is an open-source (MIT) publishing platform for professional publications, newsletters, memberships, and paid subscriptions. Every Ghost site - whether self-hosted or on managed Ghost(Pro) - exposes two documented public REST APIs under https://{admin_domain}/ghost/api/.
+
+
+    The Content API is read-only and is authenticated with a Content API key passed as the `key` query parameter; it serves published posts, pages, authors, tags, tiers, and public settings for consumption by front-ends and static sites.
+
+
+    The Admin API is read-write and is authenticated with an Admin API key that is used to sign a short-lived JWT sent as `Authorization: Ghost {token}` (a staff access token or user session may also be used). It manages posts, pages, members, tags, labels, tiers, offers, newsletters, users, images, themes, and webhooks.
+
+
+    The `{admin_domain}` server variable is the site''s domain (for Ghost(Pro), typically a `*.ghost.io` domain). All requests must use HTTPS. The `Accept-Version` header (for example `v5.0`) declares the minimum compatible API version.'
+  version: '5.0'
+  contact:
+    name: Ghost
+    url: https://ghost.org
+  license:
+    name: MIT
+    url: https://github.com/TryGhost/Ghost/blob/main/LICENSE
+servers:
+- url: https://{admin_domain}/ghost/api
+  description: A Ghost site's API root (self-hosted or Ghost(Pro))
+  variables:
+    admin_domain:
+      default: demo.ghost.io
+      description: The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).
+security:
+- contentApiKey: []
+- adminJwt: []
+tags:
+- name: Admin - Themes
+  description: Theme upload and activation.
+paths:
+  /admin/themes/upload/:
+    post:
+      operationId: uploadAdminTheme
+      tags:
+      - Admin - Themes
+      summary: Upload a theme
+      description: Uploads a theme as a zip package using multipart/form-data.
+      parameters:
+      - $ref: '#/components/parameters/AcceptVersion'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: The uploaded theme.
+  /admin/themes/{name}/activate/:
+    put:
+      operationId: activateAdminTheme
+      tags:
+      - Admin - Themes
+      summary: Activate a theme
+      parameters:
+      - $ref: '#/components/parameters/AcceptVersion'
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The activated theme.
+components:
+  parameters:
+    AcceptVersion:
+      name: Accept-Version
+      in: header
+      required: false
+      description: Minimum compatible API version, for example v5.0.
+      schema:
+        type: string
+        example: v5.0
+  securitySchemes:
+    contentApiKey:
+      type: apiKey
+      in: query
+      name: key
+      description: Content API key from a Custom Integration, passed as the `key` query parameter. Safe for browser use; grants read-only access to public data.
+    adminJwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Admin API access. An Admin API key (id:secret) is used to sign a short-lived JWT sent as `Authorization: Ghost {token}`. A staff access token or an authenticated user session may also be used.'
