@@ -1,0 +1,615 @@
+openapi: 3.1.0
+info:
+  title: Ghost Admin Authors Members API
+  description: The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication. It enables developers to create, update, and delete posts, pages, tags, members, tiers, newsletters, and offers programmatically. Authentication is handled via JSON Web Tokens generated from an Admin API key, integration tokens, or staff access tokens. The Admin API supports everything the Ghost Admin interface can do and more, making it suitable for building custom publishing workflows, content automation, member management systems, and advanced integrations.
+  version: '5.0'
+  contact:
+    name: Ghost Foundation
+    url: https://ghost.org/docs/admin-api/
+  termsOfService: https://ghost.org/terms/
+servers:
+- url: https://{site}.ghost.io/ghost/api/admin
+  description: Ghost Pro Hosted Site
+  variables:
+    site:
+      default: your-site
+      description: Your Ghost site subdomain
+- url: '{protocol}://{domain}/ghost/api/admin'
+  description: Self-Hosted Ghost Instance
+  variables:
+    protocol:
+      default: https
+      enum:
+      - https
+      - http
+    domain:
+      default: localhost:2368
+      description: Your Ghost instance domain and port
+security:
+- adminApiToken: []
+tags:
+- name: Members
+  description: Manage publication members including creating, reading, updating, and deleting member records. Members are people who have signed up for the publication.
+paths:
+  /members/:
+    get:
+      operationId: adminBrowseMembers
+      summary: Browse members
+      description: Retrieve a paginated list of publication members. Supports filtering by status, label, newsletter subscription, and other member properties.
+      tags:
+      - Members
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: A list of members
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  members:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Member'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: adminCreateMember
+      summary: Create a member
+      description: Create a new member. The email field is required. Optionally include name, labels, and newsletter subscriptions.
+      tags:
+      - Members
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - members
+              properties:
+                members:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/MemberInput'
+                  minItems: 1
+                  maxItems: 1
+      responses:
+        '201':
+          description: Member created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  members:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Member'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /members/{id}/:
+    get:
+      operationId: adminReadMember
+      summary: Read a member by ID
+      description: Retrieve a single member by their unique identifier.
+      tags:
+      - Members
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: A single member
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  members:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Member'
+                    minItems: 1
+                    maxItems: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: adminUpdateMember
+      summary: Update a member
+      description: Update an existing member by their unique identifier. Can be used to change name, email, labels, note, and newsletter subscriptions.
+      tags:
+      - Members
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - members
+              properties:
+                members:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/MemberInput'
+                  minItems: 1
+                  maxItems: 1
+      responses:
+        '200':
+          description: Member updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  members:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Member'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      operationId: adminDeleteMember
+      summary: Delete a member
+      description: Permanently delete a member by their unique identifier.
+      tags:
+      - Members
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      responses:
+        '204':
+          description: Member deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response.
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      required: false
+      description: Page number for paginated results. Defaults to 1.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    order:
+      name: order
+      in: query
+      required: false
+      description: Field and direction to order results by.
+      schema:
+        type: string
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: Apply fine-grained filters using Ghost's NQL query language.
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return per page. Defaults to 15.
+      schema:
+        oneOf:
+        - type: integer
+          minimum: 1
+        - type: string
+          enum:
+          - all
+        default: 15
+    resourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    MemberInput:
+      type: object
+      description: Input fields for creating or updating a member.
+      properties:
+        email:
+          type: string
+          format: email
+          description: Member email address
+        name:
+          type: string
+          description: Member display name
+          nullable: true
+        note:
+          type: string
+          description: Internal note about the member
+          nullable: true
+        labels:
+          type: array
+          description: Labels to apply to the member
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Label name
+              slug:
+                type: string
+                description: Label slug
+        newsletters:
+          type: array
+          description: Newsletter subscriptions
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+                description: Newsletter identifier
+    Member:
+      type: object
+      description: A member represents a person who has signed up for the publication, either as a free or paid subscriber.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        uuid:
+          type: string
+          format: uuid
+          description: Universally unique identifier
+        email:
+          type: string
+          format: email
+          description: Member email address
+        name:
+          type: string
+          description: Member display name
+          nullable: true
+        note:
+          type: string
+          description: Internal note about the member
+          nullable: true
+        geolocation:
+          type: string
+          description: Geolocation data from signup
+          nullable: true
+        status:
+          type: string
+          description: Member status based on subscription state
+          enum:
+          - free
+          - paid
+          - comped
+        labels:
+          type: array
+          description: Labels applied to the member
+          items:
+            $ref: '#/components/schemas/Label'
+        subscriptions:
+          type: array
+          description: Paid subscriptions associated with the member
+          items:
+            $ref: '#/components/schemas/Subscription'
+        newsletters:
+          type: array
+          description: Newsletters the member is subscribed to
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+                description: Newsletter identifier
+              name:
+                type: string
+                description: Newsletter name
+              status:
+                type: string
+                description: Subscription status
+        avatar_image:
+          type: string
+          format: uri
+          description: Gravatar URL for the member
+        email_count:
+          type: integer
+          description: Number of emails sent to this member
+          minimum: 0
+        email_opened_count:
+          type: integer
+          description: Number of emails opened by this member
+          minimum: 0
+        email_open_rate:
+          type: number
+          description: Email open rate percentage
+          nullable: true
+          minimum: 0
+          maximum: 100
+        created_at:
+          type: string
+          format: date-time
+          description: Signup timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+    PaginationMeta:
+      type: object
+      description: Pagination metadata
+      properties:
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+              description: Current page
+              minimum: 1
+            limit:
+              type: integer
+              description: Items per page
+              minimum: 1
+            pages:
+              type: integer
+              description: Total pages
+              minimum: 1
+            total:
+              type: integer
+              description: Total items
+              minimum: 0
+            next:
+              type: integer
+              description: Next page number
+              nullable: true
+            prev:
+              type: integer
+              description: Previous page number
+              nullable: true
+    Subscription:
+      type: object
+      description: A paid subscription associated with a member, typically managed through Stripe.
+      properties:
+        id:
+          type: string
+          description: Subscription identifier
+        customer:
+          type: object
+          description: Stripe customer details
+          properties:
+            id:
+              type: string
+              description: Stripe customer ID
+            name:
+              type: string
+              description: Customer name
+              nullable: true
+            email:
+              type: string
+              format: email
+              description: Customer email
+        status:
+          type: string
+          description: Subscription status
+          enum:
+          - active
+          - trialing
+          - canceled
+          - unpaid
+          - past_due
+        start_date:
+          type: string
+          format: date-time
+          description: Subscription start date
+        default_payment_card_last4:
+          type: string
+          description: Last 4 digits of the payment card
+          nullable: true
+          pattern: ^\d{4}$
+        cancel_at_period_end:
+          type: boolean
+          description: Whether the subscription cancels at period end
+        cancellation_reason:
+          type: string
+          description: Reason for cancellation
+          nullable: true
+        current_period_end:
+          type: string
+          format: date-time
+          description: End of current billing period
+        price:
+          type: object
+          description: Price details
+          properties:
+            id:
+              type: string
+              description: Stripe price ID
+            price_id:
+              type: string
+              description: Ghost price identifier
+            nickname:
+              type: string
+              description: Price nickname
+            amount:
+              type: integer
+              description: Amount in smallest currency unit
+              minimum: 0
+            interval:
+              type: string
+              description: Billing interval
+              enum:
+              - month
+              - year
+            type:
+              type: string
+              description: Price type
+            currency:
+              type: string
+              description: ISO 4217 currency code
+              pattern: ^[A-Z]{3}$
+        tier:
+          $ref: '#/components/schemas/Tier'
+    ErrorResponse:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional error context
+                nullable: true
+    Label:
+      type: object
+      description: A label for categorizing and segmenting members.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        name:
+          type: string
+          description: Label name
+        slug:
+          type: string
+          description: URL-safe slug
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+    Tier:
+      type: object
+      description: A membership tier with pricing and benefits configuration.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        name:
+          type: string
+          description: Tier name
+        slug:
+          type: string
+          description: URL-safe slug
+        description:
+          type: string
+          description: Tier description
+          nullable: true
+        active:
+          type: boolean
+          description: Whether the tier is active
+        type:
+          type: string
+          description: Tier type
+          enum:
+          - free
+          - paid
+        welcome_page_url:
+          type: string
+          format: uri
+          description: Welcome page URL after signup
+          nullable: true
+        visibility:
+          type: string
+          description: Public visibility
+          enum:
+          - public
+          - none
+        monthly_price:
+          type: integer
+          description: Monthly price in smallest currency unit
+          nullable: true
+          minimum: 0
+        yearly_price:
+          type: integer
+          description: Yearly price in smallest currency unit
+          nullable: true
+          minimum: 0
+        currency:
+          type: string
+          description: ISO 4217 currency code
+          nullable: true
+          pattern: ^[A-Z]{3}$
+        trial_days:
+          type: integer
+          description: Number of free trial days
+          minimum: 0
+        benefits:
+          type: array
+          description: Tier benefits
+          items:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+  responses:
+    Unauthorized:
+      description: Authentication failed or token is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ValidationError:
+      description: Request body validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    adminApiToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JSON Web Token generated from an Admin API key. The key is split into an ID and secret at the colon separator. The ID is used as the kid header and the secret is used to sign the token with HS256.
+externalDocs:
+  description: Ghost Admin API Documentation
+  url: https://ghost.org/docs/admin-api/

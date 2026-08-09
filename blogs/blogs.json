@@ -1,0 +1,14 @@
+{
+  "repo": "ghost",
+  "feeds": [
+    {
+      "source": "https://ghost.org/changelog/rss/",
+      "feed_url": "https://ghost.org/changelog/rss/",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    }
+  ],
+  "fetched": "2026-08-06T14:08:46Z",
+  "post_count": 17
+}

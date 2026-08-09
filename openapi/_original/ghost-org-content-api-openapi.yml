@@ -1,0 +1,1232 @@
+openapi: 3.1.0
+info:
+  title: Ghost Content API
+  description: >-
+    The Ghost Content API is a RESTful, read-only API that delivers published
+    content from a Ghost site to any client. It provides access to posts, pages,
+    tags, authors, tiers, and settings resources. Access is controlled via a
+    Content API key provided as a query parameter, and all responses are returned
+    in JSON format. The API supports browse and read request types with powerful
+    filtering using the NQL query language, making it ideal for building custom
+    front-ends, static sites, mobile apps, and other content-driven applications
+    powered by Ghost as a headless CMS.
+  version: '5.0'
+  contact:
+    name: Ghost Foundation
+    url: https://ghost.org/docs/content-api/
+  termsOfService: https://ghost.org/terms/
+externalDocs:
+  description: Ghost Content API Documentation
+  url: https://ghost.org/docs/content-api/
+servers:
+  - url: https://{site}.ghost.io/ghost/api/content
+    description: Ghost Pro Hosted Site
+    variables:
+      site:
+        default: your-site
+        description: Your Ghost site subdomain
+  - url: '{protocol}://{domain}/ghost/api/content'
+    description: Self-Hosted Ghost Instance
+    variables:
+      protocol:
+        default: https
+        enum:
+          - https
+          - http
+      domain:
+        default: localhost:2368
+        description: Your Ghost instance domain and port
+tags:
+  - name: Authors
+    description: >-
+      Authors represent the staff users who create content in a Ghost
+      publication.
+  - name: Pages
+    description: >-
+      Pages are static content resources in Ghost, similar to posts but used for
+      standalone pages like About or Contact.
+  - name: Posts
+    description: >-
+      Posts are the primary content resource in Ghost. Browse and read published
+      posts with full support for filtering, including by tag, author, and
+      featured status.
+  - name: Settings
+    description: >-
+      Settings provide access to global publication settings including title,
+      description, navigation, and other configuration values.
+  - name: Tiers
+    description: >-
+      Tiers represent the membership levels available for a Ghost publication,
+      including free and paid options.
+security:
+  - contentApiKey: []
+paths:
+  /posts/:
+    get:
+      operationId: browsePosts
+      summary: Browse posts
+      description: >-
+        Retrieve a paginated list of published posts. Supports filtering by tag,
+        author, featured status, and other fields using Ghost's NQL query
+        language. Results can be ordered and limited, and related resources like
+        authors and tags can be included.
+      tags:
+        - Posts
+      parameters:
+        - $ref: '#/components/parameters/includePostRelations'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/order'
+        - $ref: '#/components/parameters/formats'
+      responses:
+        '200':
+          description: A list of posts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  posts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Post'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /posts/{id}/:
+    get:
+      operationId: readPostById
+      summary: Read a post by ID
+      description: >-
+        Retrieve a single published post by its unique identifier. Related
+        resources like authors and tags can be included.
+      tags:
+        - Posts
+      parameters:
+        - $ref: '#/components/parameters/resourceId'
+        - $ref: '#/components/parameters/includePostRelations'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/formats'
+      responses:
+        '200':
+          description: A single post
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  posts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Post'
+                    minItems: 1
+                    maxItems: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /posts/slug/{slug}/:
+    get:
+      operationId: readPostBySlug
+      summary: Read a post by slug
+      description: >-
+        Retrieve a single published post by its URL slug. This is useful when you
+        know the post's URL but not its ID.
+      tags:
+        - Posts
+      parameters:
+        - $ref: '#/components/parameters/resourceSlug'
+        - $ref: '#/components/parameters/includePostRelations'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/formats'
+      responses:
+        '200':
+          description: A single post
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  posts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Post'
+                    minItems: 1
+                    maxItems: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /pages/:
+    get:
+      operationId: browsePages
+      summary: Browse pages
+      description: >-
+        Retrieve a paginated list of published pages. Pages function similarly to
+        posts but are used for static content. Supports the same filtering,
+        ordering, and inclusion options as posts.
+      tags:
+        - Pages
+      parameters:
+        - $ref: '#/components/parameters/includePostRelations'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/order'
+        - $ref: '#/components/parameters/formats'
+      responses:
+        '200':
+          description: A list of pages
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pages:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Page'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /pages/{id}/:
+    get:
+      operationId: readPageById
+      summary: Read a page by ID
+      description: >-
+        Retrieve a single published page by its unique identifier.
+      tags:
+        - Pages
+      parameters:
+        - $ref: '#/components/parameters/resourceId'
+        - $ref: '#/components/parameters/includePostRelations'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/formats'
+      responses:
+        '200':
+          description: A single page
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pages:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Page'
+                    minItems: 1
+                    maxItems: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /pages/slug/{slug}/:
+    get:
+      operationId: readPageBySlug
+      summary: Read a page by slug
+      description: >-
+        Retrieve a single published page by its URL slug.
+      tags:
+        - Pages
+      parameters:
+        - $ref: '#/components/parameters/resourceSlug'
+        - $ref: '#/components/parameters/includePostRelations'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/formats'
+      responses:
+        '200':
+          description: A single page
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pages:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Page'
+                    minItems: 1
+                    maxItems: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /tags/:
+    get:
+      operationId: browseTags
+      summary: Browse tags
+      description: >-
+        Retrieve a paginated list of tags used to organize content. Supports
+        filtering, ordering, and including the count of posts associated with
+        each tag.
+      tags: []
+      parameters:
+        - $ref: '#/components/parameters/includeTagRelations'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: A list of tags
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tags:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tag'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /tags/{id}/:
+    get:
+      operationId: readTagById
+      summary: Read a tag by ID
+      description: >-
+        Retrieve a single tag by its unique identifier.
+      tags: []
+      parameters:
+        - $ref: '#/components/parameters/resourceId'
+        - $ref: '#/components/parameters/includeTagRelations'
+        - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: A single tag
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tags:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tag'
+                    minItems: 1
+                    maxItems: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /tags/slug/{slug}/:
+    get:
+      operationId: readTagBySlug
+      summary: Read a tag by slug
+      description: >-
+        Retrieve a single tag by its URL slug.
+      tags: []
+      parameters:
+        - $ref: '#/components/parameters/resourceSlug'
+        - $ref: '#/components/parameters/includeTagRelations'
+        - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: A single tag
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tags:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tag'
+                    minItems: 1
+                    maxItems: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /authors/:
+    get:
+      operationId: browseAuthors
+      summary: Browse authors
+      description: >-
+        Retrieve a paginated list of authors (staff users) for the publication.
+        Supports including a count of posts per author using the
+        include=count.posts parameter.
+      tags:
+        - Authors
+      parameters:
+        - $ref: '#/components/parameters/includeAuthorRelations'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: A list of authors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  authors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Author'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /authors/{id}/:
+    get:
+      operationId: readAuthorById
+      summary: Read an author by ID
+      description: >-
+        Retrieve a single author by their unique identifier.
+      tags:
+        - Authors
+      parameters:
+        - $ref: '#/components/parameters/resourceId'
+        - $ref: '#/components/parameters/includeAuthorRelations'
+        - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: A single author
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  authors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Author'
+                    minItems: 1
+                    maxItems: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /authors/slug/{slug}/:
+    get:
+      operationId: readAuthorBySlug
+      summary: Read an author by slug
+      description: >-
+        Retrieve a single author by their URL slug.
+      tags:
+        - Authors
+      parameters:
+        - $ref: '#/components/parameters/resourceSlug'
+        - $ref: '#/components/parameters/includeAuthorRelations'
+        - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: A single author
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  authors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Author'
+                    minItems: 1
+                    maxItems: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /tiers/:
+    get:
+      operationId: browseTiers
+      summary: Browse tiers
+      description: >-
+        Retrieve a paginated list of membership tiers configured for the
+        publication. Tiers define the access levels and pricing for members.
+        Use filter=visibility:public to retrieve only publicly visible tiers.
+      tags:
+        - Tiers
+      parameters:
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: A list of tiers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tiers:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tier'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /tiers/{id}/:
+    get:
+      operationId: readTierById
+      summary: Read a tier by ID
+      description: >-
+        Retrieve a single membership tier by its unique identifier.
+      tags:
+        - Tiers
+      parameters:
+        - $ref: '#/components/parameters/resourceId'
+        - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: A single tier
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tiers:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tier'
+                    minItems: 1
+                    maxItems: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /settings/:
+    get:
+      operationId: readSettings
+      summary: Read settings
+      description: >-
+        Retrieve all public settings for the Ghost publication, including title,
+        description, logo, icon, cover image, language, timezone, navigation,
+        and other site-wide configuration values.
+      tags:
+        - Settings
+      responses:
+        '200':
+          description: Publication settings
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    $ref: '#/components/schemas/Settings'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    contentApiKey:
+      type: apiKey
+      in: query
+      name: key
+      description: >-
+        Content API key obtained from a custom integration in Ghost Admin.
+        Content API keys are safe for use in browsers and other insecure
+        environments as they only provide access to public data.
+  parameters:
+    resourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource
+      schema:
+        type: string
+        format: uuid
+    resourceSlug:
+      name: slug
+      in: path
+      required: true
+      description: The URL slug of the resource
+      schema:
+        type: string
+    includePostRelations:
+      name: include
+      in: query
+      required: false
+      description: >-
+        Comma-separated list of related resources to include. Supported values
+        are authors and tags.
+      schema:
+        type: string
+        enum:
+          - authors
+          - tags
+          - authors,tags
+    includeTagRelations:
+      name: include
+      in: query
+      required: false
+      description: >-
+        Include a count of posts associated with each tag.
+      schema:
+        type: string
+        enum:
+          - count.posts
+    includeAuthorRelations:
+      name: include
+      in: query
+      required: false
+      description: >-
+        Include a count of posts associated with each author.
+      schema:
+        type: string
+        enum:
+          - count.posts
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: >-
+        Comma-separated list of fields to return in the response. Use this to
+        limit the size of the response by only requesting the fields you need.
+      schema:
+        type: string
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: >-
+        Apply fine-grained filters using Ghost's NQL query language. Examples
+        include featured:true, tag:getting-started, visibility:public, and
+        combinations using plus and comma operators.
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: >-
+        Maximum number of resources to return per page. Defaults to 15. Use all
+        to return all resources without pagination.
+      schema:
+        oneOf:
+          - type: integer
+            minimum: 1
+          - type: string
+            enum:
+              - all
+        default: 15
+    page:
+      name: page
+      in: query
+      required: false
+      description: >-
+        Page number for paginated results. Defaults to 1.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    order:
+      name: order
+      in: query
+      required: false
+      description: >-
+        Field and direction to order results by, for example published_at DESC
+        or title ASC.
+      schema:
+        type: string
+    formats:
+      name: formats
+      in: query
+      required: false
+      description: >-
+        Comma-separated list of content formats to include. By default only html
+        is returned. Use formats=html,plaintext to also include plaintext.
+      schema:
+        type: string
+        enum:
+          - html
+          - plaintext
+          - html,plaintext
+  responses:
+    Unauthorized:
+      description: Authentication failed or API key is missing
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    Post:
+      type: object
+      description: >-
+        A post represents a piece of published content in a Ghost publication.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the post
+        uuid:
+          type: string
+          format: uuid
+          description: Universally unique identifier for the post
+        title:
+          type: string
+          description: Title of the post
+        slug:
+          type: string
+          description: URL-safe slug derived from the title
+        html:
+          type: string
+          description: HTML content of the post
+        plaintext:
+          type: string
+          description: Plain text content of the post, available when requested via formats
+        comment_id:
+          type: string
+          description: Identifier used for the commenting system
+        feature_image:
+          type: string
+          format: uri
+          description: URL of the featured image for the post
+          nullable: true
+        feature_image_alt:
+          type: string
+          description: Alt text for the featured image
+          nullable: true
+        feature_image_caption:
+          type: string
+          description: Caption for the featured image
+          nullable: true
+        featured:
+          type: boolean
+          description: Whether the post is marked as featured
+        visibility:
+          type: string
+          description: Visibility level of the post
+          enum:
+            - public
+            - members
+            - paid
+            - tiers
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the post was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the post was last updated
+        published_at:
+          type: string
+          format: date-time
+          description: Timestamp when the post was published
+          nullable: true
+        custom_excerpt:
+          type: string
+          description: Custom excerpt for the post
+          nullable: true
+        codeinjection_head:
+          type: string
+          description: Code injected into the head of the post page
+          nullable: true
+        codeinjection_foot:
+          type: string
+          description: Code injected into the foot of the post page
+          nullable: true
+        custom_template:
+          type: string
+          description: Custom template assigned to the post
+          nullable: true
+        canonical_url:
+          type: string
+          format: uri
+          description: Canonical URL for the post
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: Full URL of the post on the Ghost site
+        excerpt:
+          type: string
+          description: Auto-generated excerpt from the post content
+        reading_time:
+          type: integer
+          description: Estimated reading time in minutes
+          minimum: 0
+        access:
+          type: boolean
+          description: Whether the current request has access to the full post content
+        og_image:
+          type: string
+          format: uri
+          description: Open Graph image URL
+          nullable: true
+        og_title:
+          type: string
+          description: Open Graph title
+          nullable: true
+        og_description:
+          type: string
+          description: Open Graph description
+          nullable: true
+        twitter_image:
+          type: string
+          format: uri
+          description: Twitter card image URL
+          nullable: true
+        twitter_title:
+          type: string
+          description: Twitter card title
+          nullable: true
+        twitter_description:
+          type: string
+          description: Twitter card description
+          nullable: true
+        meta_title:
+          type: string
+          description: SEO meta title
+          nullable: true
+        meta_description:
+          type: string
+          description: SEO meta description
+          nullable: true
+        email_subject:
+          type: string
+          description: Custom subject for email newsletters
+          nullable: true
+        frontmatter:
+          type: string
+          description: Custom frontmatter data
+          nullable: true
+        tags:
+          type: array
+          description: Tags associated with the post, included when requested
+          items:
+            $ref: '#/components/schemas/Tag'
+        authors:
+          type: array
+          description: Authors of the post, included when requested
+          items:
+            $ref: '#/components/schemas/Author'
+        primary_author:
+          description: Primary author of the post, included when authors are requested
+          $ref: '#/components/schemas/Author'
+        primary_tag:
+          description: Primary tag of the post, included when tags are requested
+          $ref: '#/components/schemas/Tag'
+          nullable: true
+    Page:
+      type: object
+      description: >-
+        A page represents static content in a Ghost publication, sharing the
+        same structure as a post but used for standalone pages.
+      allOf:
+        - $ref: '#/components/schemas/Post'
+    Tag:
+      type: object
+      description: >-
+        A tag is used to organize and categorize content in Ghost. Tags with
+        slugs starting with hash are internal tags not visible to readers.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the tag
+        name:
+          type: string
+          description: Name of the tag
+        slug:
+          type: string
+          description: URL-safe slug for the tag
+        description:
+          type: string
+          description: Description of the tag
+          nullable: true
+        feature_image:
+          type: string
+          format: uri
+          description: Featured image URL for the tag
+          nullable: true
+        visibility:
+          type: string
+          description: Visibility of the tag
+          enum:
+            - public
+            - internal
+        og_image:
+          type: string
+          format: uri
+          description: Open Graph image for the tag page
+          nullable: true
+        og_title:
+          type: string
+          description: Open Graph title for the tag page
+          nullable: true
+        og_description:
+          type: string
+          description: Open Graph description for the tag page
+          nullable: true
+        twitter_image:
+          type: string
+          format: uri
+          description: Twitter card image for the tag page
+          nullable: true
+        twitter_title:
+          type: string
+          description: Twitter card title for the tag page
+          nullable: true
+        twitter_description:
+          type: string
+          description: Twitter card description for the tag page
+          nullable: true
+        meta_title:
+          type: string
+          description: SEO meta title for the tag page
+          nullable: true
+        meta_description:
+          type: string
+          description: SEO meta description for the tag page
+          nullable: true
+        codeinjection_head:
+          type: string
+          description: Code injected into the head on tag pages
+          nullable: true
+        codeinjection_foot:
+          type: string
+          description: Code injected into the foot on tag pages
+          nullable: true
+        canonical_url:
+          type: string
+          format: uri
+          description: Canonical URL for the tag page
+          nullable: true
+        accent_color:
+          type: string
+          description: Accent color for the tag
+          nullable: true
+          pattern: '^#[0-9a-fA-F]{6}$'
+        url:
+          type: string
+          format: uri
+          description: Full URL of the tag page
+        count:
+          type: object
+          description: Count data, included when requested via include=count.posts
+          properties:
+            posts:
+              type: integer
+              description: Number of posts with this tag
+              minimum: 0
+    Author:
+      type: object
+      description: >-
+        An author represents a staff user who creates content in a Ghost
+        publication.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the author
+        name:
+          type: string
+          description: Display name of the author
+        slug:
+          type: string
+          description: URL-safe slug for the author
+        profile_image:
+          type: string
+          format: uri
+          description: Profile image URL
+          nullable: true
+        cover_image:
+          type: string
+          format: uri
+          description: Cover image URL for the author page
+          nullable: true
+        bio:
+          type: string
+          description: Author biography
+          nullable: true
+        website:
+          type: string
+          format: uri
+          description: Author personal website URL
+          nullable: true
+        location:
+          type: string
+          description: Author location
+          nullable: true
+        facebook:
+          type: string
+          description: Facebook username
+          nullable: true
+        twitter:
+          type: string
+          description: Twitter handle
+          nullable: true
+        meta_title:
+          type: string
+          description: SEO meta title for the author page
+          nullable: true
+        meta_description:
+          type: string
+          description: SEO meta description for the author page
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: Full URL of the author page
+        count:
+          type: object
+          description: Count data, included when requested via include=count.posts
+          properties:
+            posts:
+              type: integer
+              description: Number of posts by this author
+              minimum: 0
+    Tier:
+      type: object
+      description: >-
+        A tier represents a membership level in a Ghost publication with
+        associated pricing and benefits.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the tier
+        name:
+          type: string
+          description: Name of the tier
+        slug:
+          type: string
+          description: URL-safe slug for the tier
+        description:
+          type: string
+          description: Description of the tier
+          nullable: true
+        active:
+          type: boolean
+          description: Whether the tier is currently active
+        type:
+          type: string
+          description: Type of tier
+          enum:
+            - free
+            - paid
+        welcome_page_url:
+          type: string
+          format: uri
+          description: URL of the welcome page shown after signup
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the tier was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the tier was last updated
+        visibility:
+          type: string
+          description: Visibility of the tier
+          enum:
+            - public
+            - none
+        monthly_price:
+          type: integer
+          description: Monthly price in the smallest currency unit (e.g., cents)
+          nullable: true
+          minimum: 0
+        yearly_price:
+          type: integer
+          description: Yearly price in the smallest currency unit (e.g., cents)
+          nullable: true
+          minimum: 0
+        currency:
+          type: string
+          description: ISO 4217 currency code
+          nullable: true
+          pattern: '^[A-Z]{3}$'
+        trial_days:
+          type: integer
+          description: Number of free trial days
+          minimum: 0
+        benefits:
+          type: array
+          description: List of benefits included in the tier
+          items:
+            type: string
+    Settings:
+      type: object
+      description: >-
+        Global publication settings including identity, branding, navigation,
+        and configuration.
+      properties:
+        title:
+          type: string
+          description: Publication title
+        description:
+          type: string
+          description: Publication description
+        logo:
+          type: string
+          format: uri
+          description: Publication logo URL
+          nullable: true
+        icon:
+          type: string
+          format: uri
+          description: Publication favicon URL
+          nullable: true
+        accent_color:
+          type: string
+          description: Publication accent color
+          nullable: true
+          pattern: '^#[0-9a-fA-F]{6}$'
+        cover_image:
+          type: string
+          format: uri
+          description: Publication cover image URL
+          nullable: true
+        facebook:
+          type: string
+          description: Facebook page username
+          nullable: true
+        twitter:
+          type: string
+          description: Twitter account handle
+          nullable: true
+        lang:
+          type: string
+          description: Publication language code
+        timezone:
+          type: string
+          description: Publication timezone
+        codeinjection_head:
+          type: string
+          description: Global code injection in the head
+          nullable: true
+        codeinjection_foot:
+          type: string
+          description: Global code injection in the foot
+          nullable: true
+        navigation:
+          type: array
+          description: Primary navigation items
+          items:
+            $ref: '#/components/schemas/NavigationItem'
+        secondary_navigation:
+          type: array
+          description: Secondary navigation items
+          items:
+            $ref: '#/components/schemas/NavigationItem'
+        meta_title:
+          type: string
+          description: Global SEO meta title
+          nullable: true
+        meta_description:
+          type: string
+          description: Global SEO meta description
+          nullable: true
+        og_image:
+          type: string
+          format: uri
+          description: Default Open Graph image
+          nullable: true
+        og_title:
+          type: string
+          description: Default Open Graph title
+          nullable: true
+        og_description:
+          type: string
+          description: Default Open Graph description
+          nullable: true
+        twitter_image:
+          type: string
+          format: uri
+          description: Default Twitter card image
+          nullable: true
+        twitter_title:
+          type: string
+          description: Default Twitter card title
+          nullable: true
+        twitter_description:
+          type: string
+          description: Default Twitter card description
+          nullable: true
+        members_support_address:
+          type: string
+          format: email
+          description: Support email address for members
+        url:
+          type: string
+          format: uri
+          description: Site URL
+    NavigationItem:
+      type: object
+      description: A navigation menu item with a label and URL
+      properties:
+        label:
+          type: string
+          description: Display label for the navigation item
+        url:
+          type: string
+          description: URL the navigation item links to
+      required:
+        - label
+        - url
+    PaginationMeta:
+      type: object
+      description: Pagination metadata included in browse responses
+      properties:
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+              description: Current page number
+              minimum: 1
+            limit:
+              type: integer
+              description: Number of items per page
+              minimum: 1
+            pages:
+              type: integer
+              description: Total number of pages
+              minimum: 1
+            total:
+              type: integer
+              description: Total number of items across all pages
+              minimum: 0
+            next:
+              type: integer
+              description: Next page number, null if on last page
+              nullable: true
+            prev:
+              type: integer
+              description: Previous page number, null if on first page
+              nullable: true
+    ErrorResponse:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional context about the error
+                nullable: true

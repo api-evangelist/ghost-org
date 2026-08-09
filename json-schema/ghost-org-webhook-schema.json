@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Webhook",
+  "title": "Webhook",
+  "type": "object",
+  "description": "A webhook subscription that sends HTTP POST notifications for events.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier"
+    },
+    "event": {
+      "type": "string",
+      "description": "The event that triggers the webhook"
+    },
+    "target_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL that receives the webhook POST request"
+    },
+    "name": {
+      "type": "string",
+      "description": "Webhook name",
+      "nullable": true
+    },
+    "secret": {
+      "type": "string",
+      "description": "Secret used for signature validation",
+      "nullable": true
+    },
+    "api_version": {
+      "type": "string",
+      "description": "API version for the webhook payload"
+    },
+    "integration_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Integration this webhook belongs to"
+    },
+    "status": {
+      "type": "string",
+      "description": "Webhook status"
+    },
+    "last_triggered_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the last trigger",
+      "nullable": true
+    },
+    "last_triggered_status": {
+      "type": "string",
+      "description": "HTTP status from the last trigger",
+      "nullable": true
+    },
+    "last_triggered_error": {
+      "type": "string",
+      "description": "Error from the last trigger attempt",
+      "nullable": true
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    }
+  }
+}

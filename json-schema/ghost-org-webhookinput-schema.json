@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WebhookInput",
+  "title": "WebhookInput",
+  "type": "object",
+  "description": "Input fields for creating or updating a webhook.",
+  "required": [
+    "event",
+    "target_url"
+  ],
+  "properties": {
+    "event": {
+      "type": "string",
+      "description": "The event to subscribe to. Available events include site.changed, post.added, post.deleted, post.edited, post.published, post.published.edited, post.unpublished, post.scheduled, post.unscheduled, post.rescheduled, page.added, page.deleted, page.edited, page.published, page.published.edited, page.unpublished, page.scheduled, page.unscheduled, page.rescheduled, tag.added, tag.edited, tag.deleted, post.tag.attached, post.tag.detached, page.tag.attached, page.tag.detached, member.added, member.edited, member.deleted.",
+      "enum": [
+        "site.changed",
+        "post.added",
+        "post.deleted",
+        "post.edited",
+        "post.published",
+        "post.published.edited",
+        "post.unpublished",
+        "post.scheduled",
+        "post.unscheduled",
+        "post.rescheduled",
+        "page.added",
+        "page.deleted",
+        "page.edited",
+        "page.published",
+        "page.published.edited",
+        "page.unpublished",
+        "page.scheduled",
+        "page.unscheduled",
+        "page.rescheduled",
+        "tag.added",
+        "tag.edited",
+        "tag.deleted",
+        "post.tag.attached",
+        "post.tag.detached",
+        "page.tag.attached",
+        "page.tag.detached",
+        "member.added",
+        "member.edited",
+        "member.deleted"
+      ]
+    },
+    "target_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to receive webhook POST requests"
+    },
+    "name": {
+      "type": "string",
+      "description": "Webhook name",
+      "nullable": true
+    },
+    "secret": {
+      "type": "string",
+      "description": "Secret for signature validation",
+      "nullable": true
+    }
+  }
+}

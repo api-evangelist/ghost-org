@@ -1,0 +1,625 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ghost Content API",
+    "version": "5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Posts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse posts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/content/posts/",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include. Supported values are authors and tags."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Apply fine-grained filters using Ghost's NQL query language. Examples include featured:true, tag:getting-started, visibility:public, and combinations using plus and comma operators."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return per page. Defaults to 15. Use all to return all resources without pagination."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results. Defaults to 1."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Field and direction to order results by, for example published_at DESC or title ASC."
+              },
+              {
+                "name": "formats",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of content formats to include. By default only html is returned. Use formats=html,plaintext to also include plaintext."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of published posts. Supports filtering by tag, author, featured status, and other fields using Ghost's NQL query language. Results can be ordered and limited, and related resources like authors and tags can be included."
+        },
+        {
+          "info": {
+            "name": "Read a post by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/content/posts/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include. Supported values are authors and tags."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need."
+              },
+              {
+                "name": "formats",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of content formats to include. By default only html is returned. Use formats=html,plaintext to also include plaintext."
+              }
+            ]
+          },
+          "docs": "Retrieve a single published post by its unique identifier. Related resources like authors and tags can be included."
+        },
+        {
+          "info": {
+            "name": "Read a post by slug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/content/posts/slug/:slug/",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path",
+                "description": "The URL slug of the resource"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include. Supported values are authors and tags."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need."
+              },
+              {
+                "name": "formats",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of content formats to include. By default only html is returned. Use formats=html,plaintext to also include plaintext."
+              }
+            ]
+          },
+          "docs": "Retrieve a single published post by its URL slug. This is useful when you know the post's URL but not its ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Pages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse pages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/content/pages/",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include. Supported values are authors and tags."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Apply fine-grained filters using Ghost's NQL query language. Examples include featured:true, tag:getting-started, visibility:public, and combinations using plus and comma operators."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return per page. Defaults to 15. Use all to return all resources without pagination."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results. Defaults to 1."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Field and direction to order results by, for example published_at DESC or title ASC."
+              },
+              {
+                "name": "formats",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of content formats to include. By default only html is returned. Use formats=html,plaintext to also include plaintext."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of published pages. Pages function similarly to posts but are used for static content. Supports the same filtering, ordering, and inclusion options as posts."
+        },
+        {
+          "info": {
+            "name": "Read a page by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/content/pages/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include. Supported values are authors and tags."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need."
+              },
+              {
+                "name": "formats",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of content formats to include. By default only html is returned. Use formats=html,plaintext to also include plaintext."
+              }
+            ]
+          },
+          "docs": "Retrieve a single published page by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Read a page by slug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/content/pages/slug/:slug/",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path",
+                "description": "The URL slug of the resource"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include. Supported values are authors and tags."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need."
+              },
+              {
+                "name": "formats",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of content formats to include. By default only html is returned. Use formats=html,plaintext to also include plaintext."
+              }
+            ]
+          },
+          "docs": "Retrieve a single published page by its URL slug."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Default",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/content/tags/",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Include a count of posts associated with each tag."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Apply fine-grained filters using Ghost's NQL query language. Examples include featured:true, tag:getting-started, visibility:public, and combinations using plus and comma operators."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return per page. Defaults to 15. Use all to return all resources without pagination."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results. Defaults to 1."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Field and direction to order results by, for example published_at DESC or title ASC."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of tags used to organize content. Supports filtering, ordering, and including the count of posts associated with each tag."
+        },
+        {
+          "info": {
+            "name": "Read a tag by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/content/tags/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Include a count of posts associated with each tag."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need."
+              }
+            ]
+          },
+          "docs": "Retrieve a single tag by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Read a tag by slug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/content/tags/slug/:slug/",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path",
+                "description": "The URL slug of the resource"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Include a count of posts associated with each tag."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need."
+              }
+            ]
+          },
+          "docs": "Retrieve a single tag by its URL slug."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Authors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse authors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/content/authors/",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Include a count of posts associated with each author."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Apply fine-grained filters using Ghost's NQL query language. Examples include featured:true, tag:getting-started, visibility:public, and combinations using plus and comma operators."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return per page. Defaults to 15. Use all to return all resources without pagination."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results. Defaults to 1."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Field and direction to order results by, for example published_at DESC or title ASC."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of authors (staff users) for the publication. Supports including a count of posts per author using the include=count.posts parameter."
+        },
+        {
+          "info": {
+            "name": "Read an author by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/content/authors/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Include a count of posts associated with each author."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need."
+              }
+            ]
+          },
+          "docs": "Retrieve a single author by their unique identifier."
+        },
+        {
+          "info": {
+            "name": "Read an author by slug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/content/authors/slug/:slug/",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path",
+                "description": "The URL slug of the resource"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Include a count of posts associated with each author."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need."
+              }
+            ]
+          },
+          "docs": "Retrieve a single author by their URL slug."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tiers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse tiers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/content/tiers/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Apply fine-grained filters using Ghost's NQL query language. Examples include featured:true, tag:getting-started, visibility:public, and combinations using plus and comma operators."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return per page. Defaults to 15. Use all to return all resources without pagination."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results. Defaults to 1."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Field and direction to order results by, for example published_at DESC or title ASC."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of membership tiers configured for the publication. Tiers define the access levels and pricing for members. Use filter=visibility:public to retrieve only publicly visible tiers."
+        },
+        {
+          "info": {
+            "name": "Read a tier by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/content/tiers/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need."
+              }
+            ]
+          },
+          "docs": "Retrieve a single membership tier by its unique identifier."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/content/settings/"
+          },
+          "docs": "Retrieve all public settings for the Ghost publication, including title, description, logo, icon, cover image, language, timezone, navigation, and other site-wide configuration values."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

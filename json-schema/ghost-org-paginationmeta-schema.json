@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PaginationMeta",
+  "title": "PaginationMeta",
+  "type": "object",
+  "description": "Pagination metadata",
+  "properties": {
+    "pagination": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "description": "Current page",
+          "minimum": 1
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Items per page",
+          "minimum": 1
+        },
+        "pages": {
+          "type": "integer",
+          "description": "Total pages",
+          "minimum": 1
+        },
+        "total": {
+          "type": "integer",
+          "description": "Total items",
+          "minimum": 0
+        },
+        "next": {
+          "type": "integer",
+          "description": "Next page number",
+          "nullable": true
+        },
+        "prev": {
+          "type": "integer",
+          "description": "Previous page number",
+          "nullable": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Tier",
+  "title": "Tier",
+  "type": "object",
+  "description": "A membership tier with pricing and benefits configuration.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Tier name"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-safe slug"
+    },
+    "description": {
+      "type": "string",
+      "description": "Tier description",
+      "nullable": true
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether the tier is active"
+    },
+    "type": {
+      "type": "string",
+      "description": "Tier type",
+      "enum": [
+        "free",
+        "paid"
+      ]
+    },
+    "welcome_page_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Welcome page URL after signup",
+      "nullable": true
+    },
+    "visibility": {
+      "type": "string",
+      "description": "Public visibility",
+      "enum": [
+        "public",
+        "none"
+      ]
+    },
+    "monthly_price": {
+      "type": "integer",
+      "description": "Monthly price in smallest currency unit",
+      "nullable": true,
+      "minimum": 0
+    },
+    "yearly_price": {
+      "type": "integer",
+      "description": "Yearly price in smallest currency unit",
+      "nullable": true,
+      "minimum": 0
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217 currency code",
+      "nullable": true,
+      "pattern": "^[A-Z]{3}$"
+    },
+    "trial_days": {
+      "type": "integer",
+      "description": "Number of free trial days",
+      "minimum": 0
+    },
+    "benefits": {
+      "type": "array",
+      "description": "Tier benefits",
+      "items": {
+        "type": "string"
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    }
+  }
+}

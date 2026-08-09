@@ -1,0 +1,328 @@
+openapi: 3.1.0
+info:
+  title: Ghost Admin Authors API
+  description: The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication. It enables developers to create, update, and delete posts, pages, tags, members, tiers, newsletters, and offers programmatically. Authentication is handled via JSON Web Tokens generated from an Admin API key, integration tokens, or staff access tokens. The Admin API supports everything the Ghost Admin interface can do and more, making it suitable for building custom publishing workflows, content automation, member management systems, and advanced integrations.
+  version: '5.0'
+  contact:
+    name: Ghost Foundation
+    url: https://ghost.org/docs/admin-api/
+  termsOfService: https://ghost.org/terms/
+servers:
+- url: https://{site}.ghost.io/ghost/api/admin
+  description: Ghost Pro Hosted Site
+  variables:
+    site:
+      default: your-site
+      description: Your Ghost site subdomain
+- url: '{protocol}://{domain}/ghost/api/admin'
+  description: Self-Hosted Ghost Instance
+  variables:
+    protocol:
+      default: https
+      enum:
+      - https
+      - http
+    domain:
+      default: localhost:2368
+      description: Your Ghost instance domain and port
+security:
+- adminApiToken: []
+tags:
+- name: Authors
+  description: Authors represent the staff users who create content in a Ghost publication.
+paths:
+  /authors/:
+    get:
+      operationId: browseAuthors
+      summary: Browse authors
+      description: Retrieve a paginated list of authors (staff users) for the publication. Supports including a count of posts per author using the include=count.posts parameter.
+      tags:
+      - Authors
+      parameters:
+      - $ref: '#/components/parameters/includeAuthorRelations'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: A list of authors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  authors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Author'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /authors/{id}/:
+    get:
+      operationId: readAuthorById
+      summary: Read an author by ID
+      description: Retrieve a single author by their unique identifier.
+      tags:
+      - Authors
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/includeAuthorRelations'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: A single author
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  authors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Author'
+                    minItems: 1
+                    maxItems: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /authors/slug/{slug}/:
+    get:
+      operationId: readAuthorBySlug
+      summary: Read an author by slug
+      description: Retrieve a single author by their URL slug.
+      tags:
+      - Authors
+      parameters:
+      - $ref: '#/components/parameters/resourceSlug'
+      - $ref: '#/components/parameters/includeAuthorRelations'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: A single author
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  authors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Author'
+                    minItems: 1
+                    maxItems: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need.
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      required: false
+      description: Page number for paginated results. Defaults to 1.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    order:
+      name: order
+      in: query
+      required: false
+      description: Field and direction to order results by, for example published_at DESC or title ASC.
+      schema:
+        type: string
+    resourceSlug:
+      name: slug
+      in: path
+      required: true
+      description: The URL slug of the resource
+      schema:
+        type: string
+    includeAuthorRelations:
+      name: include
+      in: query
+      required: false
+      description: Include a count of posts associated with each author.
+      schema:
+        type: string
+        enum:
+        - count.posts
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: Apply fine-grained filters using Ghost's NQL query language. Examples include featured:true, tag:getting-started, visibility:public, and combinations using plus and comma operators.
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return per page. Defaults to 15. Use all to return all resources without pagination.
+      schema:
+        oneOf:
+        - type: integer
+          minimum: 1
+        - type: string
+          enum:
+          - all
+        default: 15
+    resourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource
+      schema:
+        type: string
+        format: uuid
+  responses:
+    Unauthorized:
+      description: Authentication failed or API key is missing
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    PaginationMeta:
+      type: object
+      description: Pagination metadata included in browse responses
+      properties:
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+              description: Current page number
+              minimum: 1
+            limit:
+              type: integer
+              description: Number of items per page
+              minimum: 1
+            pages:
+              type: integer
+              description: Total number of pages
+              minimum: 1
+            total:
+              type: integer
+              description: Total number of items across all pages
+              minimum: 0
+            next:
+              type: integer
+              description: Next page number, null if on last page
+              nullable: true
+            prev:
+              type: integer
+              description: Previous page number, null if on first page
+              nullable: true
+    ErrorResponse:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional context about the error
+                nullable: true
+    Author:
+      type: object
+      description: An author represents a staff user who creates content in a Ghost publication.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the author
+        name:
+          type: string
+          description: Display name of the author
+        slug:
+          type: string
+          description: URL-safe slug for the author
+        profile_image:
+          type: string
+          format: uri
+          description: Profile image URL
+          nullable: true
+        cover_image:
+          type: string
+          format: uri
+          description: Cover image URL for the author page
+          nullable: true
+        bio:
+          type: string
+          description: Author biography
+          nullable: true
+        website:
+          type: string
+          format: uri
+          description: Author personal website URL
+          nullable: true
+        location:
+          type: string
+          description: Author location
+          nullable: true
+        facebook:
+          type: string
+          description: Facebook username
+          nullable: true
+        twitter:
+          type: string
+          description: Twitter handle
+          nullable: true
+        meta_title:
+          type: string
+          description: SEO meta title for the author page
+          nullable: true
+        meta_description:
+          type: string
+          description: SEO meta description for the author page
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: Full URL of the author page
+        count:
+          type: object
+          description: Count data, included when requested via include=count.posts
+          properties:
+            posts:
+              type: integer
+              description: Number of posts by this author
+              minimum: 0
+  securitySchemes:
+    adminApiToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JSON Web Token generated from an Admin API key. The key is split into an ID and secret at the colon separator. The ID is used as the kid header and the secret is used to sign the token with HS256.
+externalDocs:
+  description: Ghost Admin API Documentation
+  url: https://ghost.org/docs/admin-api/

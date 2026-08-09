@@ -1,0 +1,30 @@
+name: Ghost Domain Vocabulary
+provider: Ghost
+providerId: ghost
+description: Tag-derived vocabulary for the Ghost API surface; sourced from openapi/ tags.
+terms:
+- term: Images
+  description: Upload images to the Ghost publication for use in posts, pages, and settings.
+- term: Members
+  description: Manage publication members including creating, reading, updating, and deleting member records. Members are
+    people who have signed up for the publication.
+- term: Newsletters
+  description: Manage email newsletters that members can subscribe to. Each newsletter has its own design, sender details,
+    and subscription list.
+- term: Offers
+  description: Manage promotional offers for paid membership tiers, including discounts and trial periods.
+- term: Pages
+  description: Create, read, update, and delete pages. Pages share the same structure as posts but are used for static content.
+- term: Posts
+  description: Create, read, update, and delete posts. Posts are the primary content resource in Ghost and support rich content
+    via the Lexical editor format.
+- term: Site
+  description: Read basic information about the Ghost site.
+- term: Themes
+  description: Upload, activate, and manage themes that control the front-end appearance of the Ghost publication.
+- term: Tiers
+  description: Manage membership tiers including creating, reading, and updating tier configurations with pricing and benefits.
+- term: Users
+  description: Read staff user accounts for the Ghost publication.
+- term: Webhooks
+  description: Create, update, and delete webhooks that send HTTP POST notifications when events occur within the publication.

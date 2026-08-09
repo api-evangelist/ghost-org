@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Site",
+  "title": "Site",
+  "type": "object",
+  "description": "Basic information about the Ghost site.",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Site title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Site description"
+    },
+    "logo": {
+      "type": "string",
+      "format": "uri",
+      "description": "Site logo URL",
+      "nullable": true
+    },
+    "icon": {
+      "type": "string",
+      "format": "uri",
+      "description": "Site icon URL",
+      "nullable": true
+    },
+    "accent_color": {
+      "type": "string",
+      "description": "Accent color",
+      "nullable": true
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Site URL"
+    },
+    "version": {
+      "type": "string",
+      "description": "Ghost version"
+    }
+  }
+}

@@ -1,0 +1,410 @@
+openapi: 3.1.0
+info:
+  title: Ghost Admin Authors Tiers API
+  description: The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication. It enables developers to create, update, and delete posts, pages, tags, members, tiers, newsletters, and offers programmatically. Authentication is handled via JSON Web Tokens generated from an Admin API key, integration tokens, or staff access tokens. The Admin API supports everything the Ghost Admin interface can do and more, making it suitable for building custom publishing workflows, content automation, member management systems, and advanced integrations.
+  version: '5.0'
+  contact:
+    name: Ghost Foundation
+    url: https://ghost.org/docs/admin-api/
+  termsOfService: https://ghost.org/terms/
+servers:
+- url: https://{site}.ghost.io/ghost/api/admin
+  description: Ghost Pro Hosted Site
+  variables:
+    site:
+      default: your-site
+      description: Your Ghost site subdomain
+- url: '{protocol}://{domain}/ghost/api/admin'
+  description: Self-Hosted Ghost Instance
+  variables:
+    protocol:
+      default: https
+      enum:
+      - https
+      - http
+    domain:
+      default: localhost:2368
+      description: Your Ghost instance domain and port
+security:
+- adminApiToken: []
+tags:
+- name: Tiers
+  description: Manage membership tiers including creating, reading, and updating tier configurations with pricing and benefits.
+paths:
+  /tiers/:
+    get:
+      operationId: adminBrowseTiers
+      summary: Browse tiers
+      description: Retrieve a paginated list of membership tiers.
+      tags:
+      - Tiers
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: A list of tiers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tiers:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tier'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: adminCreateTier
+      summary: Create a tier
+      description: Create a new membership tier with pricing, benefits, and visibility configuration.
+      tags:
+      - Tiers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - tiers
+              properties:
+                tiers:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/TierInput'
+                  minItems: 1
+                  maxItems: 1
+      responses:
+        '201':
+          description: Tier created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tiers:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tier'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /tiers/{id}/:
+    get:
+      operationId: adminReadTier
+      summary: Read a tier by ID
+      description: Retrieve a single membership tier by its unique identifier.
+      tags:
+      - Tiers
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: A single tier
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tiers:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tier'
+                    minItems: 1
+                    maxItems: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: adminUpdateTier
+      summary: Update a tier
+      description: Update an existing membership tier by its unique identifier.
+      tags:
+      - Tiers
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - tiers
+              properties:
+                tiers:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/TierInput'
+                  minItems: 1
+                  maxItems: 1
+      responses:
+        '200':
+          description: Tier updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tiers:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tier'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  parameters:
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response.
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      required: false
+      description: Page number for paginated results. Defaults to 1.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: Apply fine-grained filters using Ghost's NQL query language.
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return per page. Defaults to 15.
+      schema:
+        oneOf:
+        - type: integer
+          minimum: 1
+        - type: string
+          enum:
+          - all
+        default: 15
+    resourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource
+      schema:
+        type: string
+        format: uuid
+  responses:
+    Unauthorized:
+      description: Authentication failed or token is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ValidationError:
+      description: Request body validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    PaginationMeta:
+      type: object
+      description: Pagination metadata
+      properties:
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+              description: Current page
+              minimum: 1
+            limit:
+              type: integer
+              description: Items per page
+              minimum: 1
+            pages:
+              type: integer
+              description: Total pages
+              minimum: 1
+            total:
+              type: integer
+              description: Total items
+              minimum: 0
+            next:
+              type: integer
+              description: Next page number
+              nullable: true
+            prev:
+              type: integer
+              description: Previous page number
+              nullable: true
+    ErrorResponse:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional error context
+                nullable: true
+    TierInput:
+      type: object
+      description: Input fields for creating or updating a tier.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Tier name
+        description:
+          type: string
+          description: Tier description
+          nullable: true
+        active:
+          type: boolean
+          description: Whether the tier is active
+        visibility:
+          type: string
+          description: Public visibility
+          enum:
+          - public
+          - none
+        welcome_page_url:
+          type: string
+          format: uri
+          description: Welcome page URL
+          nullable: true
+        monthly_price:
+          type: integer
+          description: Monthly price in smallest currency unit
+          minimum: 0
+        yearly_price:
+          type: integer
+          description: Yearly price in smallest currency unit
+          minimum: 0
+        currency:
+          type: string
+          description: ISO 4217 currency code
+          pattern: ^[A-Z]{3}$
+        trial_days:
+          type: integer
+          description: Number of free trial days
+          minimum: 0
+        benefits:
+          type: array
+          description: Tier benefits
+          items:
+            type: string
+    Tier:
+      type: object
+      description: A membership tier with pricing and benefits configuration.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        name:
+          type: string
+          description: Tier name
+        slug:
+          type: string
+          description: URL-safe slug
+        description:
+          type: string
+          description: Tier description
+          nullable: true
+        active:
+          type: boolean
+          description: Whether the tier is active
+        type:
+          type: string
+          description: Tier type
+          enum:
+          - free
+          - paid
+        welcome_page_url:
+          type: string
+          format: uri
+          description: Welcome page URL after signup
+          nullable: true
+        visibility:
+          type: string
+          description: Public visibility
+          enum:
+          - public
+          - none
+        monthly_price:
+          type: integer
+          description: Monthly price in smallest currency unit
+          nullable: true
+          minimum: 0
+        yearly_price:
+          type: integer
+          description: Yearly price in smallest currency unit
+          nullable: true
+          minimum: 0
+        currency:
+          type: string
+          description: ISO 4217 currency code
+          nullable: true
+          pattern: ^[A-Z]{3}$
+        trial_days:
+          type: integer
+          description: Number of free trial days
+          minimum: 0
+        benefits:
+          type: array
+          description: Tier benefits
+          items:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+  securitySchemes:
+    adminApiToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JSON Web Token generated from an Admin API key. The key is split into an ID and secret at the colon separator. The ID is used as the kid header and the secret is used to sign the token with HS256.
+externalDocs:
+  description: Ghost Admin API Documentation
+  url: https://ghost.org/docs/admin-api/

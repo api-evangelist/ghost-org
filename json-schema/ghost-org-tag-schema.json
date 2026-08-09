@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Tag",
+  "title": "Tag",
+  "type": "object",
+  "description": "A tag for organizing and categorizing content.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Tag name"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-safe slug"
+    },
+    "description": {
+      "type": "string",
+      "description": "Tag description",
+      "nullable": true
+    },
+    "feature_image": {
+      "type": "string",
+      "format": "uri",
+      "description": "Featured image URL",
+      "nullable": true
+    },
+    "visibility": {
+      "type": "string",
+      "description": "Visibility setting",
+      "enum": [
+        "public",
+        "internal"
+      ]
+    },
+    "og_image": {
+      "type": "string",
+      "format": "uri",
+      "nullable": true,
+      "description": "Open Graph image URL"
+    },
+    "og_title": {
+      "type": "string",
+      "nullable": true,
+      "description": "Open Graph title"
+    },
+    "og_description": {
+      "type": "string",
+      "nullable": true,
+      "description": "Open Graph description"
+    },
+    "twitter_image": {
+      "type": "string",
+      "format": "uri",
+      "nullable": true,
+      "description": "Twitter card image URL"
+    },
+    "twitter_title": {
+      "type": "string",
+      "nullable": true,
+      "description": "Twitter card title"
+    },
+    "twitter_description": {
+      "type": "string",
+      "nullable": true,
+      "description": "Twitter card description"
+    },
+    "meta_title": {
+      "type": "string",
+      "nullable": true,
+      "description": "SEO meta title"
+    },
+    "meta_description": {
+      "type": "string",
+      "nullable": true,
+      "description": "SEO meta description"
+    },
+    "codeinjection_head": {
+      "type": "string",
+      "nullable": true,
+      "description": "Code injection in the head"
+    },
+    "codeinjection_foot": {
+      "type": "string",
+      "nullable": true,
+      "description": "Code injection in the foot"
+    },
+    "canonical_url": {
+      "type": "string",
+      "format": "uri",
+      "nullable": true,
+      "description": "Canonical URL"
+    },
+    "accent_color": {
+      "type": "string",
+      "nullable": true,
+      "description": "Accent color hex code",
+      "pattern": "^#[0-9a-fA-F]{6}$"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Full URL of the tag page"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    }
+  }
+}

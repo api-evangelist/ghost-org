@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Subscription",
+  "title": "Subscription",
+  "type": "object",
+  "description": "A paid subscription associated with a member, typically managed through Stripe.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Subscription identifier"
+    },
+    "customer": {
+      "type": "object",
+      "description": "Stripe customer details",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stripe customer ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "Customer name",
+          "nullable": true
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Customer email"
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "description": "Subscription status",
+      "enum": [
+        "active",
+        "trialing",
+        "canceled",
+        "unpaid",
+        "past_due"
+      ]
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Subscription start date"
+    },
+    "default_payment_card_last4": {
+      "type": "string",
+      "description": "Last 4 digits of the payment card",
+      "nullable": true,
+      "pattern": "^\\d{4}$"
+    },
+    "cancel_at_period_end": {
+      "type": "boolean",
+      "description": "Whether the subscription cancels at period end"
+    },
+    "cancellation_reason": {
+      "type": "string",
+      "description": "Reason for cancellation",
+      "nullable": true
+    },
+    "current_period_end": {
+      "type": "string",
+      "format": "date-time",
+      "description": "End of current billing period"
+    },
+    "price": {
+      "type": "object",
+      "description": "Price details",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stripe price ID"
+        },
+        "price_id": {
+          "type": "string",
+          "description": "Ghost price identifier"
+        },
+        "nickname": {
+          "type": "string",
+          "description": "Price nickname"
+        },
+        "amount": {
+          "type": "integer",
+          "description": "Amount in smallest currency unit",
+          "minimum": 0
+        },
+        "interval": {
+          "type": "string",
+          "description": "Billing interval",
+          "enum": [
+            "month",
+            "year"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "description": "Price type"
+        },
+        "currency": {
+          "type": "string",
+          "description": "ISO 4217 currency code",
+          "pattern": "^[A-Z]{3}$"
+        }
+      }
+    },
+    "tier": {
+      "$ref": "#/components/schemas/Tier"
+    }
+  }
+}

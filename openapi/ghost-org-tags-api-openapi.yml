@@ -1,0 +1,617 @@
+openapi: 3.1.0
+info:
+  title: Ghost Admin Authors Tags API
+  description: The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication. It enables developers to create, update, and delete posts, pages, tags, members, tiers, newsletters, and offers programmatically. Authentication is handled via JSON Web Tokens generated from an Admin API key, integration tokens, or staff access tokens. The Admin API supports everything the Ghost Admin interface can do and more, making it suitable for building custom publishing workflows, content automation, member management systems, and advanced integrations.
+  version: '5.0'
+  contact:
+    name: Ghost Foundation
+    url: https://ghost.org/docs/admin-api/
+  termsOfService: https://ghost.org/terms/
+servers:
+- url: https://{site}.ghost.io/ghost/api/admin
+  description: Ghost Pro Hosted Site
+  variables:
+    site:
+      default: your-site
+      description: Your Ghost site subdomain
+- url: '{protocol}://{domain}/ghost/api/admin'
+  description: Self-Hosted Ghost Instance
+  variables:
+    protocol:
+      default: https
+      enum:
+      - https
+      - http
+    domain:
+      default: localhost:2368
+      description: Your Ghost instance domain and port
+security:
+- adminApiToken: []
+tags:
+- name: Tags
+paths:
+  /tags/:
+    get:
+      operationId: adminBrowseTags
+      summary: Browse tags
+      description: Retrieve a paginated list of all tags, including internal tags.
+      tags:
+      - Tags
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: A list of tags
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tags:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tag'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: adminCreateTag
+      summary: Create a tag
+      description: Create a new tag. The name field is required. Tags with names starting with a hash character are treated as internal tags.
+      tags:
+      - Tags
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - tags
+              properties:
+                tags:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/TagInput'
+                  minItems: 1
+                  maxItems: 1
+      responses:
+        '201':
+          description: Tag created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tags:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tag'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /tags/{id}/:
+    get:
+      operationId: adminReadTag
+      summary: Read a tag by ID
+      description: Retrieve a single tag by its unique identifier.
+      tags:
+      - Tags
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: A single tag
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tags:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tag'
+                    minItems: 1
+                    maxItems: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: adminUpdateTag
+      summary: Update a tag
+      description: Update an existing tag by its unique identifier.
+      tags:
+      - Tags
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - tags
+              properties:
+                tags:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/TagInput'
+                  minItems: 1
+                  maxItems: 1
+      responses:
+        '200':
+          description: Tag updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tags:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tag'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      operationId: adminDeleteTag
+      summary: Delete a tag
+      description: Permanently delete a tag by its unique identifier.
+      tags:
+      - Tags
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      responses:
+        '204':
+          description: Tag deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /tags/slug/{slug}/:
+    get:
+      operationId: readTagBySlug
+      summary: Read a tag by slug
+      description: Retrieve a single tag by its URL slug.
+      tags:
+      - Tags
+      parameters:
+      - $ref: '#/components/parameters/resourceSlug'
+      - $ref: '#/components/parameters/includeTagRelations'
+      - $ref: '#/components/parameters/fields_2'
+      responses:
+        '200':
+          description: A single tag
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tags:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tag_2'
+                    minItems: 1
+                    maxItems: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    order:
+      name: order
+      in: query
+      required: false
+      description: Field and direction to order results by.
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      required: false
+      description: Page number for paginated results. Defaults to 1.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return per page. Defaults to 15.
+      schema:
+        oneOf:
+        - type: integer
+          minimum: 1
+        - type: string
+          enum:
+          - all
+        default: 15
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response.
+      schema:
+        type: string
+    fields_2:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need.
+      schema:
+        type: string
+    resourceSlug:
+      name: slug
+      in: path
+      required: true
+      description: The URL slug of the resource
+      schema:
+        type: string
+    includeTagRelations:
+      name: include
+      in: query
+      required: false
+      description: Include a count of posts associated with each tag.
+      schema:
+        type: string
+        enum:
+        - count.posts
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: Apply fine-grained filters using Ghost's NQL query language.
+      schema:
+        type: string
+    resourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    TagInput:
+      type: object
+      description: Input fields for creating or updating a tag.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Tag name, prefix with hash for internal tags
+        slug:
+          type: string
+          description: Custom URL slug
+        description:
+          type: string
+          description: Tag description
+          nullable: true
+        feature_image:
+          type: string
+          format: uri
+          description: Featured image URL
+          nullable: true
+        visibility:
+          type: string
+          description: Visibility setting
+          enum:
+          - public
+          - internal
+        meta_title:
+          type: string
+          nullable: true
+          description: SEO meta title
+        meta_description:
+          type: string
+          nullable: true
+          description: SEO meta description
+        accent_color:
+          type: string
+          nullable: true
+          description: Accent color hex code
+          pattern: ^#[0-9a-fA-F]{6}$
+    Tag:
+      type: object
+      description: A tag for organizing and categorizing content.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        name:
+          type: string
+          description: Tag name
+        slug:
+          type: string
+          description: URL-safe slug
+        description:
+          type: string
+          description: Tag description
+          nullable: true
+        feature_image:
+          type: string
+          format: uri
+          description: Featured image URL
+          nullable: true
+        visibility:
+          type: string
+          description: Visibility setting
+          enum:
+          - public
+          - internal
+        og_image:
+          type: string
+          format: uri
+          nullable: true
+          description: Open Graph image URL
+        og_title:
+          type: string
+          nullable: true
+          description: Open Graph title
+        og_description:
+          type: string
+          nullable: true
+          description: Open Graph description
+        twitter_image:
+          type: string
+          format: uri
+          nullable: true
+          description: Twitter card image URL
+        twitter_title:
+          type: string
+          nullable: true
+          description: Twitter card title
+        twitter_description:
+          type: string
+          nullable: true
+          description: Twitter card description
+        meta_title:
+          type: string
+          nullable: true
+          description: SEO meta title
+        meta_description:
+          type: string
+          nullable: true
+          description: SEO meta description
+        codeinjection_head:
+          type: string
+          nullable: true
+          description: Code injection in the head
+        codeinjection_foot:
+          type: string
+          nullable: true
+          description: Code injection in the foot
+        canonical_url:
+          type: string
+          format: uri
+          nullable: true
+          description: Canonical URL
+        accent_color:
+          type: string
+          nullable: true
+          description: Accent color hex code
+          pattern: ^#[0-9a-fA-F]{6}$
+        url:
+          type: string
+          format: uri
+          description: Full URL of the tag page
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+    ErrorResponse:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional error context
+                nullable: true
+    Tag_2:
+      type: object
+      description: A tag is used to organize and categorize content in Ghost. Tags with slugs starting with hash are internal tags not visible to readers.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the tag
+        name:
+          type: string
+          description: Name of the tag
+        slug:
+          type: string
+          description: URL-safe slug for the tag
+        description:
+          type: string
+          description: Description of the tag
+          nullable: true
+        feature_image:
+          type: string
+          format: uri
+          description: Featured image URL for the tag
+          nullable: true
+        visibility:
+          type: string
+          description: Visibility of the tag
+          enum:
+          - public
+          - internal
+        og_image:
+          type: string
+          format: uri
+          description: Open Graph image for the tag page
+          nullable: true
+        og_title:
+          type: string
+          description: Open Graph title for the tag page
+          nullable: true
+        og_description:
+          type: string
+          description: Open Graph description for the tag page
+          nullable: true
+        twitter_image:
+          type: string
+          format: uri
+          description: Twitter card image for the tag page
+          nullable: true
+        twitter_title:
+          type: string
+          description: Twitter card title for the tag page
+          nullable: true
+        twitter_description:
+          type: string
+          description: Twitter card description for the tag page
+          nullable: true
+        meta_title:
+          type: string
+          description: SEO meta title for the tag page
+          nullable: true
+        meta_description:
+          type: string
+          description: SEO meta description for the tag page
+          nullable: true
+        codeinjection_head:
+          type: string
+          description: Code injected into the head on tag pages
+          nullable: true
+        codeinjection_foot:
+          type: string
+          description: Code injected into the foot on tag pages
+          nullable: true
+        canonical_url:
+          type: string
+          format: uri
+          description: Canonical URL for the tag page
+          nullable: true
+        accent_color:
+          type: string
+          description: Accent color for the tag
+          nullable: true
+          pattern: ^#[0-9a-fA-F]{6}$
+        url:
+          type: string
+          format: uri
+          description: Full URL of the tag page
+        count:
+          type: object
+          description: Count data, included when requested via include=count.posts
+          properties:
+            posts:
+              type: integer
+              description: Number of posts with this tag
+              minimum: 0
+    PaginationMeta:
+      type: object
+      description: Pagination metadata
+      properties:
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+              description: Current page
+              minimum: 1
+            limit:
+              type: integer
+              description: Items per page
+              minimum: 1
+            pages:
+              type: integer
+              description: Total pages
+              minimum: 1
+            total:
+              type: integer
+              description: Total items
+              minimum: 0
+            next:
+              type: integer
+              description: Next page number
+              nullable: true
+            prev:
+              type: integer
+              description: Previous page number
+              nullable: true
+    ErrorResponse_2:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional context about the error
+                nullable: true
+  responses:
+    Unauthorized:
+      description: Authentication failed or token is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ValidationError:
+      description: Request body validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized_2:
+      description: Authentication failed or API key is missing
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+  securitySchemes:
+    adminApiToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JSON Web Token generated from an Admin API key. The key is split into an ID and secret at the colon separator. The ID is used as the kid header and the secret is used to sign the token with HS256.
+externalDocs:
+  description: Ghost Admin API Documentation
+  url: https://ghost.org/docs/admin-api/

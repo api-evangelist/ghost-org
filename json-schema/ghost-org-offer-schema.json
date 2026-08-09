@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Offer",
+  "title": "Offer",
+  "type": "object",
+  "description": "A promotional offer for a paid membership tier.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Internal name for the offer"
+    },
+    "code": {
+      "type": "string",
+      "description": "URL-safe code used in the offer link"
+    },
+    "display_title": {
+      "type": "string",
+      "description": "Public-facing title shown to visitors"
+    },
+    "display_description": {
+      "type": "string",
+      "description": "Public-facing description",
+      "nullable": true
+    },
+    "type": {
+      "type": "string",
+      "description": "Discount type",
+      "enum": [
+        "percent",
+        "fixed",
+        "trial"
+      ]
+    },
+    "cadence": {
+      "type": "string",
+      "description": "Which billing cadence the offer applies to",
+      "enum": [
+        "month",
+        "year"
+      ]
+    },
+    "amount": {
+      "type": "integer",
+      "description": "Discount amount. For percent type this is a percentage (1-100). For fixed type this is in the smallest currency unit. For trial type this is the number of days.",
+      "minimum": 0
+    },
+    "duration": {
+      "type": "string",
+      "description": "How long the discount applies",
+      "enum": [
+        "once",
+        "repeating",
+        "forever",
+        "trial"
+      ]
+    },
+    "duration_in_months": {
+      "type": "integer",
+      "description": "Number of months for repeating duration",
+      "nullable": true,
+      "minimum": 1
+    },
+    "currency_restriction": {
+      "type": "boolean",
+      "description": "Whether the offer has a currency restriction"
+    },
+    "currency": {
+      "type": "string",
+      "description": "Currency for the offer",
+      "nullable": true,
+      "pattern": "^[A-Z]{3}$"
+    },
+    "status": {
+      "type": "string",
+      "description": "Offer status",
+      "enum": [
+        "active",
+        "archived"
+      ]
+    },
+    "redemption_count": {
+      "type": "integer",
+      "description": "Number of times the offer has been redeemed",
+      "minimum": 0
+    },
+    "tier": {
+      "$ref": "#/components/schemas/Tier"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    }
+  }
+}

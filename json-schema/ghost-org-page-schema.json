@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Page",
+  "title": "Page",
+  "type": "object",
+  "description": "A page represents static content in a Ghost publication, sharing the same structure as a post but used for standalone pages.",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Post"
+    }
+  ]
+}

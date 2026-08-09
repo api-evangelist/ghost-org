@@ -1,0 +1,313 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ghost.org/schemas/ghost/post.json",
+  "title": "Ghost Post",
+  "description": "A post represents a piece of content in a Ghost publication, including blog posts and newsletter content. Posts support rich content via the Lexical editor format, SEO metadata, social sharing metadata, content visibility controls, and associations with authors and tags.",
+  "type": "object",
+  "required": ["id", "title"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the post"
+    },
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Universally unique identifier for the post"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title of the post",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-safe slug derived from the title, used in the post URL",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "maxLength": 191
+    },
+    "lexical": {
+      "type": "string",
+      "description": "Post content in Lexical editor format, stored as a JSON string"
+    },
+    "html": {
+      "type": "string",
+      "description": "Rendered HTML content of the post"
+    },
+    "plaintext": {
+      "type": "string",
+      "description": "Plain text representation of the post content"
+    },
+    "comment_id": {
+      "type": "string",
+      "description": "Identifier used by the commenting system"
+    },
+    "feature_image": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "URL of the featured image displayed at the top of the post"
+    },
+    "feature_image_alt": {
+      "type": ["string", "null"],
+      "description": "Alt text for the featured image for accessibility",
+      "maxLength": 191
+    },
+    "feature_image_caption": {
+      "type": ["string", "null"],
+      "description": "Caption displayed below the featured image"
+    },
+    "featured": {
+      "type": "boolean",
+      "description": "Whether the post is marked as featured for prominent display",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "description": "Publication status of the post",
+      "enum": ["published", "draft", "scheduled", "sent"],
+      "default": "draft"
+    },
+    "visibility": {
+      "type": "string",
+      "description": "Controls which audience can access the full post content",
+      "enum": ["public", "members", "paid", "tiers"],
+      "default": "public"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the post was created"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the post was last updated, required for edit operations to prevent collisions"
+    },
+    "published_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the post was published or is scheduled to be published"
+    },
+    "custom_excerpt": {
+      "type": ["string", "null"],
+      "description": "Custom excerpt to override the auto-generated excerpt",
+      "maxLength": 300
+    },
+    "codeinjection_head": {
+      "type": ["string", "null"],
+      "description": "Custom code injected into the HTML head on the post page"
+    },
+    "codeinjection_foot": {
+      "type": ["string", "null"],
+      "description": "Custom code injected before the closing body tag on the post page"
+    },
+    "custom_template": {
+      "type": ["string", "null"],
+      "description": "Name of a custom Handlebars template to use for rendering the post"
+    },
+    "canonical_url": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "Canonical URL for the post, used when content is syndicated from another source"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Full URL of the post on the Ghost site"
+    },
+    "excerpt": {
+      "type": "string",
+      "description": "Auto-generated excerpt from the beginning of the post content"
+    },
+    "reading_time": {
+      "type": "integer",
+      "description": "Estimated reading time in minutes based on word count",
+      "minimum": 0
+    },
+    "access": {
+      "type": "boolean",
+      "description": "Whether the current request has access to the full post content based on visibility settings"
+    },
+    "email_subject": {
+      "type": ["string", "null"],
+      "description": "Custom subject line when sending the post as a newsletter email"
+    },
+    "frontmatter": {
+      "type": ["string", "null"],
+      "description": "Custom frontmatter data for the post"
+    },
+    "og_image": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "Open Graph image URL used when the post is shared on social platforms"
+    },
+    "og_title": {
+      "type": ["string", "null"],
+      "description": "Open Graph title for social sharing",
+      "maxLength": 300
+    },
+    "og_description": {
+      "type": ["string", "null"],
+      "description": "Open Graph description for social sharing",
+      "maxLength": 500
+    },
+    "twitter_image": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "Twitter card image URL"
+    },
+    "twitter_title": {
+      "type": ["string", "null"],
+      "description": "Twitter card title",
+      "maxLength": 300
+    },
+    "twitter_description": {
+      "type": ["string", "null"],
+      "description": "Twitter card description",
+      "maxLength": 500
+    },
+    "meta_title": {
+      "type": ["string", "null"],
+      "description": "Custom SEO meta title for search engine results",
+      "maxLength": 300
+    },
+    "meta_description": {
+      "type": ["string", "null"],
+      "description": "Custom SEO meta description for search engine results",
+      "maxLength": 500
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags associated with the post for categorization",
+      "items": {
+        "$ref": "#/$defs/Tag"
+      }
+    },
+    "authors": {
+      "type": "array",
+      "description": "Authors of the post, at least one author is always present",
+      "items": {
+        "$ref": "#/$defs/Author"
+      },
+      "minItems": 1
+    },
+    "primary_author": {
+      "$ref": "#/$defs/Author",
+      "description": "The primary (first) author of the post"
+    },
+    "primary_tag": {
+      "description": "The primary (first) tag of the post",
+      "oneOf": [
+        { "$ref": "#/$defs/Tag" },
+        { "type": "null" }
+      ]
+    }
+  },
+  "$defs": {
+    "Tag": {
+      "type": "object",
+      "description": "A tag for organizing and categorizing content in Ghost",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for the tag"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the tag",
+          "minLength": 1,
+          "maxLength": 191
+        },
+        "slug": {
+          "type": "string",
+          "description": "URL-safe slug for the tag",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "maxLength": 191
+        },
+        "description": {
+          "type": ["string", "null"],
+          "description": "Description of the tag",
+          "maxLength": 500
+        },
+        "feature_image": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "Featured image URL for the tag page"
+        },
+        "visibility": {
+          "type": "string",
+          "description": "Visibility of the tag, internal tags have slugs starting with hash",
+          "enum": ["public", "internal"]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Full URL of the tag page"
+        }
+      }
+    },
+    "Author": {
+      "type": "object",
+      "description": "A staff user who creates content in the Ghost publication",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for the author"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the author"
+        },
+        "slug": {
+          "type": "string",
+          "description": "URL-safe slug for the author",
+          "maxLength": 191
+        },
+        "profile_image": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "Profile image URL"
+        },
+        "cover_image": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "Cover image URL for the author page"
+        },
+        "bio": {
+          "type": ["string", "null"],
+          "description": "Author biography",
+          "maxLength": 200
+        },
+        "website": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "Author personal website URL"
+        },
+        "location": {
+          "type": ["string", "null"],
+          "description": "Author location",
+          "maxLength": 150
+        },
+        "facebook": {
+          "type": ["string", "null"],
+          "description": "Facebook username"
+        },
+        "twitter": {
+          "type": ["string", "null"],
+          "description": "Twitter handle"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Full URL of the author page"
+        }
+      }
+    }
+  }
+}

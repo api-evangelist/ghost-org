@@ -1,0 +1,236 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ghost.org/schemas/ghost/member.json",
+  "title": "Ghost Member",
+  "description": "A member represents a person who has signed up for a Ghost publication. Members can be free subscribers who receive newsletters, or paid subscribers with access to premium content through membership tiers. Members have associated labels for segmentation, newsletter subscriptions, and Stripe-based paid subscriptions.",
+  "type": "object",
+  "required": ["id", "email"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the member"
+    },
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Universally unique identifier for the member"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address of the member, used as the primary identifier for signups"
+    },
+    "name": {
+      "type": ["string", "null"],
+      "description": "Display name of the member",
+      "maxLength": 191
+    },
+    "note": {
+      "type": ["string", "null"],
+      "description": "Internal note about the member, visible only to staff",
+      "maxLength": 2000
+    },
+    "geolocation": {
+      "type": ["string", "null"],
+      "description": "Geolocation data captured at signup time, stored as a JSON string"
+    },
+    "status": {
+      "type": "string",
+      "description": "Membership status based on subscription state",
+      "enum": ["free", "paid", "comped"]
+    },
+    "labels": {
+      "type": "array",
+      "description": "Labels applied to the member for segmentation and filtering",
+      "items": {
+        "$ref": "#/$defs/Label"
+      }
+    },
+    "subscriptions": {
+      "type": "array",
+      "description": "Paid subscriptions associated with the member, managed through Stripe",
+      "items": {
+        "$ref": "#/$defs/Subscription"
+      }
+    },
+    "newsletters": {
+      "type": "array",
+      "description": "Newsletters the member is subscribed to receive",
+      "items": {
+        "$ref": "#/$defs/NewsletterSubscription"
+      }
+    },
+    "avatar_image": {
+      "type": "string",
+      "format": "uri",
+      "description": "Gravatar URL generated from the member email address"
+    },
+    "email_count": {
+      "type": "integer",
+      "description": "Total number of emails sent to this member",
+      "minimum": 0
+    },
+    "email_opened_count": {
+      "type": "integer",
+      "description": "Total number of emails opened by this member",
+      "minimum": 0
+    },
+    "email_open_rate": {
+      "type": ["number", "null"],
+      "description": "Email open rate as a percentage",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the member signed up"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the member record was last updated"
+    }
+  },
+  "$defs": {
+    "Label": {
+      "type": "object",
+      "description": "A label for categorizing and segmenting members",
+      "required": ["name"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for the label"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the label",
+          "minLength": 1,
+          "maxLength": 191
+        },
+        "slug": {
+          "type": "string",
+          "description": "URL-safe slug for the label",
+          "maxLength": 191
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp"
+        }
+      }
+    },
+    "Subscription": {
+      "type": "object",
+      "description": "A paid subscription managed through Stripe, linking a member to a membership tier",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stripe subscription identifier"
+        },
+        "customer": {
+          "type": "object",
+          "description": "Stripe customer associated with the subscription",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Stripe customer ID"
+            },
+            "name": {
+              "type": ["string", "null"],
+              "description": "Customer display name"
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "description": "Customer email address"
+            }
+          }
+        },
+        "status": {
+          "type": "string",
+          "description": "Current subscription status",
+          "enum": ["active", "trialing", "canceled", "unpaid", "past_due"]
+        },
+        "start_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the subscription started"
+        },
+        "default_payment_card_last4": {
+          "type": ["string", "null"],
+          "description": "Last four digits of the payment card on file",
+          "pattern": "^\\d{4}$"
+        },
+        "cancel_at_period_end": {
+          "type": "boolean",
+          "description": "Whether the subscription will cancel at the end of the current billing period"
+        },
+        "cancellation_reason": {
+          "type": ["string", "null"],
+          "description": "Reason provided for subscription cancellation"
+        },
+        "current_period_end": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End date of the current billing period"
+        },
+        "price": {
+          "type": "object",
+          "description": "Pricing details for the subscription",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Stripe price identifier"
+            },
+            "nickname": {
+              "type": ["string", "null"],
+              "description": "Human-readable price name"
+            },
+            "amount": {
+              "type": "integer",
+              "description": "Price amount in the smallest currency unit (e.g., cents)",
+              "minimum": 0
+            },
+            "interval": {
+              "type": "string",
+              "description": "Billing interval",
+              "enum": ["month", "year"]
+            },
+            "currency": {
+              "type": "string",
+              "description": "ISO 4217 currency code",
+              "pattern": "^[A-Z]{3}$"
+            }
+          }
+        }
+      }
+    },
+    "NewsletterSubscription": {
+      "type": "object",
+      "description": "A newsletter that the member is subscribed to",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Newsletter identifier"
+        },
+        "name": {
+          "type": "string",
+          "description": "Newsletter display name"
+        },
+        "status": {
+          "type": "string",
+          "description": "Subscription status for this newsletter"
+        }
+      }
+    }
+  }
+}

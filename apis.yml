@@ -2,17 +2,13 @@ aid: ghost-org
 url: https://raw.githubusercontent.com/api-evangelist/ghost-org/refs/heads/main/apis.yml
 name: Ghost
 kind: company
-description: >-
-  Ghost is an open-source (MIT) publishing platform for professional
-  publications, newsletters, memberships, and paid subscriptions. It can be
-  self-hosted for free or run as the managed Ghost(Pro) service, with all
-  Ghost(Pro) revenue funding the non-profit Ghost Foundation. Every Ghost site
-  exposes two documented public REST APIs under
-  https://{site}/ghost/api/. The Content API is a read-only, key-authenticated
-  interface for delivering published posts, pages, tags, authors, tiers, and
-  settings to front-ends and static sites. The Admin API is a read-write,
-  token-authenticated (JWT) interface for managing posts, pages, members,
-  tags, tiers, offers, newsletters, users, media, themes, and webhooks.
+description: Ghost is an open-source (MIT) publishing platform for professional publications, newsletters,
+  memberships, and paid subscriptions. It can be self-hosted for free or run as the managed Ghost(Pro)
+  service, with all Ghost(Pro) revenue funding the non-profit Ghost Foundation. Every Ghost site exposes
+  two documented public REST APIs under https://{site}/ghost/api/. The Content API is a read-only, key-authenticated
+  interface for delivering published posts, pages, tags, authors, tiers, and settings to front-ends and
+  static sites. The Admin API is a read-write, token-authenticated (JWT) interface for managing posts,
+  pages, members, tags, tiers, offers, newsletters, users, media, themes, and webhooks.
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -36,7 +32,7 @@ tags:
 - Open Source
 - Content
 created: '2026-07-05'
-modified: '2026-07-05'
+modified: '2026-08-08'
 specificationVersion: '0.19'
 apis:
 - aid: ghost-org:ghost-org-admin-images-api
@@ -786,6 +782,20 @@ common:
   url: https://ghost.org/blog
 - type: ChangeLog
   url: https://ghost.org/changelog
+- type: Portal
+  url: https://docs.ghost.org/
+- type: SourceCode
+  url: https://github.com/TryGhost/Ghost
+- type: Forums
+  url: https://forum.ghost.org/
+- type: Pricing
+  url: https://ghost.org/pricing/
+- type: Integrations
+  url: https://ghost.org/integrations
+- type: LlmsText
+  url: https://docs.ghost.org/llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-merged-from:
+- ghost

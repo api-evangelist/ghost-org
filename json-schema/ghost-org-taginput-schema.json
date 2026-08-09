@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TagInput",
+  "title": "TagInput",
+  "type": "object",
+  "description": "Input fields for creating or updating a tag.",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Tag name, prefix with hash for internal tags"
+    },
+    "slug": {
+      "type": "string",
+      "description": "Custom URL slug"
+    },
+    "description": {
+      "type": "string",
+      "description": "Tag description",
+      "nullable": true
+    },
+    "feature_image": {
+      "type": "string",
+      "format": "uri",
+      "description": "Featured image URL",
+      "nullable": true
+    },
+    "visibility": {
+      "type": "string",
+      "description": "Visibility setting",
+      "enum": [
+        "public",
+        "internal"
+      ]
+    },
+    "meta_title": {
+      "type": "string",
+      "nullable": true,
+      "description": "SEO meta title"
+    },
+    "meta_description": {
+      "type": "string",
+      "nullable": true,
+      "description": "SEO meta description"
+    },
+    "accent_color": {
+      "type": "string",
+      "nullable": true,
+      "description": "Accent color hex code",
+      "pattern": "^#[0-9a-fA-F]{6}$"
+    }
+  }
+}

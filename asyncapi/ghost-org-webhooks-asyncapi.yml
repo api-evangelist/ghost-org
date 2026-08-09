@@ -1,0 +1,585 @@
+asyncapi: 2.6.0
+info:
+  title: Ghost Webhooks
+  description: >-
+    Ghost Webhooks allow developers to receive real-time HTTP notifications when
+    specific events occur within a Ghost publication, such as publishing a new
+    post, updating a page, or gaining a new member. Webhooks can be configured
+    through the Ghost Admin interface under custom integrations or created
+    programmatically via the Admin API. The webhook sends an HTTP POST request to
+    the configured target URL with a JSON payload containing the relevant
+    resource data.
+  version: '5.0'
+  contact:
+    name: Ghost Foundation
+    url: https://ghost.org/docs/webhooks/
+  license:
+    name: MIT
+    url: https://github.com/TryGhost/Ghost/blob/main/LICENSE
+externalDocs:
+  description: Ghost Webhooks Documentation
+  url: https://ghost.org/docs/webhooks/
+servers:
+  yourServer:
+    url: '{webhookTargetUrl}'
+    protocol: https
+    description: >-
+      Your server that receives webhook HTTP POST requests from Ghost. The URL
+      is configured when creating a webhook via the Ghost Admin UI or Admin API.
+    variables:
+      webhookTargetUrl:
+        description: The target URL configured for the webhook
+    security:
+      - webhookSecret: []
+channels:
+  /webhook/site.changed:
+    description: >-
+      Triggered whenever any content changes in the site data or settings. This
+      is a catch-all event useful for triggering site rebuilds or cache
+      invalidation.
+    publish:
+      operationId: onSiteChanged
+      summary: Site content or settings changed
+      message:
+        $ref: '#/components/messages/SiteChangedEvent'
+  /webhook/post.added:
+    description: >-
+      Triggered whenever a new post is created in Ghost, regardless of its
+      publication status.
+    publish:
+      operationId: onPostAdded
+      summary: New post created
+      message:
+        $ref: '#/components/messages/PostEvent'
+  /webhook/post.deleted:
+    description: >-
+      Triggered whenever a post is permanently deleted from Ghost.
+    publish:
+      operationId: onPostDeleted
+      summary: Post deleted
+      message:
+        $ref: '#/components/messages/PostEvent'
+  /webhook/post.edited:
+    description: >-
+      Triggered whenever a post is edited in Ghost.
+    publish:
+      operationId: onPostEdited
+      summary: Post edited
+      message:
+        $ref: '#/components/messages/PostEvent'
+  /webhook/post.published:
+    description: >-
+      Triggered whenever a post transitions to the published status.
+    publish:
+      operationId: onPostPublished
+      summary: Post published
+      message:
+        $ref: '#/components/messages/PostEvent'
+  /webhook/post.published.edited:
+    description: >-
+      Triggered whenever a previously published post is edited while remaining
+      in the published state.
+    publish:
+      operationId: onPostPublishedEdited
+      summary: Published post edited
+      message:
+        $ref: '#/components/messages/PostEvent'
+  /webhook/post.unpublished:
+    description: >-
+      Triggered whenever a published post is unpublished (reverted to draft).
+    publish:
+      operationId: onPostUnpublished
+      summary: Post unpublished
+      message:
+        $ref: '#/components/messages/PostEvent'
+  /webhook/post.scheduled:
+    description: >-
+      Triggered whenever a post is scheduled for future publication.
+    publish:
+      operationId: onPostScheduled
+      summary: Post scheduled
+      message:
+        $ref: '#/components/messages/PostEvent'
+  /webhook/post.unscheduled:
+    description: >-
+      Triggered whenever a scheduled post is unscheduled.
+    publish:
+      operationId: onPostUnscheduled
+      summary: Post unscheduled
+      message:
+        $ref: '#/components/messages/PostEvent'
+  /webhook/post.rescheduled:
+    description: >-
+      Triggered whenever a scheduled post has its publication date changed.
+    publish:
+      operationId: onPostRescheduled
+      summary: Post rescheduled
+      message:
+        $ref: '#/components/messages/PostEvent'
+  /webhook/page.added:
+    description: >-
+      Triggered whenever a new page is created in Ghost.
+    publish:
+      operationId: onPageAdded
+      summary: New page created
+      message:
+        $ref: '#/components/messages/PageEvent'
+  /webhook/page.deleted:
+    description: >-
+      Triggered whenever a page is permanently deleted from Ghost.
+    publish:
+      operationId: onPageDeleted
+      summary: Page deleted
+      message:
+        $ref: '#/components/messages/PageEvent'
+  /webhook/page.edited:
+    description: >-
+      Triggered whenever a page is edited in Ghost.
+    publish:
+      operationId: onPageEdited
+      summary: Page edited
+      message:
+        $ref: '#/components/messages/PageEvent'
+  /webhook/page.published:
+    description: >-
+      Triggered whenever a page transitions to the published status.
+    publish:
+      operationId: onPagePublished
+      summary: Page published
+      message:
+        $ref: '#/components/messages/PageEvent'
+  /webhook/page.published.edited:
+    description: >-
+      Triggered whenever a published page is edited while remaining published.
+    publish:
+      operationId: onPagePublishedEdited
+      summary: Published page edited
+      message:
+        $ref: '#/components/messages/PageEvent'
+  /webhook/page.unpublished:
+    description: >-
+      Triggered whenever a published page is unpublished.
+    publish:
+      operationId: onPageUnpublished
+      summary: Page unpublished
+      message:
+        $ref: '#/components/messages/PageEvent'
+  /webhook/page.scheduled:
+    description: >-
+      Triggered whenever a page is scheduled for future publication.
+    publish:
+      operationId: onPageScheduled
+      summary: Page scheduled
+      message:
+        $ref: '#/components/messages/PageEvent'
+  /webhook/page.unscheduled:
+    description: >-
+      Triggered whenever a scheduled page is unscheduled.
+    publish:
+      operationId: onPageUnscheduled
+      summary: Page unscheduled
+      message:
+        $ref: '#/components/messages/PageEvent'
+  /webhook/page.rescheduled:
+    description: >-
+      Triggered whenever a scheduled page has its publication date changed.
+    publish:
+      operationId: onPageRescheduled
+      summary: Page rescheduled
+      message:
+        $ref: '#/components/messages/PageEvent'
+  /webhook/tag.added:
+    description: >-
+      Triggered whenever a new tag is created in Ghost.
+    publish:
+      operationId: onTagAdded
+      summary: New tag created
+      message:
+        $ref: '#/components/messages/TagEvent'
+  /webhook/tag.edited:
+    description: >-
+      Triggered whenever a tag is edited in Ghost.
+    publish:
+      operationId: onTagEdited
+      summary: Tag edited
+      message:
+        $ref: '#/components/messages/TagEvent'
+  /webhook/tag.deleted:
+    description: >-
+      Triggered whenever a tag is deleted from Ghost.
+    publish:
+      operationId: onTagDeleted
+      summary: Tag deleted
+      message:
+        $ref: '#/components/messages/TagEvent'
+  /webhook/post.tag.attached:
+    description: >-
+      Triggered whenever a tag is attached to a post.
+    publish:
+      operationId: onPostTagAttached
+      summary: Tag attached to post
+      message:
+        $ref: '#/components/messages/TagAttachmentEvent'
+  /webhook/post.tag.detached:
+    description: >-
+      Triggered whenever a tag is detached from a post.
+    publish:
+      operationId: onPostTagDetached
+      summary: Tag detached from post
+      message:
+        $ref: '#/components/messages/TagAttachmentEvent'
+  /webhook/page.tag.attached:
+    description: >-
+      Triggered whenever a tag is attached to a page.
+    publish:
+      operationId: onPageTagAttached
+      summary: Tag attached to page
+      message:
+        $ref: '#/components/messages/TagAttachmentEvent'
+  /webhook/page.tag.detached:
+    description: >-
+      Triggered whenever a tag is detached from a page.
+    publish:
+      operationId: onPageTagDetached
+      summary: Tag detached from page
+      message:
+        $ref: '#/components/messages/TagAttachmentEvent'
+  /webhook/member.added:
+    description: >-
+      Triggered whenever a new member signs up for the publication.
+    publish:
+      operationId: onMemberAdded
+      summary: New member signed up
+      message:
+        $ref: '#/components/messages/MemberEvent'
+  /webhook/member.edited:
+    description: >-
+      Triggered whenever a member record is updated.
+    publish:
+      operationId: onMemberEdited
+      summary: Member updated
+      message:
+        $ref: '#/components/messages/MemberEvent'
+  /webhook/member.deleted:
+    description: >-
+      Triggered whenever a member is deleted from the publication.
+    publish:
+      operationId: onMemberDeleted
+      summary: Member deleted
+      message:
+        $ref: '#/components/messages/MemberEvent'
+components:
+  securitySchemes:
+    webhookSecret:
+      type: httpApiKey
+      name: X-Ghost-Signature
+      in: header
+      description: >-
+        HMAC-SHA256 signature computed from the request body using the webhook
+        secret. The header contains both the signature and a timestamp in the
+        format sha256=SIGNATURE, t=TIMESTAMP.
+  messages:
+    SiteChangedEvent:
+      name: SiteChangedEvent
+      title: Site Changed Event
+      summary: >-
+        Notification that site content or settings have been modified.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SiteChangedPayload'
+    PostEvent:
+      name: PostEvent
+      title: Post Event
+      summary: >-
+        Notification containing post data when a post-related event occurs.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PostPayload'
+    PageEvent:
+      name: PageEvent
+      title: Page Event
+      summary: >-
+        Notification containing page data when a page-related event occurs.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PagePayload'
+    TagEvent:
+      name: TagEvent
+      title: Tag Event
+      summary: >-
+        Notification containing tag data when a tag-related event occurs.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/TagPayload'
+    TagAttachmentEvent:
+      name: TagAttachmentEvent
+      title: Tag Attachment Event
+      summary: >-
+        Notification when a tag is attached to or detached from a post or page.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/TagAttachmentPayload'
+    MemberEvent:
+      name: MemberEvent
+      title: Member Event
+      summary: >-
+        Notification containing member data when a member-related event occurs.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/MemberPayload'
+  schemas:
+    SiteChangedPayload:
+      type: object
+      description: >-
+        Payload for site.changed events. This event does not include resource
+        data as it represents a general site change notification.
+      properties: {}
+    PostPayload:
+      type: object
+      description: >-
+        Payload containing post data delivered via webhook when a post event
+        occurs.
+      properties:
+        post:
+          type: object
+          description: The post resource that triggered the event
+          properties:
+            current:
+              $ref: '#/components/schemas/PostResource'
+            previous:
+              description: >-
+                Previous version of the post for edit events, containing only
+                changed fields
+              oneOf:
+                - $ref: '#/components/schemas/PostResource'
+                - type: object
+    PagePayload:
+      type: object
+      description: >-
+        Payload containing page data delivered via webhook when a page event
+        occurs.
+      properties:
+        page:
+          type: object
+          description: The page resource that triggered the event
+          properties:
+            current:
+              $ref: '#/components/schemas/PostResource'
+            previous:
+              description: >-
+                Previous version of the page for edit events, containing only
+                changed fields
+              oneOf:
+                - $ref: '#/components/schemas/PostResource'
+                - type: object
+    TagPayload:
+      type: object
+      description: >-
+        Payload containing tag data delivered via webhook when a tag event
+        occurs.
+      properties:
+        tag:
+          type: object
+          description: The tag resource that triggered the event
+          properties:
+            current:
+              $ref: '#/components/schemas/TagResource'
+            previous:
+              description: Previous version of the tag for edit events
+              oneOf:
+                - $ref: '#/components/schemas/TagResource'
+                - type: object
+    TagAttachmentPayload:
+      type: object
+      description: >-
+        Payload containing data about a tag being attached to or detached from
+        a post or page.
+      properties:
+        tag:
+          type: object
+          description: The tag and the content it was attached to or detached from
+          properties:
+            current:
+              $ref: '#/components/schemas/TagResource'
+    MemberPayload:
+      type: object
+      description: >-
+        Payload containing member data delivered via webhook when a member event
+        occurs.
+      properties:
+        member:
+          type: object
+          description: The member resource that triggered the event
+          properties:
+            current:
+              $ref: '#/components/schemas/MemberResource'
+            previous:
+              description: Previous version of the member for edit events
+              oneOf:
+                - $ref: '#/components/schemas/MemberResource'
+                - type: object
+    PostResource:
+      type: object
+      description: >-
+        Post resource data included in webhook payloads.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        uuid:
+          type: string
+          format: uuid
+          description: Universally unique identifier
+        title:
+          type: string
+          description: Post title
+        slug:
+          type: string
+          description: URL slug
+        html:
+          type: string
+          description: HTML content
+        plaintext:
+          type: string
+          description: Plain text content
+        feature_image:
+          type: string
+          format: uri
+          description: Featured image URL
+          nullable: true
+        featured:
+          type: boolean
+          description: Whether the post is featured
+        status:
+          type: string
+          description: Publication status
+          enum:
+            - published
+            - draft
+            - scheduled
+            - sent
+        visibility:
+          type: string
+          description: Access visibility
+          enum:
+            - public
+            - members
+            - paid
+            - tiers
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        published_at:
+          type: string
+          format: date-time
+          description: Publication timestamp
+          nullable: true
+        custom_excerpt:
+          type: string
+          description: Custom excerpt
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: Full URL of the post
+        tags:
+          type: array
+          description: Associated tags
+          items:
+            $ref: '#/components/schemas/TagResource'
+    TagResource:
+      type: object
+      description: >-
+        Tag resource data included in webhook payloads.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        name:
+          type: string
+          description: Tag name
+        slug:
+          type: string
+          description: URL slug
+        description:
+          type: string
+          description: Tag description
+          nullable: true
+        feature_image:
+          type: string
+          format: uri
+          description: Featured image URL
+          nullable: true
+        visibility:
+          type: string
+          description: Tag visibility
+          enum:
+            - public
+            - internal
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+    MemberResource:
+      type: object
+      description: >-
+        Member resource data included in webhook payloads.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        uuid:
+          type: string
+          format: uuid
+          description: Universally unique identifier
+        email:
+          type: string
+          format: email
+          description: Member email address
+        name:
+          type: string
+          description: Member name
+          nullable: true
+        status:
+          type: string
+          description: Member status
+          enum:
+            - free
+            - paid
+            - comped
+        labels:
+          type: array
+          description: Member labels
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+                description: Label identifier
+              name:
+                type: string
+                description: Label name
+              slug:
+                type: string
+                description: Label slug
+        created_at:
+          type: string
+          format: date-time
+          description: Signup timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp

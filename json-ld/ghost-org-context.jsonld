@@ -1,0 +1,297 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "ghost": "https://ghost.org/ns/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Post": {
+      "@id": "ghost:Post",
+      "@context": {
+        "title": "schema:headline",
+        "slug": "ghost:slug",
+        "html": "ghost:html",
+        "plaintext": "ghost:plaintext",
+        "excerpt": "schema:description",
+        "featureImage": {
+          "@id": "schema:image",
+          "@type": "@id"
+        },
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "canonicalUrl": {
+          "@id": "schema:sameAs",
+          "@type": "@id"
+        },
+        "featured": "ghost:featured",
+        "status": "ghost:status",
+        "visibility": "ghost:visibility",
+        "readingTime": "ghost:readingTime",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "publishedAt": {
+          "@id": "dcterms:issued",
+          "@type": "xsd:dateTime"
+        },
+        "authors": {
+          "@id": "schema:author",
+          "@container": "@set"
+        },
+        "tags": {
+          "@id": "schema:keywords",
+          "@container": "@set"
+        },
+        "primaryAuthor": "schema:author",
+        "primaryTag": "ghost:primaryTag",
+        "metaTitle": "ghost:metaTitle",
+        "metaDescription": "ghost:metaDescription",
+        "ogTitle": "ghost:ogTitle",
+        "ogDescription": "ghost:ogDescription",
+        "ogImage": {
+          "@id": "ghost:ogImage",
+          "@type": "@id"
+        },
+        "twitterTitle": "ghost:twitterTitle",
+        "twitterDescription": "ghost:twitterDescription",
+        "twitterImage": {
+          "@id": "ghost:twitterImage",
+          "@type": "@id"
+        },
+        "emailSubject": "ghost:emailSubject",
+        "customExcerpt": "ghost:customExcerpt",
+        "customTemplate": "ghost:customTemplate"
+      }
+    },
+
+    "Page": {
+      "@id": "ghost:Page",
+      "@context": {
+        "title": "schema:headline",
+        "slug": "ghost:slug",
+        "html": "ghost:html",
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "publishedAt": {
+          "@id": "dcterms:issued",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Tag": {
+      "@id": "ghost:Tag",
+      "@context": {
+        "name": "schema:name",
+        "slug": "ghost:slug",
+        "description": "schema:description",
+        "featureImage": {
+          "@id": "schema:image",
+          "@type": "@id"
+        },
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "visibility": "ghost:visibility",
+        "accentColor": "ghost:accentColor",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Author": {
+      "@id": "ghost:Author",
+      "@context": {
+        "name": "schema:name",
+        "slug": "ghost:slug",
+        "bio": "schema:description",
+        "profileImage": {
+          "@id": "schema:image",
+          "@type": "@id"
+        },
+        "coverImage": {
+          "@id": "ghost:coverImage",
+          "@type": "@id"
+        },
+        "website": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "location": "schema:address",
+        "facebook": "ghost:facebook",
+        "twitter": "ghost:twitter",
+        "url": {
+          "@id": "schema:mainEntityOfPage",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Member": {
+      "@id": "ghost:Member",
+      "@context": {
+        "name": "schema:name",
+        "email": "schema:email",
+        "status": "ghost:memberStatus",
+        "note": "ghost:note",
+        "geolocation": "ghost:geolocation",
+        "labels": {
+          "@id": "ghost:labels",
+          "@container": "@set"
+        },
+        "newsletters": {
+          "@id": "ghost:newsletters",
+          "@container": "@set"
+        },
+        "subscriptions": {
+          "@id": "ghost:subscriptions",
+          "@container": "@set"
+        },
+        "avatarImage": {
+          "@id": "schema:image",
+          "@type": "@id"
+        },
+        "emailCount": "ghost:emailCount",
+        "emailOpenedCount": "ghost:emailOpenedCount",
+        "emailOpenRate": "ghost:emailOpenRate",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Tier": {
+      "@id": "ghost:Tier",
+      "@context": {
+        "name": "schema:name",
+        "slug": "ghost:slug",
+        "description": "schema:description",
+        "active": "ghost:active",
+        "type": "ghost:tierType",
+        "visibility": "ghost:visibility",
+        "monthlyPrice": "ghost:monthlyPrice",
+        "yearlyPrice": "ghost:yearlyPrice",
+        "currency": "schema:priceCurrency",
+        "trialDays": "ghost:trialDays",
+        "benefits": {
+          "@id": "ghost:benefits",
+          "@container": "@set"
+        },
+        "welcomePageUrl": {
+          "@id": "ghost:welcomePageUrl",
+          "@type": "@id"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Newsletter": {
+      "@id": "ghost:Newsletter",
+      "@context": {
+        "name": "schema:name",
+        "slug": "ghost:slug",
+        "description": "schema:description",
+        "senderName": "ghost:senderName",
+        "senderEmail": "ghost:senderEmail",
+        "status": "ghost:newsletterStatus",
+        "subscribeOnSignup": "ghost:subscribeOnSignup",
+        "sortOrder": "ghost:sortOrder",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Offer": {
+      "@id": "ghost:Offer",
+      "@context": {
+        "name": "schema:name",
+        "code": "ghost:offerCode",
+        "displayTitle": "ghost:displayTitle",
+        "displayDescription": "ghost:displayDescription",
+        "type": "ghost:offerType",
+        "cadence": "ghost:cadence",
+        "amount": "ghost:amount",
+        "duration": "ghost:duration",
+        "status": "ghost:offerStatus",
+        "redemptionCount": "ghost:redemptionCount",
+        "tier": "ghost:tier",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Webhook": {
+      "@id": "ghost:Webhook",
+      "@context": {
+        "event": "ghost:event",
+        "targetUrl": {
+          "@id": "ghost:targetUrl",
+          "@type": "@id"
+        },
+        "name": "schema:name",
+        "status": "ghost:webhookStatus",
+        "lastTriggeredAt": {
+          "@id": "ghost:lastTriggeredAt",
+          "@type": "xsd:dateTime"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    }
+  }
+}

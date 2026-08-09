@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Author",
+  "title": "Author",
+  "type": "object",
+  "description": "An author represents a staff user who creates content in a Ghost publication.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the author"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the author"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-safe slug for the author"
+    },
+    "profile_image": {
+      "type": "string",
+      "format": "uri",
+      "description": "Profile image URL",
+      "nullable": true
+    },
+    "cover_image": {
+      "type": "string",
+      "format": "uri",
+      "description": "Cover image URL for the author page",
+      "nullable": true
+    },
+    "bio": {
+      "type": "string",
+      "description": "Author biography",
+      "nullable": true
+    },
+    "website": {
+      "type": "string",
+      "format": "uri",
+      "description": "Author personal website URL",
+      "nullable": true
+    },
+    "location": {
+      "type": "string",
+      "description": "Author location",
+      "nullable": true
+    },
+    "facebook": {
+      "type": "string",
+      "description": "Facebook username",
+      "nullable": true
+    },
+    "twitter": {
+      "type": "string",
+      "description": "Twitter handle",
+      "nullable": true
+    },
+    "meta_title": {
+      "type": "string",
+      "description": "SEO meta title for the author page",
+      "nullable": true
+    },
+    "meta_description": {
+      "type": "string",
+      "description": "SEO meta description for the author page",
+      "nullable": true
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Full URL of the author page"
+    },
+    "count": {
+      "type": "object",
+      "description": "Count data, included when requested via include=count.posts",
+      "properties": {
+        "posts": {
+          "type": "integer",
+          "description": "Number of posts by this author",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

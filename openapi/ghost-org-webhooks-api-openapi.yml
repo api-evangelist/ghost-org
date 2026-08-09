@@ -1,0 +1,292 @@
+openapi: 3.1.0
+info:
+  title: Ghost Admin Authors Webhooks API
+  description: The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication. It enables developers to create, update, and delete posts, pages, tags, members, tiers, newsletters, and offers programmatically. Authentication is handled via JSON Web Tokens generated from an Admin API key, integration tokens, or staff access tokens. The Admin API supports everything the Ghost Admin interface can do and more, making it suitable for building custom publishing workflows, content automation, member management systems, and advanced integrations.
+  version: '5.0'
+  contact:
+    name: Ghost Foundation
+    url: https://ghost.org/docs/admin-api/
+  termsOfService: https://ghost.org/terms/
+servers:
+- url: https://{site}.ghost.io/ghost/api/admin
+  description: Ghost Pro Hosted Site
+  variables:
+    site:
+      default: your-site
+      description: Your Ghost site subdomain
+- url: '{protocol}://{domain}/ghost/api/admin'
+  description: Self-Hosted Ghost Instance
+  variables:
+    protocol:
+      default: https
+      enum:
+      - https
+      - http
+    domain:
+      default: localhost:2368
+      description: Your Ghost instance domain and port
+security:
+- adminApiToken: []
+tags:
+- name: Webhooks
+  description: Create, update, and delete webhooks that send HTTP POST notifications when events occur within the publication.
+paths:
+  /webhooks/:
+    post:
+      operationId: adminCreateWebhook
+      summary: Create a webhook
+      description: Create a new webhook subscription that will send HTTP POST notifications to the specified target URL when the specified event occurs. Webhooks must be associated with an integration.
+      tags:
+      - Webhooks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - webhooks
+              properties:
+                webhooks:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/WebhookInput'
+                  minItems: 1
+                  maxItems: 1
+      responses:
+        '201':
+          description: Webhook created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  webhooks:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /webhooks/{id}/:
+    put:
+      operationId: adminUpdateWebhook
+      summary: Update a webhook
+      description: Update an existing webhook subscription by its unique identifier.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - webhooks
+              properties:
+                webhooks:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/WebhookInput'
+                  minItems: 1
+                  maxItems: 1
+      responses:
+        '200':
+          description: Webhook updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  webhooks:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      operationId: adminDeleteWebhook
+      summary: Delete a webhook
+      description: Permanently delete a webhook subscription by its unique identifier.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      responses:
+        '204':
+          description: Webhook deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication failed or token is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ValidationError:
+      description: Request body validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional error context
+                nullable: true
+    Webhook:
+      type: object
+      description: A webhook subscription that sends HTTP POST notifications for events.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        event:
+          type: string
+          description: The event that triggers the webhook
+        target_url:
+          type: string
+          format: uri
+          description: URL that receives the webhook POST request
+        name:
+          type: string
+          description: Webhook name
+          nullable: true
+        secret:
+          type: string
+          description: Secret used for signature validation
+          nullable: true
+        api_version:
+          type: string
+          description: API version for the webhook payload
+        integration_id:
+          type: string
+          format: uuid
+          description: Integration this webhook belongs to
+        status:
+          type: string
+          description: Webhook status
+        last_triggered_at:
+          type: string
+          format: date-time
+          description: Timestamp of the last trigger
+          nullable: true
+        last_triggered_status:
+          type: string
+          description: HTTP status from the last trigger
+          nullable: true
+        last_triggered_error:
+          type: string
+          description: Error from the last trigger attempt
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+    WebhookInput:
+      type: object
+      description: Input fields for creating or updating a webhook.
+      required:
+      - event
+      - target_url
+      properties:
+        event:
+          type: string
+          description: The event to subscribe to. Available events include site.changed, post.added, post.deleted, post.edited, post.published, post.published.edited, post.unpublished, post.scheduled, post.unscheduled, post.rescheduled, page.added, page.deleted, page.edited, page.published, page.published.edited, page.unpublished, page.scheduled, page.unscheduled, page.rescheduled, tag.added, tag.edited, tag.deleted, post.tag.attached, post.tag.detached, page.tag.attached, page.tag.detached, member.added, member.edited, member.deleted.
+          enum:
+          - site.changed
+          - post.added
+          - post.deleted
+          - post.edited
+          - post.published
+          - post.published.edited
+          - post.unpublished
+          - post.scheduled
+          - post.unscheduled
+          - post.rescheduled
+          - page.added
+          - page.deleted
+          - page.edited
+          - page.published
+          - page.published.edited
+          - page.unpublished
+          - page.scheduled
+          - page.unscheduled
+          - page.rescheduled
+          - tag.added
+          - tag.edited
+          - tag.deleted
+          - post.tag.attached
+          - post.tag.detached
+          - page.tag.attached
+          - page.tag.detached
+          - member.added
+          - member.edited
+          - member.deleted
+        target_url:
+          type: string
+          format: uri
+          description: URL to receive webhook POST requests
+        name:
+          type: string
+          description: Webhook name
+          nullable: true
+        secret:
+          type: string
+          description: Secret for signature validation
+          nullable: true
+  parameters:
+    resourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    adminApiToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JSON Web Token generated from an Admin API key. The key is split into an ID and secret at the colon separator. The ID is used as the kid header and the secret is used to sign the token with HS256.
+externalDocs:
+  description: Ghost Admin API Documentation
+  url: https://ghost.org/docs/admin-api/

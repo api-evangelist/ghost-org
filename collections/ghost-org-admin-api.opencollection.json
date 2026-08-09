@@ -1,0 +1,1179 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ghost Admin API",
+    "version": "5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Posts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse posts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/posts/",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include. Supported values are authors and tags."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Apply fine-grained filters using Ghost's NQL query language."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return per page. Defaults to 15."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results. Defaults to 1."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Field and direction to order results by."
+              },
+              {
+                "name": "formats",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of content formats to include in the response."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of posts with all statuses including draft, scheduled, and published. Supports filtering, ordering, and including related resources."
+        },
+        {
+          "info": {
+            "name": "Create a post",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{site}.ghost.io/ghost/api/admin/posts/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new post. The title field is required, all other fields are optional and will have defaults applied. Content can be provided in Lexical or HTML format. Tags can be specified by name or as full tag objects. If a tag does not exist, it will be created automatically."
+        },
+        {
+          "info": {
+            "name": "Read a post by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/posts/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include. Supported values are authors and tags."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response."
+              },
+              {
+                "name": "formats",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of content formats to include in the response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single post by its unique identifier, including draft and scheduled posts."
+        },
+        {
+          "info": {
+            "name": "Update a post",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{site}.ghost.io/ghost/api/admin/posts/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing post. The updated_at field must be sent with the current value to prevent update collisions. Only the fields being changed need to be included in the request body, along with updated_at."
+        },
+        {
+          "info": {
+            "name": "Delete a post",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{site}.ghost.io/ghost/api/admin/posts/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              }
+            ]
+          },
+          "docs": "Permanently delete a post by its unique identifier."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Pages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse pages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/pages/",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include. Supported values are authors and tags."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Apply fine-grained filters using Ghost's NQL query language."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return per page. Defaults to 15."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results. Defaults to 1."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Field and direction to order results by."
+              },
+              {
+                "name": "formats",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of content formats to include in the response."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of pages including draft and published pages."
+        },
+        {
+          "info": {
+            "name": "Create a page",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{site}.ghost.io/ghost/api/admin/pages/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new page. Pages share the same structure as posts and require a title field."
+        },
+        {
+          "info": {
+            "name": "Read a page by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/pages/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include. Supported values are authors and tags."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response."
+              },
+              {
+                "name": "formats",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of content formats to include in the response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single page by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Update a page",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{site}.ghost.io/ghost/api/admin/pages/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing page. The updated_at field must be included to prevent update collisions."
+        },
+        {
+          "info": {
+            "name": "Delete a page",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{site}.ghost.io/ghost/api/admin/pages/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              }
+            ]
+          },
+          "docs": "Permanently delete a page by its unique identifier."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Default",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/tags/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Apply fine-grained filters using Ghost's NQL query language."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return per page. Defaults to 15."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results. Defaults to 1."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Field and direction to order results by."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of all tags, including internal tags."
+        },
+        {
+          "info": {
+            "name": "Create a tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{site}.ghost.io/ghost/api/admin/tags/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new tag. The name field is required. Tags with names starting with a hash character are treated as internal tags."
+        },
+        {
+          "info": {
+            "name": "Read a tag by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/tags/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single tag by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Update a tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{site}.ghost.io/ghost/api/admin/tags/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing tag by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Delete a tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{site}.ghost.io/ghost/api/admin/tags/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              }
+            ]
+          },
+          "docs": "Permanently delete a tag by its unique identifier."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Members",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/members/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Apply fine-grained filters using Ghost's NQL query language."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return per page. Defaults to 15."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results. Defaults to 1."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Field and direction to order results by."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of publication members. Supports filtering by status, label, newsletter subscription, and other member properties."
+        },
+        {
+          "info": {
+            "name": "Create a member",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{site}.ghost.io/ghost/api/admin/members/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new member. The email field is required. Optionally include name, labels, and newsletter subscriptions."
+        },
+        {
+          "info": {
+            "name": "Read a member by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/members/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single member by their unique identifier."
+        },
+        {
+          "info": {
+            "name": "Update a member",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{site}.ghost.io/ghost/api/admin/members/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing member by their unique identifier. Can be used to change name, email, labels, note, and newsletter subscriptions."
+        },
+        {
+          "info": {
+            "name": "Delete a member",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{site}.ghost.io/ghost/api/admin/members/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              }
+            ]
+          },
+          "docs": "Permanently delete a member by their unique identifier."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tiers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse tiers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/tiers/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Apply fine-grained filters using Ghost's NQL query language."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return per page. Defaults to 15."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results. Defaults to 1."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of membership tiers."
+        },
+        {
+          "info": {
+            "name": "Create a tier",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{site}.ghost.io/ghost/api/admin/tiers/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new membership tier with pricing, benefits, and visibility configuration."
+        },
+        {
+          "info": {
+            "name": "Read a tier by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/tiers/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single membership tier by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Update a tier",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{site}.ghost.io/ghost/api/admin/tiers/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing membership tier by its unique identifier."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Newsletters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse newsletters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/newsletters/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Apply fine-grained filters using Ghost's NQL query language."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return per page. Defaults to 15."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results. Defaults to 1."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Field and direction to order results by."
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all newsletters configured for the publication."
+        },
+        {
+          "info": {
+            "name": "Create a newsletter",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{site}.ghost.io/ghost/api/admin/newsletters/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new newsletter for the publication with customizable design, sender details, and subscription settings."
+        },
+        {
+          "info": {
+            "name": "Read a newsletter by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/newsletters/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single newsletter by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Update a newsletter",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{site}.ghost.io/ghost/api/admin/newsletters/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing newsletter by its unique identifier."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Offers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse offers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/offers/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Apply fine-grained filters using Ghost's NQL query language."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return per page. Defaults to 15."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results. Defaults to 1."
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all promotional offers configured for the publication."
+        },
+        {
+          "info": {
+            "name": "Create an offer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{site}.ghost.io/ghost/api/admin/offers/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new promotional offer for a paid membership tier, including percentage or fixed amount discounts and trial periods."
+        },
+        {
+          "info": {
+            "name": "Read an offer by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/offers/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single offer by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Update an offer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{site}.ghost.io/ghost/api/admin/offers/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing offer by its unique identifier."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/users/",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Include related resources. Supports count.posts and roles."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Apply fine-grained filters using Ghost's NQL query language."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return per page. Defaults to 15."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results. Defaults to 1."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Field and direction to order results by."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of staff users for the publication."
+        },
+        {
+          "info": {
+            "name": "Read a user by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/users/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single staff user by their unique identifier."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{site}.ghost.io/ghost/api/admin/webhooks/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new webhook subscription that will send HTTP POST notifications to the specified target URL when the specified event occurs. Webhooks must be associated with an integration."
+        },
+        {
+          "info": {
+            "name": "Update a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{site}.ghost.io/ghost/api/admin/webhooks/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing webhook subscription by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Delete a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{site}.ghost.io/ghost/api/admin/webhooks/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              }
+            ]
+          },
+          "docs": "Permanently delete a webhook subscription by its unique identifier."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload an image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{site}.ghost.io/ghost/api/admin/images/upload/",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "purpose",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "ref",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload an image file to the Ghost publication. The image is uploaded as multipart form data and the response includes the URL where the image can be accessed."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Themes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload a theme",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{site}.ghost.io/ghost/api/admin/themes/upload/",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload a new theme as a zip file to the Ghost publication."
+        },
+        {
+          "info": {
+            "name": "Activate a theme",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{site}.ghost.io/ghost/api/admin/themes/:name/activate/",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the theme to activate"
+              }
+            ]
+          },
+          "docs": "Activate an installed theme by its name, making it the active front-end theme for the publication."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Site",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read site information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/site/"
+          },
+          "docs": "Retrieve basic information about the Ghost site including title, URL, version, and other configuration details."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

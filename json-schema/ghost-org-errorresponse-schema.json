@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ErrorResponse",
+  "title": "ErrorResponse",
+  "type": "object",
+  "description": "Standard Ghost API error response",
+  "properties": {
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Human-readable error message"
+          },
+          "type": {
+            "type": "string",
+            "description": "Error type identifier"
+          },
+          "context": {
+            "type": "string",
+            "description": "Additional error context",
+            "nullable": true
+          }
+        }
+      }
+    }
+  }
+}

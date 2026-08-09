@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MemberInput",
+  "title": "MemberInput",
+  "type": "object",
+  "description": "Input fields for creating or updating a member.",
+  "properties": {
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Member email address"
+    },
+    "name": {
+      "type": "string",
+      "description": "Member display name",
+      "nullable": true
+    },
+    "note": {
+      "type": "string",
+      "description": "Internal note about the member",
+      "nullable": true
+    },
+    "labels": {
+      "type": "array",
+      "description": "Labels to apply to the member",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Label name"
+          },
+          "slug": {
+            "type": "string",
+            "description": "Label slug"
+          }
+        }
+      }
+    },
+    "newsletters": {
+      "type": "array",
+      "description": "Newsletter subscriptions",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Newsletter identifier"
+          }
+        }
+      }
+    }
+  }
+}

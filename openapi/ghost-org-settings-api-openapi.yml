@@ -1,0 +1,206 @@
+openapi: 3.1.0
+info:
+  title: Ghost Admin Authors Settings API
+  description: The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication. It enables developers to create, update, and delete posts, pages, tags, members, tiers, newsletters, and offers programmatically. Authentication is handled via JSON Web Tokens generated from an Admin API key, integration tokens, or staff access tokens. The Admin API supports everything the Ghost Admin interface can do and more, making it suitable for building custom publishing workflows, content automation, member management systems, and advanced integrations.
+  version: '5.0'
+  contact:
+    name: Ghost Foundation
+    url: https://ghost.org/docs/admin-api/
+  termsOfService: https://ghost.org/terms/
+servers:
+- url: https://{site}.ghost.io/ghost/api/admin
+  description: Ghost Pro Hosted Site
+  variables:
+    site:
+      default: your-site
+      description: Your Ghost site subdomain
+- url: '{protocol}://{domain}/ghost/api/admin'
+  description: Self-Hosted Ghost Instance
+  variables:
+    protocol:
+      default: https
+      enum:
+      - https
+      - http
+    domain:
+      default: localhost:2368
+      description: Your Ghost instance domain and port
+security:
+- adminApiToken: []
+tags:
+- name: Settings
+  description: Settings provide access to global publication settings including title, description, navigation, and other configuration values.
+paths:
+  /settings/:
+    get:
+      operationId: readSettings
+      summary: Read settings
+      description: Retrieve all public settings for the Ghost publication, including title, description, logo, icon, cover image, language, timezone, navigation, and other site-wide configuration values.
+      tags:
+      - Settings
+      responses:
+        '200':
+          description: Publication settings
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    $ref: '#/components/schemas/Settings'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication failed or API key is missing
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional context about the error
+                nullable: true
+    NavigationItem:
+      type: object
+      description: A navigation menu item with a label and URL
+      properties:
+        label:
+          type: string
+          description: Display label for the navigation item
+        url:
+          type: string
+          description: URL the navigation item links to
+      required:
+      - label
+      - url
+    Settings:
+      type: object
+      description: Global publication settings including identity, branding, navigation, and configuration.
+      properties:
+        title:
+          type: string
+          description: Publication title
+        description:
+          type: string
+          description: Publication description
+        logo:
+          type: string
+          format: uri
+          description: Publication logo URL
+          nullable: true
+        icon:
+          type: string
+          format: uri
+          description: Publication favicon URL
+          nullable: true
+        accent_color:
+          type: string
+          description: Publication accent color
+          nullable: true
+          pattern: ^#[0-9a-fA-F]{6}$
+        cover_image:
+          type: string
+          format: uri
+          description: Publication cover image URL
+          nullable: true
+        facebook:
+          type: string
+          description: Facebook page username
+          nullable: true
+        twitter:
+          type: string
+          description: Twitter account handle
+          nullable: true
+        lang:
+          type: string
+          description: Publication language code
+        timezone:
+          type: string
+          description: Publication timezone
+        codeinjection_head:
+          type: string
+          description: Global code injection in the head
+          nullable: true
+        codeinjection_foot:
+          type: string
+          description: Global code injection in the foot
+          nullable: true
+        navigation:
+          type: array
+          description: Primary navigation items
+          items:
+            $ref: '#/components/schemas/NavigationItem'
+        secondary_navigation:
+          type: array
+          description: Secondary navigation items
+          items:
+            $ref: '#/components/schemas/NavigationItem'
+        meta_title:
+          type: string
+          description: Global SEO meta title
+          nullable: true
+        meta_description:
+          type: string
+          description: Global SEO meta description
+          nullable: true
+        og_image:
+          type: string
+          format: uri
+          description: Default Open Graph image
+          nullable: true
+        og_title:
+          type: string
+          description: Default Open Graph title
+          nullable: true
+        og_description:
+          type: string
+          description: Default Open Graph description
+          nullable: true
+        twitter_image:
+          type: string
+          format: uri
+          description: Default Twitter card image
+          nullable: true
+        twitter_title:
+          type: string
+          description: Default Twitter card title
+          nullable: true
+        twitter_description:
+          type: string
+          description: Default Twitter card description
+          nullable: true
+        members_support_address:
+          type: string
+          format: email
+          description: Support email address for members
+        url:
+          type: string
+          format: uri
+          description: Site URL
+  securitySchemes:
+    adminApiToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JSON Web Token generated from an Admin API key. The key is split into an ID and secret at the colon separator. The ID is used as the kid header and the secret is used to sign the token with HS256.
+externalDocs:
+  description: Ghost Admin API Documentation
+  url: https://ghost.org/docs/admin-api/

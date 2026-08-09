@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Theme",
+  "title": "Theme",
+  "type": "object",
+  "description": "A Ghost theme controlling the front-end appearance.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Theme name"
+    },
+    "package": {
+      "type": "object",
+      "description": "Theme package.json metadata",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Package name"
+        },
+        "version": {
+          "type": "string",
+          "description": "Package version"
+        }
+      }
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether this is the currently active theme"
+    }
+  }
+}

@@ -1,0 +1,423 @@
+# Ghost Conceptual GraphQL Schema
+#
+# Ghost does not provide a native GraphQL API. This SDL represents the confirmed
+# data model derived from the Ghost Content API and Admin API documentation.
+# It is provided as a data-model reference only; no GraphQL endpoint exists.
+#
+# Sources:
+#   Content API: https://docs.ghost.org/content-api/
+#   Admin API:   https://docs.ghost.org/admin-api/
+
+scalar DateTime
+scalar JSON
+
+# ─────────────────────────────────────────────
+# POST
+# ─────────────────────────────────────────────
+
+type Post {
+  id: ID!
+  uuid: String!
+  slug: String!
+  title: String!
+  html: String
+  excerpt: String
+  custom_excerpt: String
+  reading_time: Int
+  access: Boolean
+  featured: Boolean
+  visibility: String
+
+  feature_image: String
+  feature_image_alt: String
+  feature_image_caption: String
+  og_image: String
+  og_title: String
+  og_description: String
+  twitter_image: String
+  twitter_title: String
+  twitter_description: String
+
+  meta_title: String
+  meta_description: String
+  canonical_url: String
+
+  codeinjection_head: String
+  codeinjection_foot: String
+  custom_template: String
+  comment_id: String
+  email_subject: String
+
+  url: String
+  created_at: DateTime
+  updated_at: DateTime
+  published_at: DateTime
+
+  # Includable relations
+  authors: [Author!]
+  tags: [Tag!]
+  primary_author: Author
+  primary_tag: Tag
+}
+
+# ─────────────────────────────────────────────
+# PAGE
+# ─────────────────────────────────────────────
+
+# Pages share the same field set as Posts.
+type Page {
+  id: ID!
+  uuid: String!
+  slug: String!
+  title: String!
+  html: String
+  excerpt: String
+  custom_excerpt: String
+  reading_time: Int
+  access: Boolean
+  featured: Boolean
+  visibility: String
+
+  feature_image: String
+  feature_image_alt: String
+  feature_image_caption: String
+  og_image: String
+  og_title: String
+  og_description: String
+  twitter_image: String
+  twitter_title: String
+  twitter_description: String
+
+  meta_title: String
+  meta_description: String
+  canonical_url: String
+
+  codeinjection_head: String
+  codeinjection_foot: String
+  custom_template: String
+  comment_id: String
+
+  url: String
+  created_at: DateTime
+  updated_at: DateTime
+  published_at: DateTime
+
+  authors: [Author!]
+  tags: [Tag!]
+  primary_author: Author
+  primary_tag: Tag
+}
+
+# ─────────────────────────────────────────────
+# AUTHOR
+# ─────────────────────────────────────────────
+
+type Author {
+  id: ID!
+  slug: String!
+  name: String!
+  profile_image: String
+  cover_image: String
+  bio: String
+  website: String
+  location: String
+  facebook: String
+  twitter: String
+  threads: String
+  bluesky: String
+  mastodon: String
+  tiktok: String
+  youtube: String
+  instagram: String
+  linkedin: String
+  meta_title: String
+  meta_description: String
+  url: String
+}
+
+# ─────────────────────────────────────────────
+# TAG
+# ─────────────────────────────────────────────
+
+type Tag {
+  id: ID!
+  slug: String!
+  name: String!
+  description: String
+  feature_image: String
+  visibility: String
+  meta_title: String
+  meta_description: String
+  og_image: String
+  og_title: String
+  og_description: String
+  twitter_image: String
+  twitter_title: String
+  twitter_description: String
+  codeinjection_head: String
+  codeinjection_foot: String
+  canonical_url: String
+  accent_color: String
+  url: String
+}
+
+# ─────────────────────────────────────────────
+# TIER
+# ─────────────────────────────────────────────
+
+enum TierType {
+  free
+  paid
+}
+
+type Tier {
+  id: ID!
+  slug: String!
+  name: String!
+  description: String
+  active: Boolean!
+  type: TierType!
+  welcome_page_url: String
+  visibility: String
+  monthly_price: Int
+  yearly_price: Int
+  currency: String
+  benefits: [String!]
+  created_at: DateTime
+  updated_at: DateTime
+}
+
+# ─────────────────────────────────────────────
+# SETTINGS
+# ─────────────────────────────────────────────
+
+type NavigationItem {
+  label: String!
+  url: String!
+}
+
+type Settings {
+  title: String
+  description: String
+  logo: String
+  icon: String
+  accent_color: String
+  cover_image: String
+  facebook: String
+  twitter: String
+  lang: String
+  timezone: String
+  codeinjection_head: String
+  codeinjection_foot: String
+  navigation: [NavigationItem!]
+  secondary_navigation: [NavigationItem!]
+  meta_title: String
+  meta_description: String
+  og_image: String
+  og_title: String
+  og_description: String
+  twitter_image: String
+  twitter_title: String
+  twitter_description: String
+  members_support_address: String
+  url: String
+}
+
+# ─────────────────────────────────────────────
+# NEWSLETTER  (Admin API only)
+# ─────────────────────────────────────────────
+
+enum NewsletterStatus {
+  active
+  archived
+}
+
+enum FontCategory {
+  serif
+  sans_serif
+}
+
+type Newsletter {
+  id: ID!
+  uuid: String!
+  slug: String!
+  name: String!
+  description: String
+  sender_name: String
+  sender_email: String
+  sender_reply_to: String
+  status: NewsletterStatus!
+  visibility: String
+  subscribe_on_signup: Boolean
+  sort_order: Int
+  header_image: String
+  show_header_icon: Boolean
+  show_header_title: Boolean
+  show_header_name: Boolean
+  title_font_category: FontCategory
+  title_alignment: String
+  show_feature_image: Boolean
+  body_font_category: FontCategory
+  footer_content: String
+  show_badge: Boolean
+  created_at: DateTime
+  updated_at: DateTime
+}
+
+# ─────────────────────────────────────────────
+# MEMBER  (Admin API only)
+# ─────────────────────────────────────────────
+
+enum MemberStatus {
+  free
+  paid
+  comped
+  gift
+}
+
+type MemberEmailSuppression {
+  suppressed: Boolean
+  info: JSON
+}
+
+type Member {
+  id: ID!
+  uuid: String!
+  email: String!
+  name: String
+  note: String
+  geolocation: JSON
+  subscribed: Boolean
+  status: MemberStatus
+  comped: Boolean
+  last_seen_at: DateTime
+  avatar_image: String
+  email_count: Int
+  email_opened_count: Int
+  email_open_rate: Int
+  can_comment: Boolean
+  unsubscribe_url: String
+  created_at: DateTime
+  updated_at: DateTime
+
+  labels: [Label!]
+  newsletters: [Newsletter!]
+  tiers: [Tier!]
+  email_suppression: MemberEmailSuppression
+}
+
+# ─────────────────────────────────────────────
+# LABEL  (Admin API only)
+# ─────────────────────────────────────────────
+
+type Label {
+  id: ID!
+  slug: String!
+  name: String!
+  created_at: DateTime
+  updated_at: DateTime
+}
+
+# ─────────────────────────────────────────────
+# OFFER  (Admin API only)
+# ─────────────────────────────────────────────
+
+enum OfferType {
+  percent
+  fixed
+}
+
+enum OfferCadence {
+  month
+  year
+}
+
+enum OfferDuration {
+  once
+  forever
+  repeating
+}
+
+enum OfferStatus {
+  active
+  archived
+}
+
+type OfferTier {
+  id: ID!
+  name: String!
+}
+
+type Offer {
+  id: ID!
+  name: String!
+  code: String!
+  display_title: String
+  display_description: String
+  type: OfferType!
+  cadence: OfferCadence!
+  amount: Float!
+  duration: OfferDuration!
+  duration_in_months: Int
+  currency_restriction: Boolean
+  currency: String
+  status: OfferStatus!
+  redemption_count: Int
+  tier: OfferTier
+}
+
+# ─────────────────────────────────────────────
+# USER  (Admin API only)
+# ─────────────────────────────────────────────
+
+type User {
+  id: ID!
+  slug: String!
+  name: String!
+  email: String!
+  profile_image: String
+  cover_image: String
+  bio: String
+  website: String
+  location: String
+  facebook: String
+  twitter: String
+  accessibility: String
+  status: String
+  meta_title: String
+  meta_description: String
+  tour: String
+  last_seen: DateTime
+  created_at: DateTime
+  updated_at: DateTime
+  url: String
+  roles: [Role!]
+}
+
+type Role {
+  id: ID!
+  name: String!
+  description: String
+  created_at: DateTime
+  updated_at: DateTime
+}
+
+# ─────────────────────────────────────────────
+# WEBHOOK  (Admin API only)
+# ─────────────────────────────────────────────
+
+type Webhook {
+  id: ID!
+  event: String!
+  target_url: String!
+  name: String
+  secret: String
+  api_version: String
+  integration_id: String
+  status: String
+  last_triggered_at: DateTime
+  last_triggered_status: String
+  last_triggered_error: String
+  created_at: DateTime
+  updated_at: DateTime
+}

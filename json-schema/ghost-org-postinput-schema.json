@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PostInput",
+  "title": "PostInput",
+  "type": "object",
+  "description": "Input fields for creating or updating a post or page.",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Title of the post"
+    },
+    "slug": {
+      "type": "string",
+      "description": "Custom URL slug"
+    },
+    "lexical": {
+      "type": "string",
+      "description": "Content in Lexical editor format (JSON string)"
+    },
+    "html": {
+      "type": "string",
+      "description": "Content in HTML format, converted to Lexical on save"
+    },
+    "status": {
+      "type": "string",
+      "description": "Publication status",
+      "enum": [
+        "published",
+        "draft",
+        "scheduled"
+      ]
+    },
+    "visibility": {
+      "type": "string",
+      "description": "Access visibility level",
+      "enum": [
+        "public",
+        "members",
+        "paid",
+        "tiers"
+      ]
+    },
+    "featured": {
+      "type": "boolean",
+      "description": "Whether the post is featured"
+    },
+    "feature_image": {
+      "type": "string",
+      "format": "uri",
+      "description": "Featured image URL",
+      "nullable": true
+    },
+    "feature_image_alt": {
+      "type": "string",
+      "description": "Alt text for the featured image",
+      "nullable": true
+    },
+    "feature_image_caption": {
+      "type": "string",
+      "description": "Caption for the featured image",
+      "nullable": true
+    },
+    "custom_excerpt": {
+      "type": "string",
+      "description": "Custom excerpt",
+      "nullable": true
+    },
+    "codeinjection_head": {
+      "type": "string",
+      "description": "Code injection in the head",
+      "nullable": true
+    },
+    "codeinjection_foot": {
+      "type": "string",
+      "description": "Code injection in the foot",
+      "nullable": true
+    },
+    "custom_template": {
+      "type": "string",
+      "description": "Custom template name",
+      "nullable": true
+    },
+    "canonical_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Canonical URL",
+      "nullable": true
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Scheduled publication time",
+      "nullable": true
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Required for updates to prevent collisions"
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags to associate, can be name strings or tag objects",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/Tag"
+          }
+        ]
+      }
+    },
+    "authors": {
+      "type": "array",
+      "description": "Authors to associate",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        }
+      }
+    },
+    "email_subject": {
+      "type": "string",
+      "description": "Custom email newsletter subject",
+      "nullable": true
+    },
+    "og_image": {
+      "type": "string",
+      "format": "uri",
+      "nullable": true,
+      "description": "Open Graph image URL"
+    },
+    "og_title": {
+      "type": "string",
+      "nullable": true,
+      "description": "Open Graph title"
+    },
+    "og_description": {
+      "type": "string",
+      "nullable": true,
+      "description": "Open Graph description"
+    },
+    "twitter_image": {
+      "type": "string",
+      "format": "uri",
+      "nullable": true,
+      "description": "Twitter card image URL"
+    },
+    "twitter_title": {
+      "type": "string",
+      "nullable": true,
+      "description": "Twitter card title"
+    },
+    "twitter_description": {
+      "type": "string",
+      "nullable": true,
+      "description": "Twitter card description"
+    },
+    "meta_title": {
+      "type": "string",
+      "nullable": true,
+      "description": "SEO meta title"
+    },
+    "meta_description": {
+      "type": "string",
+      "nullable": true,
+      "description": "SEO meta description"
+    }
+  }
+}

@@ -1,0 +1,327 @@
+openapi: 3.1.0
+info:
+  title: Ghost Admin Authors Users API
+  description: The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication. It enables developers to create, update, and delete posts, pages, tags, members, tiers, newsletters, and offers programmatically. Authentication is handled via JSON Web Tokens generated from an Admin API key, integration tokens, or staff access tokens. The Admin API supports everything the Ghost Admin interface can do and more, making it suitable for building custom publishing workflows, content automation, member management systems, and advanced integrations.
+  version: '5.0'
+  contact:
+    name: Ghost Foundation
+    url: https://ghost.org/docs/admin-api/
+  termsOfService: https://ghost.org/terms/
+servers:
+- url: https://{site}.ghost.io/ghost/api/admin
+  description: Ghost Pro Hosted Site
+  variables:
+    site:
+      default: your-site
+      description: Your Ghost site subdomain
+- url: '{protocol}://{domain}/ghost/api/admin'
+  description: Self-Hosted Ghost Instance
+  variables:
+    protocol:
+      default: https
+      enum:
+      - https
+      - http
+    domain:
+      default: localhost:2368
+      description: Your Ghost instance domain and port
+security:
+- adminApiToken: []
+tags:
+- name: Users
+  description: Read staff user accounts for the Ghost publication.
+paths:
+  /users/:
+    get:
+      operationId: adminBrowseUsers
+      summary: Browse users
+      description: Retrieve a paginated list of staff users for the publication.
+      tags:
+      - Users
+      parameters:
+      - name: include
+        in: query
+        required: false
+        description: Include related resources. Supports count.posts and roles.
+        schema:
+          type: string
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /users/{id}/:
+    get:
+      operationId: adminReadUser
+      summary: Read a user by ID
+      description: Retrieve a single staff user by their unique identifier.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: A single user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+                    minItems: 1
+                    maxItems: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    User:
+      type: object
+      description: A staff user account in the Ghost publication.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        name:
+          type: string
+          description: Display name
+        slug:
+          type: string
+          description: URL-safe slug
+        email:
+          type: string
+          format: email
+          description: Email address
+        profile_image:
+          type: string
+          format: uri
+          description: Profile image URL
+          nullable: true
+        cover_image:
+          type: string
+          format: uri
+          description: Cover image URL
+          nullable: true
+        bio:
+          type: string
+          description: Biography
+          nullable: true
+        website:
+          type: string
+          format: uri
+          description: Personal website URL
+          nullable: true
+        location:
+          type: string
+          description: Location
+          nullable: true
+        facebook:
+          type: string
+          description: Facebook username
+          nullable: true
+        twitter:
+          type: string
+          description: Twitter handle
+          nullable: true
+        accessibility:
+          type: string
+          description: Accessibility settings JSON
+          nullable: true
+        status:
+          type: string
+          description: User account status
+          enum:
+          - active
+          - inactive
+          - locked
+        meta_title:
+          type: string
+          nullable: true
+          description: SEO meta title
+        meta_description:
+          type: string
+          nullable: true
+          description: SEO meta description
+        tour:
+          type: string
+          description: Onboarding tour progress JSON
+          nullable: true
+        last_seen:
+          type: string
+          format: date-time
+          description: Last login timestamp
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: Full URL of the author page
+        roles:
+          type: array
+          description: Assigned roles
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+                description: Role identifier
+              name:
+                type: string
+                description: Role name
+              description:
+                type: string
+                description: Role description
+        created_at:
+          type: string
+          format: date-time
+          description: Account creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+    PaginationMeta:
+      type: object
+      description: Pagination metadata
+      properties:
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+              description: Current page
+              minimum: 1
+            limit:
+              type: integer
+              description: Items per page
+              minimum: 1
+            pages:
+              type: integer
+              description: Total pages
+              minimum: 1
+            total:
+              type: integer
+              description: Total items
+              minimum: 0
+            next:
+              type: integer
+              description: Next page number
+              nullable: true
+            prev:
+              type: integer
+              description: Previous page number
+              nullable: true
+    ErrorResponse:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional error context
+                nullable: true
+  parameters:
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response.
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      required: false
+      description: Page number for paginated results. Defaults to 1.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    order:
+      name: order
+      in: query
+      required: false
+      description: Field and direction to order results by.
+      schema:
+        type: string
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: Apply fine-grained filters using Ghost's NQL query language.
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return per page. Defaults to 15.
+      schema:
+        oneOf:
+        - type: integer
+          minimum: 1
+        - type: string
+          enum:
+          - all
+        default: 15
+    resourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource
+      schema:
+        type: string
+        format: uuid
+  responses:
+    Unauthorized:
+      description: Authentication failed or token is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    adminApiToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JSON Web Token generated from an Admin API key. The key is split into an ID and secret at the colon separator. The ID is used as the kid header and the secret is used to sign the token with HS256.
+externalDocs:
+  description: Ghost Admin API Documentation
+  url: https://ghost.org/docs/admin-api/

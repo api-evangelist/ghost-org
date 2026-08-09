@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/NavigationItem",
+  "title": "NavigationItem",
+  "type": "object",
+  "description": "A navigation menu item with a label and URL",
+  "properties": {
+    "label": {
+      "type": "string",
+      "description": "Display label for the navigation item"
+    },
+    "url": {
+      "type": "string",
+      "description": "URL the navigation item links to"
+    }
+  },
+  "required": [
+    "label",
+    "url"
+  ]
+}

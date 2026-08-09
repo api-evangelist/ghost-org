@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/NewsletterInput",
+  "title": "NewsletterInput",
+  "type": "object",
+  "description": "Input fields for creating or updating a newsletter.",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Newsletter name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Newsletter description",
+      "nullable": true
+    },
+    "sender_name": {
+      "type": "string",
+      "description": "Display name of the sender",
+      "nullable": true
+    },
+    "sender_email": {
+      "type": "string",
+      "format": "email",
+      "description": "Sender email address",
+      "nullable": true
+    },
+    "sender_reply_to": {
+      "type": "string",
+      "description": "Reply-to setting",
+      "enum": [
+        "newsletter",
+        "support"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "description": "Newsletter status",
+      "enum": [
+        "active",
+        "archived"
+      ]
+    },
+    "subscribe_on_signup": {
+      "type": "boolean",
+      "description": "Auto-subscribe new members"
+    },
+    "sort_order": {
+      "type": "integer",
+      "description": "Display order",
+      "minimum": 0
+    },
+    "header_image": {
+      "type": "string",
+      "format": "uri",
+      "nullable": true,
+      "description": "Header image URL"
+    },
+    "show_header_icon": {
+      "type": "boolean",
+      "description": "Show publication icon"
+    },
+    "show_header_title": {
+      "type": "boolean",
+      "description": "Show publication title"
+    },
+    "show_header_name": {
+      "type": "boolean",
+      "description": "Show newsletter name"
+    },
+    "title_font_category": {
+      "type": "string",
+      "enum": [
+        "serif",
+        "sans_serif"
+      ],
+      "description": "Title font category"
+    },
+    "body_font_category": {
+      "type": "string",
+      "enum": [
+        "serif",
+        "sans_serif"
+      ],
+      "description": "Body font category"
+    },
+    "show_feature_image": {
+      "type": "boolean",
+      "description": "Show featured images"
+    },
+    "show_badge": {
+      "type": "boolean",
+      "description": "Show Ghost badge"
+    },
+    "background_color": {
+      "type": "string",
+      "description": "Background color"
+    },
+    "border_color": {
+      "type": "string",
+      "nullable": true,
+      "description": "Border color"
+    },
+    "title_color": {
+      "type": "string",
+      "nullable": true,
+      "description": "Title color"
+    }
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/User",
+  "title": "User",
+  "type": "object",
+  "description": "A staff user account in the Ghost publication.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-safe slug"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address"
+    },
+    "profile_image": {
+      "type": "string",
+      "format": "uri",
+      "description": "Profile image URL",
+      "nullable": true
+    },
+    "cover_image": {
+      "type": "string",
+      "format": "uri",
+      "description": "Cover image URL",
+      "nullable": true
+    },
+    "bio": {
+      "type": "string",
+      "description": "Biography",
+      "nullable": true
+    },
+    "website": {
+      "type": "string",
+      "format": "uri",
+      "description": "Personal website URL",
+      "nullable": true
+    },
+    "location": {
+      "type": "string",
+      "description": "Location",
+      "nullable": true
+    },
+    "facebook": {
+      "type": "string",
+      "description": "Facebook username",
+      "nullable": true
+    },
+    "twitter": {
+      "type": "string",
+      "description": "Twitter handle",
+      "nullable": true
+    },
+    "accessibility": {
+      "type": "string",
+      "description": "Accessibility settings JSON",
+      "nullable": true
+    },
+    "status": {
+      "type": "string",
+      "description": "User account status",
+      "enum": [
+        "active",
+        "inactive",
+        "locked"
+      ]
+    },
+    "meta_title": {
+      "type": "string",
+      "nullable": true,
+      "description": "SEO meta title"
+    },
+    "meta_description": {
+      "type": "string",
+      "nullable": true,
+      "description": "SEO meta description"
+    },
+    "tour": {
+      "type": "string",
+      "description": "Onboarding tour progress JSON",
+      "nullable": true
+    },
+    "last_seen": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last login timestamp",
+      "nullable": true
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Full URL of the author page"
+    },
+    "roles": {
+      "type": "array",
+      "description": "Assigned roles",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Role identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Role name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Role description"
+          }
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Account creation timestamp"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    }
+  }
+}

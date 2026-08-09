@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/OfferInput",
+  "title": "OfferInput",
+  "type": "object",
+  "description": "Input fields for creating or updating an offer.",
+  "required": [
+    "name",
+    "code",
+    "display_title",
+    "type",
+    "cadence",
+    "amount",
+    "duration",
+    "tier"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Internal name"
+    },
+    "code": {
+      "type": "string",
+      "description": "URL-safe code"
+    },
+    "display_title": {
+      "type": "string",
+      "description": "Public-facing title"
+    },
+    "display_description": {
+      "type": "string",
+      "description": "Public-facing description",
+      "nullable": true
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "percent",
+        "fixed",
+        "trial"
+      ],
+      "description": "Discount type"
+    },
+    "cadence": {
+      "type": "string",
+      "enum": [
+        "month",
+        "year"
+      ],
+      "description": "Billing cadence"
+    },
+    "amount": {
+      "type": "integer",
+      "description": "Discount amount",
+      "minimum": 0
+    },
+    "duration": {
+      "type": "string",
+      "enum": [
+        "once",
+        "repeating",
+        "forever",
+        "trial"
+      ],
+      "description": "Discount duration"
+    },
+    "duration_in_months": {
+      "type": "integer",
+      "description": "Months for repeating duration",
+      "nullable": true,
+      "minimum": 1
+    },
+    "currency": {
+      "type": "string",
+      "description": "Currency code for fixed discounts",
+      "nullable": true,
+      "pattern": "^[A-Z]{3}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived"
+      ],
+      "description": "Offer status"
+    },
+    "tier": {
+      "type": "object",
+      "description": "Tier to apply the offer to",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Tier identifier"
+        }
+      }
+    }
+  }
+}

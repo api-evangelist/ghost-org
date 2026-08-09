@@ -1,0 +1,515 @@
+{
+  "provider": "Ghost",
+  "providerId": "ghost",
+  "kind": "json-structure",
+  "description": "Structural overview of the Ghost API surface; extracted from openapi/.",
+  "schemaCount": 21,
+  "operationCount": 41,
+  "schemas": [
+    {
+      "name": "Post",
+      "type": "object",
+      "propertyCount": 40,
+      "required": []
+    },
+    {
+      "name": "PostInput",
+      "type": "object",
+      "propertyCount": 28,
+      "required": []
+    },
+    {
+      "name": "Tag",
+      "type": "object",
+      "propertyCount": 21,
+      "required": []
+    },
+    {
+      "name": "TagInput",
+      "type": "object",
+      "propertyCount": 8,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "Member",
+      "type": "object",
+      "propertyCount": 16,
+      "required": []
+    },
+    {
+      "name": "MemberInput",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Label",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Subscription",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    },
+    {
+      "name": "Tier",
+      "type": "object",
+      "propertyCount": 15,
+      "required": []
+    },
+    {
+      "name": "TierInput",
+      "type": "object",
+      "propertyCount": 10,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "Newsletter",
+      "type": "object",
+      "propertyCount": 28,
+      "required": []
+    },
+    {
+      "name": "NewsletterInput",
+      "type": "object",
+      "propertyCount": 19,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "Offer",
+      "type": "object",
+      "propertyCount": 17,
+      "required": []
+    },
+    {
+      "name": "OfferInput",
+      "type": "object",
+      "propertyCount": 12,
+      "required": [
+        "name",
+        "code",
+        "display_title",
+        "type",
+        "cadence",
+        "amount",
+        "duration",
+        "tier"
+      ]
+    },
+    {
+      "name": "User",
+      "type": "object",
+      "propertyCount": 21,
+      "required": []
+    },
+    {
+      "name": "Webhook",
+      "type": "object",
+      "propertyCount": 13,
+      "required": []
+    },
+    {
+      "name": "WebhookInput",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "event",
+        "target_url"
+      ]
+    },
+    {
+      "name": "Theme",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Site",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "PaginationMeta",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ErrorResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/posts/",
+      "operationId": "adminBrowsePosts",
+      "summary": "Browse posts",
+      "tags": [
+        "Posts"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/posts/",
+      "operationId": "adminCreatePost",
+      "summary": "Create a post",
+      "tags": [
+        "Posts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/posts/{id}/",
+      "operationId": "adminReadPost",
+      "summary": "Read a post by ID",
+      "tags": [
+        "Posts"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/posts/{id}/",
+      "operationId": "adminUpdatePost",
+      "summary": "Update a post",
+      "tags": [
+        "Posts"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/posts/{id}/",
+      "operationId": "adminDeletePost",
+      "summary": "Delete a post",
+      "tags": [
+        "Posts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/pages/",
+      "operationId": "adminBrowsePages",
+      "summary": "Browse pages",
+      "tags": [
+        "Pages"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/pages/",
+      "operationId": "adminCreatePage",
+      "summary": "Create a page",
+      "tags": [
+        "Pages"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/pages/{id}/",
+      "operationId": "adminReadPage",
+      "summary": "Read a page by ID",
+      "tags": [
+        "Pages"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/pages/{id}/",
+      "operationId": "adminUpdatePage",
+      "summary": "Update a page",
+      "tags": [
+        "Pages"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/pages/{id}/",
+      "operationId": "adminDeletePage",
+      "summary": "Delete a page",
+      "tags": [
+        "Pages"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/tags/",
+      "operationId": "adminBrowseTags",
+      "summary": "Browse tags",
+      "tags": []
+    },
+    {
+      "method": "POST",
+      "path": "/tags/",
+      "operationId": "adminCreateTag",
+      "summary": "Create a tag",
+      "tags": []
+    },
+    {
+      "method": "GET",
+      "path": "/tags/{id}/",
+      "operationId": "adminReadTag",
+      "summary": "Read a tag by ID",
+      "tags": []
+    },
+    {
+      "method": "PUT",
+      "path": "/tags/{id}/",
+      "operationId": "adminUpdateTag",
+      "summary": "Update a tag",
+      "tags": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/tags/{id}/",
+      "operationId": "adminDeleteTag",
+      "summary": "Delete a tag",
+      "tags": []
+    },
+    {
+      "method": "GET",
+      "path": "/members/",
+      "operationId": "adminBrowseMembers",
+      "summary": "Browse members",
+      "tags": [
+        "Members"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/members/",
+      "operationId": "adminCreateMember",
+      "summary": "Create a member",
+      "tags": [
+        "Members"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/members/{id}/",
+      "operationId": "adminReadMember",
+      "summary": "Read a member by ID",
+      "tags": [
+        "Members"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{id}/",
+      "operationId": "adminUpdateMember",
+      "summary": "Update a member",
+      "tags": [
+        "Members"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/members/{id}/",
+      "operationId": "adminDeleteMember",
+      "summary": "Delete a member",
+      "tags": [
+        "Members"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/tiers/",
+      "operationId": "adminBrowseTiers",
+      "summary": "Browse tiers",
+      "tags": [
+        "Tiers"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/tiers/",
+      "operationId": "adminCreateTier",
+      "summary": "Create a tier",
+      "tags": [
+        "Tiers"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/tiers/{id}/",
+      "operationId": "adminReadTier",
+      "summary": "Read a tier by ID",
+      "tags": [
+        "Tiers"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/tiers/{id}/",
+      "operationId": "adminUpdateTier",
+      "summary": "Update a tier",
+      "tags": [
+        "Tiers"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/newsletters/",
+      "operationId": "adminBrowseNewsletters",
+      "summary": "Browse newsletters",
+      "tags": [
+        "Newsletters"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/newsletters/",
+      "operationId": "adminCreateNewsletter",
+      "summary": "Create a newsletter",
+      "tags": [
+        "Newsletters"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/newsletters/{id}/",
+      "operationId": "adminReadNewsletter",
+      "summary": "Read a newsletter by ID",
+      "tags": [
+        "Newsletters"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/newsletters/{id}/",
+      "operationId": "adminUpdateNewsletter",
+      "summary": "Update a newsletter",
+      "tags": [
+        "Newsletters"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/offers/",
+      "operationId": "adminBrowseOffers",
+      "summary": "Browse offers",
+      "tags": [
+        "Offers"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/offers/",
+      "operationId": "adminCreateOffer",
+      "summary": "Create an offer",
+      "tags": [
+        "Offers"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/offers/{id}/",
+      "operationId": "adminReadOffer",
+      "summary": "Read an offer by ID",
+      "tags": [
+        "Offers"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/offers/{id}/",
+      "operationId": "adminUpdateOffer",
+      "summary": "Update an offer",
+      "tags": [
+        "Offers"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/",
+      "operationId": "adminBrowseUsers",
+      "summary": "Browse users",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/{id}/",
+      "operationId": "adminReadUser",
+      "summary": "Read a user by ID",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/webhooks/",
+      "operationId": "adminCreateWebhook",
+      "summary": "Create a webhook",
+      "tags": [
+        "Webhooks"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{id}/",
+      "operationId": "adminUpdateWebhook",
+      "summary": "Update a webhook",
+      "tags": [
+        "Webhooks"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/webhooks/{id}/",
+      "operationId": "adminDeleteWebhook",
+      "summary": "Delete a webhook",
+      "tags": [
+        "Webhooks"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/images/upload/",
+      "operationId": "adminUploadImage",
+      "summary": "Upload an image",
+      "tags": [
+        "Images"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/themes/upload/",
+      "operationId": "adminUploadTheme",
+      "summary": "Upload a theme",
+      "tags": [
+        "Themes"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/themes/{name}/activate/",
+      "operationId": "adminActivateTheme",
+      "summary": "Activate a theme",
+      "tags": [
+        "Themes"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/site/",
+      "operationId": "adminReadSite",
+      "summary": "Read site information",
+      "tags": [
+        "Site"
+      ]
+    }
+  ]
+}

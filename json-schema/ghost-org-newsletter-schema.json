@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Newsletter",
+  "title": "Newsletter",
+  "type": "object",
+  "description": "A newsletter that members can subscribe to for email delivery of content.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier"
+    },
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Universally unique identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Newsletter name"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-safe slug"
+    },
+    "description": {
+      "type": "string",
+      "description": "Newsletter description",
+      "nullable": true
+    },
+    "sender_name": {
+      "type": "string",
+      "description": "Display name of the email sender",
+      "nullable": true
+    },
+    "sender_email": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address used as the sender",
+      "nullable": true
+    },
+    "sender_reply_to": {
+      "type": "string",
+      "description": "Reply-to email setting",
+      "enum": [
+        "newsletter",
+        "support"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "description": "Newsletter status",
+      "enum": [
+        "active",
+        "archived"
+      ]
+    },
+    "visibility": {
+      "type": "string",
+      "description": "Who can subscribe to this newsletter"
+    },
+    "subscribe_on_signup": {
+      "type": "boolean",
+      "description": "Whether new members are automatically subscribed"
+    },
+    "sort_order": {
+      "type": "integer",
+      "description": "Display order of the newsletter",
+      "minimum": 0
+    },
+    "header_image": {
+      "type": "string",
+      "format": "uri",
+      "description": "Header image URL",
+      "nullable": true
+    },
+    "show_header_icon": {
+      "type": "boolean",
+      "description": "Whether to show the publication icon in the header"
+    },
+    "show_header_title": {
+      "type": "boolean",
+      "description": "Whether to show the publication title in the header"
+    },
+    "show_header_name": {
+      "type": "boolean",
+      "description": "Whether to show the newsletter name in the header"
+    },
+    "title_font_category": {
+      "type": "string",
+      "description": "Font category for titles",
+      "enum": [
+        "serif",
+        "sans_serif"
+      ]
+    },
+    "title_alignment": {
+      "type": "string",
+      "description": "Title alignment",
+      "enum": [
+        "center",
+        "left"
+      ]
+    },
+    "show_feature_image": {
+      "type": "boolean",
+      "description": "Whether to show featured images"
+    },
+    "body_font_category": {
+      "type": "string",
+      "description": "Font category for body text",
+      "enum": [
+        "serif",
+        "sans_serif"
+      ]
+    },
+    "footer_content": {
+      "type": "string",
+      "description": "Custom footer content",
+      "nullable": true
+    },
+    "show_badge": {
+      "type": "boolean",
+      "description": "Whether to show the Ghost badge"
+    },
+    "show_latest_posts": {
+      "type": "boolean",
+      "description": "Whether to show latest posts"
+    },
+    "background_color": {
+      "type": "string",
+      "description": "Background color"
+    },
+    "border_color": {
+      "type": "string",
+      "description": "Border color",
+      "nullable": true
+    },
+    "title_color": {
+      "type": "string",
+      "description": "Title color",
+      "nullable": true
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    }
+  }
+}
