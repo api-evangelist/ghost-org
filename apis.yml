@@ -758,6 +758,19 @@ apis:
   - type: Documentation
     url: https://docs.ghost.org/admin-api/webhooks
 common:
+- type: IssueTracker
+  url: https://github.com/TryGhost/Ghost/issues
+- type: Releases
+  url: https://github.com/TryGhost/Ghost/releases
+- type: SecurityPolicy
+  url: https://github.com/TryGhost/Ghost/blob/main/SECURITY.md
+- type: CodeOfConduct
+  url: https://github.com/TryGhost/Ghost/blob/main/.github/CODE_OF_CONDUCT.md
+- type: ContributionGuide
+  url: https://github.com/TryGhost/Ghost/blob/main/.github/CONTRIBUTING.md
+- type: License
+  name: MIT
+  url: https://github.com/TryGhost/Ghost/blob/main/LICENSE
 - type: AgenticAccess
   url: agentic-access/ghost-org-agentic-access.yml
 - type: DomainSecurity
