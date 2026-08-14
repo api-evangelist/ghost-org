@@ -32,19 +32,21 @@ tags:
 - Open Source
 - Content
 created: '2026-07-05'
-modified: '2026-08-08'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 apis:
 - aid: ghost-org:ghost-org-admin-images-api
   name: Ghost Admin - Images API
   description: Image uploads.
-  humanURL: https://docs.ghost.org/content-api
-  baseURL: https://{admin_domain}/ghost/api/content
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
   tags:
   - Admin - Images
   properties:
   - type: OpenAPI
     url: openapi/ghost-org-admin-images-api-openapi.yml
+  - type: Overlay
+    url: overlays/ghost-org-admin-images-api-overlay.yaml
   - type: Documentation
     url: https://docs.ghost.org/content-api
   - type: APIReference
@@ -76,13 +78,15 @@ apis:
 - aid: ghost-org:ghost-org-admin-labels-api
   name: Ghost Admin - Labels API
   description: Read-write member labels.
-  humanURL: https://docs.ghost.org/content-api
-  baseURL: https://{admin_domain}/ghost/api/content
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
   tags:
   - Admin - Labels
   properties:
   - type: OpenAPI
     url: openapi/ghost-org-admin-labels-api-openapi.yml
+  - type: Overlay
+    url: overlays/ghost-org-admin-labels-api-overlay.yaml
   - type: Documentation
     url: https://docs.ghost.org/content-api
   - type: APIReference
@@ -114,13 +118,15 @@ apis:
 - aid: ghost-org:ghost-org-admin-members-api
   name: Ghost Admin - Members API
   description: Read-write members.
-  humanURL: https://docs.ghost.org/content-api
-  baseURL: https://{admin_domain}/ghost/api/content
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
   tags:
   - Admin - Members
   properties:
   - type: OpenAPI
     url: openapi/ghost-org-admin-members-api-openapi.yml
+  - type: Overlay
+    url: overlays/ghost-org-admin-members-api-overlay.yaml
   - type: Documentation
     url: https://docs.ghost.org/content-api
   - type: APIReference
@@ -152,13 +158,15 @@ apis:
 - aid: ghost-org:ghost-org-admin-newsletters-api
   name: Ghost Admin - Newsletters API
   description: Read-write newsletters.
-  humanURL: https://docs.ghost.org/content-api
-  baseURL: https://{admin_domain}/ghost/api/content
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
   tags:
   - Admin - Newsletters
   properties:
   - type: OpenAPI
     url: openapi/ghost-org-admin-newsletters-api-openapi.yml
+  - type: Overlay
+    url: overlays/ghost-org-admin-newsletters-api-overlay.yaml
   - type: Documentation
     url: https://docs.ghost.org/content-api
   - type: APIReference
@@ -190,13 +198,15 @@ apis:
 - aid: ghost-org:ghost-org-admin-offers-api
   name: Ghost Admin - Offers API
   description: Read-write promotional offers.
-  humanURL: https://docs.ghost.org/content-api
-  baseURL: https://{admin_domain}/ghost/api/content
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
   tags:
   - Admin - Offers
   properties:
   - type: OpenAPI
     url: openapi/ghost-org-admin-offers-api-openapi.yml
+  - type: Overlay
+    url: overlays/ghost-org-admin-offers-api-overlay.yaml
   - type: Documentation
     url: https://docs.ghost.org/content-api
   - type: APIReference
@@ -228,13 +238,15 @@ apis:
 - aid: ghost-org:ghost-org-admin-pages-api
   name: Ghost Admin - Pages API
   description: Read-write pages.
-  humanURL: https://docs.ghost.org/content-api
-  baseURL: https://{admin_domain}/ghost/api/content
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
   tags:
   - Admin - Pages
   properties:
   - type: OpenAPI
     url: openapi/ghost-org-admin-pages-api-openapi.yml
+  - type: Overlay
+    url: overlays/ghost-org-admin-pages-api-overlay.yaml
   - type: Documentation
     url: https://docs.ghost.org/content-api
   - type: APIReference
@@ -266,13 +278,15 @@ apis:
 - aid: ghost-org:ghost-org-admin-posts-api
   name: Ghost Admin - Posts API
   description: Read-write posts.
-  humanURL: https://docs.ghost.org/content-api
-  baseURL: https://{admin_domain}/ghost/api/content
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
   tags:
   - Admin - Posts
   properties:
   - type: OpenAPI
     url: openapi/ghost-org-admin-posts-api-openapi.yml
+  - type: Overlay
+    url: overlays/ghost-org-admin-posts-api-overlay.yaml
   - type: Documentation
     url: https://docs.ghost.org/content-api
   - type: APIReference
@@ -304,13 +318,15 @@ apis:
 - aid: ghost-org:ghost-org-admin-site-api
   name: Ghost Admin - Site API
   description: Read-only public site metadata.
-  humanURL: https://docs.ghost.org/content-api
-  baseURL: https://{admin_domain}/ghost/api/content
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
   tags:
   - Admin - Site
   properties:
   - type: OpenAPI
     url: openapi/ghost-org-admin-site-api-openapi.yml
+  - type: Overlay
+    url: overlays/ghost-org-admin-site-api-overlay.yaml
   - type: Documentation
     url: https://docs.ghost.org/content-api
   - type: APIReference
@@ -342,13 +358,15 @@ apis:
 - aid: ghost-org:ghost-org-admin-tags-api
   name: Ghost Admin - Tags API
   description: Read-write tags.
-  humanURL: https://docs.ghost.org/content-api
-  baseURL: https://{admin_domain}/ghost/api/content
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
   tags:
   - Admin - Tags
   properties:
   - type: OpenAPI
     url: openapi/ghost-org-admin-tags-api-openapi.yml
+  - type: Overlay
+    url: overlays/ghost-org-admin-tags-api-overlay.yaml
   - type: Documentation
     url: https://docs.ghost.org/content-api
   - type: APIReference
@@ -380,13 +398,15 @@ apis:
 - aid: ghost-org:ghost-org-admin-themes-api
   name: Ghost Admin - Themes API
   description: Theme upload and activation.
-  humanURL: https://docs.ghost.org/content-api
-  baseURL: https://{admin_domain}/ghost/api/content
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
   tags:
   - Admin - Themes
   properties:
   - type: OpenAPI
     url: openapi/ghost-org-admin-themes-api-openapi.yml
+  - type: Overlay
+    url: overlays/ghost-org-admin-themes-api-overlay.yaml
   - type: Documentation
     url: https://docs.ghost.org/content-api
   - type: APIReference
@@ -418,13 +438,15 @@ apis:
 - aid: ghost-org:ghost-org-admin-tiers-api
   name: Ghost Admin - Tiers API
   description: Read-write subscription tiers.
-  humanURL: https://docs.ghost.org/content-api
-  baseURL: https://{admin_domain}/ghost/api/content
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
   tags:
   - Admin - Tiers
   properties:
   - type: OpenAPI
     url: openapi/ghost-org-admin-tiers-api-openapi.yml
+  - type: Overlay
+    url: overlays/ghost-org-admin-tiers-api-overlay.yaml
   - type: Documentation
     url: https://docs.ghost.org/content-api
   - type: APIReference
@@ -456,13 +478,15 @@ apis:
 - aid: ghost-org:ghost-org-admin-users-api
   name: Ghost Admin - Users API
   description: Read-only staff users.
-  humanURL: https://docs.ghost.org/content-api
-  baseURL: https://{admin_domain}/ghost/api/content
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
   tags:
   - Admin - Users
   properties:
   - type: OpenAPI
     url: openapi/ghost-org-admin-users-api-openapi.yml
+  - type: Overlay
+    url: overlays/ghost-org-admin-users-api-overlay.yaml
   - type: Documentation
     url: https://docs.ghost.org/content-api
   - type: APIReference
@@ -494,13 +518,15 @@ apis:
 - aid: ghost-org:ghost-org-admin-webhooks-api
   name: Ghost Admin - Webhooks API
   description: Outbound webhook management.
-  humanURL: https://docs.ghost.org/content-api
-  baseURL: https://{admin_domain}/ghost/api/content
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
   tags:
   - Admin - Webhooks
   properties:
   - type: OpenAPI
     url: openapi/ghost-org-admin-webhooks-api-openapi.yml
+  - type: Overlay
+    url: overlays/ghost-org-admin-webhooks-api-overlay.yaml
   - type: Documentation
     url: https://docs.ghost.org/content-api
   - type: APIReference
@@ -539,6 +565,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/ghost-org-content-authors-api-openapi.yml
+  - type: Overlay
+    url: overlays/ghost-org-content-authors-api-overlay.yaml
   - type: Documentation
     url: https://docs.ghost.org/content-api
   - type: APIReference
@@ -577,6 +605,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/ghost-org-content-pages-api-openapi.yml
+  - type: Overlay
+    url: overlays/ghost-org-content-pages-api-overlay.yaml
   - type: Documentation
     url: https://docs.ghost.org/content-api
   - type: APIReference
@@ -615,6 +645,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/ghost-org-content-posts-api-openapi.yml
+  - type: Overlay
+    url: overlays/ghost-org-content-posts-api-overlay.yaml
   - type: Documentation
     url: https://docs.ghost.org/content-api
   - type: APIReference
@@ -653,6 +685,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/ghost-org-content-settings-api-openapi.yml
+  - type: Overlay
+    url: overlays/ghost-org-content-settings-api-overlay.yaml
   - type: Documentation
     url: https://docs.ghost.org/content-api
   - type: APIReference
@@ -691,6 +725,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/ghost-org-content-tags-api-openapi.yml
+  - type: Overlay
+    url: overlays/ghost-org-content-tags-api-overlay.yaml
   - type: Documentation
     url: https://docs.ghost.org/content-api
   - type: APIReference
@@ -729,6 +765,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/ghost-org-content-tiers-api-openapi.yml
+  - type: Overlay
+    url: overlays/ghost-org-content-tiers-api-overlay.yaml
   - type: Documentation
     url: https://docs.ghost.org/content-api
   - type: APIReference
@@ -807,8 +845,77 @@ common:
   url: https://ghost.org/integrations
 - type: LlmsText
   url: https://docs.ghost.org/llms.txt
+- type: LLMsTxt
+  url: llms/ghost-org-llms.txt
+- type: WellKnown
+  url: well-known/ghost-org-well-known.yml
+- type: MCPServer
+  url: mcp/ghost-org-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/ghost-org-tool-crosswalk.yml
+- type: AgentCard
+  url: a2a/ghost-org-a2a.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Packages
+  url: packages/ghost-org-packages.yml
+- type: SDKs
+  url: packages/ghost-org-packages.yml
+- type: CLI
+  url: cli/ghost-org-cli.yml
+- type: Components
+  url: components/ghost-org-components.yml
+- type: ChangeLog
+  url: changelog/ghost-org-changelog.yml
+- type: Conventions
+  url: conventions/ghost-org-conventions.yml
+- type: ErrorCatalog
+  url: errors/ghost-org-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/ghost-org-lifecycle.yml
+- type: Deprecation
+  url: lifecycle/ghost-org-lifecycle.yml
+- type: StatusPage
+  url: https://status.ghost.org
+- type: Conformance
+  url: conformance/ghost-org-conformance.yml
+- type: DataModel
+  url: data-model/ghost-org-data-model.yml
+- type: Sandbox
+  url: sandbox/ghost-org-sandbox.yml
+- type: VulnerabilityDisclosure
+  url: security/ghost-org-vulnerability-disclosure.yml
+- type: Security
+  url: security/ghost-org-vulnerability-disclosure.yml
+- type: AsyncAPI
+  url: asyncapi/ghost-org-webhooks-asyncapi.yml
+- type: Webhooks
+  url: asyncapi/ghost-org-webhooks-asyncapi.yml
+- type: DeveloperPortal
+  url: https://docs.ghost.org/
+- type: APIReference
+  url: https://docs.ghost.org/content-api
+- type: GettingStarted
+  url: https://docs.ghost.org/install
+- type: Support
+  url: https://ghost.org/help/
+- type: Roadmap
+  url: https://docs.ghost.org/product
+- type: SignUp
+  url: https://ghost.org/signup/
+- type: Login
+  url: https://account.ghost.org/signin
+- type: TermsOfService
+  url: https://ghost.org/terms/
+- type: PrivacyPolicy
+  url: https://ghost.org/privacy/
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 x-merged-from:
 - ghost
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 46
+  pass: local-v1
