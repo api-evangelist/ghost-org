@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ghost Admin Authors Themes API",
+    "version": "5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Themes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload a theme",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{site}.ghost.io/ghost/api/admin/themes/upload/",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload a new theme as a zip file to the Ghost publication."
+        },
+        {
+          "info": {
+            "name": "Activate a theme",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{site}.ghost.io/ghost/api/admin/themes/:name/activate/",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the theme to activate"
+              }
+            ]
+          },
+          "docs": "Activate an installed theme by its name, making it the active front-end theme for the publication."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

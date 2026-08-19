@@ -1,0 +1,195 @@
+{
+  "item": [
+    {
+      "id": "ffcf8743-8c79-4210-8f7c-3102a274afa2",
+      "name": "Settings",
+      "description": {
+        "content": "Settings provide access to global publication settings including title, description, navigation, and other configuration values.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3f58d945-4d32-4ba7-8227-6cc40260805a",
+          "name": "Read settings",
+          "request": {
+            "name": "Read settings",
+            "description": {
+              "content": "Retrieve all public settings for the Ghost publication, including title, description, logo, icon, cover image, language, timezone, navigation, and other site-wide configuration values.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "settings",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Ghost site subdomain",
+                  "type": "any",
+                  "value": "{{site}}",
+                  "key": "site"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "446028b6-4b07-4d10-a668-a7a40038017b",
+              "name": "Publication settings",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "settings",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"settings\": {\n    \"title\": \"string\",\n    \"description\": \"string\",\n    \"logo\": \"http://IjCbWhjtfVr.vjVF6N-I6sQ3pWBMX7ZAFPN4ekKl7aWoI,8c34QKzZLz0Cqg0JWBpd\",\n    \"icon\": \"https://nYFwcxBDLRsbnVhTBNFT.iibF9zsDPle8K\",\n    \"accent_color\": \"#C4B68B\",\n    \"cover_image\": \"http://LoNGYwlhRFlTzoINPQHfmgxhfhIDCK.xagVXvaAwa1W+X1UzhULu8rwNTPF74CiHFZouA7UJinWxWN0nMgPshnEnPF\",\n    \"facebook\": \"string\",\n    \"twitter\": \"string\",\n    \"lang\": \"string\",\n    \"timezone\": \"string\",\n    \"codeinjection_head\": \"string\",\n    \"codeinjection_foot\": \"string\",\n    \"navigation\": [\n      {\n        \"label\": \"string\",\n        \"url\": \"string\"\n      },\n      {\n        \"label\": \"string\",\n        \"url\": \"string\"\n      }\n    ],\n    \"secondary_navigation\": [\n      {\n        \"label\": \"string\",\n        \"url\": \"string\"\n      },\n      {\n        \"label\": \"string\",\n        \"url\": \"string\"\n      }\n    ],\n    \"meta_title\": \"string\",\n    \"meta_description\": \"string\",\n    \"og_image\": \"http://IfIpFAvafHRzOCqgkAvGRKc.yfirLNqzkXk+R6Mqzu0Kr6ib7xaX0pKMgbGfhU5W451FeuI\",\n    \"og_title\": \"string\",\n    \"og_description\": \"string\",\n    \"twitter_image\": \"https://lcAkdCSOcavPUdD.cpKgTrzJLm7EN1SY-k2QNkiGPoz5RogkX4JG2WyZsJCyW-bWib3Snn\",\n    \"twitter_title\": \"string\",\n    \"twitter_description\": \"string\",\n    \"members_support_address\": \"D1cKtCuahPLp@iIRxPf.qea\",\n    \"url\": \"https://HCxAYjzTsMukjndcmKhRqVmEugRwag.vgpeSH-PmadjHJV8oIgHOQGALo29Ivg6Cx1\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3e56cc4-1f98-4d55-9794-2e8c10da011f",
+              "name": "Authentication failed or API key is missing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "settings",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Ghost site subdomain",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-site",
+      "key": "site"
+    },
+    {
+      "type": "string",
+      "value": "https://{{site}}.ghost.io/ghost/api/admin",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "575a512a-3c24-4738-b143-23d645ac23dd",
+    "name": "Ghost Admin Authors Settings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication. It enables developers to create, update, and delete posts, pages, tags, members, tiers, newsletters, and offers programmatically. Authentication is handled via JSON Web Tokens generated from an Admin API key, integration tokens, or staff access tokens. The Admin API supports everything the Ghost Admin interface can do and more, making it suitable for building custom publishing workflows, content automation, member management systems, and advanced integrations.\n\nContact Support:\n Name: Ghost Foundation",
+      "type": "text/plain"
+    }
+  }
+}

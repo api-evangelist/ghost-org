@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ghost Admin Authors Offers API",
+    "version": "5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Offers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse offers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/offers/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Apply fine-grained filters using Ghost's NQL query language."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return per page. Defaults to 15."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results. Defaults to 1."
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all promotional offers configured for the publication."
+        },
+        {
+          "info": {
+            "name": "Create an offer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{site}.ghost.io/ghost/api/admin/offers/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new promotional offer for a paid membership tier, including percentage or fixed amount discounts and trial periods."
+        },
+        {
+          "info": {
+            "name": "Read an offer by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/offers/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single offer by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Update an offer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{site}.ghost.io/ghost/api/admin/offers/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing offer by its unique identifier."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

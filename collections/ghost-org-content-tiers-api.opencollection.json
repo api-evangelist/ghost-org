@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ghost Content and Admin APIs Admin - Images Content - Tiers API",
+    "version": "5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Content - Tiers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse public subscription tiers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{admin_domain}/ghost/api/content/tiers/",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Content API key."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated related data to include (for example authors,tags)."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Ghost NQL filter expression."
+              }
+            ]
+          },
+          "docs": "Browse public subscription tiers"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

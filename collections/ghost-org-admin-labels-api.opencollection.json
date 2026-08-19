@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ghost Content and Admin APIs Admin - Images Admin - Labels API",
+    "version": "5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Admin - Labels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse member labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{admin_domain}/ghost/api/admin/labels/",
+            "headers": [
+              {
+                "name": "Accept-Version",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Browse member labels"
+        },
+        {
+          "info": {
+            "name": "Create a label",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{admin_domain}/ghost/api/admin/labels/",
+            "headers": [
+              {
+                "name": "Accept-Version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a label"
+        },
+        {
+          "info": {
+            "name": "Update a label",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{admin_domain}/ghost/api/admin/labels/:id/",
+            "headers": [
+              {
+                "name": "Accept-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a label"
+        },
+        {
+          "info": {
+            "name": "Delete a label",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{admin_domain}/ghost/api/admin/labels/:id/",
+            "headers": [
+              {
+                "name": "Accept-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource ID."
+              }
+            ]
+          },
+          "docs": "Delete a label"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

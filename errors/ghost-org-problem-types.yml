@@ -1,0 +1,137 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.ghost.org/content-api/errors, derived from 4xx/5xx responses in openapi/,
+  and confirmed against live unauthenticated responses from https://demo.ghost.io
+provider: Ghost
+providerId: ghost-org
+description: >-
+  Ghost returns a single error envelope across both the Content API and the Admin API: a
+  JSON object with an `errors` array. It is not RFC 9457 problem+json — the media type is
+  application/json and the discriminator is the `type` field (documented as `errorType`
+  on the Content API errors page, but emitted as `type` by a live Ghost 6.x install).
+  Every error object carries a UUID `id`, which is the value to quote in a support
+  report.
+format:
+  rfc9457: false
+  media_type: application/json
+  envelope: '{"errors": [ { ... } ]}'
+  discriminator: type
+  fields:
+  - name: message
+    type: string
+    description: Human-readable statement of what went wrong. Designed to be the primary signal.
+  - name: context
+    type: string|null
+    description: Additional detail, often the remediation hint.
+  - name: type
+    type: string
+    description: >-
+      Error class name, e.g. UnauthorizedError, NoPermissionError, NotFoundError. The
+      Content API documentation calls this field `errorType`; live 6.x responses emit
+      `type`.
+  - name: details
+    type: object|null
+    description: Structured validation detail where applicable.
+  - name: property
+    type: string|null
+    description: The offending request property on validation failures.
+  - name: help
+    type: string|null
+    description: Optional pointer to documentation.
+  - name: code
+    type: string|null
+    description: Machine-readable code where Ghost defines one, e.g. UNKNOWN_CONTENT_API_KEY.
+  - name: id
+    type: string (uuid)
+    description: Per-response identifier. Quote this when reporting an error.
+  - name: ghostErrorCode
+    type: string|null
+x-evidence:
+  fetched: '2026-08-13'
+  probes:
+  - url: https://demo.ghost.io/ghost/api/content/settings/
+    http_status: 403
+    observed_type: NoPermissionError
+  - url: https://demo.ghost.io/ghost/api/content/posts/?key=<invalid>
+    http_status: 401
+    observed_type: UnauthorizedError
+    observed_code: UNKNOWN_CONTENT_API_KEY
+  - url: https://demo.ghost.io/ghost/api/content/posts/slug/<missing>/
+    http_status: 404
+    observed_type: NotFoundError
+problem_types:
+- status: 400
+  type: BadRequestError
+  title: Badly formed query
+  documented: true
+  remediation: >-
+    URL-encode query parameter values. `filter` uses NQL and must be encoded when passed
+    directly; the JavaScript client libraries do this for you.
+  source: https://docs.ghost.org/content-api/errors
+- status: 401
+  type: UnauthorizedError
+  title: Authentication failure
+  code: UNKNOWN_CONTENT_API_KEY
+  documented: true
+  occurrences_in_spec: 50
+  remediation: >-
+    Content API: supply a valid `key` query parameter from a Custom Integration. Admin
+    API: send `Authorization: Ghost <jwt>` signed with a current Admin API key or staff
+    access token — the JWT is short-lived and single use.
+  observed: true
+- status: 403
+  type: NoPermissionError
+  title: Permission denied
+  documented: true
+  remediation: >-
+    The credential was recognised but is not allowed to perform this action, or no
+    credential was determinable at all. Check the integration's role and, for member
+    auth, that cookies are being forwarded.
+  observed: true
+- status: 404
+  type: NotFoundError
+  title: Unknown resource
+  documented: true
+  occurrences_in_spec: 29
+  remediation: >-
+    Also returned for data that exists but is not public — an unpublished post is a 404
+    to the Content API, not a 403.
+  observed: true
+- status: 409
+  type: UpdateCollisionError
+  title: Update collision due to stale updated_at value
+  documented: true
+  occurrences_in_spec: 2
+  remediation: >-
+    Ghost uses `updated_at` as an optimistic concurrency token on PUT. Re-read the
+    resource, carry the fresh `updated_at` into the request body, and retry.
+  source: openapi/ (409 responses on edit operations)
+- status: 415
+  type: UnsupportedMediaTypeError
+  title: Unsupported media type
+  documented: true
+  occurrences_in_spec: 1
+  remediation: Upload endpoints expect multipart/form-data with a supported image or theme type.
+- status: 422
+  type: ValidationError
+  title: Validation failed
+  documented: true
+  occurrences_in_spec: 18
+  remediation: >-
+    Read `property` and `details` to find the failing field. Common causes are a missing
+    required field or a value outside the allowed enum.
+- status: 500
+  type: InternalServerError
+  title: Server error
+  documented: true
+  remediation: Retry with backoff; if persistent, report the error `id` to the site operator.
+  source: https://docs.ghost.org/content-api/errors
+summary:
+  problem_type_count: 8
+  statuses: [400, 401, 403, 404, 409, 415, 422, 500]
+  rfc9457: false
+  observed_live: 3
+related:
+  conventions: conventions/ghost-org-conventions.yml
+  schema: json-schema/ghost-org-errorresponse-schema.json

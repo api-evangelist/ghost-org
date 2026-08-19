@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ghost Admin Authors Newsletters API",
+    "version": "5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Newsletters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse newsletters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/newsletters/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Apply fine-grained filters using Ghost's NQL query language."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return per page. Defaults to 15."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results. Defaults to 1."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Field and direction to order results by."
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all newsletters configured for the publication."
+        },
+        {
+          "info": {
+            "name": "Create a newsletter",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{site}.ghost.io/ghost/api/admin/newsletters/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new newsletter for the publication with customizable design, sender details, and subscription settings."
+        },
+        {
+          "info": {
+            "name": "Read a newsletter by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/newsletters/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return in the response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single newsletter by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Update a newsletter",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{site}.ghost.io/ghost/api/admin/newsletters/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing newsletter by its unique identifier."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

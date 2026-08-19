@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ghost Admin Authors Site API",
+    "version": "5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Site",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read site information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{site}.ghost.io/ghost/api/admin/site/"
+          },
+          "docs": "Retrieve basic information about the Ghost site including title, URL, version, and other configuration details."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

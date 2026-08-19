@@ -1,0 +1,110 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://ghost.org/changelog/ (dated product changelog) and
+  https://github.com/TryGhost/Ghost/releases (versioned engineering releases)
+provider: Ghost
+providerId: ghost-org
+description: >-
+  Ghost publishes change in two places. ghost.org/changelog is the dated product
+  changelog written for publishers; GitHub Releases on TryGhost/Ghost carries the
+  semver-tagged engineering stream, currently shipping roughly weekly minor releases on
+  the 6.x line. Neither stream is API-versioned: the HTTP APIs are versioned separately
+  through the Accept-Version header and the major-version stability ladder recorded in
+  lifecycle/ghost-org-lifecycle.yml.
+scheme:
+  product: dated
+  engineering: semver
+  api: 'Accept-Version: v{major}.{minor}'
+current_version:
+  product: '6.57.1'
+  released: '2026-08-10'
+  api_major: 'v6.0'
+  major_line: 6.x
+cadence:
+  engineering: weekly-to-fortnightly minor releases on the current major line
+  major: every 8-12 months
+feeds:
+- type: ProductChangelog
+  url: https://ghost.org/changelog/
+- type: Releases
+  url: https://github.com/TryGhost/Ghost/releases
+entries:
+- version: v6.57.1
+  date: '2026-08-10'
+  channel: engineering
+  breaking: false
+- version: v6.57.0
+  date: '2026-08-07'
+  channel: engineering
+  breaking: false
+- version: v6.56.0
+  date: '2026-08-04'
+  channel: engineering
+  breaking: false
+- version: v6.55.0
+  date: '2026-07-31'
+  channel: engineering
+  breaking: false
+- version: v6.54.1
+  date: '2026-07-27'
+  channel: engineering
+  breaking: false
+- version: v6.54.0
+  date: '2026-07-24'
+  channel: engineering
+  breaking: false
+- version: v6.53.0
+  date: '2026-07-17'
+  channel: engineering
+  breaking: false
+- version: v6.52.1
+  date: '2026-07-10'
+  channel: engineering
+  breaking: false
+- date: '2026-08-07'
+  channel: product
+  breaking: false
+  highlight: Analytics for email sequences
+- date: '2026-07-16'
+  channel: product
+  breaking: false
+  highlight: Optimize your site for AI search
+- date: '2026-07-06'
+  channel: product
+  breaking: false
+  highlight: Publisher gift links
+- date: '2026-06-24'
+  channel: product
+  breaking: false
+  highlight: Email sequences for new members
+- date: '2026-06-18'
+  channel: product
+  breaking: false
+  highlight: Your new admin toolbar
+- date: '2026-06-11'
+  channel: product
+  breaking: false
+  highlight: Dynamic filters for members
+- date: '2026-06-04'
+  channel: product
+  breaking: false
+  highlight: Expanding your social presence
+- date: '2026-05-27'
+  channel: product
+  breaking: false
+  highlight: Comment threads, votes and pins
+- date: '2026-05-21'
+  channel: product
+  breaking: false
+  highlight: Gift subscriptions
+- date: '2026-05-14'
+  channel: product
+  breaking: false
+  highlight: Easy theme editing
+notes: >-
+  `breaking: false` on the product entries reflects that none of them announce an API
+  breaking change; Ghost reserves breaking API changes for major versions. Highlights are
+  the changelog entry titles as published, not summaries written here. The engineering
+  entries carry no highlight because release notes are per-PR and not summarised on the
+  releases page.

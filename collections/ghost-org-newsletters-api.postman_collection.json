@@ -1,0 +1,1083 @@
+{
+  "item": [
+    {
+      "id": "22358a09-5959-4420-a02f-68bd72fed06a",
+      "name": "Newsletters",
+      "description": {
+        "content": "Manage email newsletters that members can subscribe to. Each newsletter has its own design, sender details, and subscription list.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6c84c708-ffaa-4ea7-b75b-a4cb22d58841",
+          "name": "Browse newsletters",
+          "request": {
+            "name": "Browse newsletters",
+            "description": {
+              "content": "Retrieve a list of all newsletters configured for the publication.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "newsletters",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return in the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Apply fine-grained filters using Ghost's NQL query language."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of resources to return per page. Defaults to 15."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for paginated results. Defaults to 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "Field and direction to order results by."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your Ghost site subdomain",
+                  "type": "any",
+                  "value": "{{site}}",
+                  "key": "site"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "58f27614-74be-442c-b827-7f794e21bea7",
+              "name": "A list of newsletters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "newsletters",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"newsletters\": [\n    {\n      \"id\": \"ae9232cc-d5d1-3b22-d1cc-25dc605be84e\",\n      \"uuid\": \"82ce6e88-ae87-5756-5351-c024ffb674f3\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"description\": \"string\",\n      \"sender_name\": \"string\",\n      \"sender_email\": \"98Zv@zZJEkiRAoq.ax\",\n      \"sender_reply_to\": \"newsletter\",\n      \"status\": \"active\",\n      \"visibility\": \"string\",\n      \"subscribe_on_signup\": false,\n      \"sort_order\": 8265,\n      \"header_image\": \"http://QDMMDHzOeJRy.qsovzQUBarPtUgRS0cOsYyd4rViAu\",\n      \"show_header_icon\": true,\n      \"show_header_title\": true,\n      \"show_header_name\": true,\n      \"title_font_category\": \"serif\",\n      \"title_alignment\": \"center\",\n      \"show_feature_image\": true,\n      \"body_font_category\": \"sans_serif\",\n      \"footer_content\": \"string\",\n      \"show_badge\": false,\n      \"show_latest_posts\": true,\n      \"background_color\": \"string\",\n      \"border_color\": \"string\",\n      \"title_color\": \"string\",\n      \"created_at\": \"1973-03-10T02:49:47.738Z\",\n      \"updated_at\": \"2001-03-16T21:09:38.225Z\"\n    },\n    {\n      \"id\": \"81df49a3-8c2e-8d1d-bf76-cb960ecd4df3\",\n      \"uuid\": \"a42d65d6-f317-d653-53d5-3200afba248f\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"description\": \"string\",\n      \"sender_name\": \"string\",\n      \"sender_email\": \"HEs2ZU@EXWgVWGHPk.zl\",\n      \"sender_reply_to\": \"support\",\n      \"status\": \"active\",\n      \"visibility\": \"string\",\n      \"subscribe_on_signup\": true,\n      \"sort_order\": 2411,\n      \"header_image\": \"http://jusCWTYlmqtSqrjdDQSAVKli.vsyXK0QOjQh,hLPQaKNJX,yppl+JwCwdKT.,INMKH5P9KfFgeQIy+BvOrNEMFLdtgnjSqx\",\n      \"show_header_icon\": false,\n      \"show_header_title\": false,\n      \"show_header_name\": false,\n      \"title_font_category\": \"serif\",\n      \"title_alignment\": \"center\",\n      \"show_feature_image\": false,\n      \"body_font_category\": \"serif\",\n      \"footer_content\": \"string\",\n      \"show_badge\": true,\n      \"show_latest_posts\": true,\n      \"background_color\": \"string\",\n      \"border_color\": \"string\",\n      \"title_color\": \"string\",\n      \"created_at\": \"1989-08-27T06:59:25.627Z\",\n      \"updated_at\": \"1999-07-21T17:27:42.852Z\"\n    }\n  ],\n  \"meta\": {\n    \"pagination\": {\n      \"page\": 3596,\n      \"limit\": 8768,\n      \"pages\": 8504,\n      \"total\": 7487,\n      \"next\": 1408,\n      \"prev\": 40\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85e016d8-5fad-499d-b229-eb6e9f3c0182",
+              "name": "Authentication failed or token is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "newsletters",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7412e978-9ad1-4532-abbb-59773fed09f9",
+          "name": "Create a newsletter",
+          "request": {
+            "name": "Create a newsletter",
+            "description": {
+              "content": "Create a new newsletter for the publication with customizable design, sender details, and subscription settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "newsletters",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Ghost site subdomain",
+                  "type": "any",
+                  "value": "{{site}}",
+                  "key": "site"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"newsletters\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"sender_name\": \"<string>\",\n      \"sender_email\": \"<email>\",\n      \"sender_reply_to\": \"<string>\",\n      \"status\": \"<string>\",\n      \"subscribe_on_signup\": \"<boolean>\",\n      \"sort_order\": \"<integer>\",\n      \"header_image\": \"<uri>\",\n      \"show_header_icon\": \"<boolean>\",\n      \"show_header_title\": \"<boolean>\",\n      \"show_header_name\": \"<boolean>\",\n      \"title_font_category\": \"<string>\",\n      \"body_font_category\": \"<string>\",\n      \"show_feature_image\": \"<boolean>\",\n      \"show_badge\": \"<boolean>\",\n      \"background_color\": \"<string>\",\n      \"border_color\": \"<string>\",\n      \"title_color\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e5edaf68-c8e1-4c44-8572-c14d65255e7f",
+              "name": "Newsletter created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "newsletters",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"newsletters\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"sender_name\": \"string\",\n      \"sender_email\": \"yzlyXTtwXa@VbEXhMDJXlhxMBca.gp\",\n      \"sender_reply_to\": \"newsletter\",\n      \"status\": \"active\",\n      \"subscribe_on_signup\": true,\n      \"sort_order\": 5486,\n      \"header_image\": \"http://jSrBLLbLDDgn.ojveJjMSVT6UUB9wfz1+zjF2R3wM3m1jd6kg\",\n      \"show_header_icon\": false,\n      \"show_header_title\": false,\n      \"show_header_name\": false,\n      \"title_font_category\": \"sans_serif\",\n      \"body_font_category\": \"sans_serif\",\n      \"show_feature_image\": false,\n      \"show_badge\": false,\n      \"background_color\": \"string\",\n      \"border_color\": \"string\",\n      \"title_color\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"newsletters\": [\n    {\n      \"id\": \"d6f771d6-f69a-c36d-e7b0-c97bc3b7e9e6\",\n      \"uuid\": \"6d9c467b-7c43-9185-b7f0-8782c6cc05b4\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"description\": \"string\",\n      \"sender_name\": \"string\",\n      \"sender_email\": \"NLEhu3io@cWJSInewgKMWsUypLwPKujMXzhTHt.miv\",\n      \"sender_reply_to\": \"support\",\n      \"status\": \"active\",\n      \"visibility\": \"string\",\n      \"subscribe_on_signup\": false,\n      \"sort_order\": 8129,\n      \"header_image\": \"http://tjRskuuXidZJipFZToo.slhcs+a-qEDImvhRf-1RAlFVBRh5VzwqHg-7zXa3LyX\",\n      \"show_header_icon\": true,\n      \"show_header_title\": false,\n      \"show_header_name\": true,\n      \"title_font_category\": \"sans_serif\",\n      \"title_alignment\": \"center\",\n      \"show_feature_image\": true,\n      \"body_font_category\": \"sans_serif\",\n      \"footer_content\": \"string\",\n      \"show_badge\": false,\n      \"show_latest_posts\": true,\n      \"background_color\": \"string\",\n      \"border_color\": \"string\",\n      \"title_color\": \"string\",\n      \"created_at\": \"1998-12-31T05:52:27.236Z\",\n      \"updated_at\": \"1952-10-17T07:52:10.211Z\"\n    },\n    {\n      \"id\": \"adf9b810-4f4c-2645-e480-66eb089ce5e4\",\n      \"uuid\": \"58b62042-fe14-9b56-d998-42b2a8dabb60\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"description\": \"string\",\n      \"sender_name\": \"string\",\n      \"sender_email\": \"5gTQhe@vvrucxgdcZbQyebpyxnAuZw.or\",\n      \"sender_reply_to\": \"newsletter\",\n      \"status\": \"active\",\n      \"visibility\": \"string\",\n      \"subscribe_on_signup\": true,\n      \"sort_order\": 7370,\n      \"header_image\": \"https://yTyMyuowmeBbqrbWpKiJHFEcN.nyfge3cuO0JIl1XO-+0WXIPHimkYYDF\",\n      \"show_header_icon\": false,\n      \"show_header_title\": false,\n      \"show_header_name\": true,\n      \"title_font_category\": \"sans_serif\",\n      \"title_alignment\": \"left\",\n      \"show_feature_image\": true,\n      \"body_font_category\": \"serif\",\n      \"footer_content\": \"string\",\n      \"show_badge\": true,\n      \"show_latest_posts\": false,\n      \"background_color\": \"string\",\n      \"border_color\": \"string\",\n      \"title_color\": \"string\",\n      \"created_at\": \"2023-12-29T11:27:12.892Z\",\n      \"updated_at\": \"2010-12-13T01:40:03.212Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf239f12-ea67-48d9-900d-85ef36055f74",
+              "name": "Authentication failed or token is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "newsletters",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"newsletters\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"sender_name\": \"string\",\n      \"sender_email\": \"yzlyXTtwXa@VbEXhMDJXlhxMBca.gp\",\n      \"sender_reply_to\": \"newsletter\",\n      \"status\": \"active\",\n      \"subscribe_on_signup\": true,\n      \"sort_order\": 5486,\n      \"header_image\": \"http://jSrBLLbLDDgn.ojveJjMSVT6UUB9wfz1+zjF2R3wM3m1jd6kg\",\n      \"show_header_icon\": false,\n      \"show_header_title\": false,\n      \"show_header_name\": false,\n      \"title_font_category\": \"sans_serif\",\n      \"body_font_category\": \"sans_serif\",\n      \"show_feature_image\": false,\n      \"show_badge\": false,\n      \"background_color\": \"string\",\n      \"border_color\": \"string\",\n      \"title_color\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b5bf090-5df5-4f72-87f2-0a5a4a7fde80",
+              "name": "Request body validation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "newsletters",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"newsletters\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"sender_name\": \"string\",\n      \"sender_email\": \"yzlyXTtwXa@VbEXhMDJXlhxMBca.gp\",\n      \"sender_reply_to\": \"newsletter\",\n      \"status\": \"active\",\n      \"subscribe_on_signup\": true,\n      \"sort_order\": 5486,\n      \"header_image\": \"http://jSrBLLbLDDgn.ojveJjMSVT6UUB9wfz1+zjF2R3wM3m1jd6kg\",\n      \"show_header_icon\": false,\n      \"show_header_title\": false,\n      \"show_header_name\": false,\n      \"title_font_category\": \"sans_serif\",\n      \"body_font_category\": \"sans_serif\",\n      \"show_feature_image\": false,\n      \"show_badge\": false,\n      \"background_color\": \"string\",\n      \"border_color\": \"string\",\n      \"title_color\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "49cb9a5e-eb3a-4140-a7f1-ff484f240a2c",
+          "name": "Read a newsletter by ID",
+          "request": {
+            "name": "Read a newsletter by ID",
+            "description": {
+              "content": "Retrieve a single newsletter by its unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "newsletters",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return in the response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the resource"
+                },
+                {
+                  "description": "Your Ghost site subdomain",
+                  "type": "any",
+                  "value": "{{site}}",
+                  "key": "site"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6624f252-63bf-4286-a2de-fa32e8705498",
+              "name": "A single newsletter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "newsletters",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"newsletters\": [\n    {\n      \"id\": \"5ead8fca-4544-139d-1ded-a7ac109fa993\",\n      \"uuid\": \"239c801e-d003-9c66-dd66-40b6003e2c49\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"description\": \"string\",\n      \"sender_name\": \"string\",\n      \"sender_email\": \"rTLVXINsz@JfbYyGWJydMxMmS.tijq\",\n      \"sender_reply_to\": \"support\",\n      \"status\": \"active\",\n      \"visibility\": \"string\",\n      \"subscribe_on_signup\": true,\n      \"sort_order\": 5590,\n      \"header_image\": \"http://B.qzav0Pm7i9T\",\n      \"show_header_icon\": true,\n      \"show_header_title\": false,\n      \"show_header_name\": true,\n      \"title_font_category\": \"sans_serif\",\n      \"title_alignment\": \"center\",\n      \"show_feature_image\": true,\n      \"body_font_category\": \"sans_serif\",\n      \"footer_content\": \"string\",\n      \"show_badge\": true,\n      \"show_latest_posts\": true,\n      \"background_color\": \"string\",\n      \"border_color\": \"string\",\n      \"title_color\": \"string\",\n      \"created_at\": \"1999-12-09T18:39:44.699Z\",\n      \"updated_at\": \"2010-12-27T14:45:26.946Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d3ae735-929e-4cf2-91af-602382f268d5",
+              "name": "Authentication failed or token is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "newsletters",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0228ab58-a35a-4ee7-b350-4c130528a187",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "newsletters",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1a21f8e4-5cd3-4bb2-a69e-8e0e7aa24541",
+          "name": "Update a newsletter",
+          "request": {
+            "name": "Update a newsletter",
+            "description": {
+              "content": "Update an existing newsletter by its unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "newsletters",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the resource"
+                },
+                {
+                  "description": "Your Ghost site subdomain",
+                  "type": "any",
+                  "value": "{{site}}",
+                  "key": "site"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"newsletters\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"sender_name\": \"<string>\",\n      \"sender_email\": \"<email>\",\n      \"sender_reply_to\": \"<string>\",\n      \"status\": \"<string>\",\n      \"subscribe_on_signup\": \"<boolean>\",\n      \"sort_order\": \"<integer>\",\n      \"header_image\": \"<uri>\",\n      \"show_header_icon\": \"<boolean>\",\n      \"show_header_title\": \"<boolean>\",\n      \"show_header_name\": \"<boolean>\",\n      \"title_font_category\": \"<string>\",\n      \"body_font_category\": \"<string>\",\n      \"show_feature_image\": \"<boolean>\",\n      \"show_badge\": \"<boolean>\",\n      \"background_color\": \"<string>\",\n      \"border_color\": \"<string>\",\n      \"title_color\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "548e3bf6-5f60-4cda-9bc3-b505ce097711",
+              "name": "Newsletter updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "newsletters",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"newsletters\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"sender_name\": \"string\",\n      \"sender_email\": \"yzlyXTtwXa@VbEXhMDJXlhxMBca.gp\",\n      \"sender_reply_to\": \"newsletter\",\n      \"status\": \"active\",\n      \"subscribe_on_signup\": true,\n      \"sort_order\": 5486,\n      \"header_image\": \"http://jSrBLLbLDDgn.ojveJjMSVT6UUB9wfz1+zjF2R3wM3m1jd6kg\",\n      \"show_header_icon\": false,\n      \"show_header_title\": false,\n      \"show_header_name\": false,\n      \"title_font_category\": \"sans_serif\",\n      \"body_font_category\": \"sans_serif\",\n      \"show_feature_image\": false,\n      \"show_badge\": false,\n      \"background_color\": \"string\",\n      \"border_color\": \"string\",\n      \"title_color\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"newsletters\": [\n    {\n      \"id\": \"d6f771d6-f69a-c36d-e7b0-c97bc3b7e9e6\",\n      \"uuid\": \"6d9c467b-7c43-9185-b7f0-8782c6cc05b4\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"description\": \"string\",\n      \"sender_name\": \"string\",\n      \"sender_email\": \"NLEhu3io@cWJSInewgKMWsUypLwPKujMXzhTHt.miv\",\n      \"sender_reply_to\": \"support\",\n      \"status\": \"active\",\n      \"visibility\": \"string\",\n      \"subscribe_on_signup\": false,\n      \"sort_order\": 8129,\n      \"header_image\": \"http://tjRskuuXidZJipFZToo.slhcs+a-qEDImvhRf-1RAlFVBRh5VzwqHg-7zXa3LyX\",\n      \"show_header_icon\": true,\n      \"show_header_title\": false,\n      \"show_header_name\": true,\n      \"title_font_category\": \"sans_serif\",\n      \"title_alignment\": \"center\",\n      \"show_feature_image\": true,\n      \"body_font_category\": \"sans_serif\",\n      \"footer_content\": \"string\",\n      \"show_badge\": false,\n      \"show_latest_posts\": true,\n      \"background_color\": \"string\",\n      \"border_color\": \"string\",\n      \"title_color\": \"string\",\n      \"created_at\": \"1998-12-31T05:52:27.236Z\",\n      \"updated_at\": \"1952-10-17T07:52:10.211Z\"\n    },\n    {\n      \"id\": \"adf9b810-4f4c-2645-e480-66eb089ce5e4\",\n      \"uuid\": \"58b62042-fe14-9b56-d998-42b2a8dabb60\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"description\": \"string\",\n      \"sender_name\": \"string\",\n      \"sender_email\": \"5gTQhe@vvrucxgdcZbQyebpyxnAuZw.or\",\n      \"sender_reply_to\": \"newsletter\",\n      \"status\": \"active\",\n      \"visibility\": \"string\",\n      \"subscribe_on_signup\": true,\n      \"sort_order\": 7370,\n      \"header_image\": \"https://yTyMyuowmeBbqrbWpKiJHFEcN.nyfge3cuO0JIl1XO-+0WXIPHimkYYDF\",\n      \"show_header_icon\": false,\n      \"show_header_title\": false,\n      \"show_header_name\": true,\n      \"title_font_category\": \"sans_serif\",\n      \"title_alignment\": \"left\",\n      \"show_feature_image\": true,\n      \"body_font_category\": \"serif\",\n      \"footer_content\": \"string\",\n      \"show_badge\": true,\n      \"show_latest_posts\": false,\n      \"background_color\": \"string\",\n      \"border_color\": \"string\",\n      \"title_color\": \"string\",\n      \"created_at\": \"2023-12-29T11:27:12.892Z\",\n      \"updated_at\": \"2010-12-13T01:40:03.212Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e369ed69-61e4-4fa7-84be-6cf3743d47c7",
+              "name": "Authentication failed or token is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "newsletters",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"newsletters\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"sender_name\": \"string\",\n      \"sender_email\": \"yzlyXTtwXa@VbEXhMDJXlhxMBca.gp\",\n      \"sender_reply_to\": \"newsletter\",\n      \"status\": \"active\",\n      \"subscribe_on_signup\": true,\n      \"sort_order\": 5486,\n      \"header_image\": \"http://jSrBLLbLDDgn.ojveJjMSVT6UUB9wfz1+zjF2R3wM3m1jd6kg\",\n      \"show_header_icon\": false,\n      \"show_header_title\": false,\n      \"show_header_name\": false,\n      \"title_font_category\": \"sans_serif\",\n      \"body_font_category\": \"sans_serif\",\n      \"show_feature_image\": false,\n      \"show_badge\": false,\n      \"background_color\": \"string\",\n      \"border_color\": \"string\",\n      \"title_color\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43004702-f2f5-4ea9-bd85-f2f9cfc77c1b",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "newsletters",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"newsletters\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"sender_name\": \"string\",\n      \"sender_email\": \"yzlyXTtwXa@VbEXhMDJXlhxMBca.gp\",\n      \"sender_reply_to\": \"newsletter\",\n      \"status\": \"active\",\n      \"subscribe_on_signup\": true,\n      \"sort_order\": 5486,\n      \"header_image\": \"http://jSrBLLbLDDgn.ojveJjMSVT6UUB9wfz1+zjF2R3wM3m1jd6kg\",\n      \"show_header_icon\": false,\n      \"show_header_title\": false,\n      \"show_header_name\": false,\n      \"title_font_category\": \"sans_serif\",\n      \"body_font_category\": \"sans_serif\",\n      \"show_feature_image\": false,\n      \"show_badge\": false,\n      \"background_color\": \"string\",\n      \"border_color\": \"string\",\n      \"title_color\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9fa10ca-e347-460f-8a67-2e0023ff8979",
+              "name": "Request body validation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "newsletters",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"newsletters\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"sender_name\": \"string\",\n      \"sender_email\": \"yzlyXTtwXa@VbEXhMDJXlhxMBca.gp\",\n      \"sender_reply_to\": \"newsletter\",\n      \"status\": \"active\",\n      \"subscribe_on_signup\": true,\n      \"sort_order\": 5486,\n      \"header_image\": \"http://jSrBLLbLDDgn.ojveJjMSVT6UUB9wfz1+zjF2R3wM3m1jd6kg\",\n      \"show_header_icon\": false,\n      \"show_header_title\": false,\n      \"show_header_name\": false,\n      \"title_font_category\": \"sans_serif\",\n      \"body_font_category\": \"sans_serif\",\n      \"show_feature_image\": false,\n      \"show_badge\": false,\n      \"background_color\": \"string\",\n      \"border_color\": \"string\",\n      \"title_color\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Ghost site subdomain",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-site",
+      "key": "site"
+    },
+    {
+      "type": "string",
+      "value": "https://{{site}}.ghost.io/ghost/api/admin",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f22d360e-d397-4501-a1cc-cfabfd5518d4",
+    "name": "Ghost Admin Authors Newsletters API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication. It enables developers to create, update, and delete posts, pages, tags, members, tiers, newsletters, and offers programmatically. Authentication is handled via JSON Web Tokens generated from an Admin API key, integration tokens, or staff access tokens. The Admin API supports everything the Ghost Admin interface can do and more, making it suitable for building custom publishing workflows, content automation, member management systems, and advanced integrations.\n\nContact Support:\n Name: Ghost Foundation",
+      "type": "text/plain"
+    }
+  }
+}

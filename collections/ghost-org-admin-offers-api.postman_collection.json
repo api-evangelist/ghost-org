@@ -1,0 +1,398 @@
+{
+  "item": [
+    {
+      "id": "fc5d0500-1ec4-42f6-9b58-c7aa93d0124f",
+      "name": "Admin - Offers",
+      "description": {
+        "content": "Read-write promotional offers.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a0ba257a-c3f7-47e8-90d1-f67ee7fada38",
+          "name": "Browse offers",
+          "request": {
+            "name": "Browse offers",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "offers",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                  "type": "any",
+                  "value": "{{admin_domain}}",
+                  "key": "admin_domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Minimum compatible API version, for example v5.0.",
+                "key": "Accept-Version",
+                "value": "<string>"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dcb09a38-eff6-446c-99da-ab39f7b6f2db",
+              "name": "A list of offers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "offers",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                      "type": "any",
+                      "value": "{{admin_domain}}",
+                      "key": "admin_domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Minimum compatible API version, for example v5.0.",
+                    "key": "Accept-Version",
+                    "value": "v5.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "12328c2b-7256-48e6-a2a1-c00374254a8b",
+          "name": "Create an offer",
+          "request": {
+            "name": "Create an offer",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "offers",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                  "type": "any",
+                  "value": "{{admin_domain}}",
+                  "key": "admin_domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Minimum compatible API version, for example v5.0.",
+                "key": "Accept-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "56db6bf5-f883-49f0-8613-3c20d5c91a05",
+              "name": "The created offer.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "offers",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                      "type": "any",
+                      "value": "{{admin_domain}}",
+                      "key": "admin_domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Minimum compatible API version, for example v5.0.",
+                    "key": "Accept-Version",
+                    "value": "v5.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f31cc269-ac17-4e2e-ab60-414b63ca4002",
+          "name": "Update an offer",
+          "request": {
+            "name": "Update an offer",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "offers",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The resource ID."
+                },
+                {
+                  "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                  "type": "any",
+                  "value": "{{admin_domain}}",
+                  "key": "admin_domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Minimum compatible API version, for example v5.0.",
+                "key": "Accept-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0dcb7b17-d43d-4350-aa03-cc3b1db607f8",
+              "name": "The updated offer.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "offers",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The resource ID."
+                    },
+                    {
+                      "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                      "type": "any",
+                      "value": "{{admin_domain}}",
+                      "key": "admin_domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Minimum compatible API version, for example v5.0.",
+                    "key": "Accept-Version",
+                    "value": "v5.0"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "demo.ghost.io",
+      "key": "admin_domain"
+    },
+    {
+      "type": "string",
+      "value": "https://{{admin_domain}}/ghost/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "22b2e309-b295-4235-adb8-ab3c113888a4",
+    "name": "Ghost Content and Admin APIs Admin - Images Admin - Offers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Ghost is an open-source (MIT) publishing platform for professional publications, newsletters, memberships, and paid subscriptions. Every Ghost site - whether self-hosted or on managed Ghost(Pro) - exposes two documented public REST APIs under https://{admin_domain}/ghost/api/.\n\nThe Content API is read-only and is authenticated with a Content API key passed as the `key` query parameter; it serves published posts, pages, authors, tags, tiers, and public settings for consumption by front-ends and static sites.\n\nThe Admin API is read-write and is authenticated with an Admin API key that is used to sign a short-lived JWT sent as `Authorization: Ghost {token}` (a staff access token or user session may also be used). It manages posts, pages, members, tags, labels, tiers, offers, newsletters, users, images, themes, and webhooks.\n\nThe `{admin_domain}` server variable is the site's domain (for Ghost(Pro), typically a `*.ghost.io` domain). All requests must use HTTPS. The `Accept-Version` header (for example `v5.0`) declares the minimum compatible API version.\n\nContact Support:\n Name: Ghost",
+      "type": "text/plain"
+    }
+  }
+}

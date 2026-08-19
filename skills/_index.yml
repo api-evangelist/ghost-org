@@ -1,0 +1,65 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.ghost.org/.well-known/agent-skills/ghost/skill.md (provider-published)
+  plus skills generated from the operationIds in openapi/
+provider: Ghost
+providerId: ghost-org
+description: >-
+  Packaged Agent Skills for Ghost. The first entry is Ghost's own published skill, saved
+  verbatim from the URL its A2A agent card points at; the rest are API Evangelist skills
+  for the marquee Content and Admin API flows, each grounded in operationIds that exist
+  in openapi/ in this repo.
+skills:
+- name: Ghost
+  file: skills/ghost-org-ghost-skill.md
+  method: searched
+  source: https://docs.ghost.org/.well-known/agent-skills/ghost/skill.md
+  publisher: Ghost
+  api: platform
+  description: >-
+    Ghost's own skill reference — product summary, ghost-cli command table, configuration
+    files, theme layer, Content and Admin API orientation, memberships and migration.
+  x-evidence:
+    fetched: '2026-08-13'
+    http_status: 200
+    content_type: text/markdown
+  referenced_by: a2a/ghost-org-agent-card.json
+- name: ghost-publish-a-post
+  file: skills/ghost-org-publish-a-post.md
+  method: generated
+  publisher: API Evangelist
+  api: Ghost Admin API
+  operations: [uploadAdminImage, browseAdminTags, addAdminTag, addAdminPost, readAdminPostById, editAdminPost]
+  description: Draft, tag, feature-image and publish a post, including the updated_at concurrency trap.
+- name: ghost-sync-published-content
+  file: skills/ghost-org-sync-published-content.md
+  method: generated
+  publisher: API Evangelist
+  api: Ghost Content API
+  operations: [browseContentSettings, browseContentPosts, readContentPostBySlug, browseContentPages,
+    browseContentTags, browseContentAuthors]
+  description: Paginate and filter the read-only Content API for a full or incremental content sync.
+- name: ghost-onboard-a-member
+  file: skills/ghost-org-onboard-a-member.md
+  method: generated
+  publisher: API Evangelist
+  api: Ghost Admin API
+  operations: [browseAdminNewsletters, browseAdminLabels, addAdminLabel, addAdminMember,
+    readAdminMemberById, editAdminMember, browseAdminTiers, browseAdminOffers]
+  description: Create a member, label them, subscribe them to newsletters, and read tier/subscription state.
+- name: ghost-register-a-webhook
+  file: skills/ghost-org-register-a-webhook.md
+  method: generated
+  publisher: API Evangelist
+  api: Ghost Admin API
+  operations: [addAdminWebhook, editAdminWebhook, deleteAdminWebhook]
+  description: Subscribe to the Ghost event catalogue and handle deliveries safely.
+summary:
+  skill_count: 5
+  provider_published: 1
+  generated: 4
+grounding: >-
+  Every operationId named above was grepped from a spec in openapi/. No operation is
+  invented. Where a documented behaviour has no operation of its own — publishing a post,
+  scheduling it — the skill says so explicitly and names the operation that carries it.

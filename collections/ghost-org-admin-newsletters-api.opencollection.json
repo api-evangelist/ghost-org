@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ghost Content and Admin APIs Admin - Images Admin - Newsletters API",
+    "version": "5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Admin - Newsletters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse newsletters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{admin_domain}/ghost/api/admin/newsletters/",
+            "headers": [
+              {
+                "name": "Accept-Version",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Browse newsletters"
+        },
+        {
+          "info": {
+            "name": "Create a newsletter",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{admin_domain}/ghost/api/admin/newsletters/",
+            "headers": [
+              {
+                "name": "Accept-Version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a newsletter"
+        },
+        {
+          "info": {
+            "name": "Update a newsletter",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{admin_domain}/ghost/api/admin/newsletters/:id/",
+            "headers": [
+              {
+                "name": "Accept-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a newsletter"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

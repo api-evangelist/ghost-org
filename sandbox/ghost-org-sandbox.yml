@@ -1,0 +1,83 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.ghost.org/content-api (working example), https://docs.ghost.org/install,
+  https://docs.ghost.org/ghost-cli
+provider: Ghost
+providerId: ghost-org
+description: >-
+  Ghost has no test-mode/live-mode key split, because there is no shared multi-tenant API
+  to sandbox against — every Ghost site is its own deployment. What Ghost publishes
+  instead are two genuine ways to exercise the API without touching production: a public
+  demo site whose Content API key is printed in the documentation as a copy-and-paste
+  cURL example, and a one-command local install that gives you a full Ghost with both
+  APIs on localhost.
+modes:
+  test_live_split: false
+  key_prefixes: []
+  note: >-
+    Content API keys and Admin API keys are per-site and per-integration; neither carries
+    a mode prefix. A key is scoped to the site that issued it.
+environments:
+- name: public demo site
+  type: hosted
+  url: https://demo.ghost.io
+  api_base: https://demo.ghost.io/ghost/api/content/
+  credentials:
+    kind: content-api-key
+    published: true
+    value: 22444f78447824223cefc48062
+    source: https://docs.ghost.org/content-api
+    note: >-
+      Published verbatim by Ghost in the Content API "Working Example" as a
+      copy-and-paste cURL command. Read-only, public data only.
+  verified: probed
+  x-evidence:
+    fetched: '2026-08-13'
+    url: https://demo.ghost.io/ghost/api/content/posts/?key=<published demo key>&limit=1
+    http_status: 200
+  scope: Content API only. There is no public Admin API credential for the demo site.
+  limits: Read-only. Writes are not possible against demo.ghost.io.
+- name: local development install
+  type: self-hosted
+  install:
+  - npm install ghost-cli@latest -g
+  - ghost install local
+  api_base: http://localhost:2368/ghost/api/
+  database: SQLite
+  docs: https://docs.ghost.org/install
+  scope: Full Content API and Admin API, with a real Ghost Admin to issue keys from.
+  note: >-
+    This is the environment Ghost's own Admin API documentation uses in its language
+    examples (http://localhost:2368/ghost/api/admin/posts/).
+  credentials:
+    kind: self-issued
+    published: false
+    how: >-
+      Create a Custom Integration under Settings > Advanced > Integrations to mint a
+      Content API key and an Admin API key (id:secret).
+fixtures:
+  seeded: true
+  note: >-
+    `ghost install local` seeds a fresh site with Ghost's default starter content, so
+    browse endpoints return records immediately.
+webhook_testing:
+  stripe:
+    tool: Stripe CLI
+    command: stripe listen --forward-to http://localhost:2368/members/webhooks/stripe/
+    docs: https://docs.ghost.org/webhooks
+    note: >-
+      Documented flow for exercising the members/payments path locally. Requires a
+      WEBHOOK_SECRET on Ghost start.
+  ghost_events:
+    tool: '@tryghost/ghst'
+    command: ghst webhook listen
+    note: Listens for Ghost's own webhook events from the CLI.
+absent:
+- test cards
+- test bank accounts
+- test clocks / time simulation
+- hosted fixture or trigger tooling
+absent_note: >-
+  Payments run through Stripe rather than through Ghost, so card and clock test tooling
+  belongs to Stripe's sandbox, not Ghost's. Recorded as absent rather than invented.

@@ -1,0 +1,139 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.ghost.org/content-api, https://docs.ghost.org/admin-api,
+  https://docs.ghost.org/content-api/parameters, https://docs.ghost.org/content-api/pagination,
+  https://docs.ghost.org/content-api/filtering, https://docs.ghost.org/faq/api-versioning,
+  plus live response headers observed on https://demo.ghost.io
+provider: Ghost
+providerId: ghost-org
+description: >-
+  Cross-cutting runtime semantics shared by Ghost's two HTTP APIs. Ghost is unusual in
+  this catalogue in that the same contract is served by thousands of independently
+  operated installs, so the conventions below are properties of the software rather than
+  of one hosted deployment. Everything here is either documented by Ghost or observed on
+  a live 6.x install.
+auth:
+  style: two-surface
+  content_api:
+    scheme: apiKey
+    in: query
+    parameter: key
+    browser_safe: true
+    note: >-
+      Content API keys only ever expose public data and are intended to be embedded in
+      browsers. Sites in private mode should still treat them as sensitive.
+  admin_api:
+    scheme: http
+    type: bearer
+    header: 'Authorization: Ghost <jwt>'
+    credential: Admin API key formatted as `id:secret`, or a staff access token
+    token: short-lived single-use JWT signed from the key secret
+    browser_safe: false
+    note: >-
+      Ghost explicitly warns against exchanging keys for tokens in a browser or any
+      other insecure environment. Server-side only.
+  detail: authentication/ghost-org-authentication.yml
+versioning:
+  request_header: 'Accept-Version: v{major}.{minor}'
+  response_header: Content-Version
+  observed_response: 'content-version: v6.57'
+  vary: 'Vary: Accept-Version, Cookie, Accept-Encoding'
+  semantics: Declares the minimum Ghost version the client can operate with.
+  detail: lifecycle/ghost-org-lifecycle.yml
+idempotency:
+  supported: false
+  idempotency_key_header: null
+  note: >-
+    Ghost publishes no Idempotency-Key header and no request-replay window. Writes are
+    plain POST/PUT/DELETE. The nearest equivalent is optimistic concurrency on update:
+    PUT bodies must echo the resource's current `updated_at`, and a stale value is
+    rejected with 409 rather than silently overwriting. That protects against lost
+    updates but does not make a retried POST safe.
+  concurrency_control:
+    mechanism: optimistic
+    token_field: updated_at
+    conflict_status: 409
+    conflict_type: UpdateCollisionError
+pagination:
+  style: page-number
+  params:
+  - name: page
+    default: 1
+  - name: limit
+    default: 15
+    note: Accepts `all` on browse endpoints to disable pagination.
+  applies_to: all browse endpoints
+  response_field: meta.pagination
+  response_fields: [page, limit, pages, total, next, prev]
+  example: '"meta": {"pagination": {"page":1,"limit":2,"pages":1,"total":1,"next":null,"prev":null}}'
+  docs: https://docs.ghost.org/content-api/pagination
+filtering:
+  language: NQL
+  param: filter
+  parser: https://www.npmjs.com/package/@tryghost/nql
+  encoding: values must be URL-encoded when passed directly
+  ordering:
+    param: order
+    syntax: '<field> ASC|DESC, comma separated'
+  docs: https://docs.ghost.org/content-api/filtering
+field_expansion:
+  include:
+    param: include
+    combinable: comma separated
+    values:
+      posts_pages: [authors, tags]
+      authors: [count.posts]
+      tags: [count.posts]
+      tiers: [monthly_price, yearly_price, benefits]
+  sparse_fields:
+    param: fields
+    note: Limits the returned fields. Ghost documents that it does not combine well with `include`.
+  formats:
+    param: formats
+    values: [html, plaintext]
+    default: html
+    applies_to: [posts, pages]
+  docs: https://docs.ghost.org/content-api/parameters
+envelope:
+  success: '{"<resource_type>": [ {...} ], "meta": {...}}'
+  note: >-
+    The top-level key always matches the resource name in the URL and is always an
+    array, except for /site/ and /settings/ which return an object.
+  error: '{"errors": [ {...} ]}'
+  error_detail: errors/ghost-org-problem-types.yml
+tracing:
+  request_id_header: x-request-id
+  observed: true
+  note: >-
+    Present on Ghost(Pro) responses (Fastly-fronted). Correlate with the per-error `id`
+    UUID in the error envelope when reporting a problem.
+caching:
+  etag: true
+  observed: 'etag: W/"124d-DhzrIV6P1Oqw8G3eekLP4JdV2Nk"'
+  cache_control: 'public, max-age=0'
+  cors: 'access-control-allow-origin: *'
+  note: >-
+    Ghost documents the Content API as fully cacheable and states it can be fetched
+    without limitation. Ghost(Pro) fronts it with Varnish/Fastly.
+rate_limits:
+  response_headers: []
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header was present on a live 200 from
+    demo.ghost.io. The only documented limit is brute-force protection on auth endpoints.
+  detail: rate-limits/ghost-org-rate-limits.yml
+trailing_slash:
+  required: true
+  note: >-
+    Every documented Ghost API path ends in a trailing slash (/posts/, /posts/{id}/).
+    Omitting it can produce a redirect or a 404 depending on the front-end.
+x-evidence:
+  fetched: '2026-08-13'
+  url: https://demo.ghost.io/ghost/api/content/posts/?key=<public demo key>&limit=1
+  http_status: 200
+  headers_observed: [content-version, x-request-id, etag, vary, cache-control, access-control-allow-origin]
+related:
+  errors: errors/ghost-org-problem-types.yml
+  lifecycle: lifecycle/ghost-org-lifecycle.yml
+  authentication: authentication/ghost-org-authentication.yml
+  rate_limits: rate-limits/ghost-org-rate-limits.yml

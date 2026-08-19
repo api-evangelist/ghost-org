@@ -1,0 +1,75 @@
+generated: '2026-08-13'
+method: probed
+source: https://docs.ghost.org/.well-known/agent-card.json
+provider: Ghost
+providerId: ghost-org
+description: >-
+  Ghost publishes an A2A Agent Card from its own developer documentation host. The card
+  advertises a single skill ("Ghost") backed by a published Agent Skill markdown file,
+  and is served alongside the remote MCP server at https://docs.ghost.org/mcp. The card
+  covers the documentation agent surface, not the Content/Admin REST APIs themselves.
+card: a2a/ghost-org-agent-card.json
+discovery:
+  path: /.well-known/agent-card.json
+  canonical: true
+  host: docs.ghost.org
+x-evidence:
+  fetched: '2026-08-13'
+  url: https://docs.ghost.org/.well-known/agent-card.json
+  http_status: 200
+  content_type: application/json
+agent:
+  name: Ghost Developer Docs
+  url: https://docs.ghost.org/
+  version: '1.0.0'
+  protocolVersion: '0.3'
+  preferredTransport: HTTP+JSON
+  provider_organization: Ghost Developer Docs
+  documentationUrl: https://docs.ghost.org/
+  capabilities:
+    streaming: false
+    pushNotifications: false
+  skills:
+  - id: ghost
+    name: Ghost
+    url: https://docs.ghost.org/.well-known/agent-skills/ghost/skill.md
+    saved: skills/ghost-org-ghost-skill.md
+grade: conformant
+grade_checks:
+  capabilities_is_object: true
+  protocol_version_present: true
+  skills_is_array: true
+  preferred_transport_present: true
+  default_input_modes_present: true
+  default_output_modes_present: true
+deviations:
+- field: protocolVersion
+  observed: '0.3'
+  expected: '1.0.0'
+  severity: minor
+  note: >-
+    Card declares the pre-1.0 A2A protocol version. It is still discovered at the
+    canonical /.well-known/agent-card.json path.
+- field: description
+  observed: absent
+  expected: a top-level human-readable description string
+  severity: minor
+  note: A2A 1.0.0 lists description among the required AgentCard fields; this card omits it.
+- field: supportedInterfaces
+  observed: present
+  expected: additionalInterfaces
+  severity: minor
+  note: >-
+    The card uses `supportedInterfaces[]`; A2A 1.0.0 names the equivalent member
+    `additionalInterfaces[]`. Same shape (url + protocolBinding), different key.
+- field: skills[].url
+  observed: present
+  expected: not defined by the A2A AgentSkill schema
+  severity: informational
+  note: >-
+    Non-standard extension that points at the published Agent Skill markdown. Useful in
+    practice — it is how the skill file was located and saved.
+related:
+  mcp: mcp/ghost-org-mcp.yml
+  skill: skills/ghost-org-ghost-skill.md
+  well_known: well-known/ghost-org-well-known.yml

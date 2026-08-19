@@ -1,0 +1,148 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  registry.npmjs.org and pypi.org metadata endpoints, plus the TryGhost GitHub
+  organisation repository listing
+provider: Ghost
+providerId: ghost-org
+description: >-
+  First-party Ghost client libraries, CLIs and tooling. Ghost publishes its JavaScript
+  API clients from the TryGhost/SDK monorepo under the @tryghost npm scope, the classic
+  installer CLI as ghost-cli, the newer Admin-API CLI (with built-in MCP server) as
+  @tryghost/ghst, and an async Python Admin API client as aioghost on PyPI. Versions and
+  dates below were read from the registries on the generated date.
+packages:
+- name: '@tryghost/content-api'
+  registry: npm
+  url: https://www.npmjs.com/package/@tryghost/content-api
+  language: JavaScript
+  official: true
+  version: 1.12.10
+  published: '2026-07-07'
+  repository: https://github.com/TryGhost/SDK
+  covers: Content API
+  note: Documented client for the read-only Content API (https://docs.ghost.org/content-api/javascript).
+- name: '@tryghost/admin-api'
+  registry: npm
+  url: https://www.npmjs.com/package/@tryghost/admin-api
+  language: JavaScript
+  official: true
+  version: 1.14.11
+  published: '2026-07-07'
+  repository: https://github.com/TryGhost/SDK
+  covers: Admin API
+  note: >-
+    Documented client for the read-write Admin API
+    (https://docs.ghost.org/admin-api/javascript). Handles JWT signing from an Admin API
+    key so callers never build the token themselves.
+- name: '@tryghost/helpers'
+  registry: npm
+  url: https://www.npmjs.com/package/@tryghost/helpers
+  language: JavaScript
+  official: true
+  version: 1.1.106
+  published: '2026-06-08'
+  repository: https://github.com/TryGhost/SDK
+  covers: Content API
+  note: Rendering helpers (reading time, tag filtering) for Content API payloads.
+- name: aioghost
+  registry: pypi
+  url: https://pypi.org/project/aioghost/
+  language: Python
+  official: true
+  version: 0.4.23
+  published: '2026-08-10'
+  repository: https://github.com/TryGhost/aioghost
+  covers: Admin API
+  note: Async Python client for the Ghost Admin API, maintained in the TryGhost org.
+- name: '@tryghost/ghst'
+  registry: npm
+  url: https://www.npmjs.com/package/@tryghost/ghst
+  language: TypeScript
+  official: true
+  version: 0.16.5
+  published: '2026-08-10'
+  repository: https://github.com/TryGhost/ghst
+  covers: Admin API
+  kind: cli
+  note: >-
+    Modern Ghost CLI covering the full Admin API, plus a built-in MCP server
+    (`ghst mcp stdio|http`). Pre-1.0 and labelled beta by Ghost. Detailed in
+    cli/ghost-org-cli.yml and mcp/ghost-org-mcp.yml.
+- name: ghost-cli
+  registry: npm
+  url: https://www.npmjs.com/package/ghost-cli
+  language: JavaScript
+  official: true
+  version: 1.31.0
+  published: '2026-08-11'
+  repository: https://github.com/TryGhost/Ghost-CLI
+  kind: cli
+  note: The install/update/manage CLI for self-hosted Ghost. Not an API client.
+- name: ghost
+  registry: npm
+  url: https://www.npmjs.com/package/ghost
+  language: JavaScript
+  official: true
+  version: 6.57.1
+  published: '2026-08-10'
+  repository: https://github.com/TryGhost/Ghost
+  kind: server
+  note: >-
+    The Ghost publishing platform itself, published to npm. This is the server that
+    serves the Content and Admin APIs, not a client library.
+- name: '@tryghost/migrate'
+  registry: npm
+  url: https://www.npmjs.com/package/@tryghost/migrate
+  language: TypeScript
+  official: true
+  version: 0.65.6
+  published: '2026-08-12'
+  repository: https://github.com/TryGhost/migrate
+  kind: cli
+  note: Command-line migration tooling that writes into Ghost via the Admin API.
+- name: gscan
+  registry: npm
+  url: https://www.npmjs.com/package/gscan
+  language: JavaScript
+  official: true
+  version: 6.4.2
+  published: '2026-07-15'
+  repository: https://github.com/TryGhost/gscan
+  kind: cli
+  note: Ghost theme validator.
+- name: '@tryghost/nql'
+  registry: npm
+  url: https://www.npmjs.com/package/@tryghost/nql
+  language: JavaScript
+  official: true
+  version: 0.13.2
+  published: '2026-08-10'
+  repository: https://github.com/TryGhost/NQL
+  note: >-
+    Parser for NQL, the query language behind the `filter` parameter on every Ghost
+    browse endpoint. Useful when building filters against the Content or Admin API.
+- name: '@tryghost/algolia'
+  registry: npm
+  url: https://www.npmjs.com/package/@tryghost/algolia
+  language: JavaScript
+  official: true
+  version: 0.3.0
+  published: '2026-08-13'
+  repository: https://github.com/TryGhost/algolia
+  note: Indexes Ghost posts into Algolia; consumes the Content API and Ghost webhooks.
+summary:
+  package_count: 12
+  official_count: 12
+  registries: [npm, pypi]
+  languages: [JavaScript, TypeScript, Python]
+  api_clients: 4
+  clis: 4
+  most_recent_release: '2026-08-13'
+  oldest_release: '2026-06-08'
+notes: >-
+  No first-party Ghost client exists on Maven Central, NuGet, pkg.go.dev, RubyGems,
+  Packagist or crates.io. The `ghost` gem on RubyGems and the `ghost-client` /
+  `ghost-api` packages on PyPI are unrelated or community projects and are deliberately
+  not listed. Every version/published pair above came from the registry metadata
+  endpoint, not from prose.

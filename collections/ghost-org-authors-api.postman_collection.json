@@ -1,0 +1,822 @@
+{
+  "item": [
+    {
+      "id": "a9555b97-8814-4722-ae89-a712313e604e",
+      "name": "Authors",
+      "description": {
+        "content": "Authors represent the staff users who create content in a Ghost publication.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fa8d63b3-9227-44aa-ad16-2af36cb9a93e",
+          "name": "Browse authors",
+          "request": {
+            "name": "Browse authors",
+            "description": {
+              "content": "Retrieve a paginated list of authors (staff users) for the publication. Supports including a count of posts per author using the include=count.posts parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "authors",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Include a count of posts associated with each author."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Apply fine-grained filters using Ghost's NQL query language. Examples include featured:true, tag:getting-started, visibility:public, and combinations using plus and comma operators."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of resources to return per page. Defaults to 15. Use all to return all resources without pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for paginated results. Defaults to 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "Field and direction to order results by, for example published_at DESC or title ASC."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your Ghost site subdomain",
+                  "type": "any",
+                  "value": "{{site}}",
+                  "key": "site"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "78723fce-12af-4672-8b54-7cab98d76155",
+              "name": "A list of authors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authors",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"authors\": [\n    {\n      \"id\": \"144db417-aa46-dc7f-8fbd-e62f73bc7f46\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"profile_image\": \"https://ODiuopbKKxvSOVvdOo.vylYgGX349cbVJuPQk4\",\n      \"cover_image\": \"https://jZgSksLnSGmRFXUpUUxatIkdNNoThR.dxdM3pR26uy.BzA3prKIcYSTnUAWxnbTOwNQwbENBpy6J3ys\",\n      \"bio\": \"string\",\n      \"website\": \"http://bDpkuPnSTQltXxOS.javfZWm.VvIEJT2GJuaRXc8+NbQAXjxod7+Uv+ecd\",\n      \"location\": \"string\",\n      \"facebook\": \"string\",\n      \"twitter\": \"string\",\n      \"meta_title\": \"string\",\n      \"meta_description\": \"string\",\n      \"url\": \"https://FKwNyIsacMuDBTnzVnfnGdWDegMe.cjK8\",\n      \"count\": {\n        \"posts\": 369\n      }\n    },\n    {\n      \"id\": \"a6df8390-1055-cb8f-7572-1ef7aae4a2c5\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"profile_image\": \"http://ivShMQriusKjGJhb.iuSvsU,TBhFTV3-z3nUc2ijOna0m+\",\n      \"cover_image\": \"http://YKgeYEUrdKsjVmPGCIKTZyDG.ajsx\",\n      \"bio\": \"string\",\n      \"website\": \"https://IHGzQHGreBCxla.wdzsIc1ZFXdKUgnxpU2vl\",\n      \"location\": \"string\",\n      \"facebook\": \"string\",\n      \"twitter\": \"string\",\n      \"meta_title\": \"string\",\n      \"meta_description\": \"string\",\n      \"url\": \"http://JYbOsnvzzc.edwPenBPVsZz9pa\",\n      \"count\": {\n        \"posts\": 7801\n      }\n    }\n  ],\n  \"meta\": {\n    \"pagination\": {\n      \"page\": 7728,\n      \"limit\": 4093,\n      \"pages\": 9082,\n      \"total\": 5002,\n      \"next\": 4110,\n      \"prev\": 6082\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f26d433d-5df5-420b-8edf-0fbd81747231",
+              "name": "Authentication failed or API key is missing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authors",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2997ffe9-ce16-4d95-80df-0c233bb7681d",
+          "name": "Read an author by ID",
+          "request": {
+            "name": "Read an author by ID",
+            "description": {
+              "content": "Retrieve a single author by their unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "authors",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Include a count of posts associated with each author."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the resource"
+                },
+                {
+                  "description": "Your Ghost site subdomain",
+                  "type": "any",
+                  "value": "{{site}}",
+                  "key": "site"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "82a6c869-2d99-4fb4-ab94-90c8ca8d0d62",
+              "name": "A single author",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authors",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"authors\": [\n    {\n      \"id\": \"80770cc4-0b6a-82a7-763c-6cf2568320ec\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"profile_image\": \"https://LBsUPeoRulwjEiZEeLfunNNYCXkZ.sccxdeuG.rNCTTF3toY1\",\n      \"cover_image\": \"http://TFhD.omcCNYghnbwM\",\n      \"bio\": \"string\",\n      \"website\": \"http://DeMM.ljrwWY-cFMGj7s\",\n      \"location\": \"string\",\n      \"facebook\": \"string\",\n      \"twitter\": \"string\",\n      \"meta_title\": \"string\",\n      \"meta_description\": \"string\",\n      \"url\": \"https://uZlyDniC.egljDvOzyjbj18vHRK1co-,vDlLqddnupnFjUoEayOEOwduZ4iYxd0m8-XtR\",\n      \"count\": {\n        \"posts\": 9449\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1648170d-eb36-4046-ad77-013a1e12f93e",
+              "name": "Authentication failed or API key is missing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authors",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b641bf8-d565-449c-9b4d-9378fb822c80",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authors",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d4b1055-faa1-4353-af1a-fc4640260650",
+          "name": "Read an author by slug",
+          "request": {
+            "name": "Read an author by slug",
+            "description": {
+              "content": "Retrieve a single author by their URL slug.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "authors",
+                "slug",
+                ":slug",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Include a count of posts associated with each author."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) The URL slug of the resource"
+                },
+                {
+                  "description": "Your Ghost site subdomain",
+                  "type": "any",
+                  "value": "{{site}}",
+                  "key": "site"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e12db329-8e4e-487d-82fb-2224a5421257",
+              "name": "A single author",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authors",
+                    "slug",
+                    ":slug",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) The URL slug of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"authors\": [\n    {\n      \"id\": \"80770cc4-0b6a-82a7-763c-6cf2568320ec\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"profile_image\": \"https://LBsUPeoRulwjEiZEeLfunNNYCXkZ.sccxdeuG.rNCTTF3toY1\",\n      \"cover_image\": \"http://TFhD.omcCNYghnbwM\",\n      \"bio\": \"string\",\n      \"website\": \"http://DeMM.ljrwWY-cFMGj7s\",\n      \"location\": \"string\",\n      \"facebook\": \"string\",\n      \"twitter\": \"string\",\n      \"meta_title\": \"string\",\n      \"meta_description\": \"string\",\n      \"url\": \"https://uZlyDniC.egljDvOzyjbj18vHRK1co-,vDlLqddnupnFjUoEayOEOwduZ4iYxd0m8-XtR\",\n      \"count\": {\n        \"posts\": 9449\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dd90b673-ba36-44c7-9aac-34f41ad7a170",
+              "name": "Authentication failed or API key is missing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authors",
+                    "slug",
+                    ":slug",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) The URL slug of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c4d9bd0-6d51-473b-87cb-27cd25c0408c",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authors",
+                    "slug",
+                    ":slug",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) The URL slug of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Ghost site subdomain",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-site",
+      "key": "site"
+    },
+    {
+      "type": "string",
+      "value": "https://{{site}}.ghost.io/ghost/api/admin",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "abe439f2-acd4-4d7a-83c9-fa6a7e6657b7",
+    "name": "Ghost Admin Authors API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication. It enables developers to create, update, and delete posts, pages, tags, members, tiers, newsletters, and offers programmatically. Authentication is handled via JSON Web Tokens generated from an Admin API key, integration tokens, or staff access tokens. The Admin API supports everything the Ghost Admin interface can do and more, making it suitable for building custom publishing workflows, content automation, member management systems, and advanced integrations.\n\nContact Support:\n Name: Ghost Foundation",
+      "type": "text/plain"
+    }
+  }
+}

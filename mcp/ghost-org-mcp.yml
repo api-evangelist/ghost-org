@@ -1,0 +1,191 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  https://docs.ghost.org/mcp (live initialize + tools/list) and
+  https://github.com/TryGhost/ghst (first-party CLI shipping an MCP server)
+provider: Ghost
+providerId: ghost-org
+description: >-
+  Ghost ships two distinct first-party MCP surfaces. A hosted, anonymous, read-only
+  documentation server runs at https://docs.ghost.org/mcp and answers a live tools/list.
+  A separate local MCP server is built into @tryghost/ghst, Ghost's modern CLI, and is
+  started with `ghst mcp stdio` (or `ghst mcp http` bound to loopback); it exposes the
+  full Ghost Admin API surface as ~90 tools against a site the operator has already
+  authenticated. The hosted server can be called by an agent today; the Admin-API server
+  requires a human to install and authenticate the CLI first.
+deployment:
+  mode: both
+  endpoint: https://docs.ghost.org/mcp
+  install: npm install -g @tryghost/ghst && ghst mcp stdio --tools all
+  package: https://www.npmjs.com/package/@tryghost/ghst
+  auth: none
+  verified: probed
+  note: >-
+    `auth: none` describes the hosted endpoint at docs.ghost.org/mcp, which answered
+    initialize and tools/list anonymously and serves only published documentation. The
+    local stdio/http server inherits the CLI's own credential (a Ghost staff access
+    token or Admin API key, `ghst auth login`) and is therefore api-key authenticated.
+    The two servers are different products on different surfaces — recorded together
+    because both are first-party Ghost MCP servers.
+servers:
+- id: ghost-developer-docs
+  name: Ghost Developer Docs
+  mode: remote
+  endpoint: https://docs.ghost.org/mcp
+  transport: streamable-http
+  protocolVersion: '2025-06-18'
+  serverVersion: '1.0.0'
+  auth: none
+  status: live
+  verified: probed
+  x-evidence:
+    fetched: '2026-08-13'
+    initialize_status: 200
+    tools_list_status: 200
+    content_type: text/event-stream
+  instructions: >-
+    Server-declared: read-only, scoped to the Ghost Developer Docs site; provides search
+    and retrieval over published documentation and exposes skill resources.
+  tools:
+  - name: search_ghost_developer_docs
+    title: Search documentation
+    inputs: [query]
+    readOnly: true
+    description: Search the Ghost Developer Docs knowledge base for guides, API reference and code examples.
+  - name: query_docs_filesystem_ghost_developer_docs
+    inputs: [command]
+    readOnly: true
+    description: >-
+      Read-only shell-like query (rg/grep/find/tree/ls/cat/head/jq) against a virtualised
+      in-memory filesystem containing only the Ghost docs pages.
+  - name: submit_feedback
+    title: Submit documentation feedback
+    inputs: [path, feedback]
+    readOnly: false
+    description: Report an incorrect, outdated or incomplete documentation page to the docs team.
+  resources:
+  - uri: mintlify://skills/ghost
+    name: ghost
+    mimeType: text/markdown
+    note: Same skill body published at /.well-known/agent-skills/ghost/skill.md
+- id: ghst-cli
+  name: ghst MCP server (Ghost Admin API)
+  mode: local-stdio
+  install: npm install -g @tryghost/ghst
+  run:
+  - ghst mcp stdio --tools all
+  - ghst mcp http --host 127.0.0.1 --port 3100 --tools posts,tags,site --auth-token <token>
+  package: https://www.npmjs.com/package/@tryghost/ghst
+  repository: https://github.com/TryGhost/ghst
+  version: 0.16.5
+  published: '2026-08-10'
+  auth: api-key
+  status: beta
+  verified: searched
+  source: https://github.com/TryGhost/ghst/blob/main/README.md
+  note: >-
+    Pre-1.0 and explicitly labelled beta by Ghost. `ghst mcp http` binds to loopback by
+    default; exposing it publicly requires --unsafe-public-bind. Not a hosted endpoint.
+  tool_groups: [posts, pages, tags, members, comments, site, settings, users, api, search, socialweb, stats]
+  tool_count: 90
+  tools_source: https://github.com/TryGhost/ghst/blob/main/src/mcp/tools/core.ts
+  tools:
+  - ghost_post_list
+  - ghost_post_get
+  - ghost_post_create
+  - ghost_post_update
+  - ghost_post_delete
+  - ghost_post_publish
+  - ghost_post_schedule
+  - ghost_page_list
+  - ghost_page_get
+  - ghost_page_create
+  - ghost_page_update
+  - ghost_page_delete
+  - ghost_tag_list
+  - ghost_tag_get
+  - ghost_tag_create
+  - ghost_tag_update
+  - ghost_tag_delete
+  - ghost_member_list
+  - ghost_member_get
+  - ghost_member_create
+  - ghost_member_update
+  - ghost_member_delete
+  - ghost_member_import
+  - ghost_newsletter_list
+  - ghost_offer_list
+  - ghost_tier_list
+  - ghost_user_list
+  - ghost_site_info
+  - ghost_site_list
+  - ghost_setting_list
+  - ghost_setting_get
+  - ghost_setting_set
+  - ghost_image_upload
+  - ghost_theme_upload
+  - ghost_webhook_create
+  - ghost_search
+  - ghost_api_request
+  - ghost_comment_list
+  - ghost_comment_get
+  - ghost_comment_thread
+  - ghost_comment_replies
+  - ghost_comment_likes
+  - ghost_comment_reports
+  - ghost_comment_hide
+  - ghost_comment_show
+  - ghost_comment_delete
+  - ghost_stats_overview
+  - ghost_stats_web
+  - ghost_stats_web_table
+  - ghost_stats_growth
+  - ghost_stats_posts
+  - ghost_stats_email
+  - ghost_stats_email_clicks
+  - ghost_stats_email_subscribers
+  - ghost_stats_post
+  - ghost_stats_post_web
+  - ghost_stats_post_growth
+  - ghost_stats_post_newsletter
+  - ghost_stats_post_referrers
+  - ghost_socialweb_status
+  - ghost_socialweb_enable
+  - ghost_socialweb_disable
+  - ghost_socialweb_profile
+  - ghost_socialweb_profile_update
+  - ghost_socialweb_search
+  - ghost_socialweb_notes
+  - ghost_socialweb_note
+  - ghost_socialweb_reader
+  - ghost_socialweb_notifications
+  - ghost_socialweb_notifications_count
+  - ghost_socialweb_posts
+  - ghost_socialweb_post
+  - ghost_socialweb_thread
+  - ghost_socialweb_reply
+  - ghost_socialweb_likes
+  - ghost_socialweb_like
+  - ghost_socialweb_unlike
+  - ghost_socialweb_repost
+  - ghost_socialweb_derepost
+  - ghost_socialweb_follow
+  - ghost_socialweb_unfollow
+  - ghost_socialweb_followers
+  - ghost_socialweb_following
+  - ghost_socialweb_block
+  - ghost_socialweb_unblock
+  - ghost_socialweb_block_domain
+  - ghost_socialweb_unblock_domain
+  - ghost_socialweb_blocked_accounts
+  - ghost_socialweb_blocked_domains
+  - ghost_socialweb_delete
+  - ghost_socialweb_upload
+notes: >-
+  No MCP server was found on ghost.org itself; /mcp there returns the site 404. The only
+  reachable hosted endpoint is on the documentation host. No fabricated endpoint URLs
+  appear in this file — every URL here was fetched or read from Ghost's own repository.
+related:
+  crosswalk: mcp/ghost-org-tool-crosswalk.yml
+  agent_card: a2a/ghost-org-a2a.yml
+  cli: cli/ghost-org-cli.yml

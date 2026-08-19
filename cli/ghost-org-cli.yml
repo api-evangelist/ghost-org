@@ -1,0 +1,131 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.ghost.org/ghost-cli and
+  https://github.com/TryGhost/ghst/blob/main/README.md
+provider: Ghost
+providerId: ghost-org
+description: >-
+  Ghost ships two first-party command-line tools with different jobs. `ghost-cli` is the
+  long-standing installer and operations CLI for a self-hosted Ghost server — it never
+  touches the HTTP APIs. `ghst` is the newer API-facing CLI: everything the Ghost Admin
+  API can do, plus an embedded MCP server. Binaries are catalogued in
+  packages/ghost-org-packages.yml.
+clis:
+- name: ghost
+  package: ghost-cli
+  version: 1.31.0
+  published: '2026-08-11'
+  docs: https://docs.ghost.org/ghost-cli
+  repository: https://github.com/TryGhost/Ghost-CLI
+  scope: server-operations
+  api_facing: false
+  install:
+  - npm install ghost-cli@latest -g
+  commands:
+  - group: install
+    commands: [install, 'install local', 'install <version>']
+    note: Provisions Ghost, MySQL, NGINX, SSL (Let's Encrypt) and systemd.
+  - group: lifecycle
+    commands: [start, stop, restart, ls, run]
+  - group: maintenance
+    commands: [update, backup, doctor, log, config, setup, uninstall, migrate, version, help]
+  key_flows:
+  - name: Production install
+    steps: [ghost install, ghost setup, ghost start]
+  - name: Upgrade in place
+    steps: [ghost backup, ghost update, ghost doctor]
+- name: ghst
+  package: '@tryghost/ghst'
+  version: 0.16.5
+  published: '2026-08-10'
+  repository: https://github.com/TryGhost/ghst
+  homepage: https://www.npmjs.com/package/@tryghost/ghst
+  scope: admin-api
+  api_facing: true
+  stability: beta
+  stability_note: Ghost's own README states the tool is pre-1.0 and not yet stable.
+  install:
+  - npm install -g @tryghost/ghst
+  - npx @tryghost/ghst
+  - pnpm add -g @tryghost/ghst
+  - yarn global add @tryghost/ghst
+  auth:
+    interactive: ghst auth login
+    non_interactive: ghst auth login --non-interactive --url https://myblog.ghost.io --staff-token "{id}:{secret}" --json
+    credential: Ghost staff access token (id:secret), exchanged for a short-lived JWT
+    multi_site: ghst auth list / ghst auth switch <site-alias>
+  safety:
+    destructive_flag: --enable-destructive-actions
+    note: Destructive commands additionally require --yes in non-interactive scripts.
+  output:
+    json: --json
+    jq: --jq
+  commands:
+  - resource: auth
+    actions: [login, status, list, switch, logout, link, token]
+  - resource: post
+    actions: [list, get, create, update, delete, publish, schedule, unschedule, copy, bulk]
+  - resource: page
+    actions: [list, get, create, update, delete, copy, bulk]
+  - resource: tag
+    actions: [list, get, create, update, delete, bulk]
+  - resource: member
+    actions: [list, get, create, update, delete, import, export, bulk]
+  - resource: newsletter
+    actions: [list, get, create, update, bulk]
+  - resource: tier
+    actions: [list, get, create, update, bulk]
+  - resource: offer
+    actions: [list, get, create, update, bulk]
+  - resource: label
+    actions: [list, get, create, update, delete, bulk]
+  - resource: comment
+    actions: [list, get, thread, replies, likes, reports, hide, show, delete]
+  - resource: webhook
+    actions: [create, update, delete, events, listen]
+  - resource: user
+    actions: [list, get, me]
+  - resource: image
+    actions: [upload]
+  - resource: theme
+    actions: [list, upload, activate, validate, dev]
+  - resource: site
+    actions: [info]
+  - resource: socialweb
+    actions: [status, enable, disable, profile, 'profile-update', search, notes, reader,
+      notifications, posts, likes, followers, following, post, thread, follow, unfollow,
+      like, unlike, repost, derepost, delete, note, reply, block, unblock, 'block-domain',
+      'unblock-domain', upload]
+  - resource: stats
+    actions: [overview, web, growth, posts, email, post]
+  - resource: setting
+    actions: [list, get, set]
+  - resource: migrate
+    actions: [wordpress, medium, substack, csv, json, export]
+  - resource: config
+    actions: [show, path, list, get, set]
+  - resource: api
+    actions: ['ghst api <endpointPath>']
+    note: Raw authenticated request against any Admin API path.
+  - resource: mcp
+    actions: [stdio, http]
+    note: See mcp/ghost-org-mcp.yml.
+  - resource: completion
+    actions: [bash, zsh, fish, powershell]
+  key_flows:
+  - name: Publish a markdown file
+    steps:
+    - ghst auth login
+    - ghst post create --title "Launch" --markdown-file ./launch.md
+    - ghst post publish <id>
+  - name: Script against the API
+    steps:
+    - ghst post list --limit 5 --json
+    - ghst post list --jq '.[].title'
+  - name: Serve the Admin API to an agent
+    steps:
+    - ghst mcp stdio --tools all
+summary:
+  cli_count: 2
+  api_facing_cli_count: 1

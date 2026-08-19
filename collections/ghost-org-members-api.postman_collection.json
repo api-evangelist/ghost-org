@@ -1,0 +1,1307 @@
+{
+  "item": [
+    {
+      "id": "aae5ba5b-44e4-4a1f-bb7d-6b43872b91ac",
+      "name": "Members",
+      "description": {
+        "content": "Manage publication members including creating, reading, updating, and deleting member records. Members are people who have signed up for the publication.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "393d217a-5582-4ff4-b5b1-069f40ff3f15",
+          "name": "Browse members",
+          "request": {
+            "name": "Browse members",
+            "description": {
+              "content": "Retrieve a paginated list of publication members. Supports filtering by status, label, newsletter subscription, and other member properties.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "members",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return in the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Apply fine-grained filters using Ghost's NQL query language."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of resources to return per page. Defaults to 15."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for paginated results. Defaults to 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "Field and direction to order results by."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your Ghost site subdomain",
+                  "type": "any",
+                  "value": "{{site}}",
+                  "key": "site"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "edf3816f-5fb4-48e8-ae7c-53725c8c190a",
+              "name": "A list of members",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"members\": [\n    {\n      \"id\": \"1c0cd159-6a17-9772-d756-12edfd03b274\",\n      \"uuid\": \"815fe21f-f483-5a4b-a055-8958ef5369b5\",\n      \"email\": \"l52whO@JfkxdTMOplcroGxtMTpeKjvMZmpCdsueO.em\",\n      \"name\": \"string\",\n      \"note\": \"string\",\n      \"geolocation\": \"string\",\n      \"status\": \"free\",\n      \"labels\": [\n        {\n          \"id\": \"ee73f151-d590-425e-bd16-2e54148a56c1\",\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"created_at\": \"1988-07-26T08:08:33.266Z\",\n          \"updated_at\": \"2012-11-16T00:02:06.621Z\"\n        },\n        {\n          \"id\": \"6a98fd76-61ec-f737-a5ce-fae32193c0ac\",\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"created_at\": \"1953-01-07T14:55:46.152Z\",\n          \"updated_at\": \"1984-07-25T09:18:51.457Z\"\n        }\n      ],\n      \"subscriptions\": [\n        {\n          \"id\": \"string\",\n          \"customer\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"email\": \"zSmtYk@bhSHSapQJhixbZsaVCjwazypjMJTbjW.tq\"\n          },\n          \"status\": \"past_due\",\n          \"start_date\": \"1988-08-25T15:25:39.070Z\",\n          \"default_payment_card_last4\": \"3837\",\n          \"cancel_at_period_end\": true,\n          \"cancellation_reason\": \"string\",\n          \"current_period_end\": \"1946-09-02T10:26:29.675Z\",\n          \"price\": {\n            \"id\": \"string\",\n            \"price_id\": \"string\",\n            \"nickname\": \"string\",\n            \"amount\": 5847,\n            \"interval\": \"year\",\n            \"type\": \"string\",\n            \"currency\": \"UYY\"\n          },\n          \"tier\": {\n            \"id\": \"e17479b8-610b-1d16-f486-34940d9bf776\",\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"description\": \"string\",\n            \"active\": false,\n            \"type\": \"paid\",\n            \"welcome_page_url\": \"http://TamEYWckCovcSdjQOZUSW.crmsAmlZz0qMJbqXfiI0BXDbZqQQdWm55Q,jsp3xcO,3C+S11WQrygWDo\",\n            \"visibility\": \"public\",\n            \"monthly_price\": 7178,\n            \"yearly_price\": 5701,\n            \"currency\": \"FVD\",\n            \"trial_days\": 2094,\n            \"benefits\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"created_at\": \"1974-08-27T19:12:52.607Z\",\n            \"updated_at\": \"1977-01-14T10:58:32.958Z\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"customer\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"email\": \"7630c6eSnpd@ImVcXowTwOb.unct\"\n          },\n          \"status\": \"active\",\n          \"start_date\": \"1969-12-02T23:44:11.114Z\",\n          \"default_payment_card_last4\": \"1710\",\n          \"cancel_at_period_end\": false,\n          \"cancellation_reason\": \"string\",\n          \"current_period_end\": \"2015-07-08T20:12:37.720Z\",\n          \"price\": {\n            \"id\": \"string\",\n            \"price_id\": \"string\",\n            \"nickname\": \"string\",\n            \"amount\": 6409,\n            \"interval\": \"year\",\n            \"type\": \"string\",\n            \"currency\": \"XTK\"\n          },\n          \"tier\": {\n            \"id\": \"59741246-475a-3980-19c4-8b4a496d3f65\",\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"description\": \"string\",\n            \"active\": true,\n            \"type\": \"paid\",\n            \"welcome_page_url\": \"https://iecshXsrvkqJXUpWVURcLPB.furjf1IMnnElng9,zS3Ao\",\n            \"visibility\": \"none\",\n            \"monthly_price\": 8530,\n            \"yearly_price\": 439,\n            \"currency\": \"UHY\",\n            \"trial_days\": 3670,\n            \"benefits\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"created_at\": \"1992-05-08T15:44:49.273Z\",\n            \"updated_at\": \"1956-06-19T18:02:54.989Z\"\n          }\n        }\n      ],\n      \"newsletters\": [\n        {\n          \"id\": \"d31f12f6-3d92-43fc-c0c0-98e82ee1778e\",\n          \"name\": \"string\",\n          \"status\": \"string\"\n        },\n        {\n          \"id\": \"eb395114-900d-2a40-415c-e672f50f8d08\",\n          \"name\": \"string\",\n          \"status\": \"string\"\n        }\n      ],\n      \"avatar_image\": \"https://IRTFaITnPXPJHvnbSynjiAdzRagciRP.xoceHYLGeGGX9MIiwEgi4m6tjhdj7lXJxaEh9bO\",\n      \"email_count\": 5787,\n      \"email_opened_count\": 5033,\n      \"email_open_rate\": 82.60592677137801,\n      \"created_at\": \"1992-07-10T13:28:25.979Z\",\n      \"updated_at\": \"1997-01-29T02:12:43.698Z\"\n    },\n    {\n      \"id\": \"e1ff7277-6be4-fd4b-b0a1-68ae78dd9ad4\",\n      \"uuid\": \"862ae8ab-56c9-6c7a-a88e-6e1327a55401\",\n      \"email\": \"RUadMnXqo6Q3JS@gTRojdaSqHdFPRaGJtBGyhC.sdia\",\n      \"name\": \"string\",\n      \"note\": \"string\",\n      \"geolocation\": \"string\",\n      \"status\": \"paid\",\n      \"labels\": [\n        {\n          \"id\": \"cd0e2a14-38bc-dd3c-55e8-a178b2e40189\",\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"created_at\": \"1985-04-12T14:17:25.736Z\",\n          \"updated_at\": \"2010-01-17T19:25:12.127Z\"\n        },\n        {\n          \"id\": \"6de201bf-2ed4-7e72-1aa5-481fd5edf7bf\",\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"created_at\": \"2016-05-27T22:25:23.108Z\",\n          \"updated_at\": \"2019-02-13T01:49:02.895Z\"\n        }\n      ],\n      \"subscriptions\": [\n        {\n          \"id\": \"string\",\n          \"customer\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"email\": \"bfIzLQK@rRhfnniXVPQvFSfvdSRMAFNTfeuzj.qbq\"\n          },\n          \"status\": \"unpaid\",\n          \"start_date\": \"2004-07-10T13:47:19.867Z\",\n          \"default_payment_card_last4\": \"1877\",\n          \"cancel_at_period_end\": false,\n          \"cancellation_reason\": \"string\",\n          \"current_period_end\": \"1965-01-02T14:28:02.879Z\",\n          \"price\": {\n            \"id\": \"string\",\n            \"price_id\": \"string\",\n            \"nickname\": \"string\",\n            \"amount\": 1251,\n            \"interval\": \"year\",\n            \"type\": \"string\",\n            \"currency\": \"GXI\"\n          },\n          \"tier\": {\n            \"id\": \"90b4cb12-4fde-2223-5c2f-fb9439754294\",\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"description\": \"string\",\n            \"active\": true,\n            \"type\": \"paid\",\n            \"welcome_page_url\": \"https://NkvrMyimchaXXZKFrP.gmyvpJXwMwtX3Ve3mKZua\",\n            \"visibility\": \"none\",\n            \"monthly_price\": 917,\n            \"yearly_price\": 7713,\n            \"currency\": \"KUQ\",\n            \"trial_days\": 6377,\n            \"benefits\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"created_at\": \"1976-07-11T20:34:42.916Z\",\n            \"updated_at\": \"2018-01-25T13:51:10.386Z\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"customer\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"email\": \"RoUxCnB5RUma@zyKYHEpIRyU.kd\"\n          },\n          \"status\": \"past_due\",\n          \"start_date\": \"1954-10-08T15:13:42.596Z\",\n          \"default_payment_card_last4\": \"3506\",\n          \"cancel_at_period_end\": false,\n          \"cancellation_reason\": \"string\",\n          \"current_period_end\": \"1977-08-27T12:37:26.916Z\",\n          \"price\": {\n            \"id\": \"string\",\n            \"price_id\": \"string\",\n            \"nickname\": \"string\",\n            \"amount\": 8665,\n            \"interval\": \"month\",\n            \"type\": \"string\",\n            \"currency\": \"MPP\"\n          },\n          \"tier\": {\n            \"id\": \"b74b5535-ef1b-72df-c483-bf0fcd807388\",\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"description\": \"string\",\n            \"active\": true,\n            \"type\": \"paid\",\n            \"welcome_page_url\": \"http://VfASnNJkbTLmO.yjqlG-xd,G-vslYYKjCJVdD,SKvJ\",\n            \"visibility\": \"none\",\n            \"monthly_price\": 8506,\n            \"yearly_price\": 5724,\n            \"currency\": \"AOY\",\n            \"trial_days\": 4483,\n            \"benefits\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"created_at\": \"2000-08-11T22:34:14.369Z\",\n            \"updated_at\": \"2007-07-27T20:45:32.606Z\"\n          }\n        }\n      ],\n      \"newsletters\": [\n        {\n          \"id\": \"2e8b29ea-4f3b-a09b-07fc-1d3f51f8d986\",\n          \"name\": \"string\",\n          \"status\": \"string\"\n        },\n        {\n          \"id\": \"de1c1eab-36b8-50c7-18c7-3e7f7522752a\",\n          \"name\": \"string\",\n          \"status\": \"string\"\n        }\n      ],\n      \"avatar_image\": \"https://IvMbUxAJiXDbQqXSZ.pwpjgngUi3WjYAGD7As1hRN9XKwOE,FbObPjuZLS4doTaJ.DrolGKO\",\n      \"email_count\": 8441,\n      \"email_opened_count\": 7660,\n      \"email_open_rate\": 49.155984083678675,\n      \"created_at\": \"2023-01-18T21:42:34.725Z\",\n      \"updated_at\": \"1971-07-23T15:01:15.354Z\"\n    }\n  ],\n  \"meta\": {\n    \"pagination\": {\n      \"page\": 7819,\n      \"limit\": 9073,\n      \"pages\": 9253,\n      \"total\": 3266,\n      \"next\": 3135,\n      \"prev\": 6662\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5baac8da-592c-49eb-ba55-453f86815345",
+              "name": "Authentication failed or token is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "552c7065-ba35-4d71-9f44-f5db43970b09",
+          "name": "Create a member",
+          "request": {
+            "name": "Create a member",
+            "description": {
+              "content": "Create a new member. The email field is required. Optionally include name, labels, and newsletter subscriptions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "members",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Ghost site subdomain",
+                  "type": "any",
+                  "value": "{{site}}",
+                  "key": "site"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"members\": [\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"note\": \"<string>\",\n      \"labels\": [\n        {\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\"\n        }\n      ],\n      \"newsletters\": [\n        {\n          \"id\": \"<uuid>\"\n        },\n        {\n          \"id\": \"<uuid>\"\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "485275de-7da5-4a94-8420-8fd47157fb06",
+              "name": "Member created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"members\": [\n    {\n      \"email\": \"g7z7Wm@KObpXXnntjKJbeBpFGbAVTcRImVf.gdr\",\n      \"name\": \"string\",\n      \"note\": \"string\",\n      \"labels\": [\n        {\n          \"name\": \"string\",\n          \"slug\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"slug\": \"string\"\n        }\n      ],\n      \"newsletters\": [\n        {\n          \"id\": \"a016205d-0693-ca2c-4598-2be1ba8910ad\"\n        },\n        {\n          \"id\": \"d4f1e816-15cd-0c42-d1bf-b8379f2b4abe\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"members\": [\n    {\n      \"id\": \"188453a0-fbda-60bd-7f4f-03bc8fcc8e4e\",\n      \"uuid\": \"bde9bd3a-dab8-0c94-6dfd-ffb27fd05699\",\n      \"email\": \"7erd@xLGDTgWfqLWivrgcvKltYszaHdmX.jxuk\",\n      \"name\": \"string\",\n      \"note\": \"string\",\n      \"geolocation\": \"string\",\n      \"status\": \"paid\",\n      \"labels\": [\n        {\n          \"id\": \"4ea3b3d1-397d-7778-0acd-4b939d358fda\",\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"created_at\": \"1958-10-21T18:58:21.252Z\",\n          \"updated_at\": \"2015-01-06T22:46:03.859Z\"\n        },\n        {\n          \"id\": \"f8031c04-a1e6-c08e-7f72-ccf45dcfa862\",\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"created_at\": \"1993-01-03T17:39:41.101Z\",\n          \"updated_at\": \"1961-04-08T05:41:53.124Z\"\n        }\n      ],\n      \"subscriptions\": [\n        {\n          \"id\": \"string\",\n          \"customer\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"email\": \"DXVs9IFI0c@survKdAepCYJXRqxuvzCPQWjSBH.jnqe\"\n          },\n          \"status\": \"canceled\",\n          \"start_date\": \"2001-08-21T06:21:36.051Z\",\n          \"default_payment_card_last4\": \"7095\",\n          \"cancel_at_period_end\": false,\n          \"cancellation_reason\": \"string\",\n          \"current_period_end\": \"1990-06-03T02:01:30.811Z\",\n          \"price\": {\n            \"id\": \"string\",\n            \"price_id\": \"string\",\n            \"nickname\": \"string\",\n            \"amount\": 2871,\n            \"interval\": \"year\",\n            \"type\": \"string\",\n            \"currency\": \"DOU\"\n          },\n          \"tier\": {\n            \"id\": \"617bbd35-b601-48b3-92b2-bbaf2f524e10\",\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"description\": \"string\",\n            \"active\": false,\n            \"type\": \"paid\",\n            \"welcome_page_url\": \"http://NlkNTcXzd.bsqutAsjk86LuBDJQCaOmNuG9L35Qa.B.N+g-eY6YU0GwbK\",\n            \"visibility\": \"none\",\n            \"monthly_price\": 8425,\n            \"yearly_price\": 9813,\n            \"currency\": \"FCC\",\n            \"trial_days\": 3402,\n            \"benefits\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"created_at\": \"1978-05-04T06:13:01.185Z\",\n            \"updated_at\": \"1989-11-30T06:57:54.037Z\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"customer\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"email\": \"r8BFT-zWAKIJNo@ZgLoek.lqt\"\n          },\n          \"status\": \"past_due\",\n          \"start_date\": \"1967-07-06T15:10:23.235Z\",\n          \"default_payment_card_last4\": \"0818\",\n          \"cancel_at_period_end\": false,\n          \"cancellation_reason\": \"string\",\n          \"current_period_end\": \"1993-04-05T18:13:27.996Z\",\n          \"price\": {\n            \"id\": \"string\",\n            \"price_id\": \"string\",\n            \"nickname\": \"string\",\n            \"amount\": 2060,\n            \"interval\": \"month\",\n            \"type\": \"string\",\n            \"currency\": \"DOS\"\n          },\n          \"tier\": {\n            \"id\": \"36db01a8-bab9-5649-76aa-821986deb58d\",\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"description\": \"string\",\n            \"active\": true,\n            \"type\": \"free\",\n            \"welcome_page_url\": \"https://iDEJGxRuaSNcVrboo.hpENZcKHpgrwLFAHMeE5QXaChthGsj1GYpf\",\n            \"visibility\": \"public\",\n            \"monthly_price\": 7178,\n            \"yearly_price\": 2791,\n            \"currency\": \"TTG\",\n            \"trial_days\": 3162,\n            \"benefits\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"created_at\": \"1970-06-15T22:45:08.508Z\",\n            \"updated_at\": \"1954-05-28T19:50:41.007Z\"\n          }\n        }\n      ],\n      \"newsletters\": [\n        {\n          \"id\": \"12ec57f3-eaff-2466-e8c3-0e1c180e6e86\",\n          \"name\": \"string\",\n          \"status\": \"string\"\n        },\n        {\n          \"id\": \"945093b4-244d-675f-87a3-16a824152743\",\n          \"name\": \"string\",\n          \"status\": \"string\"\n        }\n      ],\n      \"avatar_image\": \"https://LPcWwAK.dryJ8mBScGfJIF9dhWbFqSpCkdTandM9-MtQ601Wy.WNSgeWAnMZZhvB.ivNtibS6\",\n      \"email_count\": 8825,\n      \"email_opened_count\": 6137,\n      \"email_open_rate\": 7.624866730516655,\n      \"created_at\": \"1999-07-01T12:33:40.671Z\",\n      \"updated_at\": \"2004-09-04T22:35:12.158Z\"\n    },\n    {\n      \"id\": \"fef19e12-c47b-cd2c-37da-5982c587a948\",\n      \"uuid\": \"e2a8de53-0b58-46a9-8061-8682e6eb9a61\",\n      \"email\": \"Sgm@IMovSZkXfTdUzrzdVgEXBSztW.ocxc\",\n      \"name\": \"string\",\n      \"note\": \"string\",\n      \"geolocation\": \"string\",\n      \"status\": \"paid\",\n      \"labels\": [\n        {\n          \"id\": \"5b1385b4-d416-7f2e-a9e1-adce78138ea7\",\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"created_at\": \"2005-08-24T15:17:16.173Z\",\n          \"updated_at\": \"2016-03-25T12:03:16.595Z\"\n        },\n        {\n          \"id\": \"979c92ba-e9a1-7326-b422-5677cb05f1b1\",\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"created_at\": \"1954-10-11T02:47:04.037Z\",\n          \"updated_at\": \"2009-05-25T00:37:14.890Z\"\n        }\n      ],\n      \"subscriptions\": [\n        {\n          \"id\": \"string\",\n          \"customer\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"email\": \"fezJvX@OhQOgUbVvrqzTHkGIMZhywbjjzCNEcDA.eyon\"\n          },\n          \"status\": \"unpaid\",\n          \"start_date\": \"2008-12-29T10:02:33.614Z\",\n          \"default_payment_card_last4\": \"7423\",\n          \"cancel_at_period_end\": false,\n          \"cancellation_reason\": \"string\",\n          \"current_period_end\": \"2025-08-18T12:16:30.443Z\",\n          \"price\": {\n            \"id\": \"string\",\n            \"price_id\": \"string\",\n            \"nickname\": \"string\",\n            \"amount\": 6018,\n            \"interval\": \"month\",\n            \"type\": \"string\",\n            \"currency\": \"HBB\"\n          },\n          \"tier\": {\n            \"id\": \"ce62283b-5c48-02a3-1371-ee9af554a960\",\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"description\": \"string\",\n            \"active\": false,\n            \"type\": \"paid\",\n            \"welcome_page_url\": \"https://UPpSWshavXOxSAn.kbQZ9tU+PSBBvrqo5oxAqhOG3cy9wB3\",\n            \"visibility\": \"public\",\n            \"monthly_price\": 9301,\n            \"yearly_price\": 4560,\n            \"currency\": \"XFU\",\n            \"trial_days\": 9140,\n            \"benefits\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"created_at\": \"1952-08-11T13:52:40.880Z\",\n            \"updated_at\": \"1958-09-05T13:20:53.397Z\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"customer\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"email\": \"aoeimzKq@hBwN.uc\"\n          },\n          \"status\": \"unpaid\",\n          \"start_date\": \"1989-07-17T08:14:53.057Z\",\n          \"default_payment_card_last4\": \"9396\",\n          \"cancel_at_period_end\": false,\n          \"cancellation_reason\": \"string\",\n          \"current_period_end\": \"2007-08-11T08:51:06.714Z\",\n          \"price\": {\n            \"id\": \"string\",\n            \"price_id\": \"string\",\n            \"nickname\": \"string\",\n            \"amount\": 5687,\n            \"interval\": \"month\",\n            \"type\": \"string\",\n            \"currency\": \"LUC\"\n          },\n          \"tier\": {\n            \"id\": \"c4185ce3-b0e4-e832-ee7e-4c31b52d776f\",\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"description\": \"string\",\n            \"active\": true,\n            \"type\": \"paid\",\n            \"welcome_page_url\": \"http://ykvAiKXBNBDternahdrgfIf.kbnO9Qn4-hCA+tXr6JcvTu0K8FntTdf6knIKbrrzGACC7Ro,pqzO3m3\",\n            \"visibility\": \"none\",\n            \"monthly_price\": 6944,\n            \"yearly_price\": 2187,\n            \"currency\": \"EFW\",\n            \"trial_days\": 1122,\n            \"benefits\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"created_at\": \"2008-10-04T09:36:35.222Z\",\n            \"updated_at\": \"1950-01-10T23:36:41.665Z\"\n          }\n        }\n      ],\n      \"newsletters\": [\n        {\n          \"id\": \"8f55db7e-c7b4-3455-4ce4-64ade83d5b37\",\n          \"name\": \"string\",\n          \"status\": \"string\"\n        },\n        {\n          \"id\": \"227b3c64-0908-5669-79cb-0818e2089dcd\",\n          \"name\": \"string\",\n          \"status\": \"string\"\n        }\n      ],\n      \"avatar_image\": \"http://zrnTksPlslFucyYDDMyztLgH.tzlqjBiCFDl7FX+Q6pDZJzyBzXybOpiMlMUEKEVSwVPOqft.hcDdRu-3\",\n      \"email_count\": 9437,\n      \"email_opened_count\": 1202,\n      \"email_open_rate\": 47.239716649025944,\n      \"created_at\": \"1962-05-26T14:46:40.257Z\",\n      \"updated_at\": \"1947-05-30T02:58:56.171Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39a90725-583a-4fa9-ad63-976ce57ab580",
+              "name": "Authentication failed or token is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"members\": [\n    {\n      \"email\": \"g7z7Wm@KObpXXnntjKJbeBpFGbAVTcRImVf.gdr\",\n      \"name\": \"string\",\n      \"note\": \"string\",\n      \"labels\": [\n        {\n          \"name\": \"string\",\n          \"slug\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"slug\": \"string\"\n        }\n      ],\n      \"newsletters\": [\n        {\n          \"id\": \"a016205d-0693-ca2c-4598-2be1ba8910ad\"\n        },\n        {\n          \"id\": \"d4f1e816-15cd-0c42-d1bf-b8379f2b4abe\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d3c8fea-a5f0-49b5-ace7-5abdb0e28e1d",
+              "name": "Request body validation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"members\": [\n    {\n      \"email\": \"g7z7Wm@KObpXXnntjKJbeBpFGbAVTcRImVf.gdr\",\n      \"name\": \"string\",\n      \"note\": \"string\",\n      \"labels\": [\n        {\n          \"name\": \"string\",\n          \"slug\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"slug\": \"string\"\n        }\n      ],\n      \"newsletters\": [\n        {\n          \"id\": \"a016205d-0693-ca2c-4598-2be1ba8910ad\"\n        },\n        {\n          \"id\": \"d4f1e816-15cd-0c42-d1bf-b8379f2b4abe\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "093d7431-f069-4061-bacf-76d3aacbcc99",
+          "name": "Read a member by ID",
+          "request": {
+            "name": "Read a member by ID",
+            "description": {
+              "content": "Retrieve a single member by their unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "members",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return in the response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the resource"
+                },
+                {
+                  "description": "Your Ghost site subdomain",
+                  "type": "any",
+                  "value": "{{site}}",
+                  "key": "site"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "266fb25a-2e0d-4827-b09c-e12e17b2372e",
+              "name": "A single member",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"members\": [\n    {\n      \"id\": \"89620829-2dd7-bc3c-048c-cfb43498028b\",\n      \"uuid\": \"8948445c-4546-a38b-161c-7e18226c0a08\",\n      \"email\": \"k9y06m@QCNFUyVhW.pmpj\",\n      \"name\": \"string\",\n      \"note\": \"string\",\n      \"geolocation\": \"string\",\n      \"status\": \"free\",\n      \"labels\": [\n        {\n          \"id\": \"e55eb89e-2b5a-e582-7451-46448382d572\",\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"created_at\": \"1957-01-14T20:56:16.046Z\",\n          \"updated_at\": \"1958-11-15T09:10:32.797Z\"\n        },\n        {\n          \"id\": \"8ea4ef56-5a31-7a77-53d8-20e0236793d9\",\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"created_at\": \"2014-01-24T21:35:56.809Z\",\n          \"updated_at\": \"1980-05-12T03:57:49.252Z\"\n        }\n      ],\n      \"subscriptions\": [\n        {\n          \"id\": \"string\",\n          \"customer\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"email\": \"d45E715aH@HpkHnsoCAQDUmqTTTJGCPCuUkCVRjAuf.grck\"\n          },\n          \"status\": \"active\",\n          \"start_date\": \"2021-08-16T13:26:42.062Z\",\n          \"default_payment_card_last4\": \"2590\",\n          \"cancel_at_period_end\": true,\n          \"cancellation_reason\": \"string\",\n          \"current_period_end\": \"2007-06-06T10:59:37.380Z\",\n          \"price\": {\n            \"id\": \"string\",\n            \"price_id\": \"string\",\n            \"nickname\": \"string\",\n            \"amount\": 1026,\n            \"interval\": \"year\",\n            \"type\": \"string\",\n            \"currency\": \"AJK\"\n          },\n          \"tier\": {\n            \"id\": \"e0cb025e-a3d7-7fc6-8151-cbc9fe40f1e6\",\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"description\": \"string\",\n            \"active\": true,\n            \"type\": \"free\",\n            \"welcome_page_url\": \"https://z.ltnpSZ1Akuec3uKsaUexMrFnQvcEDU7wfgyIfTIcHmqGz5rANdyWtR9Hs4f,jSpXb+\",\n            \"visibility\": \"none\",\n            \"monthly_price\": 9239,\n            \"yearly_price\": 6120,\n            \"currency\": \"KBL\",\n            \"trial_days\": 6750,\n            \"benefits\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"created_at\": \"1991-09-07T04:04:27.558Z\",\n            \"updated_at\": \"2025-07-16T03:59:17.609Z\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"customer\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"email\": \"REl@TQIkVuFMyYtfEpmNwaxHJJGHMHTA.ly\"\n          },\n          \"status\": \"canceled\",\n          \"start_date\": \"2025-07-02T10:27:36.063Z\",\n          \"default_payment_card_last4\": \"1141\",\n          \"cancel_at_period_end\": true,\n          \"cancellation_reason\": \"string\",\n          \"current_period_end\": \"2025-08-10T13:10:57.046Z\",\n          \"price\": {\n            \"id\": \"string\",\n            \"price_id\": \"string\",\n            \"nickname\": \"string\",\n            \"amount\": 1292,\n            \"interval\": \"month\",\n            \"type\": \"string\",\n            \"currency\": \"ZVF\"\n          },\n          \"tier\": {\n            \"id\": \"ee7376ce-dd80-3aa5-f00e-11796873ffea\",\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"description\": \"string\",\n            \"active\": true,\n            \"type\": \"free\",\n            \"welcome_page_url\": \"http://yKUmNDwnSauJgSEzDO.monNmFx.icaumcXYwWfiVLqu4TsVUk1488KnC\",\n            \"visibility\": \"none\",\n            \"monthly_price\": 7569,\n            \"yearly_price\": 4064,\n            \"currency\": \"FCT\",\n            \"trial_days\": 8097,\n            \"benefits\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"created_at\": \"2023-11-29T03:23:05.915Z\",\n            \"updated_at\": \"1959-04-23T14:28:27.526Z\"\n          }\n        }\n      ],\n      \"newsletters\": [\n        {\n          \"id\": \"17faaa46-7987-675b-6478-8aa51e304c46\",\n          \"name\": \"string\",\n          \"status\": \"string\"\n        },\n        {\n          \"id\": \"f7e4499a-fb57-ade1-4ab3-b9d7d4813a52\",\n          \"name\": \"string\",\n          \"status\": \"string\"\n        }\n      ],\n      \"avatar_image\": \"http://SZoAJvIzCcfAmYgZkngOq.lhsExl9CcZtV+qVn9wpEh8LRN4KN+UKuo4FCs7DAD+Hi2UY8D.tEX.\",\n      \"email_count\": 49,\n      \"email_opened_count\": 9906,\n      \"email_open_rate\": 61.89117297467155,\n      \"created_at\": \"1985-04-11T21:35:39.344Z\",\n      \"updated_at\": \"1992-04-11T19:53:23.928Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "273abc23-3c33-4b1e-9b09-78187fa759bc",
+              "name": "Authentication failed or token is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec10f2e0-8e4e-4477-8744-3d3aa8065f57",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6183aa8d-2ea6-4135-a616-2f748e500c1d",
+          "name": "Update a member",
+          "request": {
+            "name": "Update a member",
+            "description": {
+              "content": "Update an existing member by their unique identifier. Can be used to change name, email, labels, note, and newsletter subscriptions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "members",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the resource"
+                },
+                {
+                  "description": "Your Ghost site subdomain",
+                  "type": "any",
+                  "value": "{{site}}",
+                  "key": "site"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"members\": [\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"note\": \"<string>\",\n      \"labels\": [\n        {\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\"\n        }\n      ],\n      \"newsletters\": [\n        {\n          \"id\": \"<uuid>\"\n        },\n        {\n          \"id\": \"<uuid>\"\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2056e287-c7f8-4836-93fc-8a6c986039c0",
+              "name": "Member updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"members\": [\n    {\n      \"email\": \"g7z7Wm@KObpXXnntjKJbeBpFGbAVTcRImVf.gdr\",\n      \"name\": \"string\",\n      \"note\": \"string\",\n      \"labels\": [\n        {\n          \"name\": \"string\",\n          \"slug\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"slug\": \"string\"\n        }\n      ],\n      \"newsletters\": [\n        {\n          \"id\": \"a016205d-0693-ca2c-4598-2be1ba8910ad\"\n        },\n        {\n          \"id\": \"d4f1e816-15cd-0c42-d1bf-b8379f2b4abe\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"members\": [\n    {\n      \"id\": \"188453a0-fbda-60bd-7f4f-03bc8fcc8e4e\",\n      \"uuid\": \"bde9bd3a-dab8-0c94-6dfd-ffb27fd05699\",\n      \"email\": \"7erd@xLGDTgWfqLWivrgcvKltYszaHdmX.jxuk\",\n      \"name\": \"string\",\n      \"note\": \"string\",\n      \"geolocation\": \"string\",\n      \"status\": \"paid\",\n      \"labels\": [\n        {\n          \"id\": \"4ea3b3d1-397d-7778-0acd-4b939d358fda\",\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"created_at\": \"1958-10-21T18:58:21.252Z\",\n          \"updated_at\": \"2015-01-06T22:46:03.859Z\"\n        },\n        {\n          \"id\": \"f8031c04-a1e6-c08e-7f72-ccf45dcfa862\",\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"created_at\": \"1993-01-03T17:39:41.101Z\",\n          \"updated_at\": \"1961-04-08T05:41:53.124Z\"\n        }\n      ],\n      \"subscriptions\": [\n        {\n          \"id\": \"string\",\n          \"customer\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"email\": \"DXVs9IFI0c@survKdAepCYJXRqxuvzCPQWjSBH.jnqe\"\n          },\n          \"status\": \"canceled\",\n          \"start_date\": \"2001-08-21T06:21:36.051Z\",\n          \"default_payment_card_last4\": \"7095\",\n          \"cancel_at_period_end\": false,\n          \"cancellation_reason\": \"string\",\n          \"current_period_end\": \"1990-06-03T02:01:30.811Z\",\n          \"price\": {\n            \"id\": \"string\",\n            \"price_id\": \"string\",\n            \"nickname\": \"string\",\n            \"amount\": 2871,\n            \"interval\": \"year\",\n            \"type\": \"string\",\n            \"currency\": \"DOU\"\n          },\n          \"tier\": {\n            \"id\": \"617bbd35-b601-48b3-92b2-bbaf2f524e10\",\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"description\": \"string\",\n            \"active\": false,\n            \"type\": \"paid\",\n            \"welcome_page_url\": \"http://NlkNTcXzd.bsqutAsjk86LuBDJQCaOmNuG9L35Qa.B.N+g-eY6YU0GwbK\",\n            \"visibility\": \"none\",\n            \"monthly_price\": 8425,\n            \"yearly_price\": 9813,\n            \"currency\": \"FCC\",\n            \"trial_days\": 3402,\n            \"benefits\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"created_at\": \"1978-05-04T06:13:01.185Z\",\n            \"updated_at\": \"1989-11-30T06:57:54.037Z\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"customer\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"email\": \"r8BFT-zWAKIJNo@ZgLoek.lqt\"\n          },\n          \"status\": \"past_due\",\n          \"start_date\": \"1967-07-06T15:10:23.235Z\",\n          \"default_payment_card_last4\": \"0818\",\n          \"cancel_at_period_end\": false,\n          \"cancellation_reason\": \"string\",\n          \"current_period_end\": \"1993-04-05T18:13:27.996Z\",\n          \"price\": {\n            \"id\": \"string\",\n            \"price_id\": \"string\",\n            \"nickname\": \"string\",\n            \"amount\": 2060,\n            \"interval\": \"month\",\n            \"type\": \"string\",\n            \"currency\": \"DOS\"\n          },\n          \"tier\": {\n            \"id\": \"36db01a8-bab9-5649-76aa-821986deb58d\",\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"description\": \"string\",\n            \"active\": true,\n            \"type\": \"free\",\n            \"welcome_page_url\": \"https://iDEJGxRuaSNcVrboo.hpENZcKHpgrwLFAHMeE5QXaChthGsj1GYpf\",\n            \"visibility\": \"public\",\n            \"monthly_price\": 7178,\n            \"yearly_price\": 2791,\n            \"currency\": \"TTG\",\n            \"trial_days\": 3162,\n            \"benefits\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"created_at\": \"1970-06-15T22:45:08.508Z\",\n            \"updated_at\": \"1954-05-28T19:50:41.007Z\"\n          }\n        }\n      ],\n      \"newsletters\": [\n        {\n          \"id\": \"12ec57f3-eaff-2466-e8c3-0e1c180e6e86\",\n          \"name\": \"string\",\n          \"status\": \"string\"\n        },\n        {\n          \"id\": \"945093b4-244d-675f-87a3-16a824152743\",\n          \"name\": \"string\",\n          \"status\": \"string\"\n        }\n      ],\n      \"avatar_image\": \"https://LPcWwAK.dryJ8mBScGfJIF9dhWbFqSpCkdTandM9-MtQ601Wy.WNSgeWAnMZZhvB.ivNtibS6\",\n      \"email_count\": 8825,\n      \"email_opened_count\": 6137,\n      \"email_open_rate\": 7.624866730516655,\n      \"created_at\": \"1999-07-01T12:33:40.671Z\",\n      \"updated_at\": \"2004-09-04T22:35:12.158Z\"\n    },\n    {\n      \"id\": \"fef19e12-c47b-cd2c-37da-5982c587a948\",\n      \"uuid\": \"e2a8de53-0b58-46a9-8061-8682e6eb9a61\",\n      \"email\": \"Sgm@IMovSZkXfTdUzrzdVgEXBSztW.ocxc\",\n      \"name\": \"string\",\n      \"note\": \"string\",\n      \"geolocation\": \"string\",\n      \"status\": \"paid\",\n      \"labels\": [\n        {\n          \"id\": \"5b1385b4-d416-7f2e-a9e1-adce78138ea7\",\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"created_at\": \"2005-08-24T15:17:16.173Z\",\n          \"updated_at\": \"2016-03-25T12:03:16.595Z\"\n        },\n        {\n          \"id\": \"979c92ba-e9a1-7326-b422-5677cb05f1b1\",\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"created_at\": \"1954-10-11T02:47:04.037Z\",\n          \"updated_at\": \"2009-05-25T00:37:14.890Z\"\n        }\n      ],\n      \"subscriptions\": [\n        {\n          \"id\": \"string\",\n          \"customer\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"email\": \"fezJvX@OhQOgUbVvrqzTHkGIMZhywbjjzCNEcDA.eyon\"\n          },\n          \"status\": \"unpaid\",\n          \"start_date\": \"2008-12-29T10:02:33.614Z\",\n          \"default_payment_card_last4\": \"7423\",\n          \"cancel_at_period_end\": false,\n          \"cancellation_reason\": \"string\",\n          \"current_period_end\": \"2025-08-18T12:16:30.443Z\",\n          \"price\": {\n            \"id\": \"string\",\n            \"price_id\": \"string\",\n            \"nickname\": \"string\",\n            \"amount\": 6018,\n            \"interval\": \"month\",\n            \"type\": \"string\",\n            \"currency\": \"HBB\"\n          },\n          \"tier\": {\n            \"id\": \"ce62283b-5c48-02a3-1371-ee9af554a960\",\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"description\": \"string\",\n            \"active\": false,\n            \"type\": \"paid\",\n            \"welcome_page_url\": \"https://UPpSWshavXOxSAn.kbQZ9tU+PSBBvrqo5oxAqhOG3cy9wB3\",\n            \"visibility\": \"public\",\n            \"monthly_price\": 9301,\n            \"yearly_price\": 4560,\n            \"currency\": \"XFU\",\n            \"trial_days\": 9140,\n            \"benefits\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"created_at\": \"1952-08-11T13:52:40.880Z\",\n            \"updated_at\": \"1958-09-05T13:20:53.397Z\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"customer\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"email\": \"aoeimzKq@hBwN.uc\"\n          },\n          \"status\": \"unpaid\",\n          \"start_date\": \"1989-07-17T08:14:53.057Z\",\n          \"default_payment_card_last4\": \"9396\",\n          \"cancel_at_period_end\": false,\n          \"cancellation_reason\": \"string\",\n          \"current_period_end\": \"2007-08-11T08:51:06.714Z\",\n          \"price\": {\n            \"id\": \"string\",\n            \"price_id\": \"string\",\n            \"nickname\": \"string\",\n            \"amount\": 5687,\n            \"interval\": \"month\",\n            \"type\": \"string\",\n            \"currency\": \"LUC\"\n          },\n          \"tier\": {\n            \"id\": \"c4185ce3-b0e4-e832-ee7e-4c31b52d776f\",\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"description\": \"string\",\n            \"active\": true,\n            \"type\": \"paid\",\n            \"welcome_page_url\": \"http://ykvAiKXBNBDternahdrgfIf.kbnO9Qn4-hCA+tXr6JcvTu0K8FntTdf6knIKbrrzGACC7Ro,pqzO3m3\",\n            \"visibility\": \"none\",\n            \"monthly_price\": 6944,\n            \"yearly_price\": 2187,\n            \"currency\": \"EFW\",\n            \"trial_days\": 1122,\n            \"benefits\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"created_at\": \"2008-10-04T09:36:35.222Z\",\n            \"updated_at\": \"1950-01-10T23:36:41.665Z\"\n          }\n        }\n      ],\n      \"newsletters\": [\n        {\n          \"id\": \"8f55db7e-c7b4-3455-4ce4-64ade83d5b37\",\n          \"name\": \"string\",\n          \"status\": \"string\"\n        },\n        {\n          \"id\": \"227b3c64-0908-5669-79cb-0818e2089dcd\",\n          \"name\": \"string\",\n          \"status\": \"string\"\n        }\n      ],\n      \"avatar_image\": \"http://zrnTksPlslFucyYDDMyztLgH.tzlqjBiCFDl7FX+Q6pDZJzyBzXybOpiMlMUEKEVSwVPOqft.hcDdRu-3\",\n      \"email_count\": 9437,\n      \"email_opened_count\": 1202,\n      \"email_open_rate\": 47.239716649025944,\n      \"created_at\": \"1962-05-26T14:46:40.257Z\",\n      \"updated_at\": \"1947-05-30T02:58:56.171Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "912194bf-3e75-43c8-a366-4f994c235b6d",
+              "name": "Authentication failed or token is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"members\": [\n    {\n      \"email\": \"g7z7Wm@KObpXXnntjKJbeBpFGbAVTcRImVf.gdr\",\n      \"name\": \"string\",\n      \"note\": \"string\",\n      \"labels\": [\n        {\n          \"name\": \"string\",\n          \"slug\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"slug\": \"string\"\n        }\n      ],\n      \"newsletters\": [\n        {\n          \"id\": \"a016205d-0693-ca2c-4598-2be1ba8910ad\"\n        },\n        {\n          \"id\": \"d4f1e816-15cd-0c42-d1bf-b8379f2b4abe\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80b37b85-6aeb-45c1-8c85-94b6efdc2c76",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"members\": [\n    {\n      \"email\": \"g7z7Wm@KObpXXnntjKJbeBpFGbAVTcRImVf.gdr\",\n      \"name\": \"string\",\n      \"note\": \"string\",\n      \"labels\": [\n        {\n          \"name\": \"string\",\n          \"slug\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"slug\": \"string\"\n        }\n      ],\n      \"newsletters\": [\n        {\n          \"id\": \"a016205d-0693-ca2c-4598-2be1ba8910ad\"\n        },\n        {\n          \"id\": \"d4f1e816-15cd-0c42-d1bf-b8379f2b4abe\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "468041dd-d4e4-40a8-b664-9a50513cb479",
+              "name": "Request body validation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"members\": [\n    {\n      \"email\": \"g7z7Wm@KObpXXnntjKJbeBpFGbAVTcRImVf.gdr\",\n      \"name\": \"string\",\n      \"note\": \"string\",\n      \"labels\": [\n        {\n          \"name\": \"string\",\n          \"slug\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"slug\": \"string\"\n        }\n      ],\n      \"newsletters\": [\n        {\n          \"id\": \"a016205d-0693-ca2c-4598-2be1ba8910ad\"\n        },\n        {\n          \"id\": \"d4f1e816-15cd-0c42-d1bf-b8379f2b4abe\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dc39f236-e8dd-4f3d-aac0-f5356461dc9d",
+          "name": "Delete a member",
+          "request": {
+            "name": "Delete a member",
+            "description": {
+              "content": "Permanently delete a member by their unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "members",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the resource"
+                },
+                {
+                  "description": "Your Ghost site subdomain",
+                  "type": "any",
+                  "value": "{{site}}",
+                  "key": "site"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9da189e4-f536-4fd6-b8a7-88f5723eb35f",
+              "name": "Member deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d6843d48-e0d1-4b37-a2af-0cafedf12135",
+              "name": "Authentication failed or token is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d270c95e-9959-4813-9157-5207ef8c9c59",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Ghost site subdomain",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-site",
+      "key": "site"
+    },
+    {
+      "type": "string",
+      "value": "https://{{site}}.ghost.io/ghost/api/admin",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b363d373-e4be-428f-a542-4a3cc62a4bdf",
+    "name": "Ghost Admin Authors Members API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication. It enables developers to create, update, and delete posts, pages, tags, members, tiers, newsletters, and offers programmatically. Authentication is handled via JSON Web Tokens generated from an Admin API key, integration tokens, or staff access tokens. The Admin API supports everything the Ghost Admin interface can do and more, making it suitable for building custom publishing workflows, content automation, member management systems, and advanced integrations.\n\nContact Support:\n Name: Ghost Foundation",
+      "type": "text/plain"
+    }
+  }
+}

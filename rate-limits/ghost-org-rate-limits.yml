@@ -1,3 +1,27 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.ghost.org/content-api, https://docs.ghost.org/admin-api,
+  https://docs.ghost.org/security, plus a live unauthenticated response from
+  https://demo.ghost.io
+limit_count: 5
+response_headers: []
+response_headers_note: >-
+  Probed 2026-08-13. A 200 from
+  https://demo.ghost.io/ghost/api/content/posts/?key=<published demo key>&limit=1 carried
+  no X-RateLimit-*, no RateLimit-* and no Retry-After header. Observed headers were
+  content-version, x-request-id, etag, cache-control, vary and
+  access-control-allow-origin. An agent cannot read a remaining-quota signal from Ghost
+  because Ghost does not emit one.
+documented_numeric_limits:
+- scope: per-IP
+  surface: staff login and password reset endpoints
+  limit: 5
+  window: 1 hour
+  source: https://docs.ghost.org/security
+  note: >-
+    The only numeric rate limit Ghost publishes anywhere. It protects authentication, not
+    the Content or Admin API request path.
 specification: API Commons Rate Limits
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits

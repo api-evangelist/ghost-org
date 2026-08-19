@@ -1,6 +1,12 @@
-generated: '2026-07-11'
+generated: '2026-08-13'
 method: derived
-source: openapi/ghost-org-openapi.yml
+source: openapi/ghost-org-admin-images-api-openapi.yml, openapi/ghost-org-admin-labels-api-openapi.yml,
+  openapi/ghost-org-admin-members-api-openapi.yml, openapi/ghost-org-admin-newsletters-api-openapi.yml,
+  openapi/ghost-org-admin-offers-api-openapi.yml, openapi/ghost-org-admin-pages-api-openapi.yml,
+  openapi/ghost-org-admin-posts-api-openapi.yml, openapi/ghost-org-admin-site-api-openapi.yml,
+  openapi/ghost-org-admin-tags-api-openapi.yml, openapi/ghost-org-admin-themes-api-openapi.yml,
+  openapi/ghost-org-admin-tiers-api-openapi.yml, openapi/ghost-org-admin-users-api-openapi.yml
+  ...
 summary:
   types:
   - apiKey
@@ -15,7 +21,25 @@ schemes:
   description: Content API key from a Custom Integration, passed as the `key` query parameter.
     Safe for browser use; grants read-only access to public data.
   sources:
-  - openapi/ghost-org-openapi.yml
+  - openapi/ghost-org-admin-images-api-openapi.yml
+  - openapi/ghost-org-admin-labels-api-openapi.yml
+  - openapi/ghost-org-admin-members-api-openapi.yml
+  - openapi/ghost-org-admin-newsletters-api-openapi.yml
+  - openapi/ghost-org-admin-offers-api-openapi.yml
+  - openapi/ghost-org-admin-pages-api-openapi.yml
+  - openapi/ghost-org-admin-posts-api-openapi.yml
+  - openapi/ghost-org-admin-site-api-openapi.yml
+  - openapi/ghost-org-admin-tags-api-openapi.yml
+  - openapi/ghost-org-admin-themes-api-openapi.yml
+  - openapi/ghost-org-admin-tiers-api-openapi.yml
+  - openapi/ghost-org-admin-users-api-openapi.yml
+  - openapi/ghost-org-admin-webhooks-api-openapi.yml
+  - openapi/ghost-org-content-authors-api-openapi.yml
+  - openapi/ghost-org-content-pages-api-openapi.yml
+  - openapi/ghost-org-content-posts-api-openapi.yml
+  - openapi/ghost-org-content-settings-api-openapi.yml
+  - openapi/ghost-org-content-tags-api-openapi.yml
+  - openapi/ghost-org-content-tiers-api-openapi.yml
 - name: adminJwt
   type: http
   scheme: bearer
@@ -24,4 +48,36 @@ schemes:
     JWT sent as `Authorization: Ghost {token}`. A staff access token or an authenticated user
     session may also be used.'
   sources:
-  - openapi/ghost-org-openapi.yml
+  - openapi/ghost-org-admin-images-api-openapi.yml
+  - openapi/ghost-org-admin-labels-api-openapi.yml
+  - openapi/ghost-org-admin-members-api-openapi.yml
+  - openapi/ghost-org-admin-newsletters-api-openapi.yml
+  - openapi/ghost-org-admin-offers-api-openapi.yml
+  - openapi/ghost-org-admin-pages-api-openapi.yml
+  - openapi/ghost-org-admin-posts-api-openapi.yml
+  - openapi/ghost-org-admin-site-api-openapi.yml
+  - openapi/ghost-org-admin-tags-api-openapi.yml
+  - openapi/ghost-org-admin-themes-api-openapi.yml
+  - openapi/ghost-org-admin-tiers-api-openapi.yml
+  - openapi/ghost-org-admin-users-api-openapi.yml
+  - openapi/ghost-org-admin-webhooks-api-openapi.yml
+  - openapi/ghost-org-authors-api-openapi.yml
+  - openapi/ghost-org-content-authors-api-openapi.yml
+  - openapi/ghost-org-content-pages-api-openapi.yml
+  - openapi/ghost-org-content-posts-api-openapi.yml
+  - openapi/ghost-org-content-settings-api-openapi.yml
+  - openapi/ghost-org-content-tags-api-openapi.yml
+  - openapi/ghost-org-content-tiers-api-openapi.yml
+  - openapi/ghost-org-images-api-openapi.yml
+  - openapi/ghost-org-members-api-openapi.yml
+  - openapi/ghost-org-newsletters-api-openapi.yml
+  - openapi/ghost-org-offers-api-openapi.yml
+  - openapi/ghost-org-pages-api-openapi.yml
+  - openapi/ghost-org-posts-api-openapi.yml
+  - openapi/ghost-org-settings-api-openapi.yml
+  - openapi/ghost-org-site-api-openapi.yml
+  - openapi/ghost-org-tags-api-openapi.yml
+  - openapi/ghost-org-themes-api-openapi.yml
+  - openapi/ghost-org-tiers-api-openapi.yml
+  - openapi/ghost-org-users-api-openapi.yml
+  - openapi/ghost-org-webhooks-api-openapi.yml

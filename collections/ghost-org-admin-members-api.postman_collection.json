@@ -1,0 +1,549 @@
+{
+  "item": [
+    {
+      "id": "d221e842-f1f5-4f7b-b339-1ecdc8476593",
+      "name": "Admin - Members",
+      "description": {
+        "content": "Read-write members.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5c51da07-19eb-4a25-a128-43052f438f56",
+          "name": "Browse members",
+          "request": {
+            "name": "Browse members",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "members",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Comma-separated related data to include (for example authors,tags)."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Ghost NQL filter expression."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "15",
+                  "description": "Number of records per page (default 15, or 'all')."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number of results to return."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                  "type": "any",
+                  "value": "{{admin_domain}}",
+                  "key": "admin_domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Minimum compatible API version, for example v5.0.",
+                "key": "Accept-Version",
+                "value": "<string>"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1fd5bb28-9989-4baf-9513-eb704825dfe0",
+              "name": "A list of members.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "members",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "15"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                      "type": "any",
+                      "value": "{{admin_domain}}",
+                      "key": "admin_domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Minimum compatible API version, for example v5.0.",
+                    "key": "Accept-Version",
+                    "value": "v5.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "430b753b-a77e-4a03-ab6b-af91a0ae5107",
+          "name": "Create a member",
+          "request": {
+            "name": "Create a member",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "members",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                  "type": "any",
+                  "value": "{{admin_domain}}",
+                  "key": "admin_domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Minimum compatible API version, for example v5.0.",
+                "key": "Accept-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"members\": [\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\",\n      \"note\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\",\n      \"note\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c38a7775-5a8f-4095-a9a7-078b1ae30223",
+              "name": "The created member.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "members",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                      "type": "any",
+                      "value": "{{admin_domain}}",
+                      "key": "admin_domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Minimum compatible API version, for example v5.0.",
+                    "key": "Accept-Version",
+                    "value": "v5.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"members\": [\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\",\n      \"note\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\",\n      \"note\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3150a2be-2f64-4e40-8919-085e611ef3bb",
+          "name": "Read a member by ID",
+          "request": {
+            "name": "Read a member by ID",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "members",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The resource ID."
+                },
+                {
+                  "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                  "type": "any",
+                  "value": "{{admin_domain}}",
+                  "key": "admin_domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Minimum compatible API version, for example v5.0.",
+                "key": "Accept-Version",
+                "value": "<string>"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "59272a73-8d82-47eb-a5f8-7551a2e95d01",
+              "name": "The requested member.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "members",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The resource ID."
+                    },
+                    {
+                      "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                      "type": "any",
+                      "value": "{{admin_domain}}",
+                      "key": "admin_domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Minimum compatible API version, for example v5.0.",
+                    "key": "Accept-Version",
+                    "value": "v5.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3adee7cf-2c38-40bc-9477-41040a4d4739",
+          "name": "Update a member",
+          "request": {
+            "name": "Update a member",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "members",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The resource ID."
+                },
+                {
+                  "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                  "type": "any",
+                  "value": "{{admin_domain}}",
+                  "key": "admin_domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Minimum compatible API version, for example v5.0.",
+                "key": "Accept-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"members\": [\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\",\n      \"note\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\",\n      \"note\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9d002a0d-d1a4-45f9-8b77-1bb0c880d05d",
+              "name": "The updated member.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "members",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The resource ID."
+                    },
+                    {
+                      "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                      "type": "any",
+                      "value": "{{admin_domain}}",
+                      "key": "admin_domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Minimum compatible API version, for example v5.0.",
+                    "key": "Accept-Version",
+                    "value": "v5.0"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"members\": [\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\",\n      \"note\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\",\n      \"note\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "demo.ghost.io",
+      "key": "admin_domain"
+    },
+    {
+      "type": "string",
+      "value": "https://{{admin_domain}}/ghost/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "315a4fbe-988f-4702-b799-74bef3bc1d5a",
+    "name": "Ghost Content and Admin APIs Admin - Images Admin - Members API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Ghost is an open-source (MIT) publishing platform for professional publications, newsletters, memberships, and paid subscriptions. Every Ghost site - whether self-hosted or on managed Ghost(Pro) - exposes two documented public REST APIs under https://{admin_domain}/ghost/api/.\n\nThe Content API is read-only and is authenticated with a Content API key passed as the `key` query parameter; it serves published posts, pages, authors, tags, tiers, and public settings for consumption by front-ends and static sites.\n\nThe Admin API is read-write and is authenticated with an Admin API key that is used to sign a short-lived JWT sent as `Authorization: Ghost {token}` (a staff access token or user session may also be used). It manages posts, pages, members, tags, labels, tiers, offers, newsletters, users, images, themes, and webhooks.\n\nThe `{admin_domain}` server variable is the site's domain (for Ghost(Pro), typically a `*.ghost.io` domain). All requests must use HTTPS. The `Accept-Version` header (for example `v5.0`) declares the minimum compatible API version.\n\nContact Support:\n Name: Ghost",
+      "type": "text/plain"
+    }
+  }
+}

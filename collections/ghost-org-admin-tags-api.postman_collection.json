@@ -1,0 +1,529 @@
+{
+  "item": [
+    {
+      "id": "88dee44d-f834-41f6-9a13-487a60c031f5",
+      "name": "Admin - Tags",
+      "description": {
+        "content": "Read-write tags.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7f8a887e-316a-4d2d-bf7b-edc52068b957",
+          "name": "Browse tags",
+          "request": {
+            "name": "Browse tags",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "tags",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "15",
+                  "description": "Number of records per page (default 15, or 'all')."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number of results to return."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                  "type": "any",
+                  "value": "{{admin_domain}}",
+                  "key": "admin_domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Minimum compatible API version, for example v5.0.",
+                "key": "Accept-Version",
+                "value": "<string>"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d33ff062-2a2e-4ce6-b8e4-886f1565429a",
+              "name": "A list of tags.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "tags",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "15"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                      "type": "any",
+                      "value": "{{admin_domain}}",
+                      "key": "admin_domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Minimum compatible API version, for example v5.0.",
+                    "key": "Accept-Version",
+                    "value": "v5.0"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a493c89-02ae-4de4-aa26-1fe1d41d69e0",
+          "name": "Create a tag",
+          "request": {
+            "name": "Create a tag",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "tags",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                  "type": "any",
+                  "value": "{{admin_domain}}",
+                  "key": "admin_domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Minimum compatible API version, for example v5.0.",
+                "key": "Accept-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    {\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d9b0a85a-70b2-4d49-a87e-d2060cc6c384",
+              "name": "The created tag.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "tags",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                      "type": "any",
+                      "value": "{{admin_domain}}",
+                      "key": "admin_domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Minimum compatible API version, for example v5.0.",
+                    "key": "Accept-Version",
+                    "value": "v5.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    {\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4ab132fe-f661-4da6-9a0c-fa5cf7d62a83",
+          "name": "Update a tag",
+          "request": {
+            "name": "Update a tag",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "tags",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The resource ID."
+                },
+                {
+                  "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                  "type": "any",
+                  "value": "{{admin_domain}}",
+                  "key": "admin_domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Minimum compatible API version, for example v5.0.",
+                "key": "Accept-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    {\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4086e144-eaa4-442b-b4c4-b3ccca9f3fab",
+              "name": "The updated tag.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "tags",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The resource ID."
+                    },
+                    {
+                      "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                      "type": "any",
+                      "value": "{{admin_domain}}",
+                      "key": "admin_domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Minimum compatible API version, for example v5.0.",
+                    "key": "Accept-Version",
+                    "value": "v5.0"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    {\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f2bde822-526d-45ae-95dc-5fbdf7cf0cb4",
+          "name": "Delete a tag",
+          "request": {
+            "name": "Delete a tag",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "tags",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The resource ID."
+                },
+                {
+                  "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                  "type": "any",
+                  "value": "{{admin_domain}}",
+                  "key": "admin_domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Minimum compatible API version, for example v5.0.",
+                "key": "Accept-Version",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2a32e467-32a4-4446-952b-09d017ccc122",
+              "name": "The tag was deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "tags",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The resource ID."
+                    },
+                    {
+                      "description": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+                      "type": "any",
+                      "value": "{{admin_domain}}",
+                      "key": "admin_domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Minimum compatible API version, for example v5.0.",
+                    "key": "Accept-Version",
+                    "value": "v5.0"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The domain of the Ghost site (Ghost(Pro) uses *.ghost.io).",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "demo.ghost.io",
+      "key": "admin_domain"
+    },
+    {
+      "type": "string",
+      "value": "https://{{admin_domain}}/ghost/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8e56ea7e-66d4-41e6-b2dd-d5cc812a3427",
+    "name": "Ghost Content and Admin APIs Admin - Images Admin - Tags API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Ghost is an open-source (MIT) publishing platform for professional publications, newsletters, memberships, and paid subscriptions. Every Ghost site - whether self-hosted or on managed Ghost(Pro) - exposes two documented public REST APIs under https://{admin_domain}/ghost/api/.\n\nThe Content API is read-only and is authenticated with a Content API key passed as the `key` query parameter; it serves published posts, pages, authors, tags, tiers, and public settings for consumption by front-ends and static sites.\n\nThe Admin API is read-write and is authenticated with an Admin API key that is used to sign a short-lived JWT sent as `Authorization: Ghost {token}` (a staff access token or user session may also be used). It manages posts, pages, members, tags, labels, tiers, offers, newsletters, users, images, themes, and webhooks.\n\nThe `{admin_domain}` server variable is the site's domain (for Ghost(Pro), typically a `*.ghost.io` domain). All requests must use HTTPS. The `Accept-Version` header (for example `v5.0`) declares the minimum compatible API version.\n\nContact Support:\n Name: Ghost",
+      "type": "text/plain"
+    }
+  }
+}

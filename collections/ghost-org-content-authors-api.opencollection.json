@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ghost Content and Admin APIs Admin - Images Content - Authors API",
+    "version": "5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Content - Authors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse authors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{admin_domain}/ghost/api/content/authors/",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Content API key."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated related data to include (for example authors,tags)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page (default 15, or 'all')."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number of results to return."
+              }
+            ]
+          },
+          "docs": "Browse authors"
+        },
+        {
+          "info": {
+            "name": "Read an author by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{admin_domain}/ghost/api/content/authors/:id/",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Content API key."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource ID."
+              }
+            ]
+          },
+          "docs": "Read an author by ID"
+        },
+        {
+          "info": {
+            "name": "Read an author by slug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{admin_domain}/ghost/api/content/authors/slug/:slug/",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Content API key."
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path",
+                "description": "The resource slug."
+              }
+            ]
+          },
+          "docs": "Read an author by slug"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

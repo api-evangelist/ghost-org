@@ -1,0 +1,1069 @@
+{
+  "item": [
+    {
+      "id": "e01e018b-e29d-4fc0-9cee-7b3062b5b93f",
+      "name": "Offers",
+      "description": {
+        "content": "Manage promotional offers for paid membership tiers, including discounts and trial periods.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4df1a758-832d-41b9-b789-3c91a07d9c06",
+          "name": "Browse offers",
+          "request": {
+            "name": "Browse offers",
+            "description": {
+              "content": "Retrieve a list of all promotional offers configured for the publication.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "offers",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return in the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Apply fine-grained filters using Ghost's NQL query language."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of resources to return per page. Defaults to 15."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for paginated results. Defaults to 1."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your Ghost site subdomain",
+                  "type": "any",
+                  "value": "{{site}}",
+                  "key": "site"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0d60aed4-add4-467f-9aa5-93557fd709b2",
+              "name": "A list of offers",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offers",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"offers\": [\n    {\n      \"id\": \"b9d6d68d-df94-1d46-57fc-d6f5f6c3b4be\",\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"display_title\": \"string\",\n      \"display_description\": \"string\",\n      \"type\": \"percent\",\n      \"cadence\": \"month\",\n      \"amount\": 6951,\n      \"duration\": \"once\",\n      \"duration_in_months\": 4933,\n      \"currency_restriction\": false,\n      \"currency\": \"XNV\",\n      \"status\": \"active\",\n      \"redemption_count\": 7777,\n      \"tier\": {\n        \"id\": \"36ad0a34-711c-df50-3a5a-9c21e8b71bcd\",\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"description\": \"string\",\n        \"active\": true,\n        \"type\": \"paid\",\n        \"welcome_page_url\": \"http://JgWtnVT.lcnoGzmdzMFrR568ZhKo7Kq5D0IoOp.D7n\",\n        \"visibility\": \"public\",\n        \"monthly_price\": 7369,\n        \"yearly_price\": 4277,\n        \"currency\": \"ITS\",\n        \"trial_days\": 7641,\n        \"benefits\": [\n          \"string\",\n          \"string\"\n        ],\n        \"created_at\": \"1971-06-09T20:17:29.575Z\",\n        \"updated_at\": \"2011-05-14T07:54:36.621Z\"\n      },\n      \"created_at\": \"1963-05-13T22:58:10.636Z\",\n      \"updated_at\": \"1993-02-05T03:46:25.033Z\"\n    },\n    {\n      \"id\": \"844d3b12-d016-cf0c-ec10-08106fa68969\",\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"display_title\": \"string\",\n      \"display_description\": \"string\",\n      \"type\": \"trial\",\n      \"cadence\": \"month\",\n      \"amount\": 8980,\n      \"duration\": \"once\",\n      \"duration_in_months\": 6970,\n      \"currency_restriction\": false,\n      \"currency\": \"JRY\",\n      \"status\": \"archived\",\n      \"redemption_count\": 354,\n      \"tier\": {\n        \"id\": \"d23b9aeb-1476-8fd7-d174-9aad34082f2a\",\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"description\": \"string\",\n        \"active\": false,\n        \"type\": \"free\",\n        \"welcome_page_url\": \"http://pQWbdBixhyFmoxgsobjLNtoX.adfc3WXg5NFKO2dohIJgKqqSCfm5,dDzOc.KlTRo,zYKOt.jXW.i8e\",\n        \"visibility\": \"none\",\n        \"monthly_price\": 462,\n        \"yearly_price\": 618,\n        \"currency\": \"NQE\",\n        \"trial_days\": 4826,\n        \"benefits\": [\n          \"string\",\n          \"string\"\n        ],\n        \"created_at\": \"1957-04-05T02:17:33.557Z\",\n        \"updated_at\": \"1951-10-08T15:46:00.628Z\"\n      },\n      \"created_at\": \"1989-03-17T09:21:27.658Z\",\n      \"updated_at\": \"1957-03-25T12:17:41.918Z\"\n    }\n  ],\n  \"meta\": {\n    \"pagination\": {\n      \"page\": 1293,\n      \"limit\": 1349,\n      \"pages\": 8196,\n      \"total\": 1775,\n      \"next\": 5115,\n      \"prev\": 5766\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dafa0f42-9545-4a27-a1c0-add8bc381c8f",
+              "name": "Authentication failed or token is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offers",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "650b02f1-2a72-470f-be45-a4214e5d5bb3",
+          "name": "Create an offer",
+          "request": {
+            "name": "Create an offer",
+            "description": {
+              "content": "Create a new promotional offer for a paid membership tier, including percentage or fixed amount discounts and trial periods.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "offers",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Ghost site subdomain",
+                  "type": "any",
+                  "value": "{{site}}",
+                  "key": "site"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"offers\": [\n    {\n      \"name\": \"<string>\",\n      \"code\": \"<string>\",\n      \"display_title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"cadence\": \"<string>\",\n      \"amount\": \"<integer>\",\n      \"duration\": \"<string>\",\n      \"tier\": {\n        \"id\": \"<uuid>\"\n      },\n      \"display_description\": \"<string>\",\n      \"duration_in_months\": \"<integer>\",\n      \"currency\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "880543f5-512e-4126-ba5f-150910b966c8",
+              "name": "Offer created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offers",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offers\": [\n    {\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"display_title\": \"string\",\n      \"type\": \"fixed\",\n      \"cadence\": \"month\",\n      \"amount\": 7523,\n      \"duration\": \"forever\",\n      \"tier\": {\n        \"id\": \"59a19528-5c0d-597c-1ef1-13a4e197c443\"\n      },\n      \"display_description\": \"string\",\n      \"duration_in_months\": 7628,\n      \"currency\": \"VMR\",\n      \"status\": \"archived\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"offers\": [\n    {\n      \"id\": \"55fb9e5b-9ca9-f180-3e90-ce668e4a74e2\",\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"display_title\": \"string\",\n      \"display_description\": \"string\",\n      \"type\": \"trial\",\n      \"cadence\": \"month\",\n      \"amount\": 1345,\n      \"duration\": \"repeating\",\n      \"duration_in_months\": 7103,\n      \"currency_restriction\": false,\n      \"currency\": \"TWO\",\n      \"status\": \"active\",\n      \"redemption_count\": 8854,\n      \"tier\": {\n        \"id\": \"b7b0c503-cf8f-fef6-1a75-edcc9ab8c622\",\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"description\": \"string\",\n        \"active\": true,\n        \"type\": \"free\",\n        \"welcome_page_url\": \"https://rdPgqeuMJGh.isly6O++VPGUdiHg2x36GyoTCtMlBSICJ,FWg9Xx0JOniZKGZj8jSpZi9xvX\",\n        \"visibility\": \"none\",\n        \"monthly_price\": 6512,\n        \"yearly_price\": 4828,\n        \"currency\": \"LJH\",\n        \"trial_days\": 2704,\n        \"benefits\": [\n          \"string\",\n          \"string\"\n        ],\n        \"created_at\": \"1979-08-12T04:36:51.465Z\",\n        \"updated_at\": \"1960-01-28T00:11:51.941Z\"\n      },\n      \"created_at\": \"1985-01-17T03:07:02.227Z\",\n      \"updated_at\": \"2019-05-19T03:59:59.989Z\"\n    },\n    {\n      \"id\": \"78a9047c-b621-2982-e14b-beac68c177a9\",\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"display_title\": \"string\",\n      \"display_description\": \"string\",\n      \"type\": \"fixed\",\n      \"cadence\": \"year\",\n      \"amount\": 3563,\n      \"duration\": \"forever\",\n      \"duration_in_months\": 8636,\n      \"currency_restriction\": true,\n      \"currency\": \"MKN\",\n      \"status\": \"active\",\n      \"redemption_count\": 2124,\n      \"tier\": {\n        \"id\": \"c88c7325-c293-721a-f4fa-10c8ca5e9b13\",\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"description\": \"string\",\n        \"active\": true,\n        \"type\": \"free\",\n        \"welcome_page_url\": \"http://lPFrfbuvWU.rjHcq8cYz\",\n        \"visibility\": \"public\",\n        \"monthly_price\": 1887,\n        \"yearly_price\": 4294,\n        \"currency\": \"ODQ\",\n        \"trial_days\": 7919,\n        \"benefits\": [\n          \"string\",\n          \"string\"\n        ],\n        \"created_at\": \"2012-12-27T12:25:12.196Z\",\n        \"updated_at\": \"1968-08-24T08:06:04.767Z\"\n      },\n      \"created_at\": \"1982-10-09T01:36:44.572Z\",\n      \"updated_at\": \"2020-04-24T20:20:50.495Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2be4b4c-228e-4bfb-afa3-1b7c242c5f38",
+              "name": "Authentication failed or token is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offers",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offers\": [\n    {\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"display_title\": \"string\",\n      \"type\": \"fixed\",\n      \"cadence\": \"month\",\n      \"amount\": 7523,\n      \"duration\": \"forever\",\n      \"tier\": {\n        \"id\": \"59a19528-5c0d-597c-1ef1-13a4e197c443\"\n      },\n      \"display_description\": \"string\",\n      \"duration_in_months\": 7628,\n      \"currency\": \"VMR\",\n      \"status\": \"archived\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ffbd44b3-ace2-469d-a552-bea621395a8d",
+              "name": "Request body validation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offers",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offers\": [\n    {\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"display_title\": \"string\",\n      \"type\": \"fixed\",\n      \"cadence\": \"month\",\n      \"amount\": 7523,\n      \"duration\": \"forever\",\n      \"tier\": {\n        \"id\": \"59a19528-5c0d-597c-1ef1-13a4e197c443\"\n      },\n      \"display_description\": \"string\",\n      \"duration_in_months\": 7628,\n      \"currency\": \"VMR\",\n      \"status\": \"archived\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3fab95e8-540e-4046-9941-4ddfeea29b63",
+          "name": "Read an offer by ID",
+          "request": {
+            "name": "Read an offer by ID",
+            "description": {
+              "content": "Retrieve a single offer by its unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "offers",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return in the response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the resource"
+                },
+                {
+                  "description": "Your Ghost site subdomain",
+                  "type": "any",
+                  "value": "{{site}}",
+                  "key": "site"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b7eadf1f-8df2-4095-b8c4-263487f2d5ca",
+              "name": "A single offer",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offers",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"offers\": [\n    {\n      \"id\": \"5ccba8af-33ce-f7df-b449-b69eea969708\",\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"display_title\": \"string\",\n      \"display_description\": \"string\",\n      \"type\": \"trial\",\n      \"cadence\": \"year\",\n      \"amount\": 9099,\n      \"duration\": \"trial\",\n      \"duration_in_months\": 5214,\n      \"currency_restriction\": true,\n      \"currency\": \"WAG\",\n      \"status\": \"active\",\n      \"redemption_count\": 2866,\n      \"tier\": {\n        \"id\": \"bf2db9f9-4ee9-1411-98f0-06a74408cefb\",\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"description\": \"string\",\n        \"active\": false,\n        \"type\": \"free\",\n        \"welcome_page_url\": \"http://UCOSgAKnlhzBTW.tsQIPGsWSOEDLSXTlmH9hJ60.\",\n        \"visibility\": \"none\",\n        \"monthly_price\": 4011,\n        \"yearly_price\": 9289,\n        \"currency\": \"IBO\",\n        \"trial_days\": 828,\n        \"benefits\": [\n          \"string\",\n          \"string\"\n        ],\n        \"created_at\": \"2009-12-23T09:04:21.100Z\",\n        \"updated_at\": \"1971-11-04T06:01:48.740Z\"\n      },\n      \"created_at\": \"2026-03-13T13:22:29.755Z\",\n      \"updated_at\": \"1973-10-01T18:27:39.706Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f9d1946f-a206-4163-a2ad-2bd996836d17",
+              "name": "Authentication failed or token is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offers",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17d5e0c9-f7d5-4505-a22c-727845ff244f",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offers",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b914cbaf-19a9-4789-8428-0eff6856df9a",
+          "name": "Update an offer",
+          "request": {
+            "name": "Update an offer",
+            "description": {
+              "content": "Update an existing offer by its unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "offers",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the resource"
+                },
+                {
+                  "description": "Your Ghost site subdomain",
+                  "type": "any",
+                  "value": "{{site}}",
+                  "key": "site"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"offers\": [\n    {\n      \"name\": \"<string>\",\n      \"code\": \"<string>\",\n      \"display_title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"cadence\": \"<string>\",\n      \"amount\": \"<integer>\",\n      \"duration\": \"<string>\",\n      \"tier\": {\n        \"id\": \"<uuid>\"\n      },\n      \"display_description\": \"<string>\",\n      \"duration_in_months\": \"<integer>\",\n      \"currency\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9cf71974-e8ae-4119-b8d0-d8d88d435fce",
+              "name": "Offer updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offers",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offers\": [\n    {\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"display_title\": \"string\",\n      \"type\": \"fixed\",\n      \"cadence\": \"month\",\n      \"amount\": 7523,\n      \"duration\": \"forever\",\n      \"tier\": {\n        \"id\": \"59a19528-5c0d-597c-1ef1-13a4e197c443\"\n      },\n      \"display_description\": \"string\",\n      \"duration_in_months\": 7628,\n      \"currency\": \"VMR\",\n      \"status\": \"archived\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"offers\": [\n    {\n      \"id\": \"55fb9e5b-9ca9-f180-3e90-ce668e4a74e2\",\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"display_title\": \"string\",\n      \"display_description\": \"string\",\n      \"type\": \"trial\",\n      \"cadence\": \"month\",\n      \"amount\": 1345,\n      \"duration\": \"repeating\",\n      \"duration_in_months\": 7103,\n      \"currency_restriction\": false,\n      \"currency\": \"TWO\",\n      \"status\": \"active\",\n      \"redemption_count\": 8854,\n      \"tier\": {\n        \"id\": \"b7b0c503-cf8f-fef6-1a75-edcc9ab8c622\",\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"description\": \"string\",\n        \"active\": true,\n        \"type\": \"free\",\n        \"welcome_page_url\": \"https://rdPgqeuMJGh.isly6O++VPGUdiHg2x36GyoTCtMlBSICJ,FWg9Xx0JOniZKGZj8jSpZi9xvX\",\n        \"visibility\": \"none\",\n        \"monthly_price\": 6512,\n        \"yearly_price\": 4828,\n        \"currency\": \"LJH\",\n        \"trial_days\": 2704,\n        \"benefits\": [\n          \"string\",\n          \"string\"\n        ],\n        \"created_at\": \"1979-08-12T04:36:51.465Z\",\n        \"updated_at\": \"1960-01-28T00:11:51.941Z\"\n      },\n      \"created_at\": \"1985-01-17T03:07:02.227Z\",\n      \"updated_at\": \"2019-05-19T03:59:59.989Z\"\n    },\n    {\n      \"id\": \"78a9047c-b621-2982-e14b-beac68c177a9\",\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"display_title\": \"string\",\n      \"display_description\": \"string\",\n      \"type\": \"fixed\",\n      \"cadence\": \"year\",\n      \"amount\": 3563,\n      \"duration\": \"forever\",\n      \"duration_in_months\": 8636,\n      \"currency_restriction\": true,\n      \"currency\": \"MKN\",\n      \"status\": \"active\",\n      \"redemption_count\": 2124,\n      \"tier\": {\n        \"id\": \"c88c7325-c293-721a-f4fa-10c8ca5e9b13\",\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"description\": \"string\",\n        \"active\": true,\n        \"type\": \"free\",\n        \"welcome_page_url\": \"http://lPFrfbuvWU.rjHcq8cYz\",\n        \"visibility\": \"public\",\n        \"monthly_price\": 1887,\n        \"yearly_price\": 4294,\n        \"currency\": \"ODQ\",\n        \"trial_days\": 7919,\n        \"benefits\": [\n          \"string\",\n          \"string\"\n        ],\n        \"created_at\": \"2012-12-27T12:25:12.196Z\",\n        \"updated_at\": \"1968-08-24T08:06:04.767Z\"\n      },\n      \"created_at\": \"1982-10-09T01:36:44.572Z\",\n      \"updated_at\": \"2020-04-24T20:20:50.495Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0f10200-4c78-477e-a25c-cbf6738fb0c1",
+              "name": "Authentication failed or token is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offers",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offers\": [\n    {\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"display_title\": \"string\",\n      \"type\": \"fixed\",\n      \"cadence\": \"month\",\n      \"amount\": 7523,\n      \"duration\": \"forever\",\n      \"tier\": {\n        \"id\": \"59a19528-5c0d-597c-1ef1-13a4e197c443\"\n      },\n      \"display_description\": \"string\",\n      \"duration_in_months\": 7628,\n      \"currency\": \"VMR\",\n      \"status\": \"archived\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b8ade056-f1f8-4519-bb9a-97a86179c9c5",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offers",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offers\": [\n    {\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"display_title\": \"string\",\n      \"type\": \"fixed\",\n      \"cadence\": \"month\",\n      \"amount\": 7523,\n      \"duration\": \"forever\",\n      \"tier\": {\n        \"id\": \"59a19528-5c0d-597c-1ef1-13a4e197c443\"\n      },\n      \"display_description\": \"string\",\n      \"duration_in_months\": 7628,\n      \"currency\": \"VMR\",\n      \"status\": \"archived\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e9b1c16-6aad-47c4-864a-509f8fb76442",
+              "name": "Request body validation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offers",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the resource"
+                    },
+                    {
+                      "description": "Your Ghost site subdomain",
+                      "type": "any",
+                      "value": "{{site}}",
+                      "key": "site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offers\": [\n    {\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"display_title\": \"string\",\n      \"type\": \"fixed\",\n      \"cadence\": \"month\",\n      \"amount\": 7523,\n      \"duration\": \"forever\",\n      \"tier\": {\n        \"id\": \"59a19528-5c0d-597c-1ef1-13a4e197c443\"\n      },\n      \"display_description\": \"string\",\n      \"duration_in_months\": 7628,\n      \"currency\": \"VMR\",\n      \"status\": \"archived\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"type\": \"string\",\n      \"context\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Ghost site subdomain",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-site",
+      "key": "site"
+    },
+    {
+      "type": "string",
+      "value": "https://{{site}}.ghost.io/ghost/api/admin",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "56a30ea1-c986-43f0-8739-548c9e15d691",
+    "name": "Ghost Admin Authors Offers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication. It enables developers to create, update, and delete posts, pages, tags, members, tiers, newsletters, and offers programmatically. Authentication is handled via JSON Web Tokens generated from an Admin API key, integration tokens, or staff access tokens. The Admin API supports everything the Ghost Admin interface can do and more, making it suitable for building custom publishing workflows, content automation, member management systems, and advanced integrations.\n\nContact Support:\n Name: Ghost Foundation",
+      "type": "text/plain"
+    }
+  }
+}

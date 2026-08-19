@@ -1,0 +1,100 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.ghost.org/faq/api-versioning, https://docs.ghost.org/faq/major-versions-lts,
+  https://status.ghost.org, https://github.com/TryGhost/Ghost/releases
+provider: Ghost
+providerId: ghost-org
+description: >-
+  Ghost versions its HTTP APIs with an Accept-Version request header and a published
+  stability index, and versions the platform itself with a major-version LTS ladder that
+  states an explicit end-of-life date for every past major. Because Ghost is both
+  self-hosted software and a managed service, "deprecation" has two meanings: an endpoint
+  marked Deprecated in the stability index, and a major version that has reached EOL and
+  should be considered insecure.
+versioning:
+  scheme: header-negotiated major.minor
+  request_header: 'Accept-Version: v{major}.{minor}'
+  response_header: 'Content-Version'
+  current: v6.0
+  docs: https://docs.ghost.org/faq/api-versioning
+  semantics: >-
+    Accept-Version declares the minimum version of Ghost the client can operate with.
+    Ghost answers with Content-Version naming the version of the install that responded.
+    When the header is present and the request cannot be served, Ghost emails the site
+    owner and administrators with the details so an outdated client is discoverable.
+  stability_index:
+  - level: stable
+    meaning: Forward compatible changes only.
+  - level: experimental
+    meaning: Being actively worked on; may receive breaking changes.
+  - level: deprecated
+    meaning: Scheduled for removal.
+  note: >-
+    All Content API endpoints (posts, pages, tags, authors, tiers, settings) are
+    documented as stable.
+deprecation:
+  policy_published: true
+  docs: https://docs.ghost.org/faq/major-versions-lts
+  mechanism: >-
+    Stability index level on the endpoint, plus a major-version LTS ladder with a stated
+    End of Life date per major.
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  guarantee: >-
+    Ghost ships a major version every 8-12 months and states that code written against
+    the API today is stable for a minimum of two years.
+  support_model: >-
+    The current major receives features and improvements; the previous major is the LTS
+    line and receives only critical security and stability fixes. Past EOL a version
+    should be considered insecure.
+  major_versions:
+  - version: 0.x
+    released: '2013'
+    end_of_life: '2019-01'
+  - version: 1.x
+    released: '2017'
+    end_of_life: '2020-01'
+  - version: 2.x
+    released: '2018'
+    end_of_life: '2021-01'
+  - version: 3.x
+    released: '2019'
+    end_of_life: '2022-01'
+  - version: 4.x
+    released: '2021'
+    end_of_life: '2023-01'
+  - version: 5.x
+    released: '2022'
+    end_of_life: '2026-01'
+    status: eol
+  - version: 6.x
+    released: '2025'
+    end_of_life: TBC
+    status: current
+  deprecated_operations: []
+  deprecated_operations_note: >-
+    No operation in openapi/ carries `deprecated: true`. Ghost documents deprecation on
+    the endpoint reference rather than in a machine-readable spec, so absence here is a
+    gap in the contract, not evidence that nothing is deprecated.
+status_page:
+  url: https://status.ghost.org
+  status: 200
+  scope: >-
+    Ghost(Pro) managed hosting. A self-hosted Ghost install is not covered by this page —
+    its availability is the operator's own.
+  probed: '2026-08-13'
+sla:
+  published: false
+  note: >-
+    Ghost publishes no numeric uptime SLA for Ghost(Pro) on its public pricing or terms
+    pages, and none exists for self-hosted installs by definition.
+releases:
+  url: https://github.com/TryGhost/Ghost/releases
+  current: v6.57.1
+  released: '2026-08-10'
+  cadence: weekly-to-fortnightly minors on the current major
+related:
+  changelog: changelog/ghost-org-changelog.yml
+  conventions: conventions/ghost-org-conventions.yml

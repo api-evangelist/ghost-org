@@ -1,0 +1,330 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  mcp/ghost-org-mcp.yml (tool names read from https://github.com/TryGhost/ghst
+  src/mcp/tools/core.ts and from the live tools/list at https://docs.ghost.org/mcp)
+  bound to operationIds grepped from openapi/ in this repo
+provider: Ghost
+providerId: ghost-org
+description: >-
+  Binds every first-party Ghost MCP tool to the REST operation it calls. The ghst MCP
+  server is a thin wrapper over the Ghost Admin API, so most tools map one-to-one onto a
+  captured operationId; the stats, comments, social-web (ActivityPub) and site-alias
+  tools have no counterpart in the captured OpenAPI and are listed as mcp_only. The
+  hosted docs MCP server at docs.ghost.org/mcp is a documentation-search surface with no
+  REST backing at all and is recorded separately.
+surfaces:
+  openapi:
+    dir: openapi/
+    specs_wired: 19
+    note: >-
+      Operation names below come from the wired admin-*/content-* specs. Where an
+      operation exists only in the sibling capture of the same API, the `spec` field
+      names the file.
+  graphql:
+    endpoint: null
+    note: >-
+      Ghost publishes no GraphQL endpoint. graphql/ghost-org-schema.graphql in this repo
+      is a conceptual data-model SDL, not an introspectable surface.
+  mcp:
+  - url: https://docs.ghost.org/mcp
+    mode: remote
+    gated: false
+    note: Anonymous; tools/list answered 200. Documentation search only.
+  - package: '@tryghost/ghst'
+    mode: local-stdio
+    gated: true
+    note: >-
+      Requires `ghst auth login` with a Ghost staff access token, so the live
+      inputSchemas could not be introspected anonymously. Tool names are read from the
+      published source; parameters are inherited from the bound REST operation.
+crosswalk:
+- tool: ghost_post_list
+  category: posts
+  rest: [browseAdminPosts]
+  spec: openapi/ghost-org-admin-posts-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_post_get
+  category: posts
+  rest: [readAdminPostById, readAdminPostBySlug]
+  spec: openapi/ghost-org-admin-posts-api-openapi.yml
+  binding: direct
+  confidence: high
+  note: Tool accepts either an id or a slug; two REST reads back it.
+- tool: ghost_post_create
+  category: posts
+  rest: [addAdminPost]
+  spec: openapi/ghost-org-admin-posts-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_post_update
+  category: posts
+  rest: [editAdminPost]
+  spec: openapi/ghost-org-admin-posts-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_post_delete
+  category: posts
+  rest: [deleteAdminPost]
+  spec: openapi/ghost-org-admin-posts-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_post_publish
+  category: posts
+  rest: [editAdminPost]
+  spec: openapi/ghost-org-admin-posts-api-openapi.yml
+  binding: composite
+  confidence: medium
+  note: >-
+    Publishing is a PUT that sets status=published; Ghost documents it as a status
+    transition on the edit endpoint, not a separate operation.
+- tool: ghost_post_schedule
+  category: posts
+  rest: [editAdminPost]
+  spec: openapi/ghost-org-admin-posts-api-openapi.yml
+  binding: composite
+  confidence: medium
+  note: PUT with status=scheduled plus published_at in the future.
+- tool: ghost_page_list
+  category: pages
+  rest: [browseAdminPages]
+  spec: openapi/ghost-org-admin-pages-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_page_get
+  category: pages
+  rest: [readAdminPageById]
+  spec: openapi/ghost-org-admin-pages-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_page_create
+  category: pages
+  rest: [addAdminPage]
+  spec: openapi/ghost-org-admin-pages-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_page_update
+  category: pages
+  rest: [editAdminPage]
+  spec: openapi/ghost-org-admin-pages-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_page_delete
+  category: pages
+  rest: [deleteAdminPage]
+  spec: openapi/ghost-org-admin-pages-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_tag_list
+  category: tags
+  rest: [browseAdminTags]
+  spec: openapi/ghost-org-admin-tags-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_tag_get
+  category: tags
+  rest: [adminReadTag]
+  spec: openapi/ghost-org-tags-api-openapi.yml
+  binding: direct
+  confidence: medium
+  note: >-
+    The wired admin-tags spec captures browse/add/edit/delete only; the read-by-id
+    operation is present in the sibling tags capture.
+- tool: ghost_tag_create
+  category: tags
+  rest: [addAdminTag]
+  spec: openapi/ghost-org-admin-tags-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_tag_update
+  category: tags
+  rest: [editAdminTag]
+  spec: openapi/ghost-org-admin-tags-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_tag_delete
+  category: tags
+  rest: [deleteAdminTag]
+  spec: openapi/ghost-org-admin-tags-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_member_list
+  category: members
+  rest: [browseAdminMembers]
+  spec: openapi/ghost-org-admin-members-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_member_get
+  category: members
+  rest: [readAdminMemberById]
+  spec: openapi/ghost-org-admin-members-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_member_create
+  category: members
+  rest: [addAdminMember]
+  spec: openapi/ghost-org-admin-members-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_member_update
+  category: members
+  rest: [editAdminMember]
+  spec: openapi/ghost-org-admin-members-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_member_delete
+  category: members
+  rest: [adminDeleteMember]
+  spec: openapi/ghost-org-members-api-openapi.yml
+  binding: direct
+  confidence: medium
+  note: >-
+    DELETE /members/{id}/ is captured in the sibling members spec; the wired
+    admin-members spec omits it.
+- tool: ghost_newsletter_list
+  category: newsletters
+  rest: [browseAdminNewsletters]
+  spec: openapi/ghost-org-admin-newsletters-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_offer_list
+  category: offers
+  rest: [browseAdminOffers]
+  spec: openapi/ghost-org-admin-offers-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_tier_list
+  category: tiers
+  rest: [browseAdminTiers]
+  spec: openapi/ghost-org-admin-tiers-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_user_list
+  category: users
+  rest: [browseAdminUsers]
+  spec: openapi/ghost-org-admin-users-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_site_info
+  category: site
+  rest: [readAdminSite]
+  spec: openapi/ghost-org-admin-site-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_setting_list
+  category: settings
+  rest: [browseContentSettings]
+  spec: openapi/ghost-org-content-settings-api-openapi.yml
+  binding: partial
+  confidence: low
+  note: >-
+    The captured settings operation is the read-only public Content API view. The ghst
+    tool reads and writes admin settings via an Admin API surface that is not in the
+    captured OpenAPI.
+- tool: ghost_setting_get
+  category: settings
+  rest: [browseContentSettings]
+  spec: openapi/ghost-org-content-settings-api-openapi.yml
+  binding: partial
+  confidence: low
+- tool: ghost_image_upload
+  category: images
+  rest: [uploadAdminImage]
+  spec: openapi/ghost-org-admin-images-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_theme_upload
+  category: themes
+  rest: [uploadAdminTheme]
+  spec: openapi/ghost-org-admin-themes-api-openapi.yml
+  binding: direct
+  confidence: high
+- tool: ghost_webhook_create
+  category: webhooks
+  rest: [addAdminWebhook]
+  spec: openapi/ghost-org-admin-webhooks-api-openapi.yml
+  binding: direct
+  confidence: high
+mcp_only:
+- tool: ghost_api_request
+  reason: >-
+    Generic authenticated passthrough to any Ghost Admin API path. Not a single
+    operation; Ghost's own README calls it privileged admin access.
+- tool: ghost_search
+  reason: Client-side NQL filter helper across browse endpoints; no dedicated REST search operation.
+- tool: ghost_site_list
+  reason: Lists locally configured CLI site aliases. Purely a client-side concern.
+- tool: ghost_setting_set
+  reason: Writes admin settings; no settings-write operation is present in the captured OpenAPI.
+- tool: ghost_member_import
+  reason: CSV member import flow, not a documented single REST operation in the capture.
+- tool: ghost_comment_list
+  reason: Comments API surface is not present in the captured OpenAPI.
+- tool: ghost_comment_get
+  reason: Comments API surface is not present in the captured OpenAPI.
+- tool: ghost_comment_thread
+  reason: Comments API surface is not present in the captured OpenAPI.
+- tool: ghost_comment_replies
+  reason: Comments API surface is not present in the captured OpenAPI.
+- tool: ghost_comment_likes
+  reason: Comments API surface is not present in the captured OpenAPI.
+- tool: ghost_comment_reports
+  reason: Comments API surface is not present in the captured OpenAPI.
+- tool: ghost_comment_hide
+  reason: Comments API surface is not present in the captured OpenAPI.
+- tool: ghost_comment_show
+  reason: Comments API surface is not present in the captured OpenAPI.
+- tool: ghost_comment_delete
+  reason: Comments API surface is not present in the captured OpenAPI.
+- tool: ghost_stats_*
+  reason: >-
+    The 13 ghost_stats_* tools mirror Ghost's native web/email analytics endpoints
+    (overview, web, growth, posts, email, per-post referrers). None appear in the
+    captured OpenAPI.
+- tool: ghost_socialweb_*
+  reason: >-
+    The 32 ghost_socialweb_* tools drive Ghost's ActivityPub service
+    (github.com/TryGhost/ActivityPub) — a separate product surface with no captured
+    OpenAPI.
+- tool: search_ghost_developer_docs
+  reason: Hosted docs MCP server. Documentation retrieval, no REST backing.
+- tool: query_docs_filesystem_ghost_developer_docs
+  reason: Hosted docs MCP server. Virtual filesystem over docs pages, no REST backing.
+- tool: submit_feedback
+  reason: Hosted docs MCP server. Writes docs feedback, no public REST equivalent.
+rest_only:
+- operations: [browseAdminLabels, addAdminLabel, editAdminLabel, deleteAdminLabel]
+  reason: >-
+    Labels are exposed by the ghst CLI (`ghst label ...`) but are not in the MCP tool
+    groups.
+- operations: [addAdminNewsletter, editAdminNewsletter]
+  reason: Newsletter writes are CLI-only; the MCP surface exposes list only.
+- operations: [addAdminOffer, editAdminOffer]
+  reason: Offer writes are CLI-only; the MCP surface exposes list only.
+- operations: [addAdminTier, editAdminTier]
+  reason: Tier writes are CLI-only; the MCP surface exposes list only.
+- operations: [readAdminUserById, readAdminUserBySlug]
+  reason: MCP exposes ghost_user_list only.
+- operations: [editAdminWebhook, deleteAdminWebhook]
+  reason: MCP exposes ghost_webhook_create only; update/delete are CLI-only.
+- operations: [activateAdminTheme]
+  reason: MCP exposes ghost_theme_upload only.
+- operations: [browseContentPosts, readContentPostById, readContentPostBySlug, browseContentPages,
+    readContentPageById, readContentPageBySlug, browseContentTags, readContentTagById,
+    readContentTagBySlug, browseContentAuthors, readContentAuthorById, readContentAuthorBySlug,
+    browseContentTiers]
+  reason: >-
+    Public read-only Content API. The MCP tools authenticate as staff and read the same
+    resources through the Admin API instead.
+coverage:
+  tools_total: 93
+  tools_mapped: 31
+  tools_mcp_only: 62
+  rest_operations_total: 58
+  rest_operations_mapped: 33
+  rest_only: 25
+  note: >-
+    tools_total counts the 90 ghst tools plus the 3 hosted docs tools. The mcp_only
+    entries for ghost_stats_* and ghost_socialweb_* are written as one row each but
+    cover 13 and 32 tools respectively.

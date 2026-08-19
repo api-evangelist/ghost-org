@@ -1,0 +1,211 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/ ($ref links and id-reference fields) and json-schema/ in this repo, with
+  entity descriptions checked against https://docs.ghost.org/content-api and
+  https://docs.ghost.org/admin-api
+provider: Ghost
+providerId: ghost-org
+description: >-
+  The Ghost entity-relationship graph as it appears across the Content API and the Admin
+  API. Content is the spine (posts and pages carry tags and authors); members is the
+  commercial half (members hold subscriptions against tiers, discounted by offers, and
+  segmented by labels and newsletters). Every resource is identified by a 24-character
+  ObjectID-style hex string in `id`, plus a separate `uuid` on the resources that are
+  addressable from outside (post, page, member, newsletter).
+identifiers:
+  primary: id
+  format: 24-character hexadecimal ObjectID
+  prefixed: false
+  note: >-
+    Ghost does not use type-prefixed identifiers, so an id alone does not tell you which
+    resource it belongs to — the containing path does.
+  secondary:
+  - field: uuid
+    format: RFC 4122 UUID
+    on: [post, page, member, newsletter]
+  - field: slug
+    format: URL-safe string, unique per resource type
+    on: [post, page, tag, author, user, tier, newsletter]
+    note: Posts, pages, tags and authors are readable by slug as well as by id.
+entities:
+- name: post
+  api: [content, admin]
+  path: /posts/
+  schema: json-schema/ghost-org-post-schema.json
+  description: The primary content type. Carries lexical/html bodies, SEO and social metadata, and email delivery fields.
+  status_values: [draft, published, scheduled, sent]
+  visibility_values: [public, members, paid, tiers]
+- name: page
+  api: [content, admin]
+  path: /pages/
+  schema: json-schema/ghost-org-page-schema.json
+  description: Static content. Same shape as post, excluded from feeds and archives.
+- name: tag
+  api: [content, admin]
+  path: /tags/
+  schema: json-schema/ghost-org-tag-schema.json
+  description: Content taxonomy. Internal tags are prefixed with a hash and hidden from readers.
+- name: author
+  api: [content]
+  path: /authors/
+  schema: json-schema/ghost-org-author-schema.json
+  description: Public projection of a staff user who has published content.
+- name: user
+  api: [admin]
+  path: /users/
+  schema: json-schema/ghost-org-user-schema.json
+  description: Staff user with a role. The Admin API view of an author.
+- name: member
+  api: [admin]
+  path: /members/
+  schema: json-schema/ghost-org-member-schema.json
+  description: An audience record — the person who signs up, subscribes and receives newsletters.
+  status_values: [free, paid, comped]
+- name: subscription
+  api: [admin]
+  embedded_in: member
+  schema: json-schema/ghost-org-subscription-schema.json
+  description: >-
+    A member's Stripe-backed paid subscription. Returned nested inside the member object,
+    never as a top-level collection.
+- name: tier
+  api: [content, admin]
+  path: /tiers/
+  schema: json-schema/ghost-org-tier-schema.json
+  description: A priced access level with benefits, monthly and yearly prices, and an optional trial.
+- name: offer
+  api: [admin]
+  path: /offers/
+  schema: json-schema/ghost-org-offer-schema.json
+  description: A discount code bound to one tier and cadence.
+- name: newsletter
+  api: [admin]
+  path: /newsletters/
+  schema: json-schema/ghost-org-newsletter-schema.json
+  description: A named email publication with its own sender identity and template styling.
+- name: label
+  api: [admin]
+  path: /labels/
+  schema: json-schema/ghost-org-label-schema.json
+  description: Free-form segmentation applied to members.
+- name: webhook
+  api: [admin]
+  path: /webhooks/
+  schema: json-schema/ghost-org-webhook-schema.json
+  description: An event subscription owned by an integration. See asyncapi/ for the event catalogue.
+- name: theme
+  api: [admin]
+  path: /themes/
+  schema: json-schema/ghost-org-theme-schema.json
+  description: An uploaded Handlebars theme package; exactly one is active at a time.
+- name: settings
+  api: [content, admin]
+  path: /settings/
+  schema: json-schema/ghost-org-settings-schema.json
+  description: Site-wide configuration. Returned as an object, not an array.
+- name: site
+  api: [admin]
+  path: /site/
+  schema: json-schema/ghost-org-site-schema.json
+  description: Minimal site descriptor (title, url, version). Returned as an object.
+relationships:
+- from: post
+  to: tag
+  type: has_many
+  via: tags
+  binding: $ref
+  note: Requires `?include=tags`. `primary_tag` is the first non-internal tag.
+- from: post
+  to: author
+  type: has_many
+  via: authors
+  binding: $ref
+  note: Requires `?include=authors`. `primary_author` is the first author.
+- from: post
+  to: author
+  type: has_one
+  via: primary_author
+  binding: $ref
+- from: post
+  to: tag
+  type: has_one
+  via: primary_tag
+  binding: derived
+- from: page
+  to: tag
+  type: has_many
+  via: tags
+  binding: $ref
+- from: page
+  to: author
+  type: has_many
+  via: authors
+  binding: $ref
+- from: author
+  to: post
+  type: has_many
+  via: count.posts
+  binding: counter
+  note: Only the count is exposed, via `?include=count.posts`.
+- from: tag
+  to: post
+  type: has_many
+  via: count.posts
+  binding: counter
+- from: member
+  to: label
+  type: has_many
+  via: labels
+  binding: $ref
+- from: member
+  to: subscription
+  type: has_many
+  via: subscriptions
+  binding: $ref
+- from: member
+  to: newsletter
+  type: has_many
+  via: newsletters
+  binding: $ref
+  note: Newsletter subscription state, expressed as NewsletterSubscription entries.
+- from: subscription
+  to: tier
+  type: belongs_to
+  via: tier
+  binding: $ref
+- from: subscription
+  to: stripe_customer
+  type: belongs_to
+  via: customer
+  binding: embedded-object
+  note: External. Ghost delegates payment to Stripe; the customer object is a Stripe projection.
+- from: offer
+  to: tier
+  type: belongs_to
+  via: tier
+  binding: $ref
+- from: webhook
+  to: integration
+  type: belongs_to
+  via: integration_id
+  binding: id-reference
+  note: >-
+    The integration resource itself is not exposed by the public Admin API reference;
+    integrations are created in Ghost Admin.
+- from: post
+  to: newsletter
+  type: belongs_to
+  via: newsletter_id
+  binding: id-reference
+  note: Set at publish time when a post is delivered as email. Write-only on the publish call.
+summary:
+  entity_count: 16
+  relationship_count: 17
+  root_entities: [post, page, tag, author, user, member, tier, offer, newsletter, label, webhook, theme, settings, site]
+  embedded_entities: [subscription]
+render: null
+render_note: No subway/ diagram exists in this repo yet.
+related:
+  graphql_sdl: graphql/ghost-org-schema.graphql
+  vocabulary: vocabulary/ghost-org-vocabulary.yml

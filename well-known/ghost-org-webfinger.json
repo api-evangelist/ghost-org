@@ -1,0 +1,1 @@
+{"subject":"acct:demo@demo.ghost.io","aliases":["https://demo.ghost.io/.ghost/activitypub/users/index"],"links":[{"rel":"self","href":"https://demo.ghost.io/.ghost/activitypub/users/index","type":"application/activity+json"},{"rel":"http://webfinger.net/rel/profile-page","href":"https://demo.ghost.io/"}]}

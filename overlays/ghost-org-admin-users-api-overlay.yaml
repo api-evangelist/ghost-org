@@ -1,0 +1,78 @@
+overlay: 1.0.0
+info:
+  title: "API Evangelist enhancements \u2014 Ghost Admin - Users API"
+  version: 1.0.0
+  x-generated: '2026-08-13'
+  x-method: generated
+  x-source: openapi/ghost-org-admin-users-api-openapi.yml
+  x-note: Non-destructive enhancement layer for openapi/ghost-org-admin-users-api-openapi.yml. Every value
+    asserted here is published by Ghost at docs.ghost.org or ghost.org; nothing is inferred. Apply with
+    an Overlay 1.0.0 processor; never edit the base document.
+extends: openapi/ghost-org-admin-users-api-openapi.yml
+actions:
+- target: $.info
+  description: Add the published terms of service and privacy policy Ghost operates the API under.
+  update:
+    termsOfService: https://ghost.org/terms/
+    x-privacy-policy: https://ghost.org/privacy/
+    x-status-page: https://status.ghost.org
+    x-security-policy: https://docs.ghost.org/security
+    x-changelog: https://ghost.org/changelog/
+- target: $
+  description: Point at the canonical developer documentation for this surface.
+  update:
+    externalDocs:
+      description: Ghost developer documentation
+      url: https://docs.ghost.org/
+- target: $
+  description: Record the cross-cutting runtime semantics Ghost publishes in prose but does not express
+    in a machine-readable contract.
+  update:
+    x-conventions:
+      versioning:
+        request_header: Accept-Version
+        format: v{major}.{minor}
+        response_header: Content-Version
+        docs: https://docs.ghost.org/faq/api-versioning
+      pagination:
+        style: page-number
+        params:
+        - page
+        - limit
+        default_limit: 15
+        response_field: meta.pagination
+        docs: https://docs.ghost.org/content-api/pagination
+      filtering:
+        param: filter
+        language: NQL
+        encoding: url-encoded
+        docs: https://docs.ghost.org/content-api/filtering
+      concurrency:
+        mechanism: optimistic
+        token_field: updated_at
+        conflict_status: 409
+      idempotency:
+        supported: false
+        note: Ghost publishes no Idempotency-Key header.
+      errors:
+        rfc9457: false
+        envelope: '{"errors":[{"message","context","type","code","id"}]}'
+        docs: https://docs.ghost.org/content-api/errors
+      artifacts:
+        conventions: conventions/ghost-org-conventions.yml
+        errors: errors/ghost-org-problem-types.yml
+        lifecycle: lifecycle/ghost-org-lifecycle.yml
+        data_model: data-model/ghost-org-data-model.yml
+- target: $.paths.*.*
+  description: Add the Accept-Version request header Ghost documents for every Content API and Admin API
+    call.
+  update:
+    parameters:
+    - name: Accept-Version
+      in: header
+      required: false
+      description: Minimum Ghost API version this client can operate with, as v{major}.{minor}. Ghost
+        answers with a Content-Version header naming the version that served the request.
+      schema:
+        type: string
+        example: v6.0

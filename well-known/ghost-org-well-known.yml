@@ -1,0 +1,113 @@
+generated: '2026-08-13'
+method: probed
+source: live HTTP probes of ghost.org, docs.ghost.org and demo.ghost.io
+provider: Ghost
+providerId: ghost-org
+description: >-
+  Anonymous probe of the standard /.well-known/ paths on every host named in apis.yml
+  and in the OpenAPI servers[] blocks. Ghost is self-hosted software as well as a
+  managed service, so the only Ghost-controlled hosts that can serve a /.well-known/
+  document are ghost.org (marketing), docs.ghost.org (developer docs) and demo.ghost.io
+  (the public demo Ghost site referenced in the Content API docs). Customer-run Ghost
+  installs live on customer domains and are out of scope.
+hosts:
+- host: docs.ghost.org
+  probes:
+  - path: /.well-known/agent-card.json
+    status: 200
+    content_type: application/json
+    document: true
+    file: well-known/ghost-org-agent-card.json
+    note: >-
+      Real A2A Agent Card, JSON object, canonical 0.3-era path. Graded in
+      a2a/ghost-org-a2a.yml. Saved verbatim.
+  - path: /.well-known/agent-skills/ghost/skill.md
+    status: 200
+    content_type: text/markdown
+    document: true
+    file: skills/ghost-org-ghost-skill.md
+    note: Provider-published Agent Skill referenced by the agent card skills[] entry.
+  - path: /.well-known/security.txt
+    status: 404
+    document: false
+  - path: /.well-known/openid-configuration
+    status: 404
+    document: false
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    document: false
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    document: false
+  - path: /.well-known/api-catalog
+    status: 404
+    document: false
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    document: false
+  - path: /.well-known/agent.json
+    status: 404
+    document: false
+- host: ghost.org
+  probes:
+  - path: /.well-known/security.txt
+    status: 404
+    document: false
+    note: Returns the site's HTML 404 page, not a document.
+  - path: /.well-known/openid-configuration
+    status: 404
+    document: false
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    document: false
+  - path: /.well-known/api-catalog
+    status: 404
+    document: false
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    document: false
+  - path: /.well-known/agent-card.json
+    status: 404
+    document: false
+  - path: /.well-known/agent.json
+    status: 404
+    document: false
+- host: demo.ghost.io
+  note: >-
+    demo.ghost.io is a real Ghost site, so its /.well-known/ surface is what every Ghost
+    install serves — not a Ghost(Pro) corporate surface.
+  probes:
+  - path: /.well-known/webfinger?resource=acct:index@demo.ghost.io
+    status: 200
+    content_type: application/jrd+json
+    document: true
+    file: well-known/ghost-org-webfinger.json
+    note: >-
+      RFC 7033 WebFinger, served by Ghost's built-in ActivityPub service. Resolves the
+      site to its actor at /.ghost/activitypub/users/index.
+  - path: /.well-known/nodeinfo
+    status: 200
+    content_type: application/jrd+json
+    document: true
+    file: well-known/ghost-org-nodeinfo.json
+    note: NodeInfo 2.1 discovery document for the fediverse node.
+  - path: /.well-known/security.txt
+    status: 404
+    document: false
+  - path: /.well-known/agent-card.json
+    status: 404
+    document: false
+summary:
+  paths_probed: 24
+  documents_served: 4
+  security_txt: false
+  openid_configuration: false
+  oauth_authorization_server: false
+  agent_card: true
+notes: >-
+  Ghost serves no security.txt on any host, so no SecurityTxt pointer is emitted. The
+  vulnerability disclosure programme is documented in prose at
+  https://docs.ghost.org/security (security@ghost.org) and is captured separately in
+  security/ghost-org-vulnerability-disclosure.yml. The WellKnown pointer is emitted
+  because docs.ghost.org genuinely serves a real document (the A2A agent card) from a
+  /.well-known/ path.

@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ghost Content and Admin APIs Admin - Images Content - Pages API",
+    "version": "5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Content - Pages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse pages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{admin_domain}/ghost/api/content/pages/",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Content API key."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Ghost NQL filter expression."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page (default 15, or 'all')."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number of results to return."
+              }
+            ]
+          },
+          "docs": "Browse pages"
+        },
+        {
+          "info": {
+            "name": "Read a page by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{admin_domain}/ghost/api/content/pages/:id/",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Content API key."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource ID."
+              }
+            ]
+          },
+          "docs": "Read a page by ID"
+        },
+        {
+          "info": {
+            "name": "Read a page by slug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{admin_domain}/ghost/api/content/pages/slug/:slug/",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Content API key."
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path",
+                "description": "The resource slug."
+              }
+            ]
+          },
+          "docs": "Read a page by slug"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
