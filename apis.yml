@@ -27,6 +27,14 @@ tags:
 - Publishing
 - Newsletters
 - Memberships
+- Subscription
+- CMS
+- Open-Source
+- Content
+tags_raw:
+- Publishing
+- Newsletters
+- Memberships
 - Subscriptions
 - CMS
 - Open Source
@@ -481,6 +489,8 @@ apis:
   humanURL: https://docs.ghost.org/admin-api
   baseURL: https://{admin_domain}/ghost/api/admin
   tags:
+  - Admin Users
+  tags_raw:
   - Admin - Users
   properties:
   - type: OpenAPI
