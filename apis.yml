@@ -805,6 +805,162 @@ apis:
     url: https://docs.ghost.org/admin-api/images
   - type: Documentation
     url: https://docs.ghost.org/admin-api/webhooks
+- aid: ghost-org:ghost-org-authors-api
+  name: Ghost Authors API
+  description: Authors represent the staff users who create content in a Ghost publication.
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
+  tags:
+  - Authors
+  properties:
+  - type: OpenAPI
+    url: openapi/ghost-org-authors-api-openapi.yml
+- aid: ghost-org:ghost-org-images-api
+  name: Ghost Images API
+  description: Upload images to the Ghost publication for use in posts, pages, and settings.
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
+  tags:
+  - Images
+  properties:
+  - type: OpenAPI
+    url: openapi/ghost-org-images-api-openapi.yml
+- aid: ghost-org:ghost-org-members-api
+  name: Ghost Members API
+  description: >-
+    Manage publication members including creating, reading, updating, and deleting member records. Members
+    are people who have signed up for the publication.
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
+  tags:
+  - Members
+  properties:
+  - type: OpenAPI
+    url: openapi/ghost-org-members-api-openapi.yml
+- aid: ghost-org:ghost-org-newsletters-api
+  name: Ghost Newsletters API
+  description: >-
+    Manage email newsletters that members can subscribe to. Each newsletter has its own design, sender
+    details, and subscription list.
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
+  tags:
+  - Newsletters
+  properties:
+  - type: OpenAPI
+    url: openapi/ghost-org-newsletters-api-openapi.yml
+- aid: ghost-org:ghost-org-offers-api
+  name: Ghost Offers API
+  description: >-
+    Manage promotional offers for paid membership tiers, including discounts and trial periods.
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
+  tags:
+  - Offers
+  properties:
+  - type: OpenAPI
+    url: openapi/ghost-org-offers-api-openapi.yml
+- aid: ghost-org:ghost-org-pages-api
+  name: Ghost Pages API
+  description: >-
+    Create, read, update, and delete pages. Pages share the same structure as posts but are used for static
+    content.
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
+  tags:
+  - Pages
+  properties:
+  - type: OpenAPI
+    url: openapi/ghost-org-pages-api-openapi.yml
+- aid: ghost-org:ghost-org-posts-api
+  name: Ghost Posts API
+  description: >-
+    Create, read, update, and delete posts. Posts are the primary content resource in Ghost and support
+    rich content via the Lexical editor format.
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
+  tags:
+  - Posts
+  properties:
+  - type: OpenAPI
+    url: openapi/ghost-org-posts-api-openapi.yml
+- aid: ghost-org:ghost-org-settings-api
+  name: Ghost Settings API
+  description: >-
+    Settings provide access to global publication settings including title, description, navigation, and
+    other configuration values.
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
+  tags:
+  - Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/ghost-org-settings-api-openapi.yml
+- aid: ghost-org:ghost-org-site-api
+  name: Ghost Site API
+  description: Read basic information about the Ghost site.
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
+  tags:
+  - Site
+  properties:
+  - type: OpenAPI
+    url: openapi/ghost-org-site-api-openapi.yml
+- aid: ghost-org:ghost-org-tags-api
+  name: Ghost Tags API
+  description: The Tags API from Ghost — 3 operation(s) for tags.
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/ghost-org-tags-api-openapi.yml
+- aid: ghost-org:ghost-org-themes-api
+  name: Ghost Themes API
+  description: >-
+    Upload, activate, and manage themes that control the front-end appearance of the Ghost publication.
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
+  tags:
+  - Themes
+  properties:
+  - type: OpenAPI
+    url: openapi/ghost-org-themes-api-openapi.yml
+- aid: ghost-org:ghost-org-tiers-api
+  name: Ghost Tiers API
+  description: >-
+    Manage membership tiers including creating, reading, and updating tier configurations with pricing
+    and benefits.
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
+  tags:
+  - Tiers
+  properties:
+  - type: OpenAPI
+    url: openapi/ghost-org-tiers-api-openapi.yml
+- aid: ghost-org:ghost-org-users-api
+  name: Ghost Users API
+  description: Read staff user accounts for the Ghost publication.
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/ghost-org-users-api-openapi.yml
+- aid: ghost-org:ghost-org-webhooks-api
+  name: Ghost Webhooks API
+  description: >-
+    Create, update, and delete webhooks that send HTTP POST notifications when events occur within the
+    publication.
+  humanURL: https://docs.ghost.org/admin-api
+  baseURL: https://{admin_domain}/ghost/api/admin
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/ghost-org-webhooks-api-openapi.yml
 common:
 - type: IssueTracker
   url: https://github.com/TryGhost/Ghost/issues
