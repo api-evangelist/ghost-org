@@ -9,6 +9,20 @@ description: Ghost is an open-source (MIT) publishing platform for professional 
   interface for delivering published posts, pages, tags, authors, tiers, and settings to front-ends and
   static sites. The Admin API is a read-write, token-authenticated (JWT) interface for managing posts,
   pages, members, tags, tiers, offers, newsletters, users, media, themes, and webhooks.
+deliveryModel:
+  model: open-core
+  license: MIT
+  open_source: true
+  commercial: true
+  callable_host: true
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: high
+  source:
+  - license
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
