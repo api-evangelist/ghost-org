@@ -976,6 +976,9 @@ apis:
   - type: OpenAPI
     url: openapi/ghost-org-webhooks-api-openapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/ghost-org-capability-edges.yml
+  name: Ghost Business Capability Map
 - type: IssueTracker
   url: https://github.com/TryGhost/Ghost/issues
 - type: Releases

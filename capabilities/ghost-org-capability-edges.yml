@@ -1,0 +1,81 @@
+slug: ghost-org
+provider: Ghost
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 7
+edges:
+- tag: Admin - Webhooks
+  spec_file: ghost-org-admin-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.85
+  evidence: POST /admin/webhooks/ addAdminWebhook Create a webhook; PUT /admin/webhooks/{id}/ editAdminWebhook
+  reason: CRUD lifecycle over outbound webhook subscriptions exposed to integrators, matching webhook
+    & event subscription management.
+- tag: Webhooks
+  spec_file: ghost-org-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.85
+  evidence: POST /webhooks/ 'Create a webhook'; PUT /webhooks/{id}/ 'Update a webhook'; DELETE /webhooks/{id}/
+    'Delete a webhook'
+  reason: Full CRUD lifecycle over outbound webhook subscriptions exposed to integrators of the Ghost
+    Admin API — precisely Webhook & Event Subscription Management within the developer/API ecosystem capability.
+- tag: Admin - Members
+  spec_file: ghost-org-admin-members-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.75
+  evidence: GET /admin/members/ — Browse members; POST /admin/members/ — Create a member; schema MembersRequest
+  reason: CRUD over the subscriber/member record set of a publication — creation and maintenance of the
+    customer master for the site's audience. Some ambiguity with subscription lifecycle, but the operations
+    are plainly record management.
+- tag: Admin - Tiers
+  spec_file: ghost-org-admin-tiers-api-openapi.yml
+  capability_id: BC-4240.10
+  capability_id_l1: BC-4240
+  capability_name: Plan & Entitlement Design
+  confidence: 0.75
+  evidence: 'POST /admin/tiers/ addAdminTier Create a tier; vendor: "memberships, and paid subscriptions"'
+  reason: Ghost tiers define the paid membership plans (with benefits/pricing) that members subscribe
+    to, i.e. plan and entitlement design for a subscription model.
+- tag: Admin - Posts
+  spec_file: ghost-org-admin-posts-api-openapi.yml
+  capability_id: BC-400.70
+  capability_id_l1: BC-400
+  capability_name: Content Marketing Management
+  confidence: 0.7
+  evidence: POST /admin/posts/ — Create a post; GET /admin/posts/slug/{slug}/ — Read a post by slug; schema
+    PostsRequest
+  reason: Full authoring lifecycle for editorial posts on a publishing platform — editorial content production
+    and publication, the core of Content Marketing Management.
+- tag: Content - Posts
+  spec_file: ghost-org-content-posts-api-openapi.yml
+  capability_id: BC-400.70
+  capability_id_l1: BC-400
+  capability_name: Content Marketing Management
+  confidence: 0.7
+  evidence: GET /content/posts/ browseContentPosts Browse posts; "it serves published posts, pages, authors,
+    tags, tiers, and public settings"
+  reason: Read API over published editorial posts of a publication — content production and distribution.
+- tag: Tiers
+  spec_file: ghost-org-tiers-api-openapi.yml
+  capability_id: BC-4240.10
+  capability_id_l1: BC-4240
+  capability_name: Plan & Entitlement Design
+  confidence: 0.7
+  evidence: POST /tiers/ adminCreateTier 'Create a tier'; schemas 'Tier', 'TierInput'
+  reason: Creates and maintains the paid membership tiers of the publication — definition of plans and
+    the benefits/entitlements they grant, i.e. plan & entitlement design for a subscription business.
