@@ -503,7 +503,7 @@ apis:
   humanURL: https://docs.ghost.org/admin-api
   baseURL: https://{admin_domain}/ghost/api/admin
   tags:
-  - Admin Users
+  - Admin - Users
   tags_raw:
   - Admin - Users
   properties:
@@ -835,6 +835,8 @@ apis:
   humanURL: https://docs.ghost.org/admin-api
   baseURL: https://{admin_domain}/ghost/api/admin
   tags:
+  - Image
+  tags_raw:
   - Images
   properties:
   - type: OpenAPI
@@ -959,6 +961,8 @@ apis:
   humanURL: https://docs.ghost.org/admin-api
   baseURL: https://{admin_domain}/ghost/api/admin
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -971,6 +975,8 @@ apis:
   humanURL: https://docs.ghost.org/admin-api
   baseURL: https://{admin_domain}/ghost/api/admin
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
