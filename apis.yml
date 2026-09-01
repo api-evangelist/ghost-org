@@ -503,7 +503,7 @@ apis:
   humanURL: https://docs.ghost.org/admin-api
   baseURL: https://{admin_domain}/ghost/api/admin
   tags:
-  - Admin - Users
+  - Admin Users
   tags_raw:
   - Admin - Users
   properties:
