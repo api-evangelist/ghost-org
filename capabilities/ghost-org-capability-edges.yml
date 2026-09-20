@@ -11,8 +11,29 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 6
+edge_count: 10
 edges:
+- tag: Admin - Members
+  spec_file: ghost-org-admin-members-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.75
+  evidence: GET /admin/members/ — Browse members; POST /admin/members/ — Create a member; schema MembersRequest
+  reason: CRUD over the subscriber/member record set of a publication — creation and maintenance of the
+    customer master for the site's audience. Some ambiguity with subscription lifecycle, but the operations
+    are plainly record management.
+  recovered_from: sweep-20260829T005356Z-edges.json
+- tag: Admin - Tiers
+  spec_file: ghost-org-admin-tiers-api-openapi.yml
+  capability_id: BC-4240.10
+  capability_id_l1: BC-4240
+  capability_name: Plan & Entitlement Design
+  confidence: 0.75
+  evidence: 'POST /admin/tiers/ addAdminTier Create a tier; vendor: "memberships, and paid subscriptions"'
+  reason: Ghost tiers define the paid membership plans (with benefits/pricing) that members subscribe
+    to, i.e. plan and entitlement design for a subscription model.
+  recovered_from: sweep-20260829T005356Z-edges.json
 - tag: Admin - Webhooks
   spec_file: ghost-org-admin-webhooks-api-openapi.yml
   capability_id: BC-4270.80
@@ -42,6 +63,27 @@ edges:
   evidence: GET /admin/offers/ 'Browse offers'; POST /admin/offers/ 'Create an offer'
   reason: In Ghost, offers are promotional discounts applied to paid membership tiers, so creating and
     editing offers realises discount and promotion management. Schema detail is absent, which caps confidence.
+- tag: Admin - Posts
+  spec_file: ghost-org-admin-posts-api-openapi.yml
+  capability_id: BC-400.70
+  capability_id_l1: BC-400
+  capability_name: Content Marketing Management
+  confidence: 0.7
+  evidence: POST /admin/posts/ — Create a post; GET /admin/posts/slug/{slug}/ — Read a post by slug; schema
+    PostsRequest
+  reason: Full authoring lifecycle for editorial posts on a publishing platform — editorial content production
+    and publication, the core of Content Marketing Management.
+  recovered_from: sweep-20260829T005356Z-edges.json
+- tag: Content - Posts
+  spec_file: ghost-org-content-posts-api-openapi.yml
+  capability_id: BC-400.70
+  capability_id_l1: BC-400
+  capability_name: Content Marketing Management
+  confidence: 0.7
+  evidence: GET /content/posts/ browseContentPosts Browse posts; "it serves published posts, pages, authors,
+    tags, tiers, and public settings"
+  reason: Read API over published editorial posts of a publication — content production and distribution.
+  recovered_from: sweep-20260829T005356Z-edges.json
 - tag: Members
   spec_file: ghost-org-members-api-openapi.yml
   capability_id: BC-3750
