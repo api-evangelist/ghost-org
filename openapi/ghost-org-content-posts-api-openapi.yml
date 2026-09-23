@@ -1,16 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Ghost Content and Admin APIs Admin - Images Content - Posts API
-  description: 'Ghost is an open-source (MIT) publishing platform for professional publications, newsletters, memberships, and paid subscriptions. Every Ghost site - whether self-hosted or on managed Ghost(Pro) - exposes two documented public REST APIs under https://{admin_domain}/ghost/api/.
-
-
-    The Content API is read-only and is authenticated with a Content API key passed as the `key` query parameter; it serves published posts, pages, authors, tags, tiers, and public settings for consumption by front-ends and static sites.
-
-
-    The Admin API is read-write and is authenticated with an Admin API key that is used to sign a short-lived JWT sent as `Authorization: Ghost {token}` (a staff access token or user session may also be used). It manages posts, pages, members, tags, labels, tiers, offers, newsletters, users, images, themes, and webhooks.
-
-
-    The `{admin_domain}` server variable is the site''s domain (for Ghost(Pro), typically a `*.ghost.io` domain). All requests must use HTTPS. The `Accept-Version` header (for example `v5.0`) declares the minimum compatible API version.'
+  title: Ghost Content and Admin Content - Posts API
+  description: Ghost is an open-source (MIT) publishing platform for professional publications, newsletters, memberships, and paid subscriptions.
   version: '5.0'
   contact:
     name: Ghost
@@ -84,17 +75,12 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-    Unauthorized:
-      description: Authentication failed or was missing.
   parameters:
-    Filter:
-      name: filter
+    Formats:
+      name: formats
       in: query
       required: false
-      description: Ghost NQL filter expression.
+      description: Content formats to return, for example 'html,lexical'.
       schema:
         type: string
     PathSlug:
@@ -111,19 +97,11 @@ components:
       description: Sort order, for example 'published_at desc'.
       schema:
         type: string
-    Page:
-      name: page
+    Filter:
+      name: filter
       in: query
       required: false
-      description: Page number of results to return.
-      schema:
-        type: integer
-        default: 1
-    Formats:
-      name: formats
-      in: query
-      required: false
-      description: Content formats to return, for example 'html,lexical'.
+      description: Ghost NQL filter expression.
       schema:
         type: string
     PathId:
@@ -133,18 +111,26 @@ components:
       description: The resource ID.
       schema:
         type: string
-    Fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return.
-      schema:
-        type: string
     ContentKey:
       name: key
       in: query
       required: true
       description: Content API key.
+      schema:
+        type: string
+    Page:
+      name: page
+      in: query
+      required: false
+      description: Page number of results to return.
+      schema:
+        type: integer
+        default: 1
+    Fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return.
       schema:
         type: string
     Include:
@@ -162,6 +148,11 @@ components:
       schema:
         type: string
         default: '15'
+  responses:
+    Unauthorized:
+      description: Authentication failed or was missing.
+    NotFound:
+      description: The requested resource was not found.
   securitySchemes:
     contentApiKey:
       type: apiKey

@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Ghost Admin Authors Newsletters API
-  description: The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication. It enables developers to create, update, and delete posts, pages, tags, members, tiers, newsletters, and offers programmatically. Authentication is handled via JSON Web Tokens generated from an Admin API key, integration tokens, or staff access tokens. The Admin API supports everything the Ghost Admin interface can do and more, making it suitable for building custom publishing workflows, content automation, member management systems, and advanced integrations.
+  title: Ghost Admin Newsletters API
+  description: The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication.
   version: '5.0'
   contact:
     name: Ghost Foundation
@@ -168,13 +168,14 @@ paths:
           $ref: '#/components/responses/ValidationError'
 components:
   parameters:
-    fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return in the response.
+    resourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource
       schema:
         type: string
+        format: uuid
     page:
       name: page
       in: query
@@ -184,18 +185,18 @@ components:
         type: integer
         minimum: 1
         default: 1
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response.
+      schema:
+        type: string
     order:
       name: order
       in: query
       required: false
       description: Field and direction to order results by.
-      schema:
-        type: string
-    filter:
-      name: filter
-      in: query
-      required: false
-      description: Apply fine-grained filters using Ghost's NQL query language.
       schema:
         type: string
     limit:
@@ -211,15 +212,33 @@ components:
           enum:
           - all
         default: 15
-    resourceId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the resource
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: Apply fine-grained filters using Ghost's NQL query language.
       schema:
         type: string
-        format: uuid
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional error context
+                nullable: true
     Newsletter:
       type: object
       description: A newsletter that members can subscribe to for email delivery of content.
@@ -337,6 +356,37 @@ components:
           type: string
           format: date-time
           description: Last update timestamp
+    PaginationMeta:
+      type: object
+      description: Pagination metadata
+      properties:
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+              description: Current page
+              minimum: 1
+            limit:
+              type: integer
+              description: Items per page
+              minimum: 1
+            pages:
+              type: integer
+              description: Total pages
+              minimum: 1
+            total:
+              type: integer
+              description: Total items
+              minimum: 0
+            next:
+              type: integer
+              description: Next page number
+              nullable: true
+            prev:
+              type: integer
+              description: Previous page number
+              nullable: true
     NewsletterInput:
       type: object
       description: Input fields for creating or updating a newsletter.
@@ -421,59 +471,9 @@ components:
           type: string
           nullable: true
           description: Title color
-    PaginationMeta:
-      type: object
-      description: Pagination metadata
-      properties:
-        pagination:
-          type: object
-          properties:
-            page:
-              type: integer
-              description: Current page
-              minimum: 1
-            limit:
-              type: integer
-              description: Items per page
-              minimum: 1
-            pages:
-              type: integer
-              description: Total pages
-              minimum: 1
-            total:
-              type: integer
-              description: Total items
-              minimum: 0
-            next:
-              type: integer
-              description: Next page number
-              nullable: true
-            prev:
-              type: integer
-              description: Previous page number
-              nullable: true
-    ErrorResponse:
-      type: object
-      description: Standard Ghost API error response
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Human-readable error message
-              type:
-                type: string
-                description: Error type identifier
-              context:
-                type: string
-                description: Additional error context
-                nullable: true
   responses:
-    Unauthorized:
-      description: Authentication failed or token is missing or invalid
+    ValidationError:
+      description: Request body validation failed
       content:
         application/json:
           schema:
@@ -484,8 +484,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    ValidationError:
-      description: Request body validation failed
+    Unauthorized:
+      description: Authentication failed or token is missing or invalid
       content:
         application/json:
           schema:

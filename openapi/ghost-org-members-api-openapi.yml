@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Ghost Admin Authors Members API
-  description: The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication. It enables developers to create, update, and delete posts, pages, tags, members, tiers, newsletters, and offers programmatically. Authentication is handled via JSON Web Tokens generated from an Admin API key, integration tokens, or staff access tokens. The Admin API supports everything the Ghost Admin interface can do and more, making it suitable for building custom publishing workflows, content automation, member management systems, and advanced integrations.
+  title: Ghost Admin Members API
+  description: The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication.
   version: '5.0'
   contact:
     name: Ghost Foundation
@@ -183,13 +183,14 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   parameters:
-    fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return in the response.
+    resourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource
       schema:
         type: string
+        format: uuid
     page:
       name: page
       in: query
@@ -199,18 +200,18 @@ components:
         type: integer
         minimum: 1
         default: 1
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response.
+      schema:
+        type: string
     order:
       name: order
       in: query
       required: false
       description: Field and direction to order results by.
-      schema:
-        type: string
-    filter:
-      name: filter
-      in: query
-      required: false
-      description: Apply fine-grained filters using Ghost's NQL query language.
       schema:
         type: string
     limit:
@@ -226,15 +227,103 @@ components:
           enum:
           - all
         default: 15
-    resourceId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the resource
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: Apply fine-grained filters using Ghost's NQL query language.
       schema:
         type: string
-        format: uuid
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional error context
+                nullable: true
+    Tier:
+      type: object
+      description: A membership tier with pricing and benefits configuration.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        name:
+          type: string
+          description: Tier name
+        slug:
+          type: string
+          description: URL-safe slug
+        description:
+          type: string
+          description: Tier description
+          nullable: true
+        active:
+          type: boolean
+          description: Whether the tier is active
+        type:
+          type: string
+          description: Tier type
+          enum:
+          - free
+          - paid
+        welcome_page_url:
+          type: string
+          format: uri
+          description: Welcome page URL after signup
+          nullable: true
+        visibility:
+          type: string
+          description: Public visibility
+          enum:
+          - public
+          - none
+        monthly_price:
+          type: integer
+          description: Monthly price in smallest currency unit
+          nullable: true
+          minimum: 0
+        yearly_price:
+          type: integer
+          description: Yearly price in smallest currency unit
+          nullable: true
+          minimum: 0
+        currency:
+          type: string
+          description: ISO 4217 currency code
+          nullable: true
+          pattern: ^[A-Z]{3}$
+        trial_days:
+          type: integer
+          description: Number of free trial days
+          minimum: 0
+        benefits:
+          type: array
+          description: Tier benefits
+          items:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
     MemberInput:
       type: object
       description: Input fields for creating or updating a member.
@@ -273,6 +362,142 @@ components:
                 type: string
                 format: uuid
                 description: Newsletter identifier
+    Label:
+      type: object
+      description: A label for categorizing and segmenting members.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        name:
+          type: string
+          description: Label name
+        slug:
+          type: string
+          description: URL-safe slug
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+    Subscription:
+      type: object
+      description: A paid subscription associated with a member, typically managed through Stripe.
+      properties:
+        id:
+          type: string
+          description: Subscription identifier
+        customer:
+          type: object
+          description: Stripe customer details
+          properties:
+            id:
+              type: string
+              description: Stripe customer ID
+            name:
+              type: string
+              description: Customer name
+              nullable: true
+            email:
+              type: string
+              format: email
+              description: Customer email
+        status:
+          type: string
+          description: Subscription status
+          enum:
+          - active
+          - trialing
+          - canceled
+          - unpaid
+          - past_due
+        start_date:
+          type: string
+          format: date-time
+          description: Subscription start date
+        default_payment_card_last4:
+          type: string
+          description: Last 4 digits of the payment card
+          nullable: true
+          pattern: ^\d{4}$
+        cancel_at_period_end:
+          type: boolean
+          description: Whether the subscription cancels at period end
+        cancellation_reason:
+          type: string
+          description: Reason for cancellation
+          nullable: true
+        current_period_end:
+          type: string
+          format: date-time
+          description: End of current billing period
+        price:
+          type: object
+          description: Price details
+          properties:
+            id:
+              type: string
+              description: Stripe price ID
+            price_id:
+              type: string
+              description: Ghost price identifier
+            nickname:
+              type: string
+              description: Price nickname
+            amount:
+              type: integer
+              description: Amount in smallest currency unit
+              minimum: 0
+            interval:
+              type: string
+              description: Billing interval
+              enum:
+              - month
+              - year
+            type:
+              type: string
+              description: Price type
+            currency:
+              type: string
+              description: ISO 4217 currency code
+              pattern: ^[A-Z]{3}$
+        tier:
+          $ref: '#/components/schemas/Tier'
+    PaginationMeta:
+      type: object
+      description: Pagination metadata
+      properties:
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+              description: Current page
+              minimum: 1
+            limit:
+              type: integer
+              description: Items per page
+              minimum: 1
+            pages:
+              type: integer
+              description: Total pages
+              minimum: 1
+            total:
+              type: integer
+              description: Total items
+              minimum: 0
+            next:
+              type: integer
+              description: Next page number
+              nullable: true
+            prev:
+              type: integer
+              description: Previous page number
+              nullable: true
     Member:
       type: object
       description: A member represents a person who has signed up for the publication, either as a free or paid subscriber.
@@ -360,234 +585,9 @@ components:
           type: string
           format: date-time
           description: Last update timestamp
-    PaginationMeta:
-      type: object
-      description: Pagination metadata
-      properties:
-        pagination:
-          type: object
-          properties:
-            page:
-              type: integer
-              description: Current page
-              minimum: 1
-            limit:
-              type: integer
-              description: Items per page
-              minimum: 1
-            pages:
-              type: integer
-              description: Total pages
-              minimum: 1
-            total:
-              type: integer
-              description: Total items
-              minimum: 0
-            next:
-              type: integer
-              description: Next page number
-              nullable: true
-            prev:
-              type: integer
-              description: Previous page number
-              nullable: true
-    Subscription:
-      type: object
-      description: A paid subscription associated with a member, typically managed through Stripe.
-      properties:
-        id:
-          type: string
-          description: Subscription identifier
-        customer:
-          type: object
-          description: Stripe customer details
-          properties:
-            id:
-              type: string
-              description: Stripe customer ID
-            name:
-              type: string
-              description: Customer name
-              nullable: true
-            email:
-              type: string
-              format: email
-              description: Customer email
-        status:
-          type: string
-          description: Subscription status
-          enum:
-          - active
-          - trialing
-          - canceled
-          - unpaid
-          - past_due
-        start_date:
-          type: string
-          format: date-time
-          description: Subscription start date
-        default_payment_card_last4:
-          type: string
-          description: Last 4 digits of the payment card
-          nullable: true
-          pattern: ^\d{4}$
-        cancel_at_period_end:
-          type: boolean
-          description: Whether the subscription cancels at period end
-        cancellation_reason:
-          type: string
-          description: Reason for cancellation
-          nullable: true
-        current_period_end:
-          type: string
-          format: date-time
-          description: End of current billing period
-        price:
-          type: object
-          description: Price details
-          properties:
-            id:
-              type: string
-              description: Stripe price ID
-            price_id:
-              type: string
-              description: Ghost price identifier
-            nickname:
-              type: string
-              description: Price nickname
-            amount:
-              type: integer
-              description: Amount in smallest currency unit
-              minimum: 0
-            interval:
-              type: string
-              description: Billing interval
-              enum:
-              - month
-              - year
-            type:
-              type: string
-              description: Price type
-            currency:
-              type: string
-              description: ISO 4217 currency code
-              pattern: ^[A-Z]{3}$
-        tier:
-          $ref: '#/components/schemas/Tier'
-    ErrorResponse:
-      type: object
-      description: Standard Ghost API error response
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Human-readable error message
-              type:
-                type: string
-                description: Error type identifier
-              context:
-                type: string
-                description: Additional error context
-                nullable: true
-    Label:
-      type: object
-      description: A label for categorizing and segmenting members.
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique identifier
-        name:
-          type: string
-          description: Label name
-        slug:
-          type: string
-          description: URL-safe slug
-        created_at:
-          type: string
-          format: date-time
-          description: Creation timestamp
-        updated_at:
-          type: string
-          format: date-time
-          description: Last update timestamp
-    Tier:
-      type: object
-      description: A membership tier with pricing and benefits configuration.
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique identifier
-        name:
-          type: string
-          description: Tier name
-        slug:
-          type: string
-          description: URL-safe slug
-        description:
-          type: string
-          description: Tier description
-          nullable: true
-        active:
-          type: boolean
-          description: Whether the tier is active
-        type:
-          type: string
-          description: Tier type
-          enum:
-          - free
-          - paid
-        welcome_page_url:
-          type: string
-          format: uri
-          description: Welcome page URL after signup
-          nullable: true
-        visibility:
-          type: string
-          description: Public visibility
-          enum:
-          - public
-          - none
-        monthly_price:
-          type: integer
-          description: Monthly price in smallest currency unit
-          nullable: true
-          minimum: 0
-        yearly_price:
-          type: integer
-          description: Yearly price in smallest currency unit
-          nullable: true
-          minimum: 0
-        currency:
-          type: string
-          description: ISO 4217 currency code
-          nullable: true
-          pattern: ^[A-Z]{3}$
-        trial_days:
-          type: integer
-          description: Number of free trial days
-          minimum: 0
-        benefits:
-          type: array
-          description: Tier benefits
-          items:
-            type: string
-        created_at:
-          type: string
-          format: date-time
-          description: Creation timestamp
-        updated_at:
-          type: string
-          format: date-time
-          description: Last update timestamp
   responses:
-    Unauthorized:
-      description: Authentication failed or token is missing or invalid
+    ValidationError:
+      description: Request body validation failed
       content:
         application/json:
           schema:
@@ -598,8 +598,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    ValidationError:
-      description: Request body validation failed
+    Unauthorized:
+      description: Authentication failed or token is missing or invalid
       content:
         application/json:
           schema:

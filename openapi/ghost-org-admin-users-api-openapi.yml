@@ -1,16 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Ghost Content and Admin APIs Admin - Images Admin - Users API
-  description: 'Ghost is an open-source (MIT) publishing platform for professional publications, newsletters, memberships, and paid subscriptions. Every Ghost site - whether self-hosted or on managed Ghost(Pro) - exposes two documented public REST APIs under https://{admin_domain}/ghost/api/.
-
-
-    The Content API is read-only and is authenticated with a Content API key passed as the `key` query parameter; it serves published posts, pages, authors, tags, tiers, and public settings for consumption by front-ends and static sites.
-
-
-    The Admin API is read-write and is authenticated with an Admin API key that is used to sign a short-lived JWT sent as `Authorization: Ghost {token}` (a staff access token or user session may also be used). It manages posts, pages, members, tags, labels, tiers, offers, newsletters, users, images, themes, and webhooks.
-
-
-    The `{admin_domain}` server variable is the site''s domain (for Ghost(Pro), typically a `*.ghost.io` domain). All requests must use HTTPS. The `Accept-Version` header (for example `v5.0`) declares the minimum compatible API version.'
+  title: Ghost Content and Admin Admin - Users API
+  description: Ghost is an open-source (MIT) publishing platform for professional publications, newsletters, memberships, and paid subscriptions.
   version: '5.0'
   contact:
     name: Ghost
@@ -29,14 +20,14 @@ security:
 - contentApiKey: []
 - adminJwt: []
 tags:
-- name: Admin - Users
+- name: Admin Users
   description: Read-only staff users.
 paths:
   /admin/users/:
     get:
       operationId: browseAdminUsers
       tags:
-      - Admin - Users
+      - Admin Users
       summary: Browse staff users
       parameters:
       - $ref: '#/components/parameters/AcceptVersion'
@@ -48,7 +39,7 @@ paths:
     get:
       operationId: readAdminUserById
       tags:
-      - Admin - Users
+      - Admin Users
       summary: Read a staff user by ID
       parameters:
       - $ref: '#/components/parameters/AcceptVersion'
@@ -60,7 +51,7 @@ paths:
     get:
       operationId: readAdminUserBySlug
       tags:
-      - Admin - Users
+      - Admin Users
       summary: Read a staff user by slug
       parameters:
       - $ref: '#/components/parameters/AcceptVersion'
@@ -78,6 +69,13 @@ components:
       schema:
         type: string
         example: v5.0
+    PathSlug:
+      name: slug
+      in: path
+      required: true
+      description: The resource slug.
+      schema:
+        type: string
     PathId:
       name: id
       in: path
@@ -90,13 +88,6 @@ components:
       in: query
       required: false
       description: Comma-separated related data to include (for example authors,tags).
-      schema:
-        type: string
-    PathSlug:
-      name: slug
-      in: path
-      required: true
-      description: The resource slug.
       schema:
         type: string
   securitySchemes:

@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Ghost Admin Authors Offers API
-  description: The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication. It enables developers to create, update, and delete posts, pages, tags, members, tiers, newsletters, and offers programmatically. Authentication is handled via JSON Web Tokens generated from an Admin API key, integration tokens, or staff access tokens. The Admin API supports everything the Ghost Admin interface can do and more, making it suitable for building custom publishing workflows, content automation, member management systems, and advanced integrations.
+  title: Ghost Admin Offers API
+  description: The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication.
   version: '5.0'
   contact:
     name: Ghost Foundation
@@ -167,13 +167,14 @@ paths:
           $ref: '#/components/responses/ValidationError'
 components:
   parameters:
-    fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return in the response.
+    resourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource
       schema:
         type: string
+        format: uuid
     page:
       name: page
       in: query
@@ -183,11 +184,11 @@ components:
         type: integer
         minimum: 1
         default: 1
-    filter:
-      name: filter
+    fields:
+      name: fields
       in: query
       required: false
-      description: Apply fine-grained filters using Ghost's NQL query language.
+      description: Comma-separated list of fields to return in the response.
       schema:
         type: string
     limit:
@@ -203,34 +204,103 @@ components:
           enum:
           - all
         default: 15
-    resourceId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the resource
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: Apply fine-grained filters using Ghost's NQL query language.
       schema:
         type: string
-        format: uuid
-  responses:
-    Unauthorized:
-      description: Authentication failed or token is missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    ValidationError:
-      description: Request body validation failed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional error context
+                nullable: true
+    Tier:
+      type: object
+      description: A membership tier with pricing and benefits configuration.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        name:
+          type: string
+          description: Tier name
+        slug:
+          type: string
+          description: URL-safe slug
+        description:
+          type: string
+          description: Tier description
+          nullable: true
+        active:
+          type: boolean
+          description: Whether the tier is active
+        type:
+          type: string
+          description: Tier type
+          enum:
+          - free
+          - paid
+        welcome_page_url:
+          type: string
+          format: uri
+          description: Welcome page URL after signup
+          nullable: true
+        visibility:
+          type: string
+          description: Public visibility
+          enum:
+          - public
+          - none
+        monthly_price:
+          type: integer
+          description: Monthly price in smallest currency unit
+          nullable: true
+          minimum: 0
+        yearly_price:
+          type: integer
+          description: Yearly price in smallest currency unit
+          nullable: true
+          minimum: 0
+        currency:
+          type: string
+          description: ISO 4217 currency code
+          nullable: true
+          pattern: ^[A-Z]{3}$
+        trial_days:
+          type: integer
+          description: Number of free trial days
+          minimum: 0
+        benefits:
+          type: array
+          description: Tier benefits
+          items:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
     PaginationMeta:
       type: object
       description: Pagination metadata
@@ -418,95 +488,25 @@ components:
               type: string
               format: uuid
               description: Tier identifier
-    ErrorResponse:
-      type: object
-      description: Standard Ghost API error response
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Human-readable error message
-              type:
-                type: string
-                description: Error type identifier
-              context:
-                type: string
-                description: Additional error context
-                nullable: true
-    Tier:
-      type: object
-      description: A membership tier with pricing and benefits configuration.
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique identifier
-        name:
-          type: string
-          description: Tier name
-        slug:
-          type: string
-          description: URL-safe slug
-        description:
-          type: string
-          description: Tier description
-          nullable: true
-        active:
-          type: boolean
-          description: Whether the tier is active
-        type:
-          type: string
-          description: Tier type
-          enum:
-          - free
-          - paid
-        welcome_page_url:
-          type: string
-          format: uri
-          description: Welcome page URL after signup
-          nullable: true
-        visibility:
-          type: string
-          description: Public visibility
-          enum:
-          - public
-          - none
-        monthly_price:
-          type: integer
-          description: Monthly price in smallest currency unit
-          nullable: true
-          minimum: 0
-        yearly_price:
-          type: integer
-          description: Yearly price in smallest currency unit
-          nullable: true
-          minimum: 0
-        currency:
-          type: string
-          description: ISO 4217 currency code
-          nullable: true
-          pattern: ^[A-Z]{3}$
-        trial_days:
-          type: integer
-          description: Number of free trial days
-          minimum: 0
-        benefits:
-          type: array
-          description: Tier benefits
-          items:
-            type: string
-        created_at:
-          type: string
-          format: date-time
-          description: Creation timestamp
-        updated_at:
-          type: string
-          format: date-time
-          description: Last update timestamp
+  responses:
+    ValidationError:
+      description: Request body validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication failed or token is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     adminApiToken:
       type: http

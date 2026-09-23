@@ -1,20 +1,20 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Ghost Admin Authors API
-  description: The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication. It enables developers to create, update, and delete posts, pages, tags, members, tiers, newsletters, and offers programmatically. Authentication is handled via JSON Web Tokens generated from an Admin API key, integration tokens, or staff access tokens. The Admin API supports everything the Ghost Admin interface can do and more, making it suitable for building custom publishing workflows, content automation, member management systems, and advanced integrations.
+  title: Ghost Content Authors API
+  description: The Ghost Content API is a RESTful, read-only API that delivers published content from a Ghost site to any client.
   version: '5.0'
   contact:
     name: Ghost Foundation
-    url: https://ghost.org/docs/admin-api/
+    url: https://ghost.org/docs/content-api/
   termsOfService: https://ghost.org/terms/
 servers:
-- url: https://{site}.ghost.io/ghost/api/admin
+- url: https://{site}.ghost.io/ghost/api/content
   description: Ghost Pro Hosted Site
   variables:
     site:
       default: your-site
       description: Your Ghost site subdomain
-- url: '{protocol}://{domain}/ghost/api/admin'
+- url: '{protocol}://{domain}/ghost/api/content'
   description: Self-Hosted Ghost Instance
   variables:
     protocol:
@@ -26,7 +26,7 @@ servers:
       default: localhost:2368
       description: Your Ghost instance domain and port
 security:
-- adminApiToken: []
+- contentApiKey: []
 tags:
 - name: Authors
   description: Authors represent the staff users who create content in a Ghost publication.
@@ -121,6 +121,14 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   parameters:
+    resourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource
+      schema:
+        type: string
+        format: uuid
     fields:
       name: fields
       in: query
@@ -144,6 +152,19 @@ components:
       description: Field and direction to order results by, for example published_at DESC or title ASC.
       schema:
         type: string
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return per page. Defaults to 15. Use all to return all resources without pagination.
+      schema:
+        oneOf:
+        - type: integer
+          minimum: 1
+        - type: string
+          enum:
+          - all
+        default: 15
     resourceSlug:
       name: slug
       in: path
@@ -167,41 +188,26 @@ components:
       description: Apply fine-grained filters using Ghost's NQL query language. Examples include featured:true, tag:getting-started, visibility:public, and combinations using plus and comma operators.
       schema:
         type: string
-    limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of resources to return per page. Defaults to 15. Use all to return all resources without pagination.
-      schema:
-        oneOf:
-        - type: integer
-          minimum: 1
-        - type: string
-          enum:
-          - all
-        default: 15
-    resourceId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the resource
-      schema:
-        type: string
-        format: uuid
-  responses:
-    Unauthorized:
-      description: Authentication failed or API key is missing
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional context about the error
+                nullable: true
     PaginationMeta:
       type: object
       description: Pagination metadata included in browse responses
@@ -233,25 +239,6 @@ components:
               type: integer
               description: Previous page number, null if on first page
               nullable: true
-    ErrorResponse:
-      type: object
-      description: Standard Ghost API error response
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Human-readable error message
-              type:
-                type: string
-                description: Error type identifier
-              context:
-                type: string
-                description: Additional context about the error
-                nullable: true
     Author:
       type: object
       description: An author represents a staff user who creates content in a Ghost publication.
@@ -317,12 +304,25 @@ components:
               type: integer
               description: Number of posts by this author
               minimum: 0
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication failed or API key is missing
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
-    adminApiToken:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: JSON Web Token generated from an Admin API key. The key is split into an ID and secret at the colon separator. The ID is used as the kid header and the secret is used to sign the token with HS256.
+    contentApiKey:
+      type: apiKey
+      in: query
+      name: key
+      description: Content API key obtained from a custom integration in Ghost Admin. Content API keys are safe for use in browsers and other insecure environments as they only provide access to public data.
 externalDocs:
-  description: Ghost Admin API Documentation
-  url: https://ghost.org/docs/admin-api/
+  description: Ghost Content API Documentation
+  url: https://ghost.org/docs/content-api/

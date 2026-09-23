@@ -1,16 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Ghost Content and Admin APIs Admin - Images Admin - Posts API
-  description: 'Ghost is an open-source (MIT) publishing platform for professional publications, newsletters, memberships, and paid subscriptions. Every Ghost site - whether self-hosted or on managed Ghost(Pro) - exposes two documented public REST APIs under https://{admin_domain}/ghost/api/.
-
-
-    The Content API is read-only and is authenticated with a Content API key passed as the `key` query parameter; it serves published posts, pages, authors, tags, tiers, and public settings for consumption by front-ends and static sites.
-
-
-    The Admin API is read-write and is authenticated with an Admin API key that is used to sign a short-lived JWT sent as `Authorization: Ghost {token}` (a staff access token or user session may also be used). It manages posts, pages, members, tags, labels, tiers, offers, newsletters, users, images, themes, and webhooks.
-
-
-    The `{admin_domain}` server variable is the site''s domain (for Ghost(Pro), typically a `*.ghost.io` domain). All requests must use HTTPS. The `Accept-Version` header (for example `v5.0`) declares the minimum compatible API version.'
+  title: Ghost Content and Admin Admin - Posts API
+  description: Ghost is an open-source (MIT) publishing platform for professional publications, newsletters, memberships, and paid subscriptions.
   version: '5.0'
   contact:
     name: Ghost
@@ -126,11 +117,19 @@ paths:
           description: The requested post.
 components:
   parameters:
-    Filter:
-      name: filter
+    AcceptVersion:
+      name: Accept-Version
+      in: header
+      required: false
+      description: Minimum compatible API version, for example v5.0.
+      schema:
+        type: string
+        example: v5.0
+    Formats:
+      name: formats
       in: query
       required: false
-      description: Ghost NQL filter expression.
+      description: Content formats to return, for example 'html,lexical'.
       schema:
         type: string
     PathSlug:
@@ -145,6 +144,20 @@ components:
       in: query
       required: false
       description: Sort order, for example 'published_at desc'.
+      schema:
+        type: string
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Ghost NQL filter expression.
+      schema:
+        type: string
+    PathId:
+      name: id
+      in: path
+      required: true
+      description: The resource ID.
       schema:
         type: string
     Page:
@@ -164,11 +177,11 @@ components:
         type: string
         enum:
         - html
-    PathId:
-      name: id
-      in: path
-      required: true
-      description: The resource ID.
+    Fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return.
       schema:
         type: string
     Include:
@@ -178,28 +191,6 @@ components:
       description: Comma-separated related data to include (for example authors,tags).
       schema:
         type: string
-    Formats:
-      name: formats
-      in: query
-      required: false
-      description: Content formats to return, for example 'html,lexical'.
-      schema:
-        type: string
-    Fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return.
-      schema:
-        type: string
-    AcceptVersion:
-      name: Accept-Version
-      in: header
-      required: false
-      description: Minimum compatible API version, for example v5.0.
-      schema:
-        type: string
-        example: v5.0
     Limit:
       name: limit
       in: query
@@ -208,9 +199,6 @@ components:
       schema:
         type: string
         default: '15'
-  responses:
-    Unauthorized:
-      description: Authentication failed or was missing.
   schemas:
     PostsRequest:
       type: object
@@ -235,6 +223,9 @@ components:
               updated_at:
                 type: string
                 format: date-time
+  responses:
+    Unauthorized:
+      description: Authentication failed or was missing.
   securitySchemes:
     contentApiKey:
       type: apiKey

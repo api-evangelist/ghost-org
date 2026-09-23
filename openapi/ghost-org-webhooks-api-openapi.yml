@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Ghost Admin Authors Webhooks API
-  description: The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication. It enables developers to create, update, and delete posts, pages, tags, members, tiers, newsletters, and offers programmatically. Authentication is handled via JSON Web Tokens generated from an Admin API key, integration tokens, or staff access tokens. The Admin API supports everything the Ghost Admin interface can do and more, making it suitable for building custom publishing workflows, content automation, member management systems, and advanced integrations.
+  title: Ghost Admin Webhooks API
+  description: The Ghost Admin API provides full read and write access to all content and configuration within a Ghost publication.
   version: '5.0'
   contact:
     name: Ghost Foundation
@@ -127,25 +127,15 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication failed or token is missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    ValidationError:
-      description: Request body validation failed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    resourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource
+      schema:
+        type: string
+        format: uuid
   schemas:
     ErrorResponse:
       type: object
@@ -166,6 +156,58 @@ components:
                 type: string
                 description: Additional error context
                 nullable: true
+    WebhookInput:
+      type: object
+      description: Input fields for creating or updating a webhook.
+      required:
+      - event
+      - target_url
+      properties:
+        event:
+          type: string
+          description: The event to subscribe to. Available events include site.changed, post.added, post.deleted, post.edited, post.published, post.published.edited, post.unpublished, post.scheduled, post.unscheduled, post.rescheduled, page.added, page.deleted, page.edited, page.published, page.published.edited, page.unpublished, page.scheduled, page.unscheduled, page.rescheduled, tag.added, tag.edited, tag.deleted, post.tag.attached, post.tag.detached, page.tag.attached, page.tag.detached, member.added, member.edited, member.deleted.
+          enum:
+          - site.changed
+          - post.added
+          - post.deleted
+          - post.edited
+          - post.published
+          - post.published.edited
+          - post.unpublished
+          - post.scheduled
+          - post.unscheduled
+          - post.rescheduled
+          - page.added
+          - page.deleted
+          - page.edited
+          - page.published
+          - page.published.edited
+          - page.unpublished
+          - page.scheduled
+          - page.unscheduled
+          - page.rescheduled
+          - tag.added
+          - tag.edited
+          - tag.deleted
+          - post.tag.attached
+          - post.tag.detached
+          - page.tag.attached
+          - page.tag.detached
+          - member.added
+          - member.edited
+          - member.deleted
+        target_url:
+          type: string
+          format: uri
+          description: URL to receive webhook POST requests
+        name:
+          type: string
+          description: Webhook name
+          nullable: true
+        secret:
+          type: string
+          description: Secret for signature validation
+          nullable: true
     Webhook:
       type: object
       description: A webhook subscription that sends HTTP POST notifications for events.
@@ -220,67 +262,25 @@ components:
           type: string
           format: date-time
           description: Last update timestamp
-    WebhookInput:
-      type: object
-      description: Input fields for creating or updating a webhook.
-      required:
-      - event
-      - target_url
-      properties:
-        event:
-          type: string
-          description: The event to subscribe to. Available events include site.changed, post.added, post.deleted, post.edited, post.published, post.published.edited, post.unpublished, post.scheduled, post.unscheduled, post.rescheduled, page.added, page.deleted, page.edited, page.published, page.published.edited, page.unpublished, page.scheduled, page.unscheduled, page.rescheduled, tag.added, tag.edited, tag.deleted, post.tag.attached, post.tag.detached, page.tag.attached, page.tag.detached, member.added, member.edited, member.deleted.
-          enum:
-          - site.changed
-          - post.added
-          - post.deleted
-          - post.edited
-          - post.published
-          - post.published.edited
-          - post.unpublished
-          - post.scheduled
-          - post.unscheduled
-          - post.rescheduled
-          - page.added
-          - page.deleted
-          - page.edited
-          - page.published
-          - page.published.edited
-          - page.unpublished
-          - page.scheduled
-          - page.unscheduled
-          - page.rescheduled
-          - tag.added
-          - tag.edited
-          - tag.deleted
-          - post.tag.attached
-          - post.tag.detached
-          - page.tag.attached
-          - page.tag.detached
-          - member.added
-          - member.edited
-          - member.deleted
-        target_url:
-          type: string
-          format: uri
-          description: URL to receive webhook POST requests
-        name:
-          type: string
-          description: Webhook name
-          nullable: true
-        secret:
-          type: string
-          description: Secret for signature validation
-          nullable: true
-  parameters:
-    resourceId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the resource
-      schema:
-        type: string
-        format: uuid
+  responses:
+    ValidationError:
+      description: Request body validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication failed or token is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     adminApiToken:
       type: http
