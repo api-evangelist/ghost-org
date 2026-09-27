@@ -116,34 +116,15 @@ paths:
         '200':
           description: The requested post.
 components:
+  responses:
+    Unauthorized:
+      description: Authentication failed or was missing.
   parameters:
-    AcceptVersion:
-      name: Accept-Version
-      in: header
-      required: false
-      description: Minimum compatible API version, for example v5.0.
-      schema:
-        type: string
-        example: v5.0
     Formats:
       name: formats
       in: query
       required: false
       description: Content formats to return, for example 'html,lexical'.
-      schema:
-        type: string
-    PathSlug:
-      name: slug
-      in: path
-      required: true
-      description: The resource slug.
-      schema:
-        type: string
-    Order:
-      name: order
-      in: query
-      required: false
-      description: Sort order, for example 'published_at desc'.
       schema:
         type: string
     Filter:
@@ -153,11 +134,11 @@ components:
       description: Ghost NQL filter expression.
       schema:
         type: string
-    PathId:
-      name: id
-      in: path
-      required: true
-      description: The resource ID.
+    Order:
+      name: order
+      in: query
+      required: false
+      description: Sort order, for example 'published_at desc'.
       schema:
         type: string
     Page:
@@ -168,6 +149,20 @@ components:
       schema:
         type: integer
         default: 1
+    PathSlug:
+      name: slug
+      in: path
+      required: true
+      description: The resource slug.
+      schema:
+        type: string
+    Include:
+      name: include
+      in: query
+      required: false
+      description: Comma-separated related data to include (for example authors,tags).
+      schema:
+        type: string
     Source:
       name: source
       in: query
@@ -177,18 +172,11 @@ components:
         type: string
         enum:
         - html
-    Fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return.
-      schema:
-        type: string
-    Include:
-      name: include
-      in: query
-      required: false
-      description: Comma-separated related data to include (for example authors,tags).
+    PathId:
+      name: id
+      in: path
+      required: true
+      description: The resource ID.
       schema:
         type: string
     Limit:
@@ -199,6 +187,21 @@ components:
       schema:
         type: string
         default: '15'
+    AcceptVersion:
+      name: Accept-Version
+      in: header
+      required: false
+      description: Minimum compatible API version, for example v5.0.
+      schema:
+        type: string
+        example: v5.0
+    Fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return.
+      schema:
+        type: string
   schemas:
     PostsRequest:
       type: object
@@ -223,9 +226,6 @@ components:
               updated_at:
                 type: string
                 format: date-time
-  responses:
-    Unauthorized:
-      description: Authentication failed or was missing.
   securitySchemes:
     contentApiKey:
       type: apiKey

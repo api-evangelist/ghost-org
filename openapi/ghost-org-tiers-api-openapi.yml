@@ -222,105 +222,7 @@ paths:
           default: localhost:2368
           description: Your Ghost instance domain and port
 components:
-  parameters:
-    resourceId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the resource
-      schema:
-        type: string
-        format: uuid
-    page:
-      name: page
-      in: query
-      required: false
-      description: Page number for paginated results. Defaults to 1.
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return in the response.
-      schema:
-        type: string
-    limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of resources to return per page. Defaults to 15.
-      schema:
-        oneOf:
-        - type: integer
-          minimum: 1
-        - type: string
-          enum:
-          - all
-        default: 15
-    filter:
-      name: filter
-      in: query
-      required: false
-      description: Apply fine-grained filters using Ghost's NQL query language.
-      schema:
-        type: string
-    fields_2:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need.
-      schema:
-        type: string
-    order:
-      name: order
-      in: query
-      required: false
-      description: Field and direction to order results by, for example published_at DESC or title ASC.
-      schema:
-        type: string
-    limit_2:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of resources to return per page. Defaults to 15. Use all to return all resources without pagination.
-      schema:
-        oneOf:
-        - type: integer
-          minimum: 1
-        - type: string
-          enum:
-          - all
-        default: 15
-    filter_2:
-      name: filter
-      in: query
-      required: false
-      description: Apply fine-grained filters using Ghost's NQL query language. Examples include featured:true, tag:getting-started, visibility:public, and combinations using plus and comma operators.
-      schema:
-        type: string
   schemas:
-    ErrorResponse:
-      type: object
-      description: Standard Ghost API error response
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Human-readable error message
-              type:
-                type: string
-                description: Error type identifier
-              context:
-                type: string
-                description: Additional error context
-                nullable: true
     Tier:
       type: object
       description: A membership tier with pricing and benefits configuration.
@@ -422,6 +324,25 @@ components:
               type: integer
               description: Previous page number
               nullable: true
+    ErrorResponse:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional error context
+                nullable: true
     TierInput:
       type: object
       description: Input fields for creating or updating a tier.
@@ -470,25 +391,6 @@ components:
           description: Tier benefits
           items:
             type: string
-    ErrorResponse_2:
-      type: object
-      description: Standard Ghost API error response
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Human-readable error message
-              type:
-                type: string
-                description: Error type identifier
-              context:
-                type: string
-                description: Additional context about the error
-                nullable: true
     Tier_2:
       type: object
       description: A tier represents a membership level in a Ghost publication with associated pricing and benefits.
@@ -590,13 +492,26 @@ components:
               type: integer
               description: Previous page number, null if on first page
               nullable: true
+    ErrorResponse_2:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional context about the error
+                nullable: true
   responses:
-    ValidationError:
-      description: Request body validation failed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: The requested resource was not found
       content:
@@ -609,12 +524,97 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    ValidationError:
+      description: Request body validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized_2:
       description: Authentication failed or API key is missing
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse_2'
+  parameters:
+    resourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource
+      schema:
+        type: string
+        format: uuid
+    page:
+      name: page
+      in: query
+      required: false
+      description: Page number for paginated results. Defaults to 1.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return per page. Defaults to 15.
+      schema:
+        oneOf:
+        - type: integer
+          minimum: 1
+        - type: string
+          enum:
+          - all
+        default: 15
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response.
+      schema:
+        type: string
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: Apply fine-grained filters using Ghost's NQL query language.
+      schema:
+        type: string
+    limit_2:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return per page. Defaults to 15. Use all to return all resources without pagination.
+      schema:
+        oneOf:
+        - type: integer
+          minimum: 1
+        - type: string
+          enum:
+          - all
+        default: 15
+    fields_2:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need.
+      schema:
+        type: string
+    order:
+      name: order
+      in: query
+      required: false
+      description: Field and direction to order results by, for example published_at DESC or title ASC.
+      schema:
+        type: string
+    filter_2:
+      name: filter
+      in: query
+      required: false
+      description: Apply fine-grained filters using Ghost's NQL query language. Examples include featured:true, tag:getting-started, visibility:public, and combinations using plus and comma operators.
+      schema:
+        type: string
   securitySchemes:
     adminApiToken:
       type: http

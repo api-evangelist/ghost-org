@@ -63,20 +63,6 @@ paths:
           description: The requested tag.
 components:
   parameters:
-    PathSlug:
-      name: slug
-      in: path
-      required: true
-      description: The resource slug.
-      schema:
-        type: string
-    ContentKey:
-      name: key
-      in: query
-      required: true
-      description: Content API key.
-      schema:
-        type: string
     Page:
       name: page
       in: query
@@ -85,11 +71,11 @@ components:
       schema:
         type: integer
         default: 1
-    PathId:
-      name: id
+    PathSlug:
+      name: slug
       in: path
       required: true
-      description: The resource ID.
+      description: The resource slug.
       schema:
         type: string
     Include:
@@ -97,6 +83,13 @@ components:
       in: query
       required: false
       description: Comma-separated related data to include (for example authors,tags).
+      schema:
+        type: string
+    ContentKey:
+      name: key
+      in: query
+      required: true
+      description: Content API key.
       schema:
         type: string
     Limit:
@@ -107,6 +100,13 @@ components:
       schema:
         type: string
         default: '15'
+    PathId:
+      name: id
+      in: path
+      required: true
+      description: The resource ID.
+      schema:
+        type: string
   securitySchemes:
     contentApiKey:
       type: apiKey

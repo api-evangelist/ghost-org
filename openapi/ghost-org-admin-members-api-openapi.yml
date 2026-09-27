@@ -85,14 +85,6 @@ paths:
           description: The updated member.
 components:
   parameters:
-    AcceptVersion:
-      name: Accept-Version
-      in: header
-      required: false
-      description: Minimum compatible API version, for example v5.0.
-      schema:
-        type: string
-        example: v5.0
     Filter:
       name: filter
       in: query
@@ -108,13 +100,6 @@ components:
       schema:
         type: integer
         default: 1
-    PathId:
-      name: id
-      in: path
-      required: true
-      description: The resource ID.
-      schema:
-        type: string
     Include:
       name: include
       in: query
@@ -130,6 +115,21 @@ components:
       schema:
         type: string
         default: '15'
+    PathId:
+      name: id
+      in: path
+      required: true
+      description: The resource ID.
+      schema:
+        type: string
+    AcceptVersion:
+      name: Accept-Version
+      in: header
+      required: false
+      description: Minimum compatible API version, for example v5.0.
+      schema:
+        type: string
+        example: v5.0
   schemas:
     MembersRequest:
       type: object

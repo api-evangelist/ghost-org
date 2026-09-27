@@ -71,22 +71,6 @@ paths:
         '204':
           description: The webhook was deleted.
 components:
-  parameters:
-    AcceptVersion:
-      name: Accept-Version
-      in: header
-      required: false
-      description: Minimum compatible API version, for example v5.0.
-      schema:
-        type: string
-        example: v5.0
-    PathId:
-      name: id
-      in: path
-      required: true
-      description: The resource ID.
-      schema:
-        type: string
   schemas:
     WebhooksRequest:
       type: object
@@ -106,6 +90,22 @@ components:
                 type: string
               secret:
                 type: string
+  parameters:
+    AcceptVersion:
+      name: Accept-Version
+      in: header
+      required: false
+      description: Minimum compatible API version, for example v5.0.
+      schema:
+        type: string
+        example: v5.0
+    PathId:
+      name: id
+      in: path
+      required: true
+      description: The resource ID.
+      schema:
+        type: string
   securitySchemes:
     contentApiKey:
       type: apiKey

@@ -52,6 +52,19 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    NavigationItem:
+      type: object
+      description: A navigation menu item with a label and URL
+      properties:
+        label:
+          type: string
+          description: Display label for the navigation item
+        url:
+          type: string
+          description: URL the navigation item links to
+      required:
+      - label
+      - url
     ErrorResponse:
       type: object
       description: Standard Ghost API error response
@@ -175,19 +188,6 @@ components:
           type: string
           format: uri
           description: Site URL
-    NavigationItem:
-      type: object
-      description: A navigation menu item with a label and URL
-      properties:
-        label:
-          type: string
-          description: Display label for the navigation item
-        url:
-          type: string
-          description: URL the navigation item links to
-      required:
-      - label
-      - url
   responses:
     Unauthorized:
       description: Authentication failed or API key is missing

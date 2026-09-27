@@ -75,26 +75,17 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+    Unauthorized:
+      description: Authentication failed or was missing.
   parameters:
     Formats:
       name: formats
       in: query
       required: false
       description: Content formats to return, for example 'html,lexical'.
-      schema:
-        type: string
-    PathSlug:
-      name: slug
-      in: path
-      required: true
-      description: The resource slug.
-      schema:
-        type: string
-    Order:
-      name: order
-      in: query
-      required: false
-      description: Sort order, for example 'published_at desc'.
       schema:
         type: string
     Filter:
@@ -104,18 +95,11 @@ components:
       description: Ghost NQL filter expression.
       schema:
         type: string
-    PathId:
-      name: id
-      in: path
-      required: true
-      description: The resource ID.
-      schema:
-        type: string
-    ContentKey:
-      name: key
+    Order:
+      name: order
       in: query
-      required: true
-      description: Content API key.
+      required: false
+      description: Sort order, for example 'published_at desc'.
       schema:
         type: string
     Page:
@@ -126,11 +110,11 @@ components:
       schema:
         type: integer
         default: 1
-    Fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return.
+    PathSlug:
+      name: slug
+      in: path
+      required: true
+      description: The resource slug.
       schema:
         type: string
     Include:
@@ -138,6 +122,13 @@ components:
       in: query
       required: false
       description: Comma-separated related data to include (for example authors,tags).
+      schema:
+        type: string
+    ContentKey:
+      name: key
+      in: query
+      required: true
+      description: Content API key.
       schema:
         type: string
     Limit:
@@ -148,11 +139,20 @@ components:
       schema:
         type: string
         default: '15'
-  responses:
-    Unauthorized:
-      description: Authentication failed or was missing.
-    NotFound:
-      description: The requested resource was not found.
+    PathId:
+      name: id
+      in: path
+      required: true
+      description: The resource ID.
+      schema:
+        type: string
+    Fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return.
+      schema:
+        type: string
   securitySchemes:
     contentApiKey:
       type: apiKey

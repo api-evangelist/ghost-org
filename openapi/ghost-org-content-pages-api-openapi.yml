@@ -63,25 +63,11 @@ paths:
           description: The requested page.
 components:
   parameters:
-    PathSlug:
-      name: slug
-      in: path
-      required: true
-      description: The resource slug.
-      schema:
-        type: string
     Filter:
       name: filter
       in: query
       required: false
       description: Ghost NQL filter expression.
-      schema:
-        type: string
-    ContentKey:
-      name: key
-      in: query
-      required: true
-      description: Content API key.
       schema:
         type: string
     Page:
@@ -92,11 +78,18 @@ components:
       schema:
         type: integer
         default: 1
-    PathId:
-      name: id
+    PathSlug:
+      name: slug
       in: path
       required: true
-      description: The resource ID.
+      description: The resource slug.
+      schema:
+        type: string
+    ContentKey:
+      name: key
+      in: query
+      required: true
+      description: Content API key.
       schema:
         type: string
     Limit:
@@ -107,6 +100,13 @@ components:
       schema:
         type: string
         default: '15'
+    PathId:
+      name: id
+      in: path
+      required: true
+      description: The resource ID.
+      schema:
+        type: string
   securitySchemes:
     contentApiKey:
       type: apiKey

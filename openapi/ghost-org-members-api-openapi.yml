@@ -182,208 +182,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    resourceId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the resource
-      schema:
-        type: string
-        format: uuid
-    page:
-      name: page
-      in: query
-      required: false
-      description: Page number for paginated results. Defaults to 1.
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return in the response.
-      schema:
-        type: string
-    order:
-      name: order
-      in: query
-      required: false
-      description: Field and direction to order results by.
-      schema:
-        type: string
-    limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of resources to return per page. Defaults to 15.
-      schema:
-        oneOf:
-        - type: integer
-          minimum: 1
-        - type: string
-          enum:
-          - all
-        default: 15
-    filter:
-      name: filter
-      in: query
-      required: false
-      description: Apply fine-grained filters using Ghost's NQL query language.
-      schema:
-        type: string
   schemas:
-    ErrorResponse:
-      type: object
-      description: Standard Ghost API error response
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Human-readable error message
-              type:
-                type: string
-                description: Error type identifier
-              context:
-                type: string
-                description: Additional error context
-                nullable: true
-    Tier:
-      type: object
-      description: A membership tier with pricing and benefits configuration.
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique identifier
-        name:
-          type: string
-          description: Tier name
-        slug:
-          type: string
-          description: URL-safe slug
-        description:
-          type: string
-          description: Tier description
-          nullable: true
-        active:
-          type: boolean
-          description: Whether the tier is active
-        type:
-          type: string
-          description: Tier type
-          enum:
-          - free
-          - paid
-        welcome_page_url:
-          type: string
-          format: uri
-          description: Welcome page URL after signup
-          nullable: true
-        visibility:
-          type: string
-          description: Public visibility
-          enum:
-          - public
-          - none
-        monthly_price:
-          type: integer
-          description: Monthly price in smallest currency unit
-          nullable: true
-          minimum: 0
-        yearly_price:
-          type: integer
-          description: Yearly price in smallest currency unit
-          nullable: true
-          minimum: 0
-        currency:
-          type: string
-          description: ISO 4217 currency code
-          nullable: true
-          pattern: ^[A-Z]{3}$
-        trial_days:
-          type: integer
-          description: Number of free trial days
-          minimum: 0
-        benefits:
-          type: array
-          description: Tier benefits
-          items:
-            type: string
-        created_at:
-          type: string
-          format: date-time
-          description: Creation timestamp
-        updated_at:
-          type: string
-          format: date-time
-          description: Last update timestamp
-    MemberInput:
-      type: object
-      description: Input fields for creating or updating a member.
-      properties:
-        email:
-          type: string
-          format: email
-          description: Member email address
-        name:
-          type: string
-          description: Member display name
-          nullable: true
-        note:
-          type: string
-          description: Internal note about the member
-          nullable: true
-        labels:
-          type: array
-          description: Labels to apply to the member
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: Label name
-              slug:
-                type: string
-                description: Label slug
-        newsletters:
-          type: array
-          description: Newsletter subscriptions
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                format: uuid
-                description: Newsletter identifier
-    Label:
-      type: object
-      description: A label for categorizing and segmenting members.
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique identifier
-        name:
-          type: string
-          description: Label name
-        slug:
-          type: string
-          description: URL-safe slug
-        created_at:
-          type: string
-          format: date-time
-          description: Creation timestamp
-        updated_at:
-          type: string
-          format: date-time
-          description: Last update timestamp
     Subscription:
       type: object
       description: A paid subscription associated with a member, typically managed through Stripe.
@@ -467,6 +266,76 @@ components:
               pattern: ^[A-Z]{3}$
         tier:
           $ref: '#/components/schemas/Tier'
+    Tier:
+      type: object
+      description: A membership tier with pricing and benefits configuration.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        name:
+          type: string
+          description: Tier name
+        slug:
+          type: string
+          description: URL-safe slug
+        description:
+          type: string
+          description: Tier description
+          nullable: true
+        active:
+          type: boolean
+          description: Whether the tier is active
+        type:
+          type: string
+          description: Tier type
+          enum:
+          - free
+          - paid
+        welcome_page_url:
+          type: string
+          format: uri
+          description: Welcome page URL after signup
+          nullable: true
+        visibility:
+          type: string
+          description: Public visibility
+          enum:
+          - public
+          - none
+        monthly_price:
+          type: integer
+          description: Monthly price in smallest currency unit
+          nullable: true
+          minimum: 0
+        yearly_price:
+          type: integer
+          description: Yearly price in smallest currency unit
+          nullable: true
+          minimum: 0
+        currency:
+          type: string
+          description: ISO 4217 currency code
+          nullable: true
+          pattern: ^[A-Z]{3}$
+        trial_days:
+          type: integer
+          description: Number of free trial days
+          minimum: 0
+        benefits:
+          type: array
+          description: Tier benefits
+          items:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
     PaginationMeta:
       type: object
       description: Pagination metadata
@@ -498,6 +367,44 @@ components:
               type: integer
               description: Previous page number
               nullable: true
+    MemberInput:
+      type: object
+      description: Input fields for creating or updating a member.
+      properties:
+        email:
+          type: string
+          format: email
+          description: Member email address
+        name:
+          type: string
+          description: Member display name
+          nullable: true
+        note:
+          type: string
+          description: Internal note about the member
+          nullable: true
+        labels:
+          type: array
+          description: Labels to apply to the member
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Label name
+              slug:
+                type: string
+                description: Label slug
+        newsletters:
+          type: array
+          description: Newsletter subscriptions
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+                description: Newsletter identifier
     Member:
       type: object
       description: A member represents a person who has signed up for the publication, either as a free or paid subscriber.
@@ -585,13 +492,48 @@ components:
           type: string
           format: date-time
           description: Last update timestamp
+    Label:
+      type: object
+      description: A label for categorizing and segmenting members.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        name:
+          type: string
+          description: Label name
+        slug:
+          type: string
+          description: URL-safe slug
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+    ErrorResponse:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional error context
+                nullable: true
   responses:
-    ValidationError:
-      description: Request body validation failed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: The requested resource was not found
       content:
@@ -604,6 +546,64 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    ValidationError:
+      description: Request body validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    resourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource
+      schema:
+        type: string
+        format: uuid
+    page:
+      name: page
+      in: query
+      required: false
+      description: Page number for paginated results. Defaults to 1.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return per page. Defaults to 15.
+      schema:
+        oneOf:
+        - type: integer
+          minimum: 1
+        - type: string
+          enum:
+          - all
+        default: 15
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response.
+      schema:
+        type: string
+    order:
+      name: order
+      in: query
+      required: false
+      description: Field and direction to order results by.
+      schema:
+        type: string
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: Apply fine-grained filters using Ghost's NQL query language.
+      schema:
+        type: string
   securitySchemes:
     adminApiToken:
       type: http

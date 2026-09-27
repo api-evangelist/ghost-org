@@ -97,14 +97,6 @@ paths:
           description: The page was deleted.
 components:
   parameters:
-    AcceptVersion:
-      name: Accept-Version
-      in: header
-      required: false
-      description: Minimum compatible API version, for example v5.0.
-      schema:
-        type: string
-        example: v5.0
     Filter:
       name: filter
       in: query
@@ -129,13 +121,6 @@ components:
         type: string
         enum:
         - html
-    PathId:
-      name: id
-      in: path
-      required: true
-      description: The resource ID.
-      schema:
-        type: string
     Limit:
       name: limit
       in: query
@@ -144,6 +129,21 @@ components:
       schema:
         type: string
         default: '15'
+    PathId:
+      name: id
+      in: path
+      required: true
+      description: The resource ID.
+      schema:
+        type: string
+    AcceptVersion:
+      name: Accept-Version
+      in: header
+      required: false
+      description: Minimum compatible API version, for example v5.0.
+      schema:
+        type: string
+        example: v5.0
   schemas:
     PagesRequest:
       type: object
