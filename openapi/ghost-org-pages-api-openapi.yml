@@ -300,144 +300,15 @@ paths:
           default: localhost:2368
           description: Your Ghost instance domain and port
 components:
-  parameters:
-    formats:
-      name: formats
-      in: query
-      required: false
-      description: Comma-separated list of content formats to include in the response.
-      schema:
-        type: string
-    resourceId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the resource
-      schema:
-        type: string
-        format: uuid
-    page:
-      name: page
-      in: query
-      required: false
-      description: Page number for paginated results. Defaults to 1.
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    filter:
-      name: filter
-      in: query
-      required: false
-      description: Apply fine-grained filters using Ghost's NQL query language.
-      schema:
-        type: string
-    limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of resources to return per page. Defaults to 15.
-      schema:
-        oneOf:
-        - type: integer
-          minimum: 1
-        - type: string
-          enum:
-          - all
-        default: 15
-    fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return in the response.
-      schema:
-        type: string
-    includePostRelations:
-      name: include
-      in: query
-      required: false
-      description: Comma-separated list of related resources to include. Supported values are authors and tags.
-      schema:
-        type: string
-    order:
-      name: order
-      in: query
-      required: false
-      description: Field and direction to order results by.
-      schema:
-        type: string
-    formats_2:
-      name: formats
-      in: query
-      required: false
-      description: Comma-separated list of content formats to include. By default only html is returned. Use formats=html,plaintext to also include plaintext.
-      schema:
-        type: string
-        enum:
-        - html
-        - plaintext
-        - html,plaintext
-    filter_2:
-      name: filter
-      in: query
-      required: false
-      description: Apply fine-grained filters using Ghost's NQL query language. Examples include featured:true, tag:getting-started, visibility:public, and combinations using plus and comma operators.
-      schema:
-        type: string
-    limit_2:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of resources to return per page. Defaults to 15. Use all to return all resources without pagination.
-      schema:
-        oneOf:
-        - type: integer
-          minimum: 1
-        - type: string
-          enum:
-          - all
-        default: 15
-    fields_2:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need.
-      schema:
-        type: string
-    resourceSlug:
-      name: slug
-      in: path
-      required: true
-      description: The URL slug of the resource
-      schema:
-        type: string
-    includePostRelations_2:
-      name: include
-      in: query
-      required: false
-      description: Comma-separated list of related resources to include. Supported values are authors and tags.
-      schema:
-        type: string
-        enum:
-        - authors
-        - tags
-        - authors,tags
-    order_2:
-      name: order
-      in: query
-      required: false
-      description: Field and direction to order results by, for example published_at DESC or title ASC.
-      schema:
-        type: string
   responses:
-    NotFound:
-      description: The requested resource was not found
+    Unauthorized:
+      description: Authentication failed or token is missing or invalid
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication failed or token is missing or invalid
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:
@@ -455,40 +326,28 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse_2'
   schemas:
-    PaginationMeta:
+    ErrorResponse:
       type: object
-      description: Pagination metadata
+      description: Standard Ghost API error response
       properties:
-        pagination:
-          type: object
-          properties:
-            page:
-              type: integer
-              description: Current page
-              minimum: 1
-            limit:
-              type: integer
-              description: Items per page
-              minimum: 1
-            pages:
-              type: integer
-              description: Total pages
-              minimum: 1
-            total:
-              type: integer
-              description: Total items
-              minimum: 0
-            next:
-              type: integer
-              description: Next page number
-              nullable: true
-            prev:
-              type: integer
-              description: Previous page number
-              nullable: true
-    Tag:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional error context
+                nullable: true
+    User:
       type: object
-      description: A tag for organizing and categorizing content.
+      description: A staff user account in the Ghost publication.
       properties:
         id:
           type: string
@@ -496,51 +355,56 @@ components:
           description: Unique identifier
         name:
           type: string
-          description: Tag name
+          description: Display name
         slug:
           type: string
           description: URL-safe slug
-        description:
+        email:
           type: string
-          description: Tag description
-          nullable: true
-        feature_image:
+          format: email
+          description: Email address
+        profile_image:
           type: string
           format: uri
-          description: Featured image URL
+          description: Profile image URL
           nullable: true
-        visibility:
+        cover_image:
           type: string
-          description: Visibility setting
+          format: uri
+          description: Cover image URL
+          nullable: true
+        bio:
+          type: string
+          description: Biography
+          nullable: true
+        website:
+          type: string
+          format: uri
+          description: Personal website URL
+          nullable: true
+        location:
+          type: string
+          description: Location
+          nullable: true
+        facebook:
+          type: string
+          description: Facebook username
+          nullable: true
+        twitter:
+          type: string
+          description: Twitter handle
+          nullable: true
+        accessibility:
+          type: string
+          description: Accessibility settings JSON
+          nullable: true
+        status:
+          type: string
+          description: User account status
           enum:
-          - public
-          - internal
-        og_image:
-          type: string
-          format: uri
-          nullable: true
-          description: Open Graph image URL
-        og_title:
-          type: string
-          nullable: true
-          description: Open Graph title
-        og_description:
-          type: string
-          nullable: true
-          description: Open Graph description
-        twitter_image:
-          type: string
-          format: uri
-          nullable: true
-          description: Twitter card image URL
-        twitter_title:
-          type: string
-          nullable: true
-          description: Twitter card title
-        twitter_description:
-          type: string
-          nullable: true
-          description: Twitter card description
+          - active
+          - inactive
+          - locked
         meta_title:
           type: string
           nullable: true
@@ -549,32 +413,39 @@ components:
           type: string
           nullable: true
           description: SEO meta description
-        codeinjection_head:
+        tour:
           type: string
+          description: Onboarding tour progress JSON
           nullable: true
-          description: Code injection in the head
-        codeinjection_foot:
+        last_seen:
           type: string
+          format: date-time
+          description: Last login timestamp
           nullable: true
-          description: Code injection in the foot
-        canonical_url:
-          type: string
-          format: uri
-          nullable: true
-          description: Canonical URL
-        accent_color:
-          type: string
-          nullable: true
-          description: Accent color hex code
-          pattern: ^#[0-9a-fA-F]{6}$
         url:
           type: string
           format: uri
-          description: Full URL of the tag page
+          description: Full URL of the author page
+        roles:
+          type: array
+          description: Assigned roles
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+                description: Role identifier
+              name:
+                type: string
+                description: Role name
+              description:
+                type: string
+                description: Role description
         created_at:
           type: string
           format: date-time
-          description: Creation timestamp
+          description: Account creation timestamp
         updated_at:
           type: string
           format: date-time
@@ -720,9 +591,9 @@ components:
           type: string
           nullable: true
           description: SEO meta description
-    User:
+    Tag:
       type: object
-      description: A staff user account in the Ghost publication.
+      description: A tag for organizing and categorizing content.
       properties:
         id:
           type: string
@@ -730,56 +601,51 @@ components:
           description: Unique identifier
         name:
           type: string
-          description: Display name
+          description: Tag name
         slug:
           type: string
           description: URL-safe slug
-        email:
+        description:
           type: string
-          format: email
-          description: Email address
-        profile_image:
+          description: Tag description
+          nullable: true
+        feature_image:
           type: string
           format: uri
-          description: Profile image URL
+          description: Featured image URL
           nullable: true
-        cover_image:
+        visibility:
           type: string
-          format: uri
-          description: Cover image URL
-          nullable: true
-        bio:
-          type: string
-          description: Biography
-          nullable: true
-        website:
-          type: string
-          format: uri
-          description: Personal website URL
-          nullable: true
-        location:
-          type: string
-          description: Location
-          nullable: true
-        facebook:
-          type: string
-          description: Facebook username
-          nullable: true
-        twitter:
-          type: string
-          description: Twitter handle
-          nullable: true
-        accessibility:
-          type: string
-          description: Accessibility settings JSON
-          nullable: true
-        status:
-          type: string
-          description: User account status
+          description: Visibility setting
           enum:
-          - active
-          - inactive
-          - locked
+          - public
+          - internal
+        og_image:
+          type: string
+          format: uri
+          nullable: true
+          description: Open Graph image URL
+        og_title:
+          type: string
+          nullable: true
+          description: Open Graph title
+        og_description:
+          type: string
+          nullable: true
+          description: Open Graph description
+        twitter_image:
+          type: string
+          format: uri
+          nullable: true
+          description: Twitter card image URL
+        twitter_title:
+          type: string
+          nullable: true
+          description: Twitter card title
+        twitter_description:
+          type: string
+          nullable: true
+          description: Twitter card description
         meta_title:
           type: string
           nullable: true
@@ -788,62 +654,67 @@ components:
           type: string
           nullable: true
           description: SEO meta description
-        tour:
+        codeinjection_head:
           type: string
-          description: Onboarding tour progress JSON
           nullable: true
-        last_seen:
+          description: Code injection in the head
+        codeinjection_foot:
           type: string
-          format: date-time
-          description: Last login timestamp
           nullable: true
+          description: Code injection in the foot
+        canonical_url:
+          type: string
+          format: uri
+          nullable: true
+          description: Canonical URL
+        accent_color:
+          type: string
+          nullable: true
+          description: Accent color hex code
+          pattern: ^#[0-9a-fA-F]{6}$
         url:
           type: string
           format: uri
-          description: Full URL of the author page
-        roles:
-          type: array
-          description: Assigned roles
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                format: uuid
-                description: Role identifier
-              name:
-                type: string
-                description: Role name
-              description:
-                type: string
-                description: Role description
+          description: Full URL of the tag page
         created_at:
           type: string
           format: date-time
-          description: Account creation timestamp
+          description: Creation timestamp
         updated_at:
           type: string
           format: date-time
           description: Last update timestamp
-    ErrorResponse:
+    PaginationMeta:
       type: object
-      description: Standard Ghost API error response
+      description: Pagination metadata
       properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Human-readable error message
-              type:
-                type: string
-                description: Error type identifier
-              context:
-                type: string
-                description: Additional error context
-                nullable: true
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+              description: Current page
+              minimum: 1
+            limit:
+              type: integer
+              description: Items per page
+              minimum: 1
+            pages:
+              type: integer
+              description: Total pages
+              minimum: 1
+            total:
+              type: integer
+              description: Total items
+              minimum: 0
+            next:
+              type: integer
+              description: Next page number
+              nullable: true
+            prev:
+              type: integer
+              description: Previous page number
+              nullable: true
     Post:
       type: object
       description: A post or page resource with all content, metadata, and relationships.
@@ -1023,6 +894,30 @@ components:
               type: integer
               description: Number of email opens
               minimum: 0
+    ErrorResponse_2:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional context about the error
+                nullable: true
+    Page:
+      type: object
+      description: A page represents static content in a Ghost publication, sharing the same structure as a post but used for standalone pages.
+      allOf:
+      - $ref: '#/components/schemas/Post_2'
     PaginationMeta_2:
       type: object
       description: Pagination metadata included in browse responses
@@ -1054,6 +949,71 @@ components:
               type: integer
               description: Previous page number, null if on first page
               nullable: true
+    Author:
+      type: object
+      description: An author represents a staff user who creates content in a Ghost publication.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the author
+        name:
+          type: string
+          description: Display name of the author
+        slug:
+          type: string
+          description: URL-safe slug for the author
+        profile_image:
+          type: string
+          format: uri
+          description: Profile image URL
+          nullable: true
+        cover_image:
+          type: string
+          format: uri
+          description: Cover image URL for the author page
+          nullable: true
+        bio:
+          type: string
+          description: Author biography
+          nullable: true
+        website:
+          type: string
+          format: uri
+          description: Author personal website URL
+          nullable: true
+        location:
+          type: string
+          description: Author location
+          nullable: true
+        facebook:
+          type: string
+          description: Facebook username
+          nullable: true
+        twitter:
+          type: string
+          description: Twitter handle
+          nullable: true
+        meta_title:
+          type: string
+          description: SEO meta title for the author page
+          nullable: true
+        meta_description:
+          type: string
+          description: SEO meta description for the author page
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: Full URL of the author page
+        count:
+          type: object
+          description: Count data, included when requested via include=count.posts
+          properties:
+            posts:
+              type: integer
+              description: Number of posts by this author
+              minimum: 0
     Tag_2:
       type: object
       description: A tag is used to organize and categorize content in Ghost. Tags with slugs starting with hash are internal tags not visible to readers.
@@ -1147,95 +1107,6 @@ components:
               type: integer
               description: Number of posts with this tag
               minimum: 0
-    Author:
-      type: object
-      description: An author represents a staff user who creates content in a Ghost publication.
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique identifier for the author
-        name:
-          type: string
-          description: Display name of the author
-        slug:
-          type: string
-          description: URL-safe slug for the author
-        profile_image:
-          type: string
-          format: uri
-          description: Profile image URL
-          nullable: true
-        cover_image:
-          type: string
-          format: uri
-          description: Cover image URL for the author page
-          nullable: true
-        bio:
-          type: string
-          description: Author biography
-          nullable: true
-        website:
-          type: string
-          format: uri
-          description: Author personal website URL
-          nullable: true
-        location:
-          type: string
-          description: Author location
-          nullable: true
-        facebook:
-          type: string
-          description: Facebook username
-          nullable: true
-        twitter:
-          type: string
-          description: Twitter handle
-          nullable: true
-        meta_title:
-          type: string
-          description: SEO meta title for the author page
-          nullable: true
-        meta_description:
-          type: string
-          description: SEO meta description for the author page
-          nullable: true
-        url:
-          type: string
-          format: uri
-          description: Full URL of the author page
-        count:
-          type: object
-          description: Count data, included when requested via include=count.posts
-          properties:
-            posts:
-              type: integer
-              description: Number of posts by this author
-              minimum: 0
-    Page:
-      type: object
-      description: A page represents static content in a Ghost publication, sharing the same structure as a post but used for standalone pages.
-      allOf:
-      - $ref: '#/components/schemas/Post_2'
-    ErrorResponse_2:
-      type: object
-      description: Standard Ghost API error response
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Human-readable error message
-              type:
-                type: string
-                description: Error type identifier
-              context:
-                type: string
-                description: Additional context about the error
-                nullable: true
     Post_2:
       type: object
       description: A post represents a piece of published content in a Ghost publication.
@@ -1394,6 +1265,135 @@ components:
           description: Primary tag of the post, included when tags are requested
           $ref: '#/components/schemas/Tag_2'
           nullable: true
+  parameters:
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: Apply fine-grained filters using Ghost's NQL query language.
+      schema:
+        type: string
+    resourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource
+      schema:
+        type: string
+        format: uuid
+    order:
+      name: order
+      in: query
+      required: false
+      description: Field and direction to order results by.
+      schema:
+        type: string
+    includePostRelations:
+      name: include
+      in: query
+      required: false
+      description: Comma-separated list of related resources to include. Supported values are authors and tags.
+      schema:
+        type: string
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response.
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return per page. Defaults to 15.
+      schema:
+        oneOf:
+        - type: integer
+          minimum: 1
+        - type: string
+          enum:
+          - all
+        default: 15
+    formats:
+      name: formats
+      in: query
+      required: false
+      description: Comma-separated list of content formats to include in the response.
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      required: false
+      description: Page number for paginated results. Defaults to 1.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    filter_2:
+      name: filter
+      in: query
+      required: false
+      description: Apply fine-grained filters using Ghost's NQL query language. Examples include featured:true, tag:getting-started, visibility:public, and combinations using plus and comma operators.
+      schema:
+        type: string
+    resourceSlug:
+      name: slug
+      in: path
+      required: true
+      description: The URL slug of the resource
+      schema:
+        type: string
+    order_2:
+      name: order
+      in: query
+      required: false
+      description: Field and direction to order results by, for example published_at DESC or title ASC.
+      schema:
+        type: string
+    limit_2:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return per page. Defaults to 15. Use all to return all resources without pagination.
+      schema:
+        oneOf:
+        - type: integer
+          minimum: 1
+        - type: string
+          enum:
+          - all
+        default: 15
+    fields_2:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need.
+      schema:
+        type: string
+    includePostRelations_2:
+      name: include
+      in: query
+      required: false
+      description: Comma-separated list of related resources to include. Supported values are authors and tags.
+      schema:
+        type: string
+        enum:
+        - authors
+        - tags
+        - authors,tags
+    formats_2:
+      name: formats
+      in: query
+      required: false
+      description: Comma-separated list of content formats to include. By default only html is returned. Use formats=html,plaintext to also include plaintext.
+      schema:
+        type: string
+        enum:
+        - html
+        - plaintext
+        - html,plaintext
   securitySchemes:
     adminApiToken:
       type: http

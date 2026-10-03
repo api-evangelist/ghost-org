@@ -289,14 +289,14 @@ paths:
           description: Your Ghost instance domain and port
 components:
   responses:
-    NotFound:
-      description: The requested resource was not found
+    Unauthorized:
+      description: Authentication failed or token is missing or invalid
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication failed or token is missing or invalid
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:
@@ -314,6 +314,65 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse_2'
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional error context
+                nullable: true
+    TagInput:
+      type: object
+      description: Input fields for creating or updating a tag.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Tag name, prefix with hash for internal tags
+        slug:
+          type: string
+          description: Custom URL slug
+        description:
+          type: string
+          description: Tag description
+          nullable: true
+        feature_image:
+          type: string
+          format: uri
+          description: Featured image URL
+          nullable: true
+        visibility:
+          type: string
+          description: Visibility setting
+          enum:
+          - public
+          - internal
+        meta_title:
+          type: string
+          nullable: true
+          description: SEO meta title
+        meta_description:
+          type: string
+          nullable: true
+          description: SEO meta description
+        accent_color:
+          type: string
+          nullable: true
+          description: Accent color hex code
+          pattern: ^#[0-9a-fA-F]{6}$
     PaginationMeta:
       type: object
       description: Pagination metadata
@@ -438,47 +497,7 @@ components:
           type: string
           format: date-time
           description: Last update timestamp
-    TagInput:
-      type: object
-      description: Input fields for creating or updating a tag.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Tag name, prefix with hash for internal tags
-        slug:
-          type: string
-          description: Custom URL slug
-        description:
-          type: string
-          description: Tag description
-          nullable: true
-        feature_image:
-          type: string
-          format: uri
-          description: Featured image URL
-          nullable: true
-        visibility:
-          type: string
-          description: Visibility setting
-          enum:
-          - public
-          - internal
-        meta_title:
-          type: string
-          nullable: true
-          description: SEO meta title
-        meta_description:
-          type: string
-          nullable: true
-          description: SEO meta description
-        accent_color:
-          type: string
-          nullable: true
-          description: Accent color hex code
-          pattern: ^#[0-9a-fA-F]{6}$
-    ErrorResponse:
+    ErrorResponse_2:
       type: object
       description: Standard Ghost API error response
       properties:
@@ -495,39 +514,8 @@ components:
                 description: Error type identifier
               context:
                 type: string
-                description: Additional error context
+                description: Additional context about the error
                 nullable: true
-    PaginationMeta_2:
-      type: object
-      description: Pagination metadata included in browse responses
-      properties:
-        pagination:
-          type: object
-          properties:
-            page:
-              type: integer
-              description: Current page number
-              minimum: 1
-            limit:
-              type: integer
-              description: Number of items per page
-              minimum: 1
-            pages:
-              type: integer
-              description: Total number of pages
-              minimum: 1
-            total:
-              type: integer
-              description: Total number of items across all pages
-              minimum: 0
-            next:
-              type: integer
-              description: Next page number, null if on last page
-              nullable: true
-            prev:
-              type: integer
-              description: Previous page number, null if on first page
-              nullable: true
     Tag_2:
       type: object
       description: A tag is used to organize and categorize content in Ghost. Tags with slugs starting with hash are internal tags not visible to readers.
@@ -621,26 +609,45 @@ components:
               type: integer
               description: Number of posts with this tag
               minimum: 0
-    ErrorResponse_2:
+    PaginationMeta_2:
       type: object
-      description: Standard Ghost API error response
+      description: Pagination metadata included in browse responses
       properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Human-readable error message
-              type:
-                type: string
-                description: Error type identifier
-              context:
-                type: string
-                description: Additional context about the error
-                nullable: true
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+              description: Current page number
+              minimum: 1
+            limit:
+              type: integer
+              description: Number of items per page
+              minimum: 1
+            pages:
+              type: integer
+              description: Total number of pages
+              minimum: 1
+            total:
+              type: integer
+              description: Total number of items across all pages
+              minimum: 0
+            next:
+              type: integer
+              description: Next page number, null if on last page
+              nullable: true
+            prev:
+              type: integer
+              description: Previous page number, null if on first page
+              nullable: true
   parameters:
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: Apply fine-grained filters using Ghost's NQL query language.
+      schema:
+        type: string
     resourceId:
       name: id
       in: path
@@ -649,15 +656,13 @@ components:
       schema:
         type: string
         format: uuid
-    page:
-      name: page
+    order:
+      name: order
       in: query
       required: false
-      description: Page number for paginated results. Defaults to 1.
+      description: Field and direction to order results by.
       schema:
-        type: integer
-        minimum: 1
-        default: 1
+        type: string
     limit:
       name: limit
       in: query
@@ -678,25 +683,43 @@ components:
       description: Comma-separated list of fields to return in the response.
       schema:
         type: string
-    order:
-      name: order
+    page:
+      name: page
       in: query
       required: false
-      description: Field and direction to order results by.
+      description: Page number for paginated results. Defaults to 1.
       schema:
-        type: string
-    filter:
-      name: filter
+        type: integer
+        minimum: 1
+        default: 1
+    includeTagRelations:
+      name: include
       in: query
       required: false
-      description: Apply fine-grained filters using Ghost's NQL query language.
+      description: Include a count of posts associated with each tag.
       schema:
         type: string
+        enum:
+        - count.posts
     filter_2:
       name: filter
       in: query
       required: false
       description: Apply fine-grained filters using Ghost's NQL query language. Examples include featured:true, tag:getting-started, visibility:public, and combinations using plus and comma operators.
+      schema:
+        type: string
+    resourceSlug:
+      name: slug
+      in: path
+      required: true
+      description: The URL slug of the resource
+      schema:
+        type: string
+    order_2:
+      name: order
+      in: query
+      required: false
+      description: Field and direction to order results by, for example published_at DESC or title ASC.
       schema:
         type: string
     limit_2:
@@ -712,34 +735,11 @@ components:
           enum:
           - all
         default: 15
-    includeTagRelations:
-      name: include
-      in: query
-      required: false
-      description: Include a count of posts associated with each tag.
-      schema:
-        type: string
-        enum:
-        - count.posts
     fields_2:
       name: fields
       in: query
       required: false
       description: Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need.
-      schema:
-        type: string
-    resourceSlug:
-      name: slug
-      in: path
-      required: true
-      description: The URL slug of the resource
-      schema:
-        type: string
-    order_2:
-      name: order
-      in: query
-      required: false
-      description: Field and direction to order results by, for example published_at DESC or title ASC.
       schema:
         type: string
   securitySchemes:

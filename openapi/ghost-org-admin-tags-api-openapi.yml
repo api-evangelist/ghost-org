@@ -83,14 +83,6 @@ paths:
           description: The tag was deleted.
 components:
   parameters:
-    Page:
-      name: page
-      in: query
-      required: false
-      description: Page number of results to return.
-      schema:
-        type: integer
-        default: 1
     Limit:
       name: limit
       in: query
@@ -99,13 +91,14 @@ components:
       schema:
         type: string
         default: '15'
-    PathId:
-      name: id
-      in: path
-      required: true
-      description: The resource ID.
+    Page:
+      name: page
+      in: query
+      required: false
+      description: Page number of results to return.
       schema:
-        type: string
+        type: integer
+        default: 1
     AcceptVersion:
       name: Accept-Version
       in: header
@@ -114,6 +107,13 @@ components:
       schema:
         type: string
         example: v5.0
+    PathId:
+      name: id
+      in: path
+      required: true
+      description: The resource ID.
+      schema:
+        type: string
   schemas:
     TagsRequest:
       type: object

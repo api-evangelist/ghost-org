@@ -38,6 +38,13 @@ paths:
           description: A list of public tiers with pricing.
 components:
   parameters:
+    Include:
+      name: include
+      in: query
+      required: false
+      description: Comma-separated related data to include (for example authors,tags).
+      schema:
+        type: string
     ContentKey:
       name: key
       in: query
@@ -50,13 +57,6 @@ components:
       in: query
       required: false
       description: Ghost NQL filter expression.
-      schema:
-        type: string
-    Include:
-      name: include
-      in: query
-      required: false
-      description: Comma-separated related data to include (for example authors,tags).
       schema:
         type: string
   securitySchemes:

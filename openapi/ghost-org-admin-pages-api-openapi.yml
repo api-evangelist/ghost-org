@@ -104,6 +104,14 @@ components:
       description: Ghost NQL filter expression.
       schema:
         type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Number of records per page (default 15, or 'all').
+      schema:
+        type: string
+        default: '15'
     Page:
       name: page
       in: query
@@ -112,6 +120,21 @@ components:
       schema:
         type: integer
         default: 1
+    AcceptVersion:
+      name: Accept-Version
+      in: header
+      required: false
+      description: Minimum compatible API version, for example v5.0.
+      schema:
+        type: string
+        example: v5.0
+    PathId:
+      name: id
+      in: path
+      required: true
+      description: The resource ID.
+      schema:
+        type: string
     Source:
       name: source
       in: query
@@ -121,29 +144,6 @@ components:
         type: string
         enum:
         - html
-    Limit:
-      name: limit
-      in: query
-      required: false
-      description: Number of records per page (default 15, or 'all').
-      schema:
-        type: string
-        default: '15'
-    PathId:
-      name: id
-      in: path
-      required: true
-      description: The resource ID.
-      schema:
-        type: string
-    AcceptVersion:
-      name: Accept-Version
-      in: header
-      required: false
-      description: Minimum compatible API version, for example v5.0.
-      schema:
-        type: string
-        example: v5.0
   schemas:
     PagesRequest:
       type: object
