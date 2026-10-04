@@ -223,14 +223,14 @@ paths:
           description: Your Ghost instance domain and port
 components:
   responses:
-    Unauthorized:
-      description: Authentication failed or token is missing or invalid
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
+    Unauthorized:
+      description: Authentication failed or token is missing or invalid
       content:
         application/json:
           schema:
@@ -247,7 +247,165 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse_2'
+  parameters:
+    resourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource
+      schema:
+        type: string
+        format: uuid
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response.
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      required: false
+      description: Page number for paginated results. Defaults to 1.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: Apply fine-grained filters using Ghost's NQL query language.
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return per page. Defaults to 15.
+      schema:
+        oneOf:
+        - type: integer
+          minimum: 1
+        - type: string
+          enum:
+          - all
+        default: 15
+    order:
+      name: order
+      in: query
+      required: false
+      description: Field and direction to order results by, for example published_at DESC or title ASC.
+      schema:
+        type: string
+    fields_2:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need.
+      schema:
+        type: string
+    filter_2:
+      name: filter
+      in: query
+      required: false
+      description: Apply fine-grained filters using Ghost's NQL query language. Examples include featured:true, tag:getting-started, visibility:public, and combinations using plus and comma operators.
+      schema:
+        type: string
+    limit_2:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return per page. Defaults to 15. Use all to return all resources without pagination.
+      schema:
+        oneOf:
+        - type: integer
+          minimum: 1
+        - type: string
+          enum:
+          - all
+        default: 15
   schemas:
+    TierInput:
+      type: object
+      description: Input fields for creating or updating a tier.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Tier name
+        description:
+          type: string
+          description: Tier description
+          nullable: true
+        active:
+          type: boolean
+          description: Whether the tier is active
+        visibility:
+          type: string
+          description: Public visibility
+          enum:
+          - public
+          - none
+        welcome_page_url:
+          type: string
+          format: uri
+          description: Welcome page URL
+          nullable: true
+        monthly_price:
+          type: integer
+          description: Monthly price in smallest currency unit
+          minimum: 0
+        yearly_price:
+          type: integer
+          description: Yearly price in smallest currency unit
+          minimum: 0
+        currency:
+          type: string
+          description: ISO 4217 currency code
+          pattern: ^[A-Z]{3}$
+        trial_days:
+          type: integer
+          description: Number of free trial days
+          minimum: 0
+        benefits:
+          type: array
+          description: Tier benefits
+          items:
+            type: string
+    PaginationMeta:
+      type: object
+      description: Pagination metadata
+      properties:
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+              description: Current page
+              minimum: 1
+            limit:
+              type: integer
+              description: Items per page
+              minimum: 1
+            pages:
+              type: integer
+              description: Total pages
+              minimum: 1
+            total:
+              type: integer
+              description: Total items
+              minimum: 0
+            next:
+              type: integer
+              description: Next page number
+              nullable: true
+            prev:
+              type: integer
+              description: Previous page number
+              nullable: true
     ErrorResponse:
       type: object
       description: Standard Ghost API error response
@@ -337,85 +495,37 @@ components:
           type: string
           format: date-time
           description: Last update timestamp
-    PaginationMeta:
+    PaginationMeta_2:
       type: object
-      description: Pagination metadata
+      description: Pagination metadata included in browse responses
       properties:
         pagination:
           type: object
           properties:
             page:
               type: integer
-              description: Current page
+              description: Current page number
               minimum: 1
             limit:
               type: integer
-              description: Items per page
+              description: Number of items per page
               minimum: 1
             pages:
               type: integer
-              description: Total pages
+              description: Total number of pages
               minimum: 1
             total:
               type: integer
-              description: Total items
+              description: Total number of items across all pages
               minimum: 0
             next:
               type: integer
-              description: Next page number
+              description: Next page number, null if on last page
               nullable: true
             prev:
               type: integer
-              description: Previous page number
+              description: Previous page number, null if on first page
               nullable: true
-    TierInput:
-      type: object
-      description: Input fields for creating or updating a tier.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Tier name
-        description:
-          type: string
-          description: Tier description
-          nullable: true
-        active:
-          type: boolean
-          description: Whether the tier is active
-        visibility:
-          type: string
-          description: Public visibility
-          enum:
-          - public
-          - none
-        welcome_page_url:
-          type: string
-          format: uri
-          description: Welcome page URL
-          nullable: true
-        monthly_price:
-          type: integer
-          description: Monthly price in smallest currency unit
-          minimum: 0
-        yearly_price:
-          type: integer
-          description: Yearly price in smallest currency unit
-          minimum: 0
-        currency:
-          type: string
-          description: ISO 4217 currency code
-          pattern: ^[A-Z]{3}$
-        trial_days:
-          type: integer
-          description: Number of free trial days
-          minimum: 0
-        benefits:
-          type: array
-          description: Tier benefits
-          items:
-            type: string
     ErrorResponse_2:
       type: object
       description: Standard Ghost API error response
@@ -505,116 +615,6 @@ components:
           description: List of benefits included in the tier
           items:
             type: string
-    PaginationMeta_2:
-      type: object
-      description: Pagination metadata included in browse responses
-      properties:
-        pagination:
-          type: object
-          properties:
-            page:
-              type: integer
-              description: Current page number
-              minimum: 1
-            limit:
-              type: integer
-              description: Number of items per page
-              minimum: 1
-            pages:
-              type: integer
-              description: Total number of pages
-              minimum: 1
-            total:
-              type: integer
-              description: Total number of items across all pages
-              minimum: 0
-            next:
-              type: integer
-              description: Next page number, null if on last page
-              nullable: true
-            prev:
-              type: integer
-              description: Previous page number, null if on first page
-              nullable: true
-  parameters:
-    filter:
-      name: filter
-      in: query
-      required: false
-      description: Apply fine-grained filters using Ghost's NQL query language.
-      schema:
-        type: string
-    resourceId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the resource
-      schema:
-        type: string
-        format: uuid
-    limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of resources to return per page. Defaults to 15.
-      schema:
-        oneOf:
-        - type: integer
-          minimum: 1
-        - type: string
-          enum:
-          - all
-        default: 15
-    fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return in the response.
-      schema:
-        type: string
-    page:
-      name: page
-      in: query
-      required: false
-      description: Page number for paginated results. Defaults to 1.
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    filter_2:
-      name: filter
-      in: query
-      required: false
-      description: Apply fine-grained filters using Ghost's NQL query language. Examples include featured:true, tag:getting-started, visibility:public, and combinations using plus and comma operators.
-      schema:
-        type: string
-    order:
-      name: order
-      in: query
-      required: false
-      description: Field and direction to order results by, for example published_at DESC or title ASC.
-      schema:
-        type: string
-    limit_2:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of resources to return per page. Defaults to 15. Use all to return all resources without pagination.
-      schema:
-        oneOf:
-        - type: integer
-          minimum: 1
-        - type: string
-          enum:
-          - all
-        default: 15
-    fields_2:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need.
-      schema:
-        type: string
   securitySchemes:
     adminApiToken:
       type: http

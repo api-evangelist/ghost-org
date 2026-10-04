@@ -183,14 +183,14 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    Unauthorized:
-      description: Authentication failed or token is missing or invalid
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
+    Unauthorized:
+      description: Authentication failed or token is missing or invalid
       content:
         application/json:
           schema:
@@ -201,26 +201,146 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    resourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource
+      schema:
+        type: string
+        format: uuid
+    order:
+      name: order
+      in: query
+      required: false
+      description: Field and direction to order results by.
+      schema:
+        type: string
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response.
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      required: false
+      description: Page number for paginated results. Defaults to 1.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: Apply fine-grained filters using Ghost's NQL query language.
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return per page. Defaults to 15.
+      schema:
+        oneOf:
+        - type: integer
+          minimum: 1
+        - type: string
+          enum:
+          - all
+        default: 15
   schemas:
-    ErrorResponse:
+    Member:
       type: object
-      description: Standard Ghost API error response
+      description: A member represents a person who has signed up for the publication, either as a free or paid subscriber.
       properties:
-        errors:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        uuid:
+          type: string
+          format: uuid
+          description: Universally unique identifier
+        email:
+          type: string
+          format: email
+          description: Member email address
+        name:
+          type: string
+          description: Member display name
+          nullable: true
+        note:
+          type: string
+          description: Internal note about the member
+          nullable: true
+        geolocation:
+          type: string
+          description: Geolocation data from signup
+          nullable: true
+        status:
+          type: string
+          description: Member status based on subscription state
+          enum:
+          - free
+          - paid
+          - comped
+        labels:
           type: array
+          description: Labels applied to the member
+          items:
+            $ref: '#/components/schemas/Label'
+        subscriptions:
+          type: array
+          description: Paid subscriptions associated with the member
+          items:
+            $ref: '#/components/schemas/Subscription'
+        newsletters:
+          type: array
+          description: Newsletters the member is subscribed to
           items:
             type: object
             properties:
-              message:
+              id:
                 type: string
-                description: Human-readable error message
-              type:
+                format: uuid
+                description: Newsletter identifier
+              name:
                 type: string
-                description: Error type identifier
-              context:
+                description: Newsletter name
+              status:
                 type: string
-                description: Additional error context
-                nullable: true
+                description: Subscription status
+        avatar_image:
+          type: string
+          format: uri
+          description: Gravatar URL for the member
+        email_count:
+          type: integer
+          description: Number of emails sent to this member
+          minimum: 0
+        email_opened_count:
+          type: integer
+          description: Number of emails opened by this member
+          minimum: 0
+        email_open_rate:
+          type: number
+          description: Email open rate percentage
+          nullable: true
+          minimum: 0
+          maximum: 100
+        created_at:
+          type: string
+          format: date-time
+          description: Signup timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
     MemberInput:
       type: object
       description: Input fields for creating or updating a member.
@@ -259,6 +379,25 @@ components:
                 type: string
                 format: uuid
                 description: Newsletter identifier
+    ErrorResponse:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional error context
+                nullable: true
     Subscription:
       type: object
       description: A paid subscription associated with a member, typically managed through Stripe.
@@ -465,145 +604,6 @@ components:
           type: string
           format: date-time
           description: Last update timestamp
-    Member:
-      type: object
-      description: A member represents a person who has signed up for the publication, either as a free or paid subscriber.
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique identifier
-        uuid:
-          type: string
-          format: uuid
-          description: Universally unique identifier
-        email:
-          type: string
-          format: email
-          description: Member email address
-        name:
-          type: string
-          description: Member display name
-          nullable: true
-        note:
-          type: string
-          description: Internal note about the member
-          nullable: true
-        geolocation:
-          type: string
-          description: Geolocation data from signup
-          nullable: true
-        status:
-          type: string
-          description: Member status based on subscription state
-          enum:
-          - free
-          - paid
-          - comped
-        labels:
-          type: array
-          description: Labels applied to the member
-          items:
-            $ref: '#/components/schemas/Label'
-        subscriptions:
-          type: array
-          description: Paid subscriptions associated with the member
-          items:
-            $ref: '#/components/schemas/Subscription'
-        newsletters:
-          type: array
-          description: Newsletters the member is subscribed to
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                format: uuid
-                description: Newsletter identifier
-              name:
-                type: string
-                description: Newsletter name
-              status:
-                type: string
-                description: Subscription status
-        avatar_image:
-          type: string
-          format: uri
-          description: Gravatar URL for the member
-        email_count:
-          type: integer
-          description: Number of emails sent to this member
-          minimum: 0
-        email_opened_count:
-          type: integer
-          description: Number of emails opened by this member
-          minimum: 0
-        email_open_rate:
-          type: number
-          description: Email open rate percentage
-          nullable: true
-          minimum: 0
-          maximum: 100
-        created_at:
-          type: string
-          format: date-time
-          description: Signup timestamp
-        updated_at:
-          type: string
-          format: date-time
-          description: Last update timestamp
-  parameters:
-    filter:
-      name: filter
-      in: query
-      required: false
-      description: Apply fine-grained filters using Ghost's NQL query language.
-      schema:
-        type: string
-    resourceId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the resource
-      schema:
-        type: string
-        format: uuid
-    order:
-      name: order
-      in: query
-      required: false
-      description: Field and direction to order results by.
-      schema:
-        type: string
-    limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of resources to return per page. Defaults to 15.
-      schema:
-        oneOf:
-        - type: integer
-          minimum: 1
-        - type: string
-          enum:
-          - all
-        default: 15
-    fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return in the response.
-      schema:
-        type: string
-    page:
-      name: page
-      in: query
-      required: false
-      description: Page number for paginated results. Defaults to 1.
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
   securitySchemes:
     adminApiToken:
       type: http

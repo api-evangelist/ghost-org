@@ -75,13 +75,6 @@ components:
       description: The resource slug.
       schema:
         type: string
-    PathId:
-      name: id
-      in: path
-      required: true
-      description: The resource ID.
-      schema:
-        type: string
     AcceptVersion:
       name: Accept-Version
       in: header
@@ -90,6 +83,13 @@ components:
       schema:
         type: string
         example: v5.0
+    PathId:
+      name: id
+      in: path
+      required: true
+      description: The resource ID.
+      schema:
+        type: string
   securitySchemes:
     contentApiKey:
       type: apiKey

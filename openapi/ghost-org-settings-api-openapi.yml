@@ -51,46 +51,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication failed or API key is missing
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ErrorResponse:
-      type: object
-      description: Standard Ghost API error response
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Human-readable error message
-              type:
-                type: string
-                description: Error type identifier
-              context:
-                type: string
-                description: Additional context about the error
-                nullable: true
-    NavigationItem:
-      type: object
-      description: A navigation menu item with a label and URL
-      properties:
-        label:
-          type: string
-          description: Display label for the navigation item
-        url:
-          type: string
-          description: URL the navigation item links to
-      required:
-      - label
-      - url
     Settings:
       type: object
       description: Global publication settings including identity, branding, navigation, and configuration.
@@ -195,6 +156,45 @@ components:
           type: string
           format: uri
           description: Site URL
+    NavigationItem:
+      type: object
+      description: A navigation menu item with a label and URL
+      properties:
+        label:
+          type: string
+          description: Display label for the navigation item
+        url:
+          type: string
+          description: URL the navigation item links to
+      required:
+      - label
+      - url
+    ErrorResponse:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional context about the error
+                nullable: true
+  responses:
+    Unauthorized:
+      description: Authentication failed or API key is missing
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     contentApiKey:
       type: apiKey

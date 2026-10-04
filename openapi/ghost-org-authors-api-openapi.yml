@@ -121,69 +121,19 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    Unauthorized:
-      description: Authentication failed or API key is missing
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: The requested resource was not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication failed or API key is missing
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ErrorResponse:
-      type: object
-      description: Standard Ghost API error response
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Human-readable error message
-              type:
-                type: string
-                description: Error type identifier
-              context:
-                type: string
-                description: Additional context about the error
-                nullable: true
-    PaginationMeta:
-      type: object
-      description: Pagination metadata included in browse responses
-      properties:
-        pagination:
-          type: object
-          properties:
-            page:
-              type: integer
-              description: Current page number
-              minimum: 1
-            limit:
-              type: integer
-              description: Number of items per page
-              minimum: 1
-            pages:
-              type: integer
-              description: Total number of pages
-              minimum: 1
-            total:
-              type: integer
-              description: Total number of items across all pages
-              minimum: 0
-            next:
-              type: integer
-              description: Next page number, null if on last page
-              nullable: true
-            prev:
-              type: integer
-              description: Previous page number, null if on first page
-              nullable: true
     Author:
       type: object
       description: An author represents a staff user who creates content in a Ghost publication.
@@ -249,21 +199,57 @@ components:
               type: integer
               description: Number of posts by this author
               minimum: 0
+    ErrorResponse:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional context about the error
+                nullable: true
+    PaginationMeta:
+      type: object
+      description: Pagination metadata included in browse responses
+      properties:
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+              description: Current page number
+              minimum: 1
+            limit:
+              type: integer
+              description: Number of items per page
+              minimum: 1
+            pages:
+              type: integer
+              description: Total number of pages
+              minimum: 1
+            total:
+              type: integer
+              description: Total number of items across all pages
+              minimum: 0
+            next:
+              type: integer
+              description: Next page number, null if on last page
+              nullable: true
+            prev:
+              type: integer
+              description: Previous page number, null if on first page
+              nullable: true
   parameters:
-    filter:
-      name: filter
-      in: query
-      required: false
-      description: Apply fine-grained filters using Ghost's NQL query language. Examples include featured:true, tag:getting-started, visibility:public, and combinations using plus and comma operators.
-      schema:
-        type: string
-    resourceSlug:
-      name: slug
-      in: path
-      required: true
-      description: The URL slug of the resource
-      schema:
-        type: string
     resourceId:
       name: id
       in: path
@@ -272,6 +258,13 @@ components:
       schema:
         type: string
         format: uuid
+    resourceSlug:
+      name: slug
+      in: path
+      required: true
+      description: The URL slug of the resource
+      schema:
+        type: string
     order:
       name: order
       in: query
@@ -279,19 +272,6 @@ components:
       description: Field and direction to order results by, for example published_at DESC or title ASC.
       schema:
         type: string
-    limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of resources to return per page. Defaults to 15. Use all to return all resources without pagination.
-      schema:
-        oneOf:
-        - type: integer
-          minimum: 1
-        - type: string
-          enum:
-          - all
-        default: 15
     fields:
       name: fields
       in: query
@@ -317,6 +297,26 @@ components:
         type: string
         enum:
         - count.posts
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: Apply fine-grained filters using Ghost's NQL query language. Examples include featured:true, tag:getting-started, visibility:public, and combinations using plus and comma operators.
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return per page. Defaults to 15. Use all to return all resources without pagination.
+      schema:
+        oneOf:
+        - type: integer
+          minimum: 1
+        - type: string
+          enum:
+          - all
+        default: 15
   securitySchemes:
     contentApiKey:
       type: apiKey

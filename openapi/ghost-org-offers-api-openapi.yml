@@ -167,14 +167,14 @@ paths:
           $ref: '#/components/responses/ValidationError'
 components:
   responses:
-    Unauthorized:
-      description: Authentication failed or token is missing or invalid
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
+    Unauthorized:
+      description: Authentication failed or token is missing or invalid
       content:
         application/json:
           schema:
@@ -185,7 +185,131 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    resourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource
+      schema:
+        type: string
+        format: uuid
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response.
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      required: false
+      description: Page number for paginated results. Defaults to 1.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: Apply fine-grained filters using Ghost's NQL query language.
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return per page. Defaults to 15.
+      schema:
+        oneOf:
+        - type: integer
+          minimum: 1
+        - type: string
+          enum:
+          - all
+        default: 15
   schemas:
+    Offer:
+      type: object
+      description: A promotional offer for a paid membership tier.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        name:
+          type: string
+          description: Internal name for the offer
+        code:
+          type: string
+          description: URL-safe code used in the offer link
+        display_title:
+          type: string
+          description: Public-facing title shown to visitors
+        display_description:
+          type: string
+          description: Public-facing description
+          nullable: true
+        type:
+          type: string
+          description: Discount type
+          enum:
+          - percent
+          - fixed
+          - trial
+        cadence:
+          type: string
+          description: Which billing cadence the offer applies to
+          enum:
+          - month
+          - year
+        amount:
+          type: integer
+          description: Discount amount. For percent type this is a percentage (1-100). For fixed type this is in the smallest currency unit. For trial type this is the number of days.
+          minimum: 0
+        duration:
+          type: string
+          description: How long the discount applies
+          enum:
+          - once
+          - repeating
+          - forever
+          - trial
+        duration_in_months:
+          type: integer
+          description: Number of months for repeating duration
+          nullable: true
+          minimum: 1
+        currency_restriction:
+          type: boolean
+          description: Whether the offer has a currency restriction
+        currency:
+          type: string
+          description: Currency for the offer
+          nullable: true
+          pattern: ^[A-Z]{3}$
+        status:
+          type: string
+          description: Offer status
+          enum:
+          - active
+          - archived
+        redemption_count:
+          type: integer
+          description: Number of times the offer has been redeemed
+          minimum: 0
+        tier:
+          $ref: '#/components/schemas/Tier'
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
     ErrorResponse:
       type: object
       description: Standard Ghost API error response
@@ -275,116 +399,6 @@ components:
           type: string
           format: date-time
           description: Last update timestamp
-    PaginationMeta:
-      type: object
-      description: Pagination metadata
-      properties:
-        pagination:
-          type: object
-          properties:
-            page:
-              type: integer
-              description: Current page
-              minimum: 1
-            limit:
-              type: integer
-              description: Items per page
-              minimum: 1
-            pages:
-              type: integer
-              description: Total pages
-              minimum: 1
-            total:
-              type: integer
-              description: Total items
-              minimum: 0
-            next:
-              type: integer
-              description: Next page number
-              nullable: true
-            prev:
-              type: integer
-              description: Previous page number
-              nullable: true
-    Offer:
-      type: object
-      description: A promotional offer for a paid membership tier.
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique identifier
-        name:
-          type: string
-          description: Internal name for the offer
-        code:
-          type: string
-          description: URL-safe code used in the offer link
-        display_title:
-          type: string
-          description: Public-facing title shown to visitors
-        display_description:
-          type: string
-          description: Public-facing description
-          nullable: true
-        type:
-          type: string
-          description: Discount type
-          enum:
-          - percent
-          - fixed
-          - trial
-        cadence:
-          type: string
-          description: Which billing cadence the offer applies to
-          enum:
-          - month
-          - year
-        amount:
-          type: integer
-          description: Discount amount. For percent type this is a percentage (1-100). For fixed type this is in the smallest currency unit. For trial type this is the number of days.
-          minimum: 0
-        duration:
-          type: string
-          description: How long the discount applies
-          enum:
-          - once
-          - repeating
-          - forever
-          - trial
-        duration_in_months:
-          type: integer
-          description: Number of months for repeating duration
-          nullable: true
-          minimum: 1
-        currency_restriction:
-          type: boolean
-          description: Whether the offer has a currency restriction
-        currency:
-          type: string
-          description: Currency for the offer
-          nullable: true
-          pattern: ^[A-Z]{3}$
-        status:
-          type: string
-          description: Offer status
-          enum:
-          - active
-          - archived
-        redemption_count:
-          type: integer
-          description: Number of times the offer has been redeemed
-          minimum: 0
-        tier:
-          $ref: '#/components/schemas/Tier'
-        created_at:
-          type: string
-          format: date-time
-          description: Creation timestamp
-        updated_at:
-          type: string
-          format: date-time
-          description: Last update timestamp
     OfferInput:
       type: object
       description: Input fields for creating or updating an offer.
@@ -462,51 +476,37 @@ components:
               type: string
               format: uuid
               description: Tier identifier
-  parameters:
-    filter:
-      name: filter
-      in: query
-      required: false
-      description: Apply fine-grained filters using Ghost's NQL query language.
-      schema:
-        type: string
-    resourceId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the resource
-      schema:
-        type: string
-        format: uuid
-    limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of resources to return per page. Defaults to 15.
-      schema:
-        oneOf:
-        - type: integer
-          minimum: 1
-        - type: string
-          enum:
-          - all
-        default: 15
-    fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return in the response.
-      schema:
-        type: string
-    page:
-      name: page
-      in: query
-      required: false
-      description: Page number for paginated results. Defaults to 1.
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
+    PaginationMeta:
+      type: object
+      description: Pagination metadata
+      properties:
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+              description: Current page
+              minimum: 1
+            limit:
+              type: integer
+              description: Items per page
+              minimum: 1
+            pages:
+              type: integer
+              description: Total pages
+              minimum: 1
+            total:
+              type: integer
+              description: Total items
+              minimum: 0
+            next:
+              type: integer
+              description: Next page number
+              nullable: true
+            prev:
+              type: integer
+              description: Previous page number
+              nullable: true
   securitySchemes:
     adminApiToken:
       type: http
