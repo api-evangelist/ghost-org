@@ -191,3 +191,56 @@ plans:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - subscription
+  units:
+  - negotiated
+  - period
+  - seat
+  plans:
+  - name: Open Source (Self-Hosted)
+    access: free
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Ghost(Pro) Starter
+    access: paid
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    - seat
+    periods:
+    - month
+  - name: Ghost(Pro) Publisher
+    access: paid
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    - seat
+    periods:
+    - month
+  - name: Ghost(Pro) Business
+    access: paid
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    - seat
+    periods:
+    - month
+  - name: Ghost(Pro) Enterprise / Custom
+    access: enterprise
+    model: subscription
+    model_how: derived
+    units:
+    - negotiated
+    periods:
+    - year
