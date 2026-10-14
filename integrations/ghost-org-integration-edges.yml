@@ -4,6 +4,7 @@ source:
 - https://zapier.com/apps/ghost/integrations
 checked:
 - https://composio.dev/toolkits/ghost-org
+- https://github.com/marketplace?type=actions
 - https://monid.ai/tools/ghost-org
 - https://n8n.io/integrations/ghost-org/
 - https://zapier.com/apps/ghost-org/integrations
@@ -372,6 +373,23 @@ edges:
   direction: third-party
   category: Forms & Surveys
   partner_url: https://try.tally.so/zapier
+- partner_name: GitHub Marketplace (actions)
+  partner: github-actions
+  partner_match: aggregator
+  type: marketplace
+  marketplace: github-actions
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://github.com/marketplace/actions/deploy-ghost-theme
+  listing_count: 1
+  apps:
+  - Deploy Ghost Theme
+  publisher_name: Ghost
+  badges:
+  - Verified creator
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
 templates:
 - title: Send welcome emails to new members in Ghost
   url: https://zapier.com/apps/email/integrations/ghost/1113434/send-welcome-emails-to-new-members-in-ghost
