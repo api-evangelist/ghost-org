@@ -430,3 +430,14 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: ghost-org-activitypub
+  label: ActivityPub
+  partner: activitypub
+  partner_name: ActivityPub
+  type: docs
+  channel: provider-built
+  evidence: https://ghost.org/help/social-web/
+  source: edge
+  relationship: compatible
+  status: not-a-workflow
+  arazzo: null

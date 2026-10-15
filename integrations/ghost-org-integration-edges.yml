@@ -390,6 +390,26 @@ edges:
   - Verified creator
   detected_by: sweep-devtools.py
   detected: '2026-10-14'
+- partner_name: ActivityPub
+  partner: activitypub
+  partner_match: shape-anchor
+  channel: provider-built
+  relationship: compatible
+  direction: provider-built
+  shape: activitypub
+  type: docs
+  degree: declared-subset
+  evidence: https://ghost.org/help/social-web/
+  evidence_kind: own-docs
+  evidence_file: https://github.com/api-evangelist/ghost-org/blob/main/evidence/compatibility/ghost-org-activitypub-1.md
+  quote: 'Ghost <> [Other platforms] : May work completely or partially. There are thousands of platforms out there,
+    and we haven''t tested all of them yet! Ghost''s social web integration is built on ActivityPub , and is broadly
+    compatible with any ot'
+  supported_operations: []
+  unsupported_operations: []
+  supported_share: 0.0
+  detected_by: sweep-shape-compat.py
+  first_seen: '2026-10-15'
 templates:
 - title: Send welcome emails to new members in Ghost
   url: https://zapier.com/apps/email/integrations/ghost/1113434/send-welcome-emails-to-new-members-in-ghost

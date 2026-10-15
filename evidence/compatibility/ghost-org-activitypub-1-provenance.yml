@@ -1,0 +1,14 @@
+fetched: '2026-10-15'
+method: fetched
+source: https://ghost.org/help/social-web/
+page: https://ghost.org/help/social-web/
+file: ghost-org-activitypub-1.md
+bytes: 15549
+sha256: 37ebedbb7215ce4b1e8f182093e9baaf5d2c4e6b49bc87694547e8b8c165437a
+anchor: activitypub
+shape: activitypub
+classification: declares-compatibility
+quote: 'Ghost <> [Other platforms] : May work completely or partially. There are thousands of platforms out there,
+  and we haven''t tested all of them yet! Ghost''s social web integration is built on ActivityPub , and is broadly
+  compatible with any other platform that uses it – but there may be rough edges.'
+note: text extracted from the provider's own page (tags stripped), saved for evidence
