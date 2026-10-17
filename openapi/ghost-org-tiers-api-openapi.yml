@@ -223,12 +223,6 @@ paths:
           description: Your Ghost instance domain and port
 components:
   responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Authentication failed or token is missing or invalid
       content:
@@ -237,6 +231,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     ValidationError:
       description: Request body validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:
@@ -256,13 +256,6 @@ components:
       schema:
         type: string
         format: uuid
-    fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return in the response.
-      schema:
-        type: string
     page:
       name: page
       in: query
@@ -277,6 +270,13 @@ components:
       in: query
       required: false
       description: Apply fine-grained filters using Ghost's NQL query language.
+      schema:
+        type: string
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response.
       schema:
         type: string
     limit:
@@ -299,18 +299,18 @@ components:
       description: Field and direction to order results by, for example published_at DESC or title ASC.
       schema:
         type: string
-    fields_2:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need.
-      schema:
-        type: string
     filter_2:
       name: filter
       in: query
       required: false
       description: Apply fine-grained filters using Ghost's NQL query language. Examples include featured:true, tag:getting-started, visibility:public, and combinations using plus and comma operators.
+      schema:
+        type: string
+    fields_2:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response. Use this to limit the size of the response by only requesting the fields you need.
       schema:
         type: string
     limit_2:
@@ -327,54 +327,6 @@ components:
           - all
         default: 15
   schemas:
-    TierInput:
-      type: object
-      description: Input fields for creating or updating a tier.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Tier name
-        description:
-          type: string
-          description: Tier description
-          nullable: true
-        active:
-          type: boolean
-          description: Whether the tier is active
-        visibility:
-          type: string
-          description: Public visibility
-          enum:
-          - public
-          - none
-        welcome_page_url:
-          type: string
-          format: uri
-          description: Welcome page URL
-          nullable: true
-        monthly_price:
-          type: integer
-          description: Monthly price in smallest currency unit
-          minimum: 0
-        yearly_price:
-          type: integer
-          description: Yearly price in smallest currency unit
-          minimum: 0
-        currency:
-          type: string
-          description: ISO 4217 currency code
-          pattern: ^[A-Z]{3}$
-        trial_days:
-          type: integer
-          description: Number of free trial days
-          minimum: 0
-        benefits:
-          type: array
-          description: Tier benefits
-          items:
-            type: string
     PaginationMeta:
       type: object
       description: Pagination metadata
@@ -425,6 +377,54 @@ components:
                 type: string
                 description: Additional error context
                 nullable: true
+    TierInput:
+      type: object
+      description: Input fields for creating or updating a tier.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Tier name
+        description:
+          type: string
+          description: Tier description
+          nullable: true
+        active:
+          type: boolean
+          description: Whether the tier is active
+        visibility:
+          type: string
+          description: Public visibility
+          enum:
+          - public
+          - none
+        welcome_page_url:
+          type: string
+          format: uri
+          description: Welcome page URL
+          nullable: true
+        monthly_price:
+          type: integer
+          description: Monthly price in smallest currency unit
+          minimum: 0
+        yearly_price:
+          type: integer
+          description: Yearly price in smallest currency unit
+          minimum: 0
+        currency:
+          type: string
+          description: ISO 4217 currency code
+          pattern: ^[A-Z]{3}$
+        trial_days:
+          type: integer
+          description: Number of free trial days
+          minimum: 0
+        benefits:
+          type: array
+          description: Tier benefits
+          items:
+            type: string
     Tier:
       type: object
       description: A membership tier with pricing and benefits configuration.

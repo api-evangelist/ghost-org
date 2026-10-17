@@ -168,12 +168,6 @@ paths:
           $ref: '#/components/responses/ValidationError'
 components:
   responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Authentication failed or token is missing or invalid
       content:
@@ -186,7 +180,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
+    order:
+      name: order
+      in: query
+      required: false
+      description: Field and direction to order results by.
+      schema:
+        type: string
     resourceId:
       name: id
       in: path
@@ -195,20 +202,6 @@ components:
       schema:
         type: string
         format: uuid
-    order:
-      name: order
-      in: query
-      required: false
-      description: Field and direction to order results by.
-      schema:
-        type: string
-    fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return in the response.
-      schema:
-        type: string
     page:
       name: page
       in: query
@@ -225,6 +218,13 @@ components:
       description: Apply fine-grained filters using Ghost's NQL query language.
       schema:
         type: string
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response.
+      schema:
+        type: string
     limit:
       name: limit
       in: query
@@ -239,90 +239,56 @@ components:
           - all
         default: 15
   schemas:
-    NewsletterInput:
+    PaginationMeta:
       type: object
-      description: Input fields for creating or updating a newsletter.
-      required:
-      - name
+      description: Pagination metadata
       properties:
-        name:
-          type: string
-          description: Newsletter name
-        description:
-          type: string
-          description: Newsletter description
-          nullable: true
-        sender_name:
-          type: string
-          description: Display name of the sender
-          nullable: true
-        sender_email:
-          type: string
-          format: email
-          description: Sender email address
-          nullable: true
-        sender_reply_to:
-          type: string
-          description: Reply-to setting
-          enum:
-          - newsletter
-          - support
-        status:
-          type: string
-          description: Newsletter status
-          enum:
-          - active
-          - archived
-        subscribe_on_signup:
-          type: boolean
-          description: Auto-subscribe new members
-        sort_order:
-          type: integer
-          description: Display order
-          minimum: 0
-        header_image:
-          type: string
-          format: uri
-          nullable: true
-          description: Header image URL
-        show_header_icon:
-          type: boolean
-          description: Show publication icon
-        show_header_title:
-          type: boolean
-          description: Show publication title
-        show_header_name:
-          type: boolean
-          description: Show newsletter name
-        title_font_category:
-          type: string
-          enum:
-          - serif
-          - sans_serif
-          description: Title font category
-        body_font_category:
-          type: string
-          enum:
-          - serif
-          - sans_serif
-          description: Body font category
-        show_feature_image:
-          type: boolean
-          description: Show featured images
-        show_badge:
-          type: boolean
-          description: Show Ghost badge
-        background_color:
-          type: string
-          description: Background color
-        border_color:
-          type: string
-          nullable: true
-          description: Border color
-        title_color:
-          type: string
-          nullable: true
-          description: Title color
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+              description: Current page
+              minimum: 1
+            limit:
+              type: integer
+              description: Items per page
+              minimum: 1
+            pages:
+              type: integer
+              description: Total pages
+              minimum: 1
+            total:
+              type: integer
+              description: Total items
+              minimum: 0
+            next:
+              type: integer
+              description: Next page number
+              nullable: true
+            prev:
+              type: integer
+              description: Previous page number
+              nullable: true
+    ErrorResponse:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional error context
+                nullable: true
     Newsletter:
       type: object
       description: A newsletter that members can subscribe to for email delivery of content.
@@ -440,56 +406,90 @@ components:
           type: string
           format: date-time
           description: Last update timestamp
-    ErrorResponse:
+    NewsletterInput:
       type: object
-      description: Standard Ghost API error response
+      description: Input fields for creating or updating a newsletter.
+      required:
+      - name
       properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Human-readable error message
-              type:
-                type: string
-                description: Error type identifier
-              context:
-                type: string
-                description: Additional error context
-                nullable: true
-    PaginationMeta:
-      type: object
-      description: Pagination metadata
-      properties:
-        pagination:
-          type: object
-          properties:
-            page:
-              type: integer
-              description: Current page
-              minimum: 1
-            limit:
-              type: integer
-              description: Items per page
-              minimum: 1
-            pages:
-              type: integer
-              description: Total pages
-              minimum: 1
-            total:
-              type: integer
-              description: Total items
-              minimum: 0
-            next:
-              type: integer
-              description: Next page number
-              nullable: true
-            prev:
-              type: integer
-              description: Previous page number
-              nullable: true
+        name:
+          type: string
+          description: Newsletter name
+        description:
+          type: string
+          description: Newsletter description
+          nullable: true
+        sender_name:
+          type: string
+          description: Display name of the sender
+          nullable: true
+        sender_email:
+          type: string
+          format: email
+          description: Sender email address
+          nullable: true
+        sender_reply_to:
+          type: string
+          description: Reply-to setting
+          enum:
+          - newsletter
+          - support
+        status:
+          type: string
+          description: Newsletter status
+          enum:
+          - active
+          - archived
+        subscribe_on_signup:
+          type: boolean
+          description: Auto-subscribe new members
+        sort_order:
+          type: integer
+          description: Display order
+          minimum: 0
+        header_image:
+          type: string
+          format: uri
+          nullable: true
+          description: Header image URL
+        show_header_icon:
+          type: boolean
+          description: Show publication icon
+        show_header_title:
+          type: boolean
+          description: Show publication title
+        show_header_name:
+          type: boolean
+          description: Show newsletter name
+        title_font_category:
+          type: string
+          enum:
+          - serif
+          - sans_serif
+          description: Title font category
+        body_font_category:
+          type: string
+          enum:
+          - serif
+          - sans_serif
+          description: Body font category
+        show_feature_image:
+          type: boolean
+          description: Show featured images
+        show_badge:
+          type: boolean
+          description: Show Ghost badge
+        background_color:
+          type: string
+          description: Background color
+        border_color:
+          type: string
+          nullable: true
+          description: Border color
+        title_color:
+          type: string
+          nullable: true
+          description: Title color
   securitySchemes:
     adminApiToken:
       type: http

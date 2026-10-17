@@ -75,12 +75,14 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-    Unauthorized:
-      description: Authentication failed or was missing.
   parameters:
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Ghost NQL filter expression.
+      schema:
+        type: string
     Fields:
       name: fields
       in: query
@@ -88,11 +90,19 @@ components:
       description: Comma-separated list of fields to return.
       schema:
         type: string
-    PathId:
-      name: id
-      in: path
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Number of records per page (default 15, or 'all').
+      schema:
+        type: string
+        default: '15'
+    ContentKey:
+      name: key
+      in: query
       required: true
-      description: The resource ID.
+      description: Content API key.
       schema:
         type: string
     Order:
@@ -109,19 +119,11 @@ components:
       description: Content formats to return, for example 'html,lexical'.
       schema:
         type: string
-    Page:
-      name: page
-      in: query
-      required: false
-      description: Page number of results to return.
-      schema:
-        type: integer
-        default: 1
-    ContentKey:
-      name: key
-      in: query
+    PathId:
+      name: id
+      in: path
       required: true
-      description: Content API key.
+      description: The resource ID.
       schema:
         type: string
     Include:
@@ -131,6 +133,14 @@ components:
       description: Comma-separated related data to include (for example authors,tags).
       schema:
         type: string
+    Page:
+      name: page
+      in: query
+      required: false
+      description: Page number of results to return.
+      schema:
+        type: integer
+        default: 1
     PathSlug:
       name: slug
       in: path
@@ -138,21 +148,11 @@ components:
       description: The resource slug.
       schema:
         type: string
-    Limit:
-      name: limit
-      in: query
-      required: false
-      description: Number of records per page (default 15, or 'all').
-      schema:
-        type: string
-        default: '15'
-    Filter:
-      name: filter
-      in: query
-      required: false
-      description: Ghost NQL filter expression.
-      schema:
-        type: string
+  responses:
+    Unauthorized:
+      description: Authentication failed or was missing.
+    NotFound:
+      description: The requested resource was not found.
   securitySchemes:
     contentApiKey:
       type: apiKey

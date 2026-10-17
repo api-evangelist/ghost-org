@@ -61,6 +61,21 @@ paths:
           description: The requested user.
 components:
   parameters:
+    PathId:
+      name: id
+      in: path
+      required: true
+      description: The resource ID.
+      schema:
+        type: string
+    AcceptVersion:
+      name: Accept-Version
+      in: header
+      required: false
+      description: Minimum compatible API version, for example v5.0.
+      schema:
+        type: string
+        example: v5.0
     Include:
       name: include
       in: query
@@ -73,21 +88,6 @@ components:
       in: path
       required: true
       description: The resource slug.
-      schema:
-        type: string
-    AcceptVersion:
-      name: Accept-Version
-      in: header
-      required: false
-      description: Minimum compatible API version, for example v5.0.
-      schema:
-        type: string
-        example: v5.0
-    PathId:
-      name: id
-      in: path
-      required: true
-      description: The resource ID.
       schema:
         type: string
   securitySchemes:

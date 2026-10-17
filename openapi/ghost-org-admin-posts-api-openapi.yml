@@ -117,11 +117,18 @@ paths:
           description: The requested post.
 components:
   parameters:
-    Order:
-      name: order
+    Filter:
+      name: filter
       in: query
       required: false
-      description: Sort order, for example 'published_at desc'.
+      description: Ghost NQL filter expression.
+      schema:
+        type: string
+    Fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return.
       schema:
         type: string
     Source:
@@ -133,18 +140,27 @@ components:
         type: string
         enum:
         - html
-    PathId:
-      name: id
-      in: path
-      required: true
-      description: The resource ID.
+    AcceptVersion:
+      name: Accept-Version
+      in: header
+      required: false
+      description: Minimum compatible API version, for example v5.0.
       schema:
         type: string
-    Fields:
-      name: fields
+        example: v5.0
+    Limit:
+      name: limit
       in: query
       required: false
-      description: Comma-separated list of fields to return.
+      description: Number of records per page (default 15, or 'all').
+      schema:
+        type: string
+        default: '15'
+    Order:
+      name: order
+      in: query
+      required: false
+      description: Sort order, for example 'published_at desc'.
       schema:
         type: string
     Formats:
@@ -152,6 +168,20 @@ components:
       in: query
       required: false
       description: Content formats to return, for example 'html,lexical'.
+      schema:
+        type: string
+    PathId:
+      name: id
+      in: path
+      required: true
+      description: The resource ID.
+      schema:
+        type: string
+    Include:
+      name: include
+      in: query
+      required: false
+      description: Comma-separated related data to include (for example authors,tags).
       schema:
         type: string
     Page:
@@ -162,41 +192,11 @@ components:
       schema:
         type: integer
         default: 1
-    Include:
-      name: include
-      in: query
-      required: false
-      description: Comma-separated related data to include (for example authors,tags).
-      schema:
-        type: string
     PathSlug:
       name: slug
       in: path
       required: true
       description: The resource slug.
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      required: false
-      description: Number of records per page (default 15, or 'all').
-      schema:
-        type: string
-        default: '15'
-    AcceptVersion:
-      name: Accept-Version
-      in: header
-      required: false
-      description: Minimum compatible API version, for example v5.0.
-      schema:
-        type: string
-        example: v5.0
-    Filter:
-      name: filter
-      in: query
-      required: false
-      description: Ghost NQL filter expression.
       schema:
         type: string
   responses:

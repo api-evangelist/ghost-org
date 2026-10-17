@@ -167,12 +167,6 @@ paths:
           $ref: '#/components/responses/ValidationError'
 components:
   responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Authentication failed or token is missing or invalid
       content:
@@ -181,6 +175,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     ValidationError:
       description: Request body validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:
@@ -194,13 +194,6 @@ components:
       schema:
         type: string
         format: uuid
-    fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return in the response.
-      schema:
-        type: string
     page:
       name: page
       in: query
@@ -217,6 +210,13 @@ components:
       description: Apply fine-grained filters using Ghost's NQL query language.
       schema:
         type: string
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return in the response.
+      schema:
+        type: string
     limit:
       name: limit
       in: query
@@ -231,174 +231,6 @@ components:
           - all
         default: 15
   schemas:
-    Offer:
-      type: object
-      description: A promotional offer for a paid membership tier.
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique identifier
-        name:
-          type: string
-          description: Internal name for the offer
-        code:
-          type: string
-          description: URL-safe code used in the offer link
-        display_title:
-          type: string
-          description: Public-facing title shown to visitors
-        display_description:
-          type: string
-          description: Public-facing description
-          nullable: true
-        type:
-          type: string
-          description: Discount type
-          enum:
-          - percent
-          - fixed
-          - trial
-        cadence:
-          type: string
-          description: Which billing cadence the offer applies to
-          enum:
-          - month
-          - year
-        amount:
-          type: integer
-          description: Discount amount. For percent type this is a percentage (1-100). For fixed type this is in the smallest currency unit. For trial type this is the number of days.
-          minimum: 0
-        duration:
-          type: string
-          description: How long the discount applies
-          enum:
-          - once
-          - repeating
-          - forever
-          - trial
-        duration_in_months:
-          type: integer
-          description: Number of months for repeating duration
-          nullable: true
-          minimum: 1
-        currency_restriction:
-          type: boolean
-          description: Whether the offer has a currency restriction
-        currency:
-          type: string
-          description: Currency for the offer
-          nullable: true
-          pattern: ^[A-Z]{3}$
-        status:
-          type: string
-          description: Offer status
-          enum:
-          - active
-          - archived
-        redemption_count:
-          type: integer
-          description: Number of times the offer has been redeemed
-          minimum: 0
-        tier:
-          $ref: '#/components/schemas/Tier'
-        created_at:
-          type: string
-          format: date-time
-          description: Creation timestamp
-        updated_at:
-          type: string
-          format: date-time
-          description: Last update timestamp
-    ErrorResponse:
-      type: object
-      description: Standard Ghost API error response
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Human-readable error message
-              type:
-                type: string
-                description: Error type identifier
-              context:
-                type: string
-                description: Additional error context
-                nullable: true
-    Tier:
-      type: object
-      description: A membership tier with pricing and benefits configuration.
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique identifier
-        name:
-          type: string
-          description: Tier name
-        slug:
-          type: string
-          description: URL-safe slug
-        description:
-          type: string
-          description: Tier description
-          nullable: true
-        active:
-          type: boolean
-          description: Whether the tier is active
-        type:
-          type: string
-          description: Tier type
-          enum:
-          - free
-          - paid
-        welcome_page_url:
-          type: string
-          format: uri
-          description: Welcome page URL after signup
-          nullable: true
-        visibility:
-          type: string
-          description: Public visibility
-          enum:
-          - public
-          - none
-        monthly_price:
-          type: integer
-          description: Monthly price in smallest currency unit
-          nullable: true
-          minimum: 0
-        yearly_price:
-          type: integer
-          description: Yearly price in smallest currency unit
-          nullable: true
-          minimum: 0
-        currency:
-          type: string
-          description: ISO 4217 currency code
-          nullable: true
-          pattern: ^[A-Z]{3}$
-        trial_days:
-          type: integer
-          description: Number of free trial days
-          minimum: 0
-        benefits:
-          type: array
-          description: Tier benefits
-          items:
-            type: string
-        created_at:
-          type: string
-          format: date-time
-          description: Creation timestamp
-        updated_at:
-          type: string
-          format: date-time
-          description: Last update timestamp
     OfferInput:
       type: object
       description: Input fields for creating or updating an offer.
@@ -507,6 +339,174 @@ components:
               type: integer
               description: Previous page number
               nullable: true
+    ErrorResponse:
+      type: object
+      description: Standard Ghost API error response
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Human-readable error message
+              type:
+                type: string
+                description: Error type identifier
+              context:
+                type: string
+                description: Additional error context
+                nullable: true
+    Offer:
+      type: object
+      description: A promotional offer for a paid membership tier.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        name:
+          type: string
+          description: Internal name for the offer
+        code:
+          type: string
+          description: URL-safe code used in the offer link
+        display_title:
+          type: string
+          description: Public-facing title shown to visitors
+        display_description:
+          type: string
+          description: Public-facing description
+          nullable: true
+        type:
+          type: string
+          description: Discount type
+          enum:
+          - percent
+          - fixed
+          - trial
+        cadence:
+          type: string
+          description: Which billing cadence the offer applies to
+          enum:
+          - month
+          - year
+        amount:
+          type: integer
+          description: Discount amount. For percent type this is a percentage (1-100). For fixed type this is in the smallest currency unit. For trial type this is the number of days.
+          minimum: 0
+        duration:
+          type: string
+          description: How long the discount applies
+          enum:
+          - once
+          - repeating
+          - forever
+          - trial
+        duration_in_months:
+          type: integer
+          description: Number of months for repeating duration
+          nullable: true
+          minimum: 1
+        currency_restriction:
+          type: boolean
+          description: Whether the offer has a currency restriction
+        currency:
+          type: string
+          description: Currency for the offer
+          nullable: true
+          pattern: ^[A-Z]{3}$
+        status:
+          type: string
+          description: Offer status
+          enum:
+          - active
+          - archived
+        redemption_count:
+          type: integer
+          description: Number of times the offer has been redeemed
+          minimum: 0
+        tier:
+          $ref: '#/components/schemas/Tier'
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+    Tier:
+      type: object
+      description: A membership tier with pricing and benefits configuration.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        name:
+          type: string
+          description: Tier name
+        slug:
+          type: string
+          description: URL-safe slug
+        description:
+          type: string
+          description: Tier description
+          nullable: true
+        active:
+          type: boolean
+          description: Whether the tier is active
+        type:
+          type: string
+          description: Tier type
+          enum:
+          - free
+          - paid
+        welcome_page_url:
+          type: string
+          format: uri
+          description: Welcome page URL after signup
+          nullable: true
+        visibility:
+          type: string
+          description: Public visibility
+          enum:
+          - public
+          - none
+        monthly_price:
+          type: integer
+          description: Monthly price in smallest currency unit
+          nullable: true
+          minimum: 0
+        yearly_price:
+          type: integer
+          description: Yearly price in smallest currency unit
+          nullable: true
+          minimum: 0
+        currency:
+          type: string
+          description: ISO 4217 currency code
+          nullable: true
+          pattern: ^[A-Z]{3}$
+        trial_days:
+          type: integer
+          description: Number of free trial days
+          minimum: 0
+        benefits:
+          type: array
+          description: Tier benefits
+          items:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
   securitySchemes:
     adminApiToken:
       type: http
