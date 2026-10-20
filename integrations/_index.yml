@@ -605,3 +605,25 @@
   relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
+- slug: ghost-org-skillsmp-skillsmp-com
+  label: SkillsMP (skillsmp.com)
+  partner_name: SkillsMP (skillsmp.com)
+  category: Agent Skills register
+  type: register
+  channel: standard-directory
+  evidence: https://skillsmp.com/creators/tryghost/ghost
+  source: edge
+  relationship: compatible
+  contract_reference:
+    register: SkillsMP (skillsmp.com) (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: tryghost
+    matched_by: org-profile-domain:ghost.org
+    sample_skills:
+    - agents-skills-create-database-migration
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
