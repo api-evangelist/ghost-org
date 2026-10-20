@@ -441,6 +441,37 @@
   relationship: compatible
   status: not-a-workflow
   arazzo: null
+- slug: ghost-org-npm-registry
+  label: npm registry
+  partner: npm
+  partner_name: npm registry
+  category: official SDK (JavaScript/TypeScript)
+  type: register
+  channel: package-registry
+  evidence: https://www.npmjs.com/package/ghost
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: ghost
+      version: 6.71.0
+      released: '2026-10-15'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/ghost
+      repo_leg: domain:ghost.org
+      publisher_leg: email:ghost.org
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
 - slug: ghost-org-a2a-protocol-own-agent-card
   label: A2A protocol (own Agent Card)
   partner_name: A2A protocol (own Agent Card)
@@ -460,7 +491,7 @@
     matched_domain: ghost.org
     matched_by: own-domain
     detected_by: sweep-ai-agents.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   status: not-a-workflow
   arazzo: null
 - slug: ghost-org-zapier
@@ -495,7 +526,7 @@
   type: marketplace
   marketplace: n8n-nodes-base
   channel: open-source-node
-  evidence: https://github.com/n8n-io/n8n/tree/860f1273ebd73fabbd668cbec2c49ed9b48a286d/packages/nodes-base/nodes/Ghost
+  evidence: https://github.com/n8n-io/n8n/tree/f73dc337f8dc61a4fd44aebe41c55faafe4f53a4/packages/nodes-base/nodes/Ghost
   source: edge
   relationship: ipaas-bridge
   contract_reference:
@@ -520,7 +551,7 @@
   type: marketplace
   marketplace: pipedream-components
   channel: open-source-node
-  evidence: https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/ghost_org_admin_api
+  evidence: https://github.com/PipedreamHQ/pipedream/tree/d5872355ef27b4efa769f05352f2820c299a456e/components/ghost_org_admin_api
   source: edge
   relationship: ipaas-bridge
   contract_reference:
@@ -537,36 +568,5 @@
     actions: true
     sources: true
     builder: Pipedream repo (component)
-  status: not-a-workflow
-  arazzo: null
-- slug: ghost-org-npm-registry
-  label: npm registry
-  partner: npm
-  partner_name: npm registry
-  category: official SDK (JavaScript/TypeScript)
-  type: register
-  channel: package-registry
-  evidence: https://www.npmjs.com/package/ghost
-  source: edge
-  relationship: distribution-channel
-  contract_reference:
-    register: npm registry (public registry JSON)
-    spec_file: null
-    language: JavaScript/TypeScript
-    packages:
-    - name: ghost
-      version: 6.71.0
-      released: '2026-10-15'
-      released_field: modified
-      lapsed: false
-      page: https://www.npmjs.com/package/ghost
-      repo_leg: domain:ghost.org
-      publisher_leg: email:ghost.org
-      matched_by: domain
-    current: true
-    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
-      24 months'
-    detected_by: sweep-official-sdks.py
-    detected: '2026-10-18'
   status: not-a-workflow
   arazzo: null
