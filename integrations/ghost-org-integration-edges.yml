@@ -28,6 +28,13 @@ checked:
 - https://officialskills.sh/sitemap.xml
 - https://skillsmp.com/sitemap.xml
 - https://www.skills.sh/sitemap.xml
+- https://docs.stripe.com/stripe-apps
+- https://docs.stripe.com/stripe-apps/review-requirements
+- https://marketplace.stripe.com/
+- https://marketplace.stripe.com/appm/apps
+- https://stripe.com/partners/directory
+- https://stripe.com/partners/verified-partners
+- https://stripe.partners/sitemap.xml
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -630,6 +637,46 @@ edges:
     detected: '2026-10-20'
   detected_by: sweep-agent-skills.py
   first_seen: '2026-10-20'
+- partner_name: Stripe Partner Ecosystem
+  partner: stripe
+  partner_match: register
+  type: register
+  direction: partner-built
+  channel: standard-directory
+  relationship: standard-participant
+  evidence: https://stripe.partners/directory/ghost
+  category: Stripe ecosystem partner
+  contract_reference:
+    register: Stripe Partner Ecosystem directory (stripe.com/partners/directory -> stripe.partners, PartnerPage
+      SSR __NUXT_DATA__)
+    standard: Stripe Partner Ecosystem
+    spec_file: null
+    role: stripe-partner
+    registered_name: Ghost
+    register_id: ghost
+    partner_tier: null
+    matched_domain: ghost.org
+    matched_by: domain
+    identity_source: the directory's own website field for the partner (no lookup)
+    signal_note: 'participation only: directory listing (verification tier, if any, in partner_tier)'
+    context:
+      callouts:
+      - CRM
+      stripe_products:
+      - Billing
+      - Connect
+      - Payments
+      - Invoicing
+      - Radar
+      - Revenue Recognition
+      - Instant Payouts
+      - Link
+      - Radar for Fraud Teams
+      location: Singapore, Singapore
+    detected_by: sweep-stripe-app-marketplace.py
+    detected: '2026-10-21'
+  detected_by: sweep-stripe-app-marketplace.py
+  first_seen: '2026-10-21'
 templates:
 - title: Send welcome emails to new members in Ghost
   url: https://zapier.com/apps/email/integrations/ghost/1113434/send-welcome-emails-to-new-members-in-ghost

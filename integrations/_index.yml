@@ -627,3 +627,44 @@
     detected: '2026-10-20'
   status: not-a-workflow
   arazzo: null
+- slug: ghost-org-stripe-partner-ecosystem
+  label: Stripe Partner Ecosystem
+  partner: stripe
+  partner_name: Stripe Partner Ecosystem
+  category: Stripe ecosystem partner
+  type: register
+  channel: standard-directory
+  evidence: https://stripe.partners/directory/ghost
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: Stripe Partner Ecosystem directory (stripe.com/partners/directory -> stripe.partners, PartnerPage
+      SSR __NUXT_DATA__)
+    standard: Stripe Partner Ecosystem
+    spec_file: null
+    role: stripe-partner
+    registered_name: Ghost
+    register_id: ghost
+    partner_tier: null
+    matched_domain: ghost.org
+    matched_by: domain
+    identity_source: the directory's own website field for the partner (no lookup)
+    signal_note: 'participation only: directory listing (verification tier, if any, in partner_tier)'
+    context:
+      callouts:
+      - CRM
+      stripe_products:
+      - Billing
+      - Connect
+      - Payments
+      - Invoicing
+      - Radar
+      - Revenue Recognition
+      - Instant Payouts
+      - Link
+      - Radar for Fraud Teams
+      location: Singapore, Singapore
+    detected_by: sweep-stripe-app-marketplace.py
+    detected: '2026-10-21'
+  status: not-a-workflow
+  arazzo: null
