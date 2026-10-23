@@ -39,6 +39,8 @@ checked:
 - https://raw.githubusercontent.com/<repo>/HEAD/manifest.json
 - https://raw.githubusercontent.com/obsidianmd/obsidian-releases/793b52114f54b055b760ef47761ec5c93d689804/community-plugin-stats.json
 - https://raw.githubusercontent.com/obsidianmd/obsidian-releases/793b52114f54b055b760ef47761ec5c93d689804/community-plugins.json
+- https://github.com/docker-library/official-images
+- https://hub.docker.com/v2/repositories/library/?page_size=100
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -716,6 +718,41 @@ edges:
     detected: '2026-10-22'
   detected_by: sweep-obsidian-community-plugins.py
   first_seen: '2026-10-22'
+- partner_name: Docker Official Images
+  partner: docker-hub
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://hub.docker.com/_/ghost
+  category: Docker Official Images programme (upstream-maintained official container image)
+  contract_reference:
+    register: Docker Official Images (hub.docker.com/v2/repositories/library/ + github.com/docker-library/official-images/library/<image>
+      manifests)
+    standard: Docker Official Images
+    spec_file: null
+    role: official-image-upstream-maintainer
+    registered_name: Ghost
+    github_org: tryghost
+    matched_domain: ghost.org
+    matched_by: domain
+    identity_leg: org-profile-site
+    images:
+    - ghost
+    certified_products:
+    - product: Docker Official Image
+      product_type: container image
+      standard: Docker Official Images
+      lapsed: false
+    signal_note: 'the image''s GitRepo is owned by this provider''s GitHub organisation (identity: the org''s own
+      profile website or its maintainers'' e-mail domain, held in domain_lookup, name-gated); every update is reviewed
+      by Docker''s docker-library team against the Official Images guidelines. certified_products = ONE entry for
+      the product type; image and pull counts are context, never counted'
+    detected_by: sweep-docker-hub-verified-publishers.py
+    detected: '2026-10-23'
+  detected_by: sweep-docker-hub-verified-publishers.py
+  first_seen: '2026-10-23'
 templates:
 - title: Send welcome emails to new members in Ghost
   url: https://zapier.com/apps/email/integrations/ghost/1113434/send-welcome-emails-to-new-members-in-ghost
