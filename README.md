@@ -1,4 +1,4 @@
-# Ghost (ghost-org)
+# Ghost
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,128 +64,321 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Ghost is an open-source (MIT) publishing platform for professional publications, newsletters, memberships, and paid subscriptions. It can be run for free by self-hosting the software ([github.com/TryGhost/Ghost](https://github.com/TryGhost/Ghost)) or used as the managed **Ghost(Pro)** service, whose revenue funds the non-profit Ghost Foundation that maintains the project.
+Ghost is an open-source (MIT) publishing platform for professional publications, newsletters, memberships, and paid subscriptions. It can be self-hosted for free or run as the managed Ghost(Pro) service, with all Ghost(Pro) revenue funding the non-profit Ghost Foundation. Every Ghost site exposes two documented public REST APIs under https://{site}/ghost/api/. The Content API is a read-only, key-authenticated interface for delivering published posts, pages, tags, authors, tiers, and settings to front-ends and static sites. The Admin API is a read-write, token-authenticated (JWT) interface for managing posts, pages, members, tags, tiers, offers, newsletters, users, media, themes, and webhooks.
 
-Every Ghost site - self-hosted or on Ghost(Pro) - exposes **two documented public REST APIs** under `https://{admin_domain}/ghost/api/`:
+**Areas:** Publishing · Newsletters · Membership · Subscription · CMS · Open Source · Content · A2A
 
-- **Content API** (`/ghost/api/content/`) - read-only, authenticated with a **Content API key** passed as the `key` query parameter. Safe for browser use because it only reads public, published data. Serves posts, pages, authors, tags, tiers, and public settings. Supports browse, read-by-id, and read-by-slug, plus `filter`, `include`, `fields`, `order`, and pagination.
-- **Admin API** (`/ghost/api/admin/`) - read-write, authenticated with a short-lived **JWT** signed from an **Admin API key** (`id:secret`) and sent as `Authorization: Ghost {token}`. A staff access token or an authenticated user session may also be used. Manages posts, pages, members, tags, labels, tiers, offers, newsletters, users, images, themes, and webhooks.
+## Ghost on APIs.io
 
-The `{admin_domain}` is the site's own domain; on Ghost(Pro) this is typically a `*.ghost.io` domain. All requests must use HTTPS, and clients should send an `Accept-Version` header (for example `v5.0`). This entry documents Ghost 5.x.
+Everything profiled for Ghost is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/ghost-org/](https://apis.io/providers/ghost-org/)** — or go straight to one of the APIs or properties below.
 
-**Access model:** the APIs are a feature of the software, not a separately billed product. Self-hosting gives you the full Content and Admin APIs for free (you provide infrastructure and, for newsletters, an email provider). Ghost(Pro) includes the same APIs on every plan; its tiers are priced mainly by staff-user count and member (audience) size, not by API usage.
+### APIs (33)
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/ghost-org/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/ghost-org/refs/heads/main/apis.yml)
+- [Ghost Admin - Images API](https://apis.io/apis/ghost-org/ghost-org-admin-images-api/) — Image uploads.
+- [Ghost Admin - Labels API](https://apis.io/apis/ghost-org/ghost-org-admin-labels-api/) — Read-write member labels.
+- [Ghost Admin - Members API](https://apis.io/apis/ghost-org/ghost-org-admin-members-api/) — Read-write members.
+- [Ghost Admin - Newsletters API](https://apis.io/apis/ghost-org/ghost-org-admin-newsletters-api/) — Read-write newsletters.
+- [Ghost Admin - Offers API](https://apis.io/apis/ghost-org/ghost-org-admin-offers-api/) — Read-write promotional offers.
+- [Ghost Admin - Pages API](https://apis.io/apis/ghost-org/ghost-org-admin-pages-api/) — Read-write pages.
+- [Ghost Admin - Posts API](https://apis.io/apis/ghost-org/ghost-org-admin-posts-api/) — Read-write posts.
+- [Ghost Admin - Site API](https://apis.io/apis/ghost-org/ghost-org-admin-site-api/) — Read-only public site metadata.
+- [Ghost Admin - Tags API](https://apis.io/apis/ghost-org/ghost-org-admin-tags-api/) — Read-write tags.
+- [Ghost Admin - Themes API](https://apis.io/apis/ghost-org/ghost-org-admin-themes-api/) — Theme upload and activation.
+- [Ghost Admin - Tiers API](https://apis.io/apis/ghost-org/ghost-org-admin-tiers-api/) — Read-write subscription tiers.
+- [Ghost Admin - Users API](https://apis.io/apis/ghost-org/ghost-org-admin-users-api/) — Read-only staff users.
+- [Ghost Admin - Webhooks API](https://apis.io/apis/ghost-org/ghost-org-admin-webhooks-api/) — Outbound webhook management.
+- [Ghost Content - Authors API](https://apis.io/apis/ghost-org/ghost-org-content-authors-api/) — Read-only authors.
+- [Ghost Content - Pages API](https://apis.io/apis/ghost-org/ghost-org-content-pages-api/) — Read-only published pages.
+- [Ghost Content - Posts API](https://apis.io/apis/ghost-org/ghost-org-content-posts-api/) — Read-only published posts.
+- [Ghost Content - Settings API](https://apis.io/apis/ghost-org/ghost-org-content-settings-api/) — Read-only public site settings.
+- [Ghost Content - Tags API](https://apis.io/apis/ghost-org/ghost-org-content-tags-api/) — Read-only tags.
+- [Ghost Content - Tiers API](https://apis.io/apis/ghost-org/ghost-org-content-tiers-api/) — Read-only public subscription tiers.
+- [Ghost Authors API](https://apis.io/apis/ghost-org/ghost-org-authors-api/) — Authors represent the staff users who create content in a Ghost publication.
+- [Ghost Images API](https://apis.io/apis/ghost-org/ghost-org-images-api/) — Upload images to the Ghost publication for use in posts, pages, and settings.
+- [Ghost Members API](https://apis.io/apis/ghost-org/ghost-org-members-api/) — Manage publication members including creating, reading, updating, and deleting member records. Members are people who have signed up for the publication.
+- [Ghost Newsletters API](https://apis.io/apis/ghost-org/ghost-org-newsletters-api/) — Manage email newsletters that members can subscribe to. Each newsletter has its own design, sender details, and subscription list.
+- [Ghost Offers API](https://apis.io/apis/ghost-org/ghost-org-offers-api/) — Manage promotional offers for paid membership tiers, including discounts and trial periods.
+- [Ghost Pages API](https://apis.io/apis/ghost-org/ghost-org-pages-api/) — Create, read, update, and delete pages. Pages share the same structure as posts but are used for static content.
+- [Ghost Posts API](https://apis.io/apis/ghost-org/ghost-org-posts-api/) — Create, read, update, and delete posts. Posts are the primary content resource in Ghost and support rich content via the Lexical editor format.
+- [Ghost Settings API](https://apis.io/apis/ghost-org/ghost-org-settings-api/) — Settings provide access to global publication settings including title, description, navigation, and other configuration values.
+- [Ghost Site API](https://apis.io/apis/ghost-org/ghost-org-site-api/) — Read basic information about the Ghost site.
+- [Ghost Tags API](https://apis.io/apis/ghost-org/ghost-org-tags-api/) — The Tags API from Ghost — 3 operation(s) for tags.
+- [Ghost Themes API](https://apis.io/apis/ghost-org/ghost-org-themes-api/) — Upload, activate, and manage themes that control the front-end appearance of the Ghost publication.
+- [Ghost Tiers API](https://apis.io/apis/ghost-org/ghost-org-tiers-api/) — Manage membership tiers including creating, reading, and updating tier configurations with pricing and benefits.
+- [Ghost Users API](https://apis.io/apis/ghost-org/ghost-org-users-api/) — Read staff user accounts for the Ghost publication.
+- [Ghost Webhooks API](https://apis.io/apis/ghost-org/ghost-org-webhooks-api/) — Create, update, and delete webhooks that send HTTP POST notifications when events occur within the publication.
 
-## Tags
+### Published properties
 
-- Publishing
-- Newsletters
-- Memberships
-- Subscriptions
-- CMS
-- Open Source
-- Content
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## Timestamps
+#### AsyncAPI (1)
 
-- **Created:** 2026-07-05
-- **Modified:** 2026-07-05
+Event-driven and webhook contracts.
 
-## APIs
+- [Ghost Webhooks](https://apis.io/asyncapis/ghost-org/ghost-org-webhooks-asyncapi/)
 
-### Ghost Content API
+#### Event channels (29)
 
-Read-only, key-authenticated REST API that delivers published content - posts, pages, authors, tags, tiers, and public settings - to front-ends, static site generators, and apps.
+Individual events and webhooks the provider emits.
 
-- **Human URL:** [https://docs.ghost.org/content-api](https://docs.ghost.org/content-api)
-- **Base URL:** `https://{admin_domain}/ghost/api/content`
+- [/webhook/member.added](https://apis.io/channels/ghost-org/webhook-member-added/)
+- [/webhook/member.deleted](https://apis.io/channels/ghost-org/webhook-member-deleted/)
+- [/webhook/member.edited](https://apis.io/channels/ghost-org/webhook-member-edited/)
+- [/webhook/page.added](https://apis.io/channels/ghost-org/webhook-page-added/)
+- [/webhook/page.deleted](https://apis.io/channels/ghost-org/webhook-page-deleted/)
+- [/webhook/page.edited](https://apis.io/channels/ghost-org/webhook-page-edited/)
+- [/webhook/page.published](https://apis.io/channels/ghost-org/webhook-page-published/)
+- [/webhook/page.published.edited](https://apis.io/channels/ghost-org/webhook-page-published-edited/)
+- [/webhook/page.rescheduled](https://apis.io/channels/ghost-org/webhook-page-rescheduled/)
+- [/webhook/page.scheduled](https://apis.io/channels/ghost-org/webhook-page-scheduled/)
+- [/webhook/page.tag.attached](https://apis.io/channels/ghost-org/webhook-page-tag-attached/)
+- [/webhook/page.tag.detached](https://apis.io/channels/ghost-org/webhook-page-tag-detached/)
+- [/webhook/page.unpublished](https://apis.io/channels/ghost-org/webhook-page-unpublished/)
+- [/webhook/page.unscheduled](https://apis.io/channels/ghost-org/webhook-page-unscheduled/)
+- [/webhook/post.added](https://apis.io/channels/ghost-org/webhook-post-added/)
+- [/webhook/post.deleted](https://apis.io/channels/ghost-org/webhook-post-deleted/)
+- [/webhook/post.edited](https://apis.io/channels/ghost-org/webhook-post-edited/)
+- [/webhook/post.published](https://apis.io/channels/ghost-org/webhook-post-published/)
+- [/webhook/post.published.edited](https://apis.io/channels/ghost-org/webhook-post-published-edited/)
+- [/webhook/post.rescheduled](https://apis.io/channels/ghost-org/webhook-post-rescheduled/)
+- [/webhook/post.scheduled](https://apis.io/channels/ghost-org/webhook-post-scheduled/)
+- [/webhook/post.tag.attached](https://apis.io/channels/ghost-org/webhook-post-tag-attached/)
+- [/webhook/post.tag.detached](https://apis.io/channels/ghost-org/webhook-post-tag-detached/)
+- [/webhook/post.unpublished](https://apis.io/channels/ghost-org/webhook-post-unpublished/)
+- [/webhook/post.unscheduled](https://apis.io/channels/ghost-org/webhook-post-unscheduled/)
+- …and 4 more published on APIs.io
 
-### Ghost Admin Posts API
+#### GraphQL (1)
 
-Read-write management of posts - browse, read by id or slug, create, update, and delete. Content is stored as Lexical and can be supplied or requested as HTML.
+GraphQL schemas.
 
-- **Human URL:** [https://docs.ghost.org/admin-api/posts](https://docs.ghost.org/admin-api/posts)
-- **Base URL:** `https://{admin_domain}/ghost/api/admin`
+- [Moved to /providers/ghost-org/](https://apis.io/graphqls/ghost-org/ghost-org-graphql/)
 
-### Ghost Admin Pages API
+#### MCP servers (1)
 
-Read-write management of static pages, which share the post data model but sit outside the chronological feed.
+Model Context Protocol servers that expose the API to agents.
 
-- **Human URL:** [https://docs.ghost.org/admin-api/pages](https://docs.ghost.org/admin-api/pages)
-- **Base URL:** `https://{admin_domain}/ghost/api/admin`
+- [ghost-org-mcp.yml](https://apis.io/servers/ghost-org/ghost-org-mcp-yml/)
 
-### Ghost Admin Members API
+#### Agentic access (1)
 
-Manage the membership audience - browse, read, create, and update members, their newsletter subscriptions, labels, and paid/comp status.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://docs.ghost.org/admin-api/members](https://docs.ghost.org/admin-api/members)
-- **Base URL:** `https://{admin_domain}/ghost/api/admin`
+- [Ghost Org Agentic Access](https://apis.io/agentic-access/ghost-org/ghost-org-agentic-access/)
 
-### Ghost Admin Tags and Labels API
+#### JSON Schema (25)
 
-Read-write management of tags (content taxonomy) and labels (member segmentation).
+The data models the API reads and writes.
 
-- **Human URL:** [https://docs.ghost.org/admin-api/tags](https://docs.ghost.org/admin-api/tags)
-- **Base URL:** `https://{admin_domain}/ghost/api/admin`
+- [Author](https://apis.io/schemas/ghost-org/ghost-org-author/)
+- [ErrorResponse](https://apis.io/schemas/ghost-org/ghost-org-errorresponse/)
+- [Label](https://apis.io/schemas/ghost-org/ghost-org-label/)
+- [Ghost Member](https://apis.io/schemas/ghost-org/ghost-org-member/)
+- [MemberInput](https://apis.io/schemas/ghost-org/ghost-org-memberinput/)
+- [NavigationItem](https://apis.io/schemas/ghost-org/ghost-org-navigationitem/)
+- [Newsletter](https://apis.io/schemas/ghost-org/ghost-org-newsletter/)
+- [NewsletterInput](https://apis.io/schemas/ghost-org/ghost-org-newsletterinput/)
+- [Offer](https://apis.io/schemas/ghost-org/ghost-org-offer/)
+- [OfferInput](https://apis.io/schemas/ghost-org/ghost-org-offerinput/)
+- [Page](https://apis.io/schemas/ghost-org/ghost-org-page/)
+- [PaginationMeta](https://apis.io/schemas/ghost-org/ghost-org-paginationmeta/)
+- [Ghost Post](https://apis.io/schemas/ghost-org/ghost-org-post/)
+- [PostInput](https://apis.io/schemas/ghost-org/ghost-org-postinput/)
+- [Settings](https://apis.io/schemas/ghost-org/ghost-org-settings/)
+- [Site](https://apis.io/schemas/ghost-org/ghost-org-site/)
+- [Subscription](https://apis.io/schemas/ghost-org/ghost-org-subscription/)
+- [Tag](https://apis.io/schemas/ghost-org/ghost-org-tag/)
+- [TagInput](https://apis.io/schemas/ghost-org/ghost-org-taginput/)
+- [Theme](https://apis.io/schemas/ghost-org/ghost-org-theme/)
+- [Tier](https://apis.io/schemas/ghost-org/ghost-org-tier/)
+- [TierInput](https://apis.io/schemas/ghost-org/ghost-org-tierinput/)
+- [User](https://apis.io/schemas/ghost-org/ghost-org-user/)
+- [Webhook](https://apis.io/schemas/ghost-org/ghost-org-webhook/)
+- [WebhookInput](https://apis.io/schemas/ghost-org/ghost-org-webhookinput/)
 
-### Ghost Admin Tiers and Offers API
+#### JSON Structure (1)
 
-Manage subscription tiers and promotional offers that define paid access, pricing, benefits, and discounts.
+Data models expressed in JSON Structure.
 
-- **Human URL:** [https://docs.ghost.org/admin-api/tiers](https://docs.ghost.org/admin-api/tiers)
-- **Base URL:** `https://{admin_domain}/ghost/api/admin`
+- [Ghost Org Structure](https://apis.io/json-structure/ghost-org/ghost-org-structure/)
 
-### Ghost Admin Newsletters API
+#### JSON-LD (1)
 
-Manage the newsletters a publication sends, including sender details, design, and subscription behavior. A single site can run multiple newsletters.
+Linked-data contexts for the provider's vocabulary.
 
-- **Human URL:** [https://docs.ghost.org/admin-api/newsletters](https://docs.ghost.org/admin-api/newsletters)
-- **Base URL:** `https://{admin_domain}/ghost/api/admin`
+- [Ghost Org Context](https://apis.io/jsonld/ghost-org/ghost-org-context/)
 
-### Ghost Admin Users and Site API
+#### Vocabulary (1)
 
-Read-only access to staff users and to public site metadata (`/site/` returns title, url, and version).
+The provider's domain terms, defined.
 
-- **Human URL:** [https://docs.ghost.org/admin-api/users](https://docs.ghost.org/admin-api/users)
-- **Base URL:** `https://{admin_domain}/ghost/api/admin`
+- [Ghost Domain Vocabulary](https://apis.io/vocabularies/ghost-org/ghost-org-vocabulary/)
 
-### Ghost Admin Media and Themes API
+#### Collections (36)
 
-Upload assets and manage presentation - multipart image uploads via `/images/upload/`, and theme upload plus activation via `/themes/`.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://docs.ghost.org/admin-api/images](https://docs.ghost.org/admin-api/images)
-- **Base URL:** `https://{admin_domain}/ghost/api/admin`
+- [Ghost Content and Admin APIs](https://apis.io/collections/ghost-org/open-ghost-org/)
+- [Ghost Admin API](https://apis.io/collections/ghost-org/open-ghost-org-admin-api/)
+- [Ghost Content and Admin APIs Admin - Images API](https://apis.io/collections/ghost-org/open-ghost-org-admin-images-api/)
+- [Ghost Content and Admin APIs Admin - Images Admin - Labels API](https://apis.io/collections/ghost-org/open-ghost-org-admin-labels-api/)
+- [Ghost Content and Admin APIs Admin - Images Admin - Members API](https://apis.io/collections/ghost-org/open-ghost-org-admin-members-api/)
+- [Ghost Content and Admin APIs Admin - Images Admin - Newsletters API](https://apis.io/collections/ghost-org/open-ghost-org-admin-newsletters-api/)
+- [Ghost Content and Admin APIs Admin - Images Admin - Offers API](https://apis.io/collections/ghost-org/open-ghost-org-admin-offers-api/)
+- [Ghost Content and Admin APIs Admin - Images Admin - Pages API](https://apis.io/collections/ghost-org/open-ghost-org-admin-pages-api/)
+- [Ghost Content and Admin APIs Admin - Images Admin - Posts API](https://apis.io/collections/ghost-org/open-ghost-org-admin-posts-api/)
+- [Ghost Content and Admin APIs Admin - Images Admin - Site API](https://apis.io/collections/ghost-org/open-ghost-org-admin-site-api/)
+- [Ghost Content and Admin APIs Admin - Images Admin - Tags API](https://apis.io/collections/ghost-org/open-ghost-org-admin-tags-api/)
+- [Ghost Content and Admin APIs Admin - Images Admin - Themes API](https://apis.io/collections/ghost-org/open-ghost-org-admin-themes-api/)
+- [Ghost Content and Admin APIs Admin - Images Admin - Tiers API](https://apis.io/collections/ghost-org/open-ghost-org-admin-tiers-api/)
+- [Ghost Content and Admin APIs Admin - Images Admin - Users API](https://apis.io/collections/ghost-org/open-ghost-org-admin-users-api/)
+- [Ghost Content and Admin APIs Admin - Images Admin - Webhooks API](https://apis.io/collections/ghost-org/open-ghost-org-admin-webhooks-api/)
+- [Ghost Admin Authors API](https://apis.io/collections/ghost-org/open-ghost-org-authors-api/)
+- [Ghost Content API](https://apis.io/collections/ghost-org/open-ghost-org-content-api/)
+- [Ghost Content and Admin APIs Admin - Images Content - Authors API](https://apis.io/collections/ghost-org/open-ghost-org-content-authors-api/)
+- [Ghost Content and Admin APIs Admin - Images Content - Pages API](https://apis.io/collections/ghost-org/open-ghost-org-content-pages-api/)
+- [Ghost Content and Admin APIs Admin - Images Content - Posts API](https://apis.io/collections/ghost-org/open-ghost-org-content-posts-api/)
+- [Ghost Content and Admin APIs Admin - Images Content - Settings API](https://apis.io/collections/ghost-org/open-ghost-org-content-settings-api/)
+- [Ghost Content and Admin APIs Admin - Images Content - Tags API](https://apis.io/collections/ghost-org/open-ghost-org-content-tags-api/)
+- [Ghost Content and Admin APIs Admin - Images Content - Tiers API](https://apis.io/collections/ghost-org/open-ghost-org-content-tiers-api/)
+- [Ghost Admin Authors Images API](https://apis.io/collections/ghost-org/open-ghost-org-images-api/)
+- [Ghost Admin Authors Members API](https://apis.io/collections/ghost-org/open-ghost-org-members-api/)
+- …and 11 more published on APIs.io
 
-### Ghost Admin Webhooks API
+#### Overlays (52)
 
-Register outbound webhooks that fire on Ghost events (for example `post.published`, `member.added`) to trigger site rebuilds, notifications, or automation. Supports create, update, and delete; there is no endpoint to read existing webhooks.
+OpenAPI overlays, including conversational phrasing for each operation.
 
-- **Human URL:** [https://docs.ghost.org/admin-api/webhooks](https://docs.ghost.org/admin-api/webhooks)
-- **Base URL:** `https://{admin_domain}/ghost/api/admin`
+- [Ghost Org Admin Images Api Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-images-api-overlay/)
+- [Ghost Org Admin Images Api Phrasing Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-images-api-phrasing-overlay/)
+- [Ghost Org Admin Labels Api Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-labels-api-overlay/)
+- [Ghost Org Admin Labels Api Phrasing Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-labels-api-phrasing-overlay/)
+- [Ghost Org Admin Members Api Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-members-api-overlay/)
+- [Ghost Org Admin Members Api Phrasing Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-members-api-phrasing-overlay/)
+- [Ghost Org Admin Newsletters Api Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-newsletters-api-overlay/)
+- [Ghost Org Admin Newsletters Api Phrasing Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-newsletters-api-phrasing-overlay/)
+- [Ghost Org Admin Offers Api Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-offers-api-overlay/)
+- [Ghost Org Admin Offers Api Phrasing Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-offers-api-phrasing-overlay/)
+- [Ghost Org Admin Pages Api Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-pages-api-overlay/)
+- [Ghost Org Admin Pages Api Phrasing Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-pages-api-phrasing-overlay/)
+- [Ghost Org Admin Posts Api Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-posts-api-overlay/)
+- [Ghost Org Admin Posts Api Phrasing Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-posts-api-phrasing-overlay/)
+- [Ghost Org Admin Site Api Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-site-api-overlay/)
+- [Ghost Org Admin Site Api Phrasing Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-site-api-phrasing-overlay/)
+- [Ghost Org Admin Tags Api Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-tags-api-overlay/)
+- [Ghost Org Admin Tags Api Phrasing Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-tags-api-phrasing-overlay/)
+- [Ghost Org Admin Themes Api Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-themes-api-overlay/)
+- [Ghost Org Admin Themes Api Phrasing Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-themes-api-phrasing-overlay/)
+- [Ghost Org Admin Tiers Api Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-tiers-api-overlay/)
+- [Ghost Org Admin Tiers Api Phrasing Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-tiers-api-phrasing-overlay/)
+- [Ghost Org Admin Users Api Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-users-api-overlay/)
+- [Ghost Org Admin Users Api Phrasing Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-users-api-phrasing-overlay/)
+- [Ghost Org Admin Webhooks Api Overlay](https://apis.io/overlays/ghost-org/ghost-org-admin-webhooks-api-overlay/)
+- …and 27 more published on APIs.io
 
-## Authentication
+#### Governance rules (2)
 
-- **Content API:** append `?key={content_api_key}` (from a Custom Integration in Ghost Admin). Read-only, public data.
-- **Admin API:** create a Custom Integration to get an Admin API key (`id:secret`), sign a short-lived JWT with it, and send `Authorization: Ghost {token}`. Staff access tokens and user sessions are also accepted.
+Spectral rulesets for the provider's contracts.
 
-## WebSocket Review
+- [Ghost — asyncapi rules](https://apis.io/rules/ghost-org/ghost-org-asyncapi-spectral-rules/)
+- [Ghost — jsonschema rules](https://apis.io/rules/ghost-org/ghost-org-jsonschema-spectral-rules/)
 
-Ghost does **not** expose a documented public WebSocket API. The Content and Admin APIs are request/response REST over HTTPS. Ghost's event surface for integrators is **outbound webhooks** (server-to-endpoint HTTP POSTs), not a client-connected WebSocket stream. See [review.yml](review.yml).
+#### Security (3)
 
-## Common Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- [LinkedIn](https://www.linkedin.com/company/ghost-foundation)
+- [Ghost Org Authentication](https://apis.io/security/ghost-org/ghost-org-authentication/)
+- [Ghost Org Domain Security](https://apis.io/security/ghost-org/ghost-org-domain-security/)
+- [Ghost Org Vulnerability Disclosure](https://apis.io/security/ghost-org/ghost-org-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Ghost Org Plans Pricing](https://apis.io/plans/ghost-org/ghost-org-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Ghost Org Rate Limits](https://apis.io/rate-limits/ghost-org/ghost-org-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Ghost Org Finops](https://apis.io/finops/ghost-org/ghost-org-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://ghost.org)
 - [Documentation](https://docs.ghost.org)
-- [GitHub Organization](https://github.com/TryGhost)
-- [Plans](plans/ghost-org-plans-pricing.yml)
-- [Rate Limits](rate-limits/ghost-org-rate-limits.yml)
-- [Fin Ops](finops/ghost-org-finops.yml)
-- [Blog](https://ghost.org/blog)
-- [Change Log](https://ghost.org/changelog)
+- [Getting started](https://docs.ghost.org/install)
+- [API reference](https://docs.ghost.org/content-api)
+- [Pricing](https://ghost.org/pricing/)
+- [Sign up](https://ghost.org/signup/)
+- [Support](https://ghost.org/help/)
+- [Changelog](https://ghost.org/changelog)
+- [Blog](https://ghost.org/resources/)
+- [Terms of service](https://ghost.org/terms/)
+- [Privacy policy](https://ghost.org/privacy/)
+- [GitHub](https://github.com/TryGhost)
+- [Status](https://status.ghost.org)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 77.1** — exemplar · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 80.0 |
+| Contract quality | 66.7 |
+| Contract governance | 31.8 |
+| Operational transparency | 89.5 |
+| Developer ergonomics | 86.9 |
+| Access clarity | 76.3 |
+
+**Agent readiness 32.3** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | yes |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 30.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/ghost-org/](https://apis.io/providers/ghost-org/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Ghost: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/ghost-org/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
